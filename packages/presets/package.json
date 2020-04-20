@@ -1,0 +1,35 @@
+{
+  "name": "umi-react-native-builtin-presets",
+  "version": "0.0.0",
+  "description": "The builtin presets of umi-react-native.",
+  "keywords": [
+    "umi",
+    "react-native"
+  ],
+  "author": "xuyuanxiang <hi@xuyuanxiang.cn>",
+  "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
+  "license": "MIT",
+  "main": "lib/index",
+  "typings": "lib/index.d.ts",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuyuanxiang/umi-react-native.git"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
+  }
+}

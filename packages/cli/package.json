@@ -1,0 +1,40 @@
+{
+  "name": "umi-react-native-cli",
+  "version": "0.0.0",
+  "description": "The command line tools of umi-react-native.",
+  "keywords": [
+    "umi",
+    "react-native"
+  ],
+  "author": "xuyuanxiang <hi@xuyuanxiang.cn>",
+  "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
+  "license": "MIT",
+  "bin": {
+    "umi-rn": "index.js"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib",
+    "index.js"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuyuanxiang/umi-react-native.git"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
+  },
+  "dependencies": {
+    "@umijs/utils": "3.1.1",
+    "umi-react-native-core": "^0.0.0"
+  }
+}
