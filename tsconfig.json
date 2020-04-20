@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "jsx": "react-native",
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["esnext"],
+    "removeComments": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true
+  }
+}

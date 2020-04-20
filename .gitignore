@@ -1,0 +1,156 @@
+# Created by .ignore support plugin (hsz.mobi)
+*.iws
+/out/
+.idea_modules/
+atlassian-ide-plugin.xml
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+logs
+*.log
+pids
+*.pid
+*.seed
+*.pid.lock
+lib-cov
+coverage
+.nyc_output
+.grunt
+bower_components
+.lock-wscript
+build/Release
+node_modules/
+jspm_packages/
+.npm
+.eslintcache
+.node_repl_history
+*.tgz
+.yarn-integrity
+.env
+.AppleDouble
+.LSOverride
+Icon
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+.bin
+dist.stats.json
+bower_components
+node_modules
+temp
+lib
+lib-amd
+lib-commonjs
+lib-es2015
+dist
+test-dependencies
+screenshots
+
+*.tar.gz
+
+# Events Generated Code
+*.event.ts
+
+# Visual Studio Temp Project
+.vs/
+*.sublime-project
+*.sublime-workspace
+.idea
+/.settings/
+
+# NPM Install Temp
+__temp/
+
+# Deploy symlinks
+_Deploy
+
+# Commit meta data
+commit.txt
+
+# Webpart typings
+packages/components/typings/webpart-framework
+packages/components/typings/webparts
+
+# Configs that contain sensitive information
+TDSDeployConfig.json
+
+# FTP config
+ftpconfig.json
+
+# Package output folder
+package
+
+# Logs
+*.log
+npminstall-log.txt
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency change files generated from npmx aka rush
+package-deps.json
+
+# Non Essential Visual testing files.
+**/office-ui-fabric-react/visualtests/results/*.png
+**/office-ui-fabric-react/failures/*.png
+
+common/temp
+
+# NPM debug logs
+npm-debug.log.*
+shrinkwrap.yaml
+package-lock.json
+yarn.lock
+
+*.swp
+
+# Temporary files
+*~
+*swp
+*swo
+
+/package-manifest.json
+public
