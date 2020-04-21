@@ -2,18 +2,18 @@ export default function (): { plugins: string[] } {
   return {
     plugins: [
       // register methods
-      // require.resolve('./plugins/registerMethods'),
+      require.resolve('@umijs/preset-built-in/lib/plugins/registerMethods'),
       // // misc
-      // require.resolve('./plugins/routes'),
+      require.resolve('@umijs/preset-built-in/lib/plugins/routes'),
       //
       // // generate files
       // require.resolve('./plugins/generateFiles/core/history'),
-      // require.resolve('./plugins/generateFiles/core/plugin'),
-      // require.resolve('./plugins/generateFiles/core/polyfill'),
-      // require.resolve('./plugins/generateFiles/core/routes'),
-      // require.resolve('./plugins/generateFiles/core/umiExports'),
-      // require.resolve('./plugins/generateFiles/core/configTypes'),
-      // require.resolve('./plugins/generateFiles/umi'),
+      require.resolve('@umijs/preset-built-in/lib/plugins/generateFiles/core/plugin'),
+      // require.resolve('@umijs/preset-built-in/lib/plugins/generateFiles/core/polyfill'),
+      require.resolve('@umijs/preset-built-in/lib/plugins/generateFiles/core/routes'),
+      require.resolve('@umijs/preset-built-in/lib/plugins/generateFiles/core/umiExports'),
+      require.resolve('@umijs/preset-built-in/lib/plugins/generateFiles/core/configTypes'),
+      require.resolve('@umijs/preset-built-in/lib/plugins/generateFiles/umi'),
       //
       // // bundle configs
       // require.resolve('./plugins/features/alias'),
@@ -71,7 +71,9 @@ export default function (): { plugins: string[] } {
       // require.resolve('./plugins/commands/generate/generate'),
       // require.resolve('./plugins/commands/help/help'),
       // require.resolve('./plugins/commands/plugin/plugin'),
-      // require.resolve('./plugins/commands/version/version'),
+      require.resolve('./plugins/commands/build'),
+      require.resolve('./plugins/commands/dev'),
+      require.resolve('./plugins/commands/help'),
     ],
   };
 }

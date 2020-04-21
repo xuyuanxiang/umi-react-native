@@ -2,7 +2,7 @@
   "compilerOptions": {
     "composite": true,
     "jsx": "react-native",
-    "target": "es5",
+    "target": "es6",
     "module": "commonjs",
     "lib": ["esnext", "dom"],
     "strict": true,
@@ -20,6 +20,6 @@
     {
       "path": "packages/cli"
     },
-    { "path": "packages/builtin-presets" }
+    { "path": "packages/preset"}
   ]
 }
