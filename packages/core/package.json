@@ -17,7 +17,9 @@
     "test": "src/__tests__"
   },
   "files": [
-    "lib"
+    "lib",
+    "src/__tests__",
+    "src"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,7 +30,7 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "tsc"
+    "build": "tsc --build"
   },
   "bugs": {
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"

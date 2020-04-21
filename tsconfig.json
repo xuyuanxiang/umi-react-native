@@ -1,13 +1,25 @@
 {
   "compilerOptions": {
+    "composite": true,
     "jsx": "react-native",
     "target": "es5",
     "module": "commonjs",
-    "lib": ["esnext"],
-    "removeComments": true,
+    "lib": ["esnext", "dom"],
     "strict": true,
     "moduleResolution": "node",
     "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
     "esModuleInterop": true
-  }
+  },
+  "references": [
+    {
+      "path": "packages/core",
+      "prepend": true
+    },
+    {
+      "path": "packages/cli"
+    },
+    { "path": "packages/builtin-presets" }
+  ]
 }

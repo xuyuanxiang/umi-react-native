@@ -1,4 +1,4 @@
-import { Service, IServiceOpts } from '@umijs/core';
+import Service, { IServiceOpts } from '@umijs/core/lib/Service/Service';
 import { dirname } from 'path';
 
 export class ReactNativeService extends Service {
@@ -7,7 +7,7 @@ export class ReactNativeService extends Service {
     process.env.UMI_DIR = dirname(require.resolve('../package'));
     super({
       ...opts,
-      presets: [require.resolve('umi-react-native-builtin-presets'), ...(opts.presets || [])],
+      // presets: [require.resolve('umi-react-native-builtin-presets'), ...(opts.presets || [])],
       // plugins: [require.resolve('./plugins/umiAlias'), ...(opts.plugins || [])],
     });
   }

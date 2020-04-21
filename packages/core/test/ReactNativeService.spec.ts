@@ -1,4 +1,4 @@
-import { ReactNativeService } from '../ReactNativeService';
+import { ReactNativeService } from '../src';
 
 describe('ReactNativeService', () => {
   it('should work', function () {

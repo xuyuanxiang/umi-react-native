@@ -27,7 +27,7 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "tsc"
+    "build": "tsc --build"
   },
   "bugs": {
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
