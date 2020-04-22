@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Plugin, Redirect } from 'umi-react-native-runtime';
-import { IRoute } from '../IRoute';
+import { IRoute } from '..';
 import Switch from './Switch';
 import Route from './Route';
 
@@ -48,6 +48,7 @@ function render({ route, opts, props }: { route: IRoute; opts: IOpts; props: obj
       ...opts.extraProps,
       route,
     };
+    // @ts-ignore
     let ret = <Component {...newProps}>{routes}</Component>;
 
     // route.wrappers

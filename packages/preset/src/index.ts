@@ -14,6 +14,7 @@ export default function (): { plugins: string[] } {
       require.resolve('./plugins/generateFiles/umi'),
 
       // bundle configs
+      require('./plugins/features/appKey'),
       // require.resolve('./plugins/features/alias'),
       // require.resolve('./plugins/features/analyze'),
       // require.resolve('./plugins/features/autoprefixer'),

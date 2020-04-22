@@ -19,6 +19,12 @@
     {
       "path": "packages/cli"
     },
-    { "path": "packages/preset" }
+    { "path": "packages/preset" },
+    {
+      "path": "packages/renderer"
+    },
+    {
+      "path": "packages/runtime"
+    }
   ]
 }

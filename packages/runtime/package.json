@@ -10,21 +10,16 @@
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
   "license": "MIT",
   "main": "lib/index.js",
-  "module": "esm/index.js",
-  "jsnext:module": "esm/index.js",
-  "typings": "types/index.d.ts",
-  "types": "types/index.d.ts",
+  "module": "lib/index.esm.js",
+  "jsnext:module": "lib/index.esm.js",
+  "typings": "lib/index.d.ts",
+  "types": "lib/index.d.ts",
   "sideEffects": false,
   "directories": {
-    "lib": "lib",
-    "test": "test"
+    "lib": "lib"
   },
   "files": [
-    "lib",
-    "esm",
-    "types",
-    "src",
-    "test"
+    "lib"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,13 +29,14 @@
     "url": "git+https://github.com/xuyuanxiang/umi-react-native.git"
   },
   "scripts": {
-    "build": "tsc | tsc -p tsconfig.esm.json",
-    "watch": "tsc -w"
+    "build": "tsc -b",
+    "watch": "tsc -b -w"
   },
   "bugs": {
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "dependencies": {
+    "history-with-query": "^4.10.3",
     "react-router": "^5.1.2",
     "react-router-native": "^5.1.2"
   },

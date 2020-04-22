@@ -1,6 +1,7 @@
 {{{ polyfillImports }}}
 {{{ importsAhead }}}
 import { plugin } from './core/plugin';
+import { createHistory } from './core/history';
 import { ApplyPluginsType } from '{{{ runtimePath }}}';
 import { renderClient } from '{{{ rendererPath }}}';
 {{{ imports }}}
@@ -15,6 +16,8 @@ const getClientRender = (args: { hot?: boolean } = {}) => plugin.applyPlugins({
       // @ts-ignore
       routes: require('./core/routes').routes,
       plugin,
+      history: createHistory(args.hot),
+      appKey: '{{{ appKey }}}',
     });
   },
   args,
