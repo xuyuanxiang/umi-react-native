@@ -1,7 +1,7 @@
 {
-  "name": "umi-react-native-preset",
+  "name": "umi-react-native-renderer",
   "version": "0.0.0",
-  "description": "umi-react-native-preset",
+  "description": "umi-react-native-renderer",
   "keywords": [
     "umi",
     "react-native"
@@ -10,13 +10,19 @@
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
   "license": "MIT",
   "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
-  "types": "lib/index.d.ts",
+  "module": "esm/index.js",
+  "jsnext:module": "esm/index.js",
+  "typings": "types/index.d.ts",
+  "types": "types/index.d.ts",
+  "sideEffects": false,
   "directories": {
     "lib": "lib"
   },
   "files": [
-    "lib"
+    "lib",
+    "esm",
+    "types",
+    "src"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,15 +32,17 @@
     "url": "git+https://github.com/xuyuanxiang/umi-react-native.git"
   },
   "scripts": {
-    "build": "tsc -b",
-    "watch": "tsc -b -w"
+    "build": "tsc | tsc -p tsconfig.esm.json",
+    "watch": "tsc -w"
   },
   "bugs": {
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "dependencies": {
-    "@umijs/preset-built-in": "3.1.1",
-    "umi-react-native-renderer": "^0.0.0",
+    "react-router-config": "^5.1.1",
     "umi-react-native-runtime": "^0.0.0"
+  },
+  "devDependencies": {
+    "@types/react-router-config": "^5.0.1"
   }
 }

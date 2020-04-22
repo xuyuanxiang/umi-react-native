@@ -1,5 +1,5 @@
 import { IApi } from '@umijs/types';
-import generateFiles from '../generateFiles';
+import generateFiles from '@umijs/preset-built-in/lib/plugins/commands/generateFiles';
 import createLogger from '../../../createLogger';
 
 const logger = createLogger('command:build');

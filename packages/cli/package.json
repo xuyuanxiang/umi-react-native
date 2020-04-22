@@ -1,7 +1,7 @@
 {
   "name": "umi-react-native-cli",
   "version": "0.0.0",
-  "description": "The command line tools of umi-react-native.",
+  "description": "umi-react-native-cli",
   "keywords": [
     "umi",
     "react-native"
@@ -27,7 +27,8 @@
     "url": "git+https://github.com/xuyuanxiang/umi-react-native.git"
   },
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc -b",
+    "watch": "tsc -b -w"
   },
   "bugs": {
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"

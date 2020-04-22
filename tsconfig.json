@@ -2,24 +2,23 @@
   "compilerOptions": {
     "composite": true,
     "jsx": "react-native",
-    "target": "es6",
+    "target": "es2015",
     "module": "commonjs",
     "lib": ["esnext", "dom"],
     "strict": true,
     "moduleResolution": "node",
+    "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "removeComments": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true
   },
   "references": [
     {
-      "path": "packages/core",
-      "prepend": true
-    },
-    {
       "path": "packages/cli"
     },
-    { "path": "packages/preset"}
+    { "path": "packages/preset" }
   ]
 }

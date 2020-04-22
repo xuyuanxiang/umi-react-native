@@ -3,19 +3,17 @@ export default function (): { plugins: string[] } {
     plugins: [
       // register methods
       require.resolve('@umijs/preset-built-in/lib/plugins/registerMethods'),
-      // // misc
+      // misc
       require.resolve('@umijs/preset-built-in/lib/plugins/routes'),
-      //
-      // // generate files
-      // require.resolve('./plugins/generateFiles/core/history'),
+
+      // generate files
       require.resolve('@umijs/preset-built-in/lib/plugins/generateFiles/core/plugin'),
-      // require.resolve('@umijs/preset-built-in/lib/plugins/generateFiles/core/polyfill'),
       require.resolve('@umijs/preset-built-in/lib/plugins/generateFiles/core/routes'),
       require.resolve('@umijs/preset-built-in/lib/plugins/generateFiles/core/umiExports'),
       require.resolve('@umijs/preset-built-in/lib/plugins/generateFiles/core/configTypes'),
-      require.resolve('@umijs/preset-built-in/lib/plugins/generateFiles/umi'),
-      //
-      // // bundle configs
+      require.resolve('./plugins/generateFiles/umi'),
+
+      // bundle configs
       // require.resolve('./plugins/features/alias'),
       // require.resolve('./plugins/features/analyze'),
       // require.resolve('./plugins/features/autoprefixer'),
@@ -69,11 +67,10 @@ export default function (): { plugins: string[] } {
       // require.resolve('./plugins/commands/dev/devCompileDone/devCompileDone'),
       // require.resolve('./plugins/commands/dev/mock/mock'),
       // require.resolve('./plugins/commands/generate/generate'),
-      // require.resolve('./plugins/commands/help/help'),
       // require.resolve('./plugins/commands/plugin/plugin'),
       require.resolve('./plugins/commands/build'),
       require.resolve('./plugins/commands/dev'),
-      require.resolve('./plugins/commands/help'),
+      require.resolve('@umijs/preset-built-in/lib/plugins/commands/help/help'),
     ],
   };
 }

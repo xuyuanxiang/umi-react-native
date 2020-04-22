@@ -1,2 +1,4 @@
 node_modules
 packages/*/lib
+packages/*/esm
+packages/*/types

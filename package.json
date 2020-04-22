@@ -4,11 +4,12 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "rimraf packages/*/lib",
-    "build": "cross-env NODE_ENV=production lerna run build --parallel --concurrency 2",
+    "build": "cross-env NODE_ENV=production lerna run build --parallel --concurrency 4",
+    "watch": "cross-env NODE_ENV=development lerna run watch --parallel --concurrency 4",
     "test": "cross-env NODE_ENV=test jest --coverage"
   },
   "engines": {
-    "node": "^10.13.0"
+    "node": ">= 10.13.0"
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",
