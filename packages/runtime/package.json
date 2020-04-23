@@ -1,7 +1,7 @@
 {
-  "name": "umi-react-native-runtime",
+  "name": "umi-runtime-react-native",
   "version": "0.0.0",
-  "description": "umi-react-native-runtime",
+  "description": "umi-runtime-react-native",
   "keywords": [
     "umi",
     "react-native"

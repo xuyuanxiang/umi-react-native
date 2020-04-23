@@ -19,7 +19,7 @@
     {
       "path": "packages/cli"
     },
-    { "path": "packages/preset" },
+    { "path": "packages/plugin"},
     {
       "path": "packages/renderer"
     },
