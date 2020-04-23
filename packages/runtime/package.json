@@ -4,14 +4,16 @@
   "description": "umi-runtime-react-native",
   "keywords": [
     "umi",
-    "react-native"
+    "umijs",
+    "umi-plugin",
+    "react-native",
+    "umi-plugin-react-native"
   ],
   "author": "xuyuanxiang <hi@xuyuanxiang.cn>",
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
   "license": "MIT",
-  "main": "lib/index.js",
-  "module": "lib/esm/index.js",
-  "jsnext:module": "lib/esm/index.js",
+  "module": "lib/index.js",
+  "jsnext:module": "lib/index.js",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
   "sideEffects": false,
@@ -29,7 +31,7 @@
     "url": "git+https://github.com/xuyuanxiang/umi-react-native.git"
   },
   "scripts": {
-    "build": "tsc -b | tsc -p tsconfig.esm.json",
+    "build": "tsc -b",
     "watch": "tsc -b -w"
   },
   "bugs": {

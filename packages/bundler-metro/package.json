@@ -1,5 +1,5 @@
 {
-  "name": "umi-plugin-react-native",
+  "name": "umi-plugin-react-native-bundler-metro",
   "version": "0.0.0",
   "description": "umi-plugin-react-native",
   "keywords": [
@@ -36,14 +36,19 @@
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "peerDependencies": {
-    "react": ">=15",
-    "react-native": ">=0.44"
+    "@react-native-community/cli": "^4.7.0",
+    "@react-native-community/cli-types": "^4.7.0",
+    "metro": "^0.59.0",
+    "react": "^16.8.1",
+    "react-native": ">=0.60.0-rc.0 <1.0.x"
   },
   "dependencies": {
+    "@umijs/preset-built-in": "^3.1.1",
     "umi-renderer-react-native": "^0.0.0",
     "umi-runtime-react-native": "^0.0.0"
   },
   "devDependencies": {
+    "@react-native-community/cli": "^4.7.0",
     "@umijs/types": "^3.1.1"
   }
 }

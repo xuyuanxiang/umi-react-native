@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "composite": true,
-    "jsx": "react-native",
-    "target": "es5",
+    "jsx": "preserve",
+    "target": "es6",
     "module": "commonjs",
     "lib": ["esnext"],
     "strict": true,
@@ -16,10 +16,7 @@
     "noImplicitReturns": true
   },
   "references": [
-    {
-      "path": "packages/cli"
-    },
-    { "path": "packages/plugin"},
+    { "path": "packages/plugin" },
     {
       "path": "packages/renderer"
     },

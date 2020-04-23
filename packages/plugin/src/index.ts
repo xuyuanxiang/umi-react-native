@@ -2,7 +2,6 @@ import { IApi } from '@umijs/types';
 import { dirname, join } from 'path';
 import { readFileSync } from 'fs';
 import { EOL } from 'os';
-import generateFiles from '@umijs/preset-built-in/lib/plugins/commands/generateFiles';
 import entryFileTpl from './entryFileTpl';
 
 export default (api: IApi) => {
@@ -28,6 +27,7 @@ export default (api: IApi) => {
     });
   }
 
+  // 添加配置项
   api.describe({
     key: 'react-native',
     config: {
@@ -36,13 +36,13 @@ export default (api: IApi) => {
         return joi
           .object({
             appKey: joi.string().optional(),
-            use: joi.string().valid('metro', 'hals').required(),
           })
           .optional();
       },
     },
   });
 
+  // 启动时，检查appKey
   api.onStart(() => {
     if (!api.config['react-native']?.appKey) {
       logger.error(`"react-native.appKey" 未配置！${EOL}1. 请在工程根目录下的 app.json 文件中为"name"字段指定一个值，作为"appKey"；${EOL}2. 也可以在 umi 配置文件（比如：.umirc.js）中设置：${EOL}export default {
@@ -54,6 +54,8 @@ export default (api: IApi) => {
     }
   });
 
+  // 不修改renderer-react, 保留umi.ts，可能会使用 RN web
+  // api.modifyRendererPath(() => require.resolve('umi-renderer-react-native'));
   api.onGenerateFiles(async () => {
     api.writeTmpFile({
       path: 'index.ts',
@@ -98,26 +100,5 @@ export default (api: IApi) => {
         ).join('\r\n'),
       }),
     });
-  });
-
-  // 不修改renderer-react, 保留umi.ts，可能会使用 RN web
-  // api.modifyRendererPath(() => require.resolve('umi-renderer-react-native'));
-
-  api.registerCommand({
-    name: 'rn-dev',
-    description: 'start react-native dev server',
-    fn: async ({ args }) => {
-      logger.debug('rn-dev:', args);
-      await generateFiles({ api, watch: true });
-    },
-  });
-
-  api.registerCommand({
-    name: 'rn-build',
-    description: 'build react-native offline bundle',
-    fn: async ({ args }) => {
-      logger.debug('rn-build: ', args);
-      await generateFiles({ api, watch: false });
-    },
   });
 };

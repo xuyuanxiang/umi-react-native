@@ -4,7 +4,10 @@
   "description": "umi-renderer-react-native",
   "keywords": [
     "umi",
-    "react-native"
+    "umijs",
+    "umi-plugin",
+    "react-native",
+    "umi-plugin-react-native"
   ],
   "author": "xuyuanxiang <hi@xuyuanxiang.cn>",
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
