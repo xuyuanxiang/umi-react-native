@@ -1,14 +1,13 @@
 import { IApi } from '@umijs/types';
-import { join } from 'path';
+import { dirname, join } from 'path';
 import { existsSync } from 'fs';
 import { constants } from 'os';
-import http, { Server as HttpServer } from 'http';
+import { Server as HttpServer, IncomingMessage, ServerResponse } from 'http';
 import { Server as HttpsServer } from 'https';
-import assert from 'assert';
 import generateFiles from '@umijs/preset-built-in/lib/plugins/commands/generateFiles';
 import { cleanTmpPathExceptCache } from '@umijs/preset-built-in/lib/plugins/commands/buildDevUtils';
 import { watchPkg } from '@umijs/preset-built-in/lib/plugins/commands/dev/watchPkg';
-import loadMetroConfig from '@react-native-community/cli/build/tools/loadMetroConfig';
+import loadMetroConfig, { MetroConfig } from '@react-native-community/cli/build/tools/loadMetroConfig';
 import loadConfig from '@react-native-community/cli/build/tools/config';
 import eventsSocketModule from '@react-native-community/cli/build/commands/server/eventsSocket';
 import messageSocket from '@react-native-community/cli/build/commands/server/messageSocket';
@@ -18,11 +17,27 @@ import releaseChecker from '@react-native-community/cli/build/tools/releaseCheck
 import enableWatchMode from '@react-native-community/cli/build/commands/server/watchMode';
 import getIPAddress from './getIPAddress';
 
+function assert(expect: boolean, message?: string): void {
+  if (!expect) {
+    throw new TypeError(message);
+  }
+}
+
+interface RealMetroConfig extends MetroConfig {
+  resolver: {
+    resolverMainFields: string[];
+    platforms: string[];
+    extraNodeModules?: {
+      [key: string]: string;
+    };
+  };
+}
+
 export default (api: IApi) => {
   const {
     logger,
     paths,
-    utils: { chalk, portfinder },
+    utils: { chalk, portfinder, winPath },
   } = api;
   const METRO_PATH = join(paths.absNodeModulesPath || '', 'metro');
   const METRO_CORE_PATH = join(paths.absNodeModulesPath || '', 'metro-core');
@@ -89,12 +104,12 @@ export default (api: IApi) => {
         };
         const ctx = loadConfig(paths.cwd);
         logger.info('ctx:', ctx);
-        const metroConfig = await loadMetroConfig(ctx, {
+        const metroConfig = (await loadMetroConfig(ctx, {
           ...args,
           config: join(paths.cwd || '', 'metro.config.js'),
-          projectRoot: paths.absTmpPath,
+          // projectRoot: paths.absTmpPath,
           reporter,
-        });
+        })) as RealMetroConfig;
         if (Array.isArray(args.assetPlugins)) {
           metroConfig.transformer.assetPlugins = args.assetPlugins.map((plugin) => require.resolve(plugin));
         }
@@ -117,6 +132,33 @@ export default (api: IApi) => {
           return middlewareManager.getConnectInstance().use(middleware);
         };
 
+        if (Array.isArray(metroConfig.resolver.resolverMainFields)) {
+          metroConfig.resolver.resolverMainFields.unshift('module');
+        } else {
+          metroConfig.resolver.resolverMainFields = ['module', 'react-native', 'browser', 'main'];
+        }
+
+        const rendererPath = await api.applyPlugins({
+          key: 'modifyRendererPath',
+          type: api.ApplyPluginsType.modify,
+          initialValue: require.resolve('@umijs/renderer-react'),
+        });
+        const extraNodeModules = {
+          react: winPath(join(api.paths.cwd || '', 'node_modules', 'react')),
+          'react-native': winPath(join(api.paths.cwd || '', 'node_modules', 'react-native')),
+          'react-router-native': winPath(dirname(require.resolve('react-router-native/package.json'))),
+          'react-router-config': winPath(dirname(require.resolve('react-router-config/package.json'))),
+          '@umijs/runtime': winPath(dirname(require.resolve('@umijs/runtime/package.json'))),
+          '@umijs/renderer-react': winPath(rendererPath),
+        };
+        logger.info('extraNodeModules:', extraNodeModules)
+        if (typeof metroConfig.resolver.extraNodeModules === 'object') {
+          Object.assign(metroConfig.resolver.extraNodeModules, api.config.alias, extraNodeModules);
+        } else {
+          metroConfig.resolver.extraNodeModules = Object.assign({}, api.config.alias, extraNodeModules);
+        }
+        logger.info('extraNodeModules:', metroConfig.resolver.extraNodeModules)
+
         logger.info('metroConfig:', metroConfig);
         server = await Metro.runServer(metroConfig, {
           host: args.host,
@@ -137,12 +179,10 @@ export default (api: IApi) => {
           enableWatchMode(ms);
         }
 
-        middlewareManager
-          .getConnectInstance()
-          .use('/reload', (_req: http.IncomingMessage, res: http.ServerResponse) => {
-            ms.broadcast('reload');
-            res.end('OK');
-          });
+        middlewareManager.getConnectInstance().use('/reload', (_req: IncomingMessage, res: ServerResponse) => {
+          ms.broadcast('reload');
+          res.end('OK');
+        });
 
         // In Node 8, the default keep-alive for an HTTP connection is 5 seconds. In
         // early versions of Node 8, this was implemented in a buggy way which caused

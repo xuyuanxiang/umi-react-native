@@ -6,10 +6,8 @@
 
 ## 进度
 
-- [x] umi-runtime-react-native: done
-- [x] umi-renderer-react-native: done
-- [x] umi-plugin-react-native: done
-- [ ] umi-plugin-react-native-bundler-metro: developing
+- [x] umi-preset-react-native
+- [ ] umi-plugin-react-native-bundler-metro
 - [ ] umi-plugin-react-native-bundler-haul
 
 ## 必备
@@ -23,13 +21,13 @@
 选用官方[metro](https://facebook.github.io/metro/)打包：
 
 ```npm
-yarn add umi-plugin-react-native umi-plugin-react-native-bundler-metro  --dev
+yarn add umi-preset-react-native umi-plugin-react-native-bundler-metro  --dev
 ```
 
 选用第三方[haul](https://github.com/callstack/haul)打包：
 
 ```npm
-yarn add umi-plugin-react-native umi-plugin-react-native-bundler-haul  --dev
+yarn add umi-preset-react-native umi-plugin-react-native-bundler-haul  --dev
 ```
 
 ### 注意
@@ -37,8 +35,6 @@ yarn add umi-plugin-react-native umi-plugin-react-native-bundler-haul  --dev
 `umi-plugin-react-native-bundler-metro` 和 `umi-plugin-react-native-bundler-haul` 只能二选一，同时安装会导致 umi 报错（`dev-rn`和`build-rn`命令行工具冲突）。
 
 ## 使用
-
-零配置，umi 3.0 后似乎会自动探测并装配 package.json 依赖申明中的插件。
 
 ### 开发
 

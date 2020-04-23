@@ -1,13 +1,11 @@
 {
   "name": "umi-plugin-react-native-bundler-metro",
   "version": "0.0.0",
-  "description": "umi-plugin-react-native",
+  "description": "umi-plugin-react-native-bundler-metro",
   "keywords": [
     "umi",
     "umijs",
-    "umi-plugin",
-    "react-native",
-    "umi-plugin-react-native"
+    "react-native"
   ],
   "author": "xuyuanxiang <hi@xuyuanxiang.cn>",
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
@@ -29,26 +27,23 @@
     "url": "git+https://github.com/xuyuanxiang/umi-react-native.git"
   },
   "scripts": {
-    "build": "tsc -b",
-    "watch": "tsc -b -w"
+    "build": "tsc",
+    "watch": "tsc -w"
   },
   "bugs": {
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "peerDependencies": {
-    "@react-native-community/cli": "^4.7.0",
-    "@react-native-community/cli-types": "^4.7.0",
-    "metro": "^0.59.0",
     "react": "^16.8.1",
     "react-native": ">=0.60.0-rc.0 <1.0.x"
   },
   "dependencies": {
-    "@umijs/preset-built-in": "^3.1.1",
-    "umi-renderer-react-native": "^0.0.0",
-    "umi-runtime-react-native": "^0.0.0"
+    "@umijs/preset-built-in": "^3.0.0",
+    "@umijs/renderer-react": "^3.0.0",
+    "@umijs/runtime": "^3.0.0",
+    "react-router-native": "5.1.2"
   },
   "devDependencies": {
-    "@react-native-community/cli": "^4.7.0",
     "@umijs/types": "^3.1.1"
   }
 }

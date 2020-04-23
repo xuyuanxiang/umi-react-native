@@ -1,8 +1,10 @@
 export default `{{{ importsAhead }}}
+import { AppRegistry } from 'react-native';
 import { plugin } from './core/plugin';
 import { createHistory } from './core/history';
-import { ApplyPluginsType } from '{{{ runtimePath }}}';
-import { renderClient } from '{{{ rendererPath }}}';
+import { renderClient } from './rn/renderClient';
+// import { ApplyPluginsType } from '{{{ runtimePath }}}';
+import { ApplyPluginsType } from '@umijs/runtime';
 {{{ imports }}}
 
 {{{ entryCodeAhead }}}
@@ -16,7 +18,6 @@ const getClientRender = (args: { hot?: boolean } = {}) => plugin.applyPlugins({
       routes: require('./core/routes').routes,
       plugin,
       history: createHistory(args.hot),
-      appKey: '{{{ appKey }}}',
     });
   },
   args,
@@ -25,12 +26,14 @@ const getClientRender = (args: { hot?: boolean } = {}) => plugin.applyPlugins({
 const clientRender = getClientRender();
 export default clientRender();
 
+AppRegistry.registerComponent('{{{ appKey }}}', () => clientRender);
+
 // hot module replacement
 // @ts-ignore
 if (module.hot) {
   // @ts-ignore
   module.hot.accept(() => {
-    getClientRender({ hot: true })();
+    AppRegistry.registerComponent('{{{ appKey }}}', () => getClientRender({ hot: true }));
   });
 }
 

@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
-    "composite": true,
-    "jsx": "preserve",
-    "target": "es6",
+    "target": "es5",
     "module": "commonjs",
     "lib": ["esnext"],
     "strict": true,
@@ -14,14 +12,5 @@
     "removeComments": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true
-  },
-  "references": [
-    { "path": "packages/plugin" },
-    {
-      "path": "packages/renderer"
-    },
-    {
-      "path": "packages/runtime"
-    }
-  ]
+  }
 }
