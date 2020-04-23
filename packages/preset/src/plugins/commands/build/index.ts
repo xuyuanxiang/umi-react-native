@@ -1,16 +1,13 @@
 import { IApi } from '@umijs/types';
 import generateFiles from '@umijs/preset-built-in/lib/plugins/commands/generateFiles';
-import createLogger from '../../../createLogger';
-
-const logger = createLogger('command:build');
 
 export default (api: IApi): void => {
-  logger.debug('register');
+  const { logger } = api;
   api.registerCommand({
-    name: 'build',
-    description: 'build offline bundle',
+    name: 'rn-build',
+    description: 'build react-native offline bundle',
     fn: async ({ args }) => {
-      console.log('args:', args);
+      logger.debug('rn-build: ', args);
       await generateFiles({ api, watch: false });
     },
   });

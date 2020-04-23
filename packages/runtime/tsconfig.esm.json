@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "composite": false,
+    "target": "es6",
+    "module": "es2015",
+    "rootDir": "src",
+    "outDir": "lib/esm",
+    "sourceMap": false,
+    "declaration": false,
+    "declarationMap": false
+  },
+  "include": ["src", "../../types"]
+}

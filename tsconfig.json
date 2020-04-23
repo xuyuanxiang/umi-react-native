@@ -2,9 +2,9 @@
   "compilerOptions": {
     "composite": true,
     "jsx": "react-native",
-    "target": "es2015",
+    "target": "es5",
     "module": "commonjs",
-    "lib": ["esnext", "dom"],
+    "lib": ["esnext"],
     "strict": true,
     "moduleResolution": "node",
     "sourceMap": true,

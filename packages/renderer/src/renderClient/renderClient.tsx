@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { AppRegistry } from 'react-native';
-import { ApplyPluginsType, Plugin, Router } from 'umi-react-native-runtime';
+import { ApplyPluginsType, Plugin } from '@umijs/runtime';
+import { IRoute, renderRoutes } from '@umijs/renderer-react';
+import { Router } from 'umi-react-native-runtime';
 import { matchRoutes } from 'react-router-config';
-import { IRoute } from '..';
-import renderRoutes from '../renderRoutes/renderRoutes';
 
 interface IRouterComponentProps {
   routes: IRoute[];
@@ -52,6 +52,6 @@ export default function renderClient(opts: IOpts) {
       plugin: opts.plugin,
     },
   });
-  AppRegistry.registerComponent(opts.appKey, rootContainer);
+  AppRegistry.registerComponent(require('./appKey.ts').APP_KEY, rootContainer);
   return rootContainer;
 }

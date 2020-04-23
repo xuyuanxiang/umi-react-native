@@ -1,15 +1,12 @@
 import { IApi } from '@umijs/types';
-import createLogger from '../../../createLogger';
-
-const logger = createLogger('command:dev');
 
 export default (api: IApi): void => {
-  logger.debug('register');
+  const { logger } = api;
   api.registerCommand({
-    name: 'dev',
+    name: 'rn-dev',
     description: 'start react-native dev server',
     fn({ args }) {
-      console.log('args:', args);
+      logger.debug('rn-dev:', args);
     },
   });
 };

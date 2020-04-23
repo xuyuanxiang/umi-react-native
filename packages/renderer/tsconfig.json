@@ -2,10 +2,8 @@
   "extends": "../../tsconfig",
   "compilerOptions": {
     "target": "es5",
-    "lib": ["esnext"],
     "rootDir": "src",
-    "outDir": "lib",
-    "declarationDir": "types"
+    "outDir": "lib"
   },
   "include": ["src", "../../types"]
 }
