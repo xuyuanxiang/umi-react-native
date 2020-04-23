@@ -14,6 +14,7 @@
 
 ## 必备
 
+- umi 3.0 及以上版本；
 - RN 工程（已有，或使用`react-native init`新建）；
 - [RN 开发环境](https://reactnative.dev/docs/environment-setup)。
 
@@ -36,6 +37,8 @@ yarn add umi-plugin-react-native umi-plugin-react-native-bundler-haul  --dev
 `umi-plugin-react-native-bundler-metro` 和 `umi-plugin-react-native-bundler-haul` 只能二选一，同时安装会导致 umi 报错（`dev-rn`和`build-rn`命令行工具冲突）。
 
 ## 使用
+
+零配置，umi 3.0 后似乎会自动探测并装配 package.json 依赖申明中的插件。
 
 ### 开发
 
