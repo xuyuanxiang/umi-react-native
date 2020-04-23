@@ -12,14 +12,12 @@
 - [ ] umi-plugin-react-native-bundler-metro: developing
 - [ ] umi-plugin-react-native-bundler-haul
 
-## 必备条件
+## 必备
 
 - RN 工程（已有，或使用`react-native init`新建）；
 - [RN 开发环境](https://reactnative.dev/docs/environment-setup)。
 
-## 使用步骤
-
-### 安装
+## 安装
 
 选用官方[metro](https://facebook.github.io/metro/)打包：
 
@@ -33,36 +31,15 @@ yarn add umi-plugin-react-native umi-plugin-react-native-bundler-metro  --dev
 yarn add umi-plugin-react-native umi-plugin-react-native-bundler-haul  --dev
 ```
 
-### 配置
+### 注意
 
-```javascript
-// .umirc.js
-export default {
-  history: {
-    type: 'memory',
-  },
-  'react-native': {
-    appKey: 'RNExample',
-  },
-  plugins: ['umi-plugin-react-native', 'umi-plugin-react-native-bundler-metro'],
-  // plugins: ['umi-plugin-react-native', 'umi-plugin-react-native-bundler-haul'],
-};
-```
+`umi-plugin-react-native-bundler-metro` 和 `umi-plugin-react-native-bundler-haul` 只能二选一，同时安装会导致 umi 报错（`dev-rn`和`build-rn`命令行工具冲突）。
 
-**注意：**
-
-- `history`: **必须**设置为`"memory"`，因为 RN 中没有 DOM，使用<s>"browser"</s>或者<s>"hash"</s>时会报错。
-- `react-native`：`umi-plugin-react-native`配置项。
-  - `appKey`: 选填，缺省值：RN 工程 app.json 文件中的 "name" 字段。
-    - 在 RN JS 代码域中命名为：`appKey`，即`AppRegistry.registerComponent(appKey, componentProvider);`的第一个参数；
-    - 在 iOS/Android 代码域中命名为：`moduleName`，是原生层加载 js bundle 文件的必填参数。
-- `plugins`:
-  - `umi-plugin-react-native`：**必须**;
-  - `umi-plugin-react-native-bundler-metro` 和 `umi-plugin-react-native-bundler-haul`： 二选一，同时添加时会导致 umi 报错（`dev-rn`和`dev-build`命令行工具冲突）。
+## 使用
 
 ### 开发
 
-可以修改`package.json`文件，使用`umi`取代原本的`react-native`：
+修改`package.json`文件，使用`umi`取代原本的`react-native`：
 
 ```diff
 {

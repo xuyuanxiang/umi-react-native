@@ -25,13 +25,11 @@ const getClientRender = (args: { hot?: boolean } = {}) => plugin.applyPlugins({
 const clientRender = getClientRender();
 export default clientRender();
 
-{{{ entryCode }}}
-
 // hot module replacement
 // @ts-ignore
 if (module.hot) {
   // @ts-ignore
-  module.hot.accept('./core/routes', () => {
+  module.hot.accept(() => {
     getClientRender({ hot: true })();
   });
 }

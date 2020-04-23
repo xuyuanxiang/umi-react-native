@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, ReactElement } from 'react';
 import { AppRegistry } from 'react-native';
 import { ApplyPluginsType, Plugin } from '@umijs/runtime';
 import { IRoute, renderRoutes } from '@umijs/renderer-react';
@@ -18,7 +18,7 @@ interface IOpts extends IRouterComponentProps {
   appKey: string;
 }
 
-function RouterComponent(props: IRouterComponentProps) {
+function RouterComponent(props: IRouterComponentProps): JSX.Element {
   const { history, ...renderRoutesProps } = props;
 
   useEffect(() => {
@@ -44,17 +44,17 @@ function RouterComponent(props: IRouterComponentProps) {
   return <Router history={history}>{renderRoutes(renderRoutesProps)}</Router>;
 }
 
-export default function renderClient(opts: IOpts) {
-  const rootContainer = opts.plugin.applyPlugins({
+export default function renderClient({ plugin, appKey, history, routes }: IOpts) {
+  const rootContainer = plugin.applyPlugins({
     type: ApplyPluginsType.modify,
     key: 'rootContainer',
-    initialValue: <RouterComponent history={opts.history} routes={opts.routes} plugin={opts.plugin} />,
+    initialValue: <RouterComponent history={history} routes={routes} plugin={plugin} />,
     args: {
-      history: opts.history,
-      routes: opts.routes,
-      plugin: opts.plugin,
+      history,
+      routes,
+      plugin,
     },
-  });
-  AppRegistry.registerComponent(opts.appKey, rootContainer);
+  }) as ReactElement;
+  AppRegistry.registerComponent(appKey, () => () => rootContainer);
   return rootContainer;
 }
