@@ -6,10 +6,10 @@
 
 ## 进度
 
-- [x] umi-runtime-react-native
-- [x] umi-renderer-react-native
-- [x] umi-plugin-react-native
-- [x] umi-plugin-react-native-bundler-metro
+- [x] umi-runtime-react-native: done
+- [x] umi-renderer-react-native: done
+- [x] umi-plugin-react-native: done
+- [ ] umi-plugin-react-native-bundler-metro: developing
 - [ ] umi-plugin-react-native-bundler-haul
 
 ## 必备条件
