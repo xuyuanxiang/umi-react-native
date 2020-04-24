@@ -1,4 +1,4 @@
-import { IApi } from '@umijs/types';
+import { IApi } from 'umi';
 import { dirname } from 'path';
 import renderClientTpl from './renderClientTpl';
 
@@ -8,17 +8,16 @@ export default (api: IApi) => {
   } = api;
 
   api.onGenerateFiles(async () => {
-    // const rendererPath = await api.applyPlugins({
-    //   key: 'modifyRendererPath',
-    //   type: api.ApplyPluginsType.modify,
-    //   initialValue: require.resolve('@umijs/renderer-react'),
-    // });
+    const rendererPath = await api.applyPlugins({
+      key: 'modifyRendererPath',
+      type: api.ApplyPluginsType.modify,
+      initialValue: require.resolve('@umijs/renderer-react'),
+    });
     api.writeTmpFile({
       path: 'rn/renderClient.tsx',
       content: Mustache.render(renderClientTpl, {
-        // runtimePath: winPath(dirname(require.resolve('@umijs/runtime/package.json'))),
-        // rendererPath: winPath(rendererPath),
-        // reactRouterConfigPath: winPath(dirname(require.resolve('react-router-config/package.json'))),
+        runtimePath: winPath(dirname(require.resolve('@umijs/runtime/package.json'))),
+        rendererPath: winPath(rendererPath),
       }),
     });
   });

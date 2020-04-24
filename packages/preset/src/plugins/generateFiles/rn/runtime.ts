@@ -1,21 +1,14 @@
-import { IApi } from '@umijs/types';
-// import { dirname } from 'path';
-import runtimeTpl from './runtimeTpl';
+import { IApi } from 'umi';
 
-const EXPORTER = 'Link as NativeLink, NativeRouter, BackButton, AndroidBackButton';
+const CONTENT = `export { Link as NativeLink, NativeRouter, BackButton, AndroidBackButton } from 'react-router-native';
+
+`;
 
 export default (api: IApi) => {
-  const {
-    utils: { Mustache, winPath },
-  } = api;
-
   api.onGenerateFiles(async () => {
     api.writeTmpFile({
       path: 'rn/runtime.ts',
-      content: Mustache.render(runtimeTpl, {
-        // reactRouterNativePath: winPath(dirname(require.resolve('react-router-native/package.json'))),
-        exporter: EXPORTER,
-      }),
+      content: CONTENT,
     });
   });
 

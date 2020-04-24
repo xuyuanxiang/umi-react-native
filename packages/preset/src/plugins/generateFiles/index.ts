@@ -1,4 +1,4 @@
-import { IApi } from '@umijs/types';
+import { IApi } from 'umi';
 import { dirname } from 'path';
 import indexTpl from './indexTpl';
 
@@ -23,7 +23,7 @@ export default (api: IApi) => {
       path: 'index.ts',
       content: Mustache.render(indexTpl, {
         appKey: api.config?.reactNative?.appKey,
-        // runtimePath: winPath(dirname(require.resolve('@umijs/runtime/package.json'))),
+        runtimePath: winPath(dirname(require.resolve('@umijs/runtime/package.json'))),
         entryCodeAhead: (
           await api.applyPlugins({
             key: 'addEntryCodeAhead',

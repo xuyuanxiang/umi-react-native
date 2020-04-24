@@ -10,6 +10,10 @@
   "author": "xuyuanxiang <hi@xuyuanxiang.cn>",
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
   "license": "MIT",
+  "engineStrict": true,
+  "engines": {
+    "node": ">=8.3"
+  },
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
@@ -34,16 +38,14 @@
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "peerDependencies": {
-    "react": "^16.8.1",
-    "react-native": ">=0.60.0-rc.0 <1.0.x"
-  },
-  "dependencies": {
-    "@umijs/preset-built-in": "^3.0.0",
-    "@umijs/renderer-react": "^3.0.0",
-    "@umijs/runtime": "^3.0.0",
-    "react-router-native": "5.1.2"
+    "@react-native-community/cli": "^4.7.0",
+    "metro": "^0.58.0",
+    "react": "^16.11.0",
+    "react-native": ">=0.62.0-rc.0 <1.0.x",
+    "umi": "^3.1"
   },
   "devDependencies": {
-    "@umijs/types": "^3.1.1"
+    "@react-native-community/cli": "4.7.0",
+    "umi": "3.1.1"
   }
 }

@@ -3,8 +3,7 @@ import { AppRegistry } from 'react-native';
 import { plugin } from './core/plugin';
 import { createHistory } from './core/history';
 import { renderClient } from './rn/renderClient';
-// import { ApplyPluginsType } from '{{{ runtimePath }}}';
-import { ApplyPluginsType } from '@umijs/runtime';
+import { ApplyPluginsType } from '{{{ runtimePath }}}';
 {{{ imports }}}
 
 {{{ entryCodeAhead }}}

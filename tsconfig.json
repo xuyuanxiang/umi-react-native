@@ -8,6 +8,7 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "removeComments": true,
     "forceConsistentCasingInFileNames": true,

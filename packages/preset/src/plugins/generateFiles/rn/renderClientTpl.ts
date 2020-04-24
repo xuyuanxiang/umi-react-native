@@ -1,6 +1,6 @@
 export default `import React, { useEffect } from 'react';
-import { ApplyPluginsType, Plugin, Router } from '@umijs/runtime';
-import { IRoute, renderRoutes } from '@umijs/renderer-react';
+import { ApplyPluginsType, Plugin, Router } from '{{{ runtimePath }}}';
+import { IRoute, renderRoutes } from '{{{ rendererPath }}}';
 import { matchRoutes } from 'react-router-config';
 
 interface IRouterComponentProps {
