@@ -11,9 +11,12 @@
 
 ## 目录
 
+- [目录](#%E7%9B%AE%E5%BD%95)
 - [必备](#%E5%BF%85%E5%A4%87)
 - [安装](#%E5%AE%89%E8%A3%85)
-- [配置](#%E9%85%8D%E7%BD%AE)
+  - [安装`umi-rn`命令行工具](#%E5%AE%89%E8%A3%85umi-rn%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7)
+  - [安装 react-native 预设插件集](#%E5%AE%89%E8%A3%85-react-native-%E9%A2%84%E8%AE%BE%E6%8F%92%E4%BB%B6%E9%9B%86)
+  - [安装 react-native 打包器](#%E5%AE%89%E8%A3%85-react-native-%E6%89%93%E5%8C%85%E5%99%A8)
 - [使用](#%E4%BD%BF%E7%94%A8)
   - [开发](#%E5%BC%80%E5%8F%91)
   - [构建离线包（offline bundle）](#%E6%9E%84%E5%BB%BA%E7%A6%BB%E7%BA%BF%E5%8C%85offline-bundle)
