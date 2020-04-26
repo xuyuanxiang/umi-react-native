@@ -5,7 +5,7 @@
 > 👷 正在施工...
 
 - [x] umi-react-native-cli：删减版命令行工具（`umi-rn`)，相比 [umi](https://umijs.org/) 移除了强依赖 DOM 的内建（built in）插件，**必需**；
-- [x] umi-preset-react-native：umi-react-native 插件集，**必需**；
+- [x] umi-preset-react-native：react-native 插件集，**必需**；
 - [ ] umi-plugin-react-native-bundler-metro：RN 官方 [metro](https://facebook.github.io/metro/) 打包器，与 haul 只能**二选一**；
 - [ ] umi-plugin-react-native-bundler-haul：第三方 [haul](https://github.com/callstack/haul) 打包器，与 metro 只能**二选一**。
 
@@ -15,7 +15,6 @@ _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者�
 
 ## 目录
 
-- [目录](#%E7%9B%AE%E5%BD%95)
 - [必备](#%E5%BF%85%E5%A4%87)
 - [安装](#%E5%AE%89%E8%A3%85)
   - [安装`umi-rn`命令行工具](#%E5%AE%89%E8%A3%85umi-rn%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7)
