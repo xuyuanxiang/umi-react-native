@@ -20,6 +20,8 @@ _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者�
   - [安装`umi-rn`命令行工具](#%E5%AE%89%E8%A3%85umi-rn%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7)
   - [安装 react-native 预设插件集](#%E5%AE%89%E8%A3%85-react-native-%E9%A2%84%E8%AE%BE%E6%8F%92%E4%BB%B6%E9%9B%86)
   - [安装 react-native 打包器](#%E5%AE%89%E8%A3%85-react-native-%E6%89%93%E5%8C%85%E5%99%A8)
+    - [选用官方[metro](https://facebook.github.io/metro/)打包](#%E9%80%89%E7%94%A8%E5%AE%98%E6%96%B9metrohttpsfacebookgithubiometro%E6%89%93%E5%8C%85)
+    - [选用第三方[haul](https://github.com/callstack/haul)打包](#%E9%80%89%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9haulhttpsgithubcomcallstackhaul%E6%89%93%E5%8C%85)
 - [使用](#%E4%BD%BF%E7%94%A8)
   - [开发](#%E5%BC%80%E5%8F%91)
   - [构建离线包（offline bundle）](#%E6%9E%84%E5%BB%BA%E7%A6%BB%E7%BA%BF%E5%8C%85offline-bundle)
@@ -57,7 +59,9 @@ yarn add umi-preset-react-native --dev
 
 **二选一，同时安装会导致 umi 报错（`dev`和`build`命令行工具冲突）。**
 
-选用官方[metro](https://facebook.github.io/metro/)打包：
+#### 选用官方[metro](https://facebook.github.io/metro/)打包
+
+在 RN 工程内部安装：
 
 ```npm
 yarn add umi-plugin-react-native-bundler-metro  --dev
@@ -79,7 +83,9 @@ yarn add umi-plugin-react-native-bundler-metro  --dev
 }
 ```
 
-选用第三方[haul](https://github.com/callstack/haul)打包：
+#### 选用第三方[haul](https://github.com/callstack/haul)打包
+
+在 RN 工程内部安装：
 
 ```npm
 yarn add umi-plugin-react-native-bundler-haul  --dev
