@@ -37,15 +37,9 @@
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "peerDependencies": {
-    "react": "^16.8.3",
-    "react-native": ">=0.59.0 <1.0.x",
     "umi": "^3.1"
   },
   "dependencies": {
-    "@haul-bundler/babel-preset-react-native": "0.16.0",
-    "@haul-bundler/cli": "0.19.0",
-    "@haul-bundler/preset-0.59": "0.18.0",
-    "@haul-bundler/preset-0.60": "0.18.0",
     "react-router-native": "5.1.2"
   },
   "devDependencies": {

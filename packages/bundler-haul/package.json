@@ -1,19 +1,18 @@
 {
-  "name": "umi-plugin-react-native-bundler-metro",
+  "name": "umi-plugin-react-native-bundler-haul",
   "version": "0.0.0",
-  "description": "umi-plugin-react-native-bundler-metro",
+  "description": "umi-plugin-react-native-bundler-haul",
   "keywords": [
     "umi",
     "umijs",
     "react-native",
-    "metro"
+    "haul"
   ],
   "author": "xuyuanxiang <hi@xuyuanxiang.cn>",
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
   "license": "MIT",
-  "engineStrict": true,
   "engines": {
-    "node": ">=8.3"
+    "node": ">=10.x"
   },
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -39,15 +38,18 @@
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "peerDependencies": {
-    "@react-native-community/cli": "^4.7.0",
-    "metro": "^0.58.0",
-    "react": "^16.11.0",
-    "react-native": ">=0.62.0-rc.0 <1.0.x",
+    "react": "^16.8.3",
+    "react-native": ">=0.59.0 <1.0.x",
     "umi": "^3.1",
     "umi-preset-react-native": "^0.0.0"
   },
+  "dependencies": {
+    "@haul-bundler/babel-preset-react-native": "0.16.0",
+    "@haul-bundler/cli": "0.19.0",
+    "@haul-bundler/preset-0.59": "0.18.0",
+    "@haul-bundler/preset-0.60": "0.18.0"
+  },
   "devDependencies": {
-    "@react-native-community/cli": "4.7.0",
     "umi": "3.1.1"
   }
 }

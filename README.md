@@ -1,10 +1,8 @@
 # umi-react-native
 
+[umi](https://umijs.org/) preset plugins for react-native.
+
 > 👷 正在施工...
-
-[umi](https://umijs.org/) react-native 插件。
-
-## 进度
 
 - [x] umi-preset-react-native
 - [ ] umi-plugin-react-native-bundler-metro
@@ -14,25 +12,55 @@
 
 - umi 3.0 及以上版本；
 - RN 工程（已有，或使用`react-native init`新建）；
-- [RN 开发环境](https://reactnative.dev/docs/environment-setup)。
 
 ## 安装
 
-选用官方[metro](https://facebook.github.io/metro/)打包：
+二选一：`umi-plugin-react-native-bundler-metro` 和 `umi-plugin-react-native-bundler-haul` 同时安装会导致 umi 报错（`dev-rn`和`build-rn`命令行工具冲突）。
+
+### 选用官方[metro](https://facebook.github.io/metro/)打包
 
 ```npm
 yarn add umi-preset-react-native umi-plugin-react-native-bundler-metro  --dev
 ```
 
-选用第三方[haul](https://github.com/callstack/haul)打包：
+#### 注意
+
+`umi-plugin-react-native-bundler-metro`：
+
+```json
+{
+  "engines": {
+    "node": ">=8.3"
+  },
+  "peerDependencies": {
+    "metro": "^0.58.0",
+    "react": "^16.11.0",
+    "react-native": ">=0.62.0-rc.0 <1.0.x"
+  }
+}
+```
+
+### 选用第三方[haul](https://github.com/callstack/haul)打包
 
 ```npm
 yarn add umi-preset-react-native umi-plugin-react-native-bundler-haul  --dev
 ```
 
-### 注意
+#### 注意
 
-`umi-plugin-react-native-bundler-metro` 和 `umi-plugin-react-native-bundler-haul` 只能二选一，同时安装会导致 umi 报错（`dev-rn`和`build-rn`命令行工具冲突）。
+`umi-plugin-react-native-bundler-haul`:
+
+```json
+{
+  "engines": {
+    "node": ">=10.x"
+  },
+  "peerDependencies": {
+    "react": "^16.8.3",
+    "react-native": ">=0.59.0 <1.0.x"
+  }
+}
+```
 
 ## 使用
 
