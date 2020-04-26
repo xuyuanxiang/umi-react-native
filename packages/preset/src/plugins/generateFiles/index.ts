@@ -1,5 +1,4 @@
-import { IApi } from 'umi';
-import { dirname } from 'path';
+import { IApi } from '@umijs/types';
 import indexTpl from './indexTpl';
 
 export default (api: IApi) => {
@@ -20,10 +19,16 @@ export default (api: IApi) => {
 
   api.onGenerateFiles(async () => {
     api.writeTmpFile({
-      path: 'index.ts',
+      path: 'index.js',
       content: Mustache.render(indexTpl, {
         appKey: api.config?.reactNative?.appKey,
-        runtimePath: winPath(dirname(require.resolve('@umijs/runtime/package.json'))),
+        entryCode: (
+          await api.applyPlugins({
+            key: 'addEntryCode',
+            type: api.ApplyPluginsType.add,
+            initialValue: [],
+          })
+        ).join('\r\n'),
         entryCodeAhead: (
           await api.applyPlugins({
             key: 'addEntryCodeAhead',

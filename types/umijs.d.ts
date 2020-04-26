@@ -1,11 +1,11 @@
 /* eslint-disable */
 declare module '@umijs/preset-built-in/lib/plugins/commands/generateFiles' {
-  import { IApi } from 'umi';
+  import { IApi } from '@umijs/types';
   export default function (arg: { api: IApi; watch?: boolean }): Promise<() => void>;
 }
 
 declare module '@umijs/preset-built-in/lib/plugins/commands/buildDevUtils' {
-  import { IApi } from 'umi';
+  import { IApi } from '@umijs/types';
   import webpack, { Configuration } from 'webpack';
 
   enum ConfigType {

@@ -1,24 +1,11 @@
-import { IApi } from 'umi';
-import { dirname } from 'path';
-import renderClientTpl from './renderClientTpl';
+import { IApi } from '@umijs/types';
+import content from './renderClientTpl';
 
 export default (api: IApi) => {
-  const {
-    utils: { Mustache, winPath },
-  } = api;
-
   api.onGenerateFiles(async () => {
-    const rendererPath = await api.applyPlugins({
-      key: 'modifyRendererPath',
-      type: api.ApplyPluginsType.modify,
-      initialValue: require.resolve('@umijs/renderer-react'),
-    });
     api.writeTmpFile({
-      path: 'rn/renderClient.tsx',
-      content: Mustache.render(renderClientTpl, {
-        runtimePath: winPath(dirname(require.resolve('@umijs/runtime/package.json'))),
-        rendererPath: winPath(rendererPath),
-      }),
+      path: 'rn/renderClient.js',
+      content,
     });
   });
 };

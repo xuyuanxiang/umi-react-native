@@ -40,7 +40,6 @@
   "peerDependencies": {
     "react": "^16.8.3",
     "react-native": ">=0.59.0 <1.0.x",
-    "umi": "^3.1",
     "umi-preset-react-native": "^0.0.0"
   },
   "dependencies": {
@@ -50,6 +49,6 @@
     "@haul-bundler/preset-0.60": "0.18.0"
   },
   "devDependencies": {
-    "umi": "3.1.1"
+    "@umijs/types": "^3.0.0"
   }
 }

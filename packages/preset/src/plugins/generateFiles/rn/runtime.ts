@@ -1,6 +1,6 @@
-import { IApi } from 'umi';
+import { IApi } from '@umijs/types';
 
-const CONTENT = `export { Link as NativeLink, NativeRouter, BackButton, AndroidBackButton } from 'react-router-native';
+const CONTENT = `export {Link as NativeLink, BackButton, AndroidBackButton} from 'react-router-native';
 
 `;
 
@@ -14,7 +14,7 @@ export default (api: IApi) => {
 
   api.addUmiExports(() => {
     return {
-      specifiers: ['NativeLink', 'NativeRouter', 'BackButton', 'AndroidBackButton'],
+      specifiers: ['NativeLink', 'BackButton', 'AndroidBackButton'],
       source: `../rn/runtime`,
     };
   });

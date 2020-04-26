@@ -1,26 +1,38 @@
-export default `import React, { useEffect } from 'react';
-import { ApplyPluginsType, Plugin, Router } from '{{{ runtimePath }}}';
-import { IRoute, renderRoutes } from '{{{ rendererPath }}}';
-import { matchRoutes } from 'react-router-config';
+export default `import React, {useEffect} from 'react';
+import {matchRoutes} from 'react-router-config';
+import {Route, Router} from 'react-router-native';
 
-interface IRouterComponentProps {
-  routes: IRoute[];
-  plugin: Plugin;
-  history: any;
+function renderRoutes(routes) {
+  if (Array.isArray(routes)) {
+    return routes.map(({routes, ...props}) => {
+      if (Array.isArray(routes)) {
+        return (
+          <Route
+            key={props.path}
+            {...props}
+            component={() => (
+              <props.component>{renderRoutes(routes)}</props.component>
+            )}
+          />
+        );
+      } else {
+        return <Route key={props.path} {...props} />;
+      }
+    });
+  }
+  return null;
 }
 
-function RouterComponent(props: IRouterComponentProps): JSX.Element {
-  const { history, ...renderRoutesProps } = props;
-
+function RouterComponent({history, plugin, routes}) {
   useEffect(() => {
-    function routeChangeHandler(location: any, action?: string) {
-      const matchedRoutes = matchRoutes(props.routes, location.pathname);
+    function routeChangeHandler(location, action) {
+      const matchedRoutes = matchRoutes(routes, location.pathname);
 
-      props.plugin.applyPlugins({
+      plugin.applyPlugins({
         key: 'onRouteChange',
-        type: ApplyPluginsType.event,
+        type: 'event',
         args: {
-          routes: props.routes,
+          routes,
           matchedRoutes,
           location,
           action,
@@ -30,16 +42,18 @@ function RouterComponent(props: IRouterComponentProps): JSX.Element {
 
     routeChangeHandler(history.location, 'POP');
     return history.listen(routeChangeHandler);
-  }, [history]);
+  }, [history, plugin, routes]);
 
-  return <Router history={history}>{renderRoutes(renderRoutesProps)}</Router>;
+  return <Router history={history}>{renderRoutes(routes)}</Router>;
 }
 
-export function renderClient({ plugin, history, routes }: IRouterComponentProps) {
+export function renderClient({history, routes, plugin}) {
   return plugin.applyPlugins({
-    type: ApplyPluginsType.modify,
+    type: 'modify',
     key: 'rootContainer',
-    initialValue: <RouterComponent history={history} routes={routes} plugin={plugin} />,
+    initialValue: (
+      <RouterComponent history={history} routes={routes} plugin={plugin} />
+    ),
     args: {
       history,
       routes,
