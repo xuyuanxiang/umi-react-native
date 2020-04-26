@@ -1,9 +1,13 @@
 {
   "extends": "../../tsconfig",
   "compilerOptions": {
-    "composite": true,
     "rootDir": "src",
     "outDir": "lib"
   },
-  "include": ["src", "../../types"]
+  "include": ["src", "../../types"],
+  "references": [
+    {
+      "path": "../preset"
+    }
+  ]
 }

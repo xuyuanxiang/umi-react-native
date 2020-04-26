@@ -23,17 +23,11 @@ const getClientRender = (args: { hot?: boolean } = {}) => plugin.applyPlugins({
 });
 
 const clientRender = getClientRender();
-export default clientRender();
 
-AppRegistry.registerComponent('{{{ appKey }}}', () => clientRender);
+const App = clientRender();
 
-// hot module replacement
-// @ts-ignore
-if (module.hot) {
-  // @ts-ignore
-  module.hot.accept(() => {
-    AppRegistry.registerComponent('{{{ appKey }}}', () => getClientRender({ hot: true }));
-  });
-}
+AppRegistry.registerComponent('{{{ appKey }}}', () => () => App);
+
+export default App;
 
 `;

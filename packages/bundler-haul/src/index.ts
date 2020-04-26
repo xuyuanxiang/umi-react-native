@@ -1,8 +1,9 @@
 import { IApi } from 'umi';
 import { yargs } from '@umijs/utils';
-import { fork } from 'child_process';
 import generateFiles from '@umijs/preset-built-in/lib/plugins/commands/generateFiles';
 import { cleanTmpPathExceptCache } from '@umijs/preset-built-in/lib/plugins/commands/buildDevUtils';
+import { watchPkg } from '@umijs/preset-built-in/lib/plugins/commands/dev/watchPkg';
+import { HaulBundler } from './HaulBundler';
 
 export interface IDevRNCommandArguments {
   port?: number;
@@ -30,41 +31,62 @@ export default (api: IApi) => {
   const {
     utils: { portfinder },
     paths: { absTmpPath },
-    logger,
   } = api;
   async function handler({ args }: { args: yargs.Arguments<IDevRNCommandArguments> }): Promise<void> {
     const defaultPort = process.env.PORT || args?.port || api.config.devServer?.port;
     const port = await portfinder.getPortPromise({
       port: defaultPort ? parseInt(String(defaultPort), 10) : 8081,
     });
-    const host = process.env.HOST || api.config.devServer?.host;
+    const bundler = new HaulBundler({ cwd: absTmpPath, config: api.config });
+    const unwatchs: Function[] = [];
+    const isWatch = process.env.WATCH !== 'none';
 
-    cleanTmpPathExceptCache({
-      absTmpPath: absTmpPath!,
-    });
-
-    const unwatch = await generateFiles({ api, watch: process.env.WATCH !== 'none' });
-
-    const argv: string[] = ['start'];
-
-    if (port) {
-      argv.push('--port', port + '');
+    function unwatch(): void {
+      for (const unwatch of unwatchs) {
+        try {
+          unwatch();
+        } catch (ignored) {}
+      }
     }
 
-    const child = fork(require.resolve('@haul-bundler/cli/bin/haul.js'), argv, {
-      // stdio: 'inherit',
-      cwd: absTmpPath,
-    });
-    child.on('close', (code) => {
-      logger.info('close...');
-      unwatch();
-      process.exit(code);
-    });
+    function watch(fn: unknown): void {
+      if (typeof fn === 'function') {
+        unwatchs.push(fn);
+      }
+    }
+
+    if (absTmpPath) {
+      cleanTmpPathExceptCache({
+        absTmpPath,
+      });
+    }
+
+    const unwatchGenerateFiles = await generateFiles({ api, watch: isWatch });
+
+    watch(unwatchGenerateFiles);
+
+    bundler.start({ port });
+
+    if (isWatch) {
+      const unwatchPkg = watchPkg({
+        cwd: api.cwd,
+        onChange() {
+          console.log();
+          api.logger.info(`Plugins in package.json changed.`);
+          bundler.restart();
+        },
+      });
+      watch(unwatchPkg);
+    } else {
+    }
+
     process.on('SIGINT', () => {
-      child.kill('SIGINT');
+      unwatch();
+      bundler.destroy('SIGINT');
     });
     process.on('SIGTERM', () => {
-      child.kill('SIGTERM');
+      unwatch();
+      bundler.destroy('SIGTERM');
     });
   }
 

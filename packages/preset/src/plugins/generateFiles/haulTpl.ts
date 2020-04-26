@@ -10,12 +10,6 @@ const transform = ({ config }) => {
 export default makeConfig({
   bundles: {
     index: {
-      // entry: withPolyfills(
-      //   ['./index.ts', 'react', 'react-native', 'react-router', 'react-router-config', 'react-router-native', 'umi', 'history'],
-      //   {
-      //     additionalSetupFiles: ['./index.ts'],
-      //   }
-      // ),
       entry: withPolyfills('./index.ts'),
       transform,
     },
