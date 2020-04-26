@@ -55,7 +55,7 @@ yarn add umi-preset-react-native --dev
 
 ### 安装 react-native 打包器
 
-**二选一，同时安装会导致 umi 报错（`dev-rn`和`build-rn`命令行工具冲突）。**
+**二选一，同时安装会导致 umi 报错（`dev`和`build`命令行工具冲突）。**
 
 选用官方[metro](https://facebook.github.io/metro/)打包：
 
