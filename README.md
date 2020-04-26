@@ -9,6 +9,10 @@
 - [ ] umi-plugin-react-native-bundler-metro：RN 官方 [metro](https://facebook.github.io/metro/) 打包器，与 haul 只能**二选一**；
 - [ ] umi-plugin-react-native-bundler-haul：第三方 [haul](https://github.com/callstack/haul) 打包器，与 metro 只能**二选一**。
 
+_内建插件是指[@umijs/preset-built-in](https://github.com/umijs/umi/tree/master/packages/preset-built-in)，而非[@umijs/plugins](https://github.com/umijs/plugins)。_
+
+_与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者说支持服务端渲染的插件基本也是可以在 RN 运行环境中使用的。_
+
 ## 目录
 
 - [目录](#%E7%9B%AE%E5%BD%95)
