@@ -13,7 +13,7 @@ module.exports = mergeConfig(userConfig, {
       get: (target, name) =>
         name in target
           ? target[name]
-          : path.join(process.cwd(), \`node_modules/\${name}\`),
+          : path.join('{{{ nodeModulePath }}}', name),
     }),
   },
   watchFolders,

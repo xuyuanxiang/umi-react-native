@@ -48,8 +48,6 @@
   "devDependencies": {
     "@types/react-router": "^5.1.5",
     "@types/react-router-native": "^5.1.0",
-    "@umijs/core": "^3.0.0",
-    "@umijs/runtime": "^3.0.0",
     "@umijs/types": "^3.0.0"
   }
 }

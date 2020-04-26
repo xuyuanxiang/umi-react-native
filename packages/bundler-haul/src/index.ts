@@ -1,13 +1,24 @@
-import { dirname } from 'path';
+import { dirname, join } from 'path';
 import { IApi } from '@umijs/types';
 import { yargs } from '@umijs/utils';
-import { getBundleAndConfigs } from '@umijs/preset-built-in/lib/plugins/commands/buildDevUtils';
 import { name } from '../package.json';
 import generateFiles from './generateFiles';
-import { HaulProcess, IHaulStartOptions } from './HaulProcess';
 import babelConfigTpl from './babelConfigTpl';
 import haulConfigTpl from './haulConfigTpl';
 import clean from './asyncClean';
+import { fork } from 'child_process';
+
+export interface IHaulStartOptions {
+  port?: number;
+  dev: boolean;
+  interactive?: boolean;
+  minify?: boolean;
+  tempDir?: string;
+  config: string;
+  eager: string;
+  maxWorkers?: number;
+  skipHostCheck: boolean;
+}
 
 interface ICommand {
   name: string;
@@ -21,15 +32,19 @@ interface ICommand {
 
 export default (api: IApi) => {
   const {
-    utils: { portfinder, semver, Mustache, winPath, lodash },
-    paths: { absTmpPath },
+    utils: { portfinder, semver, Mustache, lodash, resolve, winPath },
+    paths: { absTmpPath, cwd },
   } = api;
   async function handler({ args }: { args: yargs.Arguments<IHaulStartOptions> }): Promise<void> {
     const defaultPort = process.env.PORT || args?.port;
     const port = await portfinder.getPortPromise({
       port: defaultPort ? parseInt(String(defaultPort), 10) : 8081,
     });
-    const bundler = new HaulProcess({ cwd: absTmpPath, config: api.config });
+    const argv: string[] = ['start', '--config', join(absTmpPath || '', 'haul.config.js')];
+
+    if (port) {
+      argv.push('--port', port + '');
+    }
     const unwatchs: Function[] = [];
     const isWatch = process.env.WATCH !== 'none';
 
@@ -54,16 +69,23 @@ export default (api: IApi) => {
 
     watch(await generateFiles({ api, watch: isWatch }));
 
-    bundler.start({ port, ...args });
+    const child = fork(require.resolve('@haul-bundler/cli/bin/haul.js'), argv, {
+      stdio: 'inherit',
+      cwd,
+    });
+    child.on('close', (code) => {
+      unwatch();
+      process.exit(code);
+    });
 
     process.on('SIGINT', () => {
       unwatch();
-      bundler.destroy('SIGINT');
+      child.kill('SIGINT');
     });
 
     process.on('SIGTERM', () => {
       unwatch();
-      bundler.destroy('SIGTERM');
+      child.kill('SIGTERM');
     });
   }
 
@@ -100,9 +122,13 @@ export default (api: IApi) => {
     api.writeTmpFile({
       path: 'babel.config.js',
       content: Mustache.render(babelConfigTpl, {
-        presetPath: dirname(require.resolve('@haul-bundler/babel-preset-react-native/package.json')),
+        presetPath: winPath(dirname(require.resolve('@haul-bundler/babel-preset-react-native/package.json'))),
       }),
     });
+    const buildDevUtilsPath = resolve.sync('@umijs/preset-built-in/lib/plugins/commands/buildDevUtils', {
+      basedir: process.env.UMI_DIR,
+    });
+    const { getBundleAndConfigs } = require(buildDevUtilsPath);
     const { bundleConfigs } = await getBundleAndConfigs({ api });
     const config = bundleConfigs.filter((bundleConfig: any) => {
       return bundleConfig.entry?.umi;

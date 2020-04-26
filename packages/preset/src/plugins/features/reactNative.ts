@@ -7,27 +7,27 @@ import { assertExists } from '../../utils';
 export default (api: IApi) => {
   const {
     pkg,
-    utils: { winPath, resolve },
+    utils: { resolve, winPath },
     paths: { absNodeModulesPath = '', absSrcPath = '', cwd },
   } = api;
 
   function getUserLibDir({ library }: { library: string }) {
     if ((pkg.dependencies && pkg.dependencies[library]) || (pkg.devDependencies && pkg.devDependencies[library])) {
+      // 通过 resolve 往上找，可支持 lerna 仓库
+      // lerna 仓库如果用 yarn workspace 的依赖不一定在 node_modules，可能被提到根目录，并且没有 link
       return winPath(
-        // 通过 resolve 往上找，可支持 lerna 仓库
-        // lerna 仓库如果用 yarn workspace 的依赖不一定在 node_modules，可能被提到根目录，并且没有 link
-        dirname(
-          resolve.sync(`${library}/package.json`, {
-            basedir: cwd,
-          }),
-        ),
+        resolve.sync(library, {
+          basedir: cwd,
+        }),
       );
     }
     return null;
   }
 
-  const REACT_NATIVE_PATH = getUserLibDir({ library: 'react-native' }) || join(absNodeModulesPath, 'react-native');
+  const REACT_NATIVE_PATH = join(absNodeModulesPath, 'react-native');
+  const METRO_PATH = join(absNodeModulesPath, 'react-native');
   assertExists(REACT_NATIVE_PATH);
+  assertExists(METRO_PATH);
   const { version } = require(join(REACT_NATIVE_PATH, 'package.json'));
   const Libraries = [
     {
@@ -46,14 +46,14 @@ export default (api: IApi) => {
       name: 'react-router-native',
       path: 'react-router-native',
     },
-    {
-      name: '@umijs/runtime',
-      path: '@umijs/runtime',
-    },
-    {
-      name: 'history',
-      path: 'history-with-query',
-    },
+    // {
+    //   name: '@umijs/runtime',
+    //   path: '@umijs/runtime',
+    // },
+    // {
+    //   name: 'history',
+    //   path: 'history-with-query',
+    // },
   ];
 
   let appKey;
@@ -79,12 +79,9 @@ export default (api: IApi) => {
 
   api.chainWebpack((memo) => {
     Libraries.forEach(({ name, path }) => {
-      memo.resolve.alias.set(
-        name,
-        getUserLibDir({ library: path }) || winPath(dirname(require.resolve(join(path, 'package.json')))),
-      );
+      memo.resolve.alias.set(name, getUserLibDir({ library: path }) || winPath(require.resolve(join(path))));
     });
-    memo.resolve.alias.set('react-native', REACT_NATIVE_PATH);
+    memo.resolve.alias.set('react-native', REACT_NATIVE_PATH).set('metro', METRO_PATH);
     return memo;
   });
 

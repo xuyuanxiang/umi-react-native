@@ -10,7 +10,8 @@ const transform = ({ config }) => {
 export default makeConfig({
   bundles: {
     index: {
-      entry: withPolyfills('./index.ts'),
+      entry: withPolyfills('./index.js'),
+      type: 'basic-bundle',
       transform,
     },
   },
