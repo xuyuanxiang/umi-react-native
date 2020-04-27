@@ -57,6 +57,7 @@ export default (api: IApi) => {
       getUserLibDir('react-router-native', true) || dirname(require.resolve('react-router-native/package.json')),
     );
     memo.resolve.alias
+      .set('react-native', winPath(REACT_NATIVE_PATH))
       .set(
         'history',
         winPath(

@@ -26,6 +26,8 @@ export default function asyncClean(path: string, ...excludes: string[]): Promise
             resolve();
           }
         });
+      } else {
+        resolve();
       }
     });
   });

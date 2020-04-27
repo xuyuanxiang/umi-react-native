@@ -69,7 +69,7 @@ export default (api: IApi) => {
 
     watch(await generateFiles({ api, watch: isWatch }));
 
-    const child = fork(resolve.sync('@haul-bundler/cli/bin/haul.js', { basedir: absTmpPath }), argv, {
+    const child = fork(require.resolve('@haul-bundler/cli/bin/haul.js'), argv, {
       stdio: 'inherit',
       cwd: absTmpPath,
     });
