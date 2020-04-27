@@ -1,6 +1,5 @@
 import { dirname, join } from 'path';
-import { existsSync, symlinkSync } from 'fs';
-import { platform } from 'os';
+import { existsSync } from 'fs';
 import { fork } from 'child_process';
 import { IApi } from '@umijs/types';
 import { yargs } from '@umijs/utils';
@@ -9,8 +8,6 @@ import generateFiles from './generateFiles';
 import babelConfigTpl from './babelConfigTpl';
 import clean from './asyncClean';
 import metroConfigTpl from './metroConfigTpl';
-
-const PLATFORM = platform();
 
 interface ICommand {
   name: string;
@@ -48,7 +45,13 @@ export default (api: IApi) => {
     paths: { absTmpPath, absNodeModulesPath, absSrcPath, cwd },
   } = api;
   async function handler({ args }: { args: yargs.Arguments<IMetroStartOptions> }): Promise<void> {
-    const argv: string[] = ['start', '--projectRoot', absTmpPath || ''];
+    const argv: string[] = [
+      'start',
+      '--projectRoot',
+      absTmpPath || '',
+      '--config',
+      join(absTmpPath || '', 'metro.config.js'),
+    ];
 
     const unwatchs: Function[] = [];
     const isWatch = process.env.WATCH !== 'none';
@@ -114,7 +117,6 @@ export default (api: IApi) => {
   } as ICommand);
 
   api.onGenerateFiles(async () => {
-    const runtimeBuiltInUmiDir = dirname(resolve.sync('@umijs/runtime/package.json', { basedir: process.env.UMI_DIR }));
     const buildDevUtilsPath = resolve.sync('@umijs/preset-built-in/lib/plugins/commands/buildDevUtils', {
       basedir: process.env.UMI_DIR,
     });
@@ -123,34 +125,28 @@ export default (api: IApi) => {
     const config = bundleConfigs.filter((bundleConfig: any) => {
       return bundleConfig.entry?.umi;
     })[0];
-    const aliasObj = lodash.omit(config.resolve?.alias, ['react-dom']);
-    Object.assign(aliasObj, { [runtimeBuiltInUmiDir]: aliasObj['@umijs/runtime'] });
-    const alias = JSON.stringify({}, null, 2);
+    // const aliasObj = lodash.omit(config.resolve?.alias, ['react-dom']);
+    // Object.assign(aliasObj, { [runtimeBuiltInUmiDir]: '@umijs/runtime' }); // hack for umi generateFiles: .umi/core/**/*.ts
+    // const alias = JSON.stringify(aliasObj, null, 2);
     api.writeTmpFile({
       path: 'babel.config.js',
       content: Mustache.render(babelConfigTpl, {
         moduleResolverPath: winPath(dirname(require.resolve('babel-plugin-module-resolver/package.json'))),
         metroPresetsPath: winPath(resolve.sync('metro-react-native-babel-preset', { basedir: absSrcPath })),
         root: cwd,
-        alias,
+        // alias,
       }),
     });
     const userMetroConfig = join(absSrcPath || '', 'metro.config.js');
     const userConfigs = existsSync(userMetroConfig) ? `require('${winPath(userMetroConfig)}')` : '{}';
-    // const watchFolders = lodash.uniq(Object.keys(aliasObj).map((it) => aliasObj[it]));
     const watchFolders = [absTmpPath];
     api.writeTmpFile({
       path: 'metro.config.js',
       content: Mustache.render(metroConfigTpl, {
         userConfigs,
         watchFolders: JSON.stringify(watchFolders, null, 2),
-        alias,
-        nodeModulePath: absNodeModulesPath,
+        // alias,
       }),
     });
-    const link = join(absTmpPath || '', 'node_modules');
-    if (!existsSync(link)) {
-      symlinkSync(absNodeModulesPath || '', link, PLATFORM === 'win32' ? 'junction' : 'dir');
-    }
   });
 };

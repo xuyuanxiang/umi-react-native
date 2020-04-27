@@ -6,59 +6,34 @@ import { assertExists } from '../../utils';
 
 export default (api: IApi) => {
   const {
-    pkg,
-    utils: { resolve, winPath },
-    paths: { absNodeModulesPath = '', absSrcPath = '', cwd },
+    utils: { winPath, resolve },
+    paths: { absNodeModulesPath = '', absSrcPath = '', absTmpPath },
   } = api;
 
-  function getUserLibDir({ library }: { library: string }) {
-    if ((pkg.dependencies && pkg.dependencies[library]) || (pkg.devDependencies && pkg.devDependencies[library])) {
-      // 通过 resolve 往上找，可支持 lerna 仓库
-      // lerna 仓库如果用 yarn workspace 的依赖不一定在 node_modules，可能被提到根目录，并且没有 link
-      return winPath(
-        resolve.sync(library, {
-          basedir: cwd,
-        }),
-      );
-    }
+  function getUserLibDir(library: string, dir?: boolean) {
+    try {
+      if (dir) {
+        return dirname(
+          resolve.sync(join(library, 'package.json'), {
+            basedir: absTmpPath,
+          }),
+        );
+      } else {
+        return resolve.sync(library, {
+          basedir: absTmpPath,
+        });
+      }
+    } catch (ignored) {}
     return null;
   }
 
-  const REACT_NATIVE_PATH = join(absNodeModulesPath, 'react-native');
-  const METRO_PATH = join(absNodeModulesPath, 'react-native');
+  const REACT_NATIVE_PATH = getUserLibDir('react-native', true) || join(absNodeModulesPath, 'react-native');
   assertExists(REACT_NATIVE_PATH);
-  assertExists(METRO_PATH);
   const { version } = require(join(REACT_NATIVE_PATH, 'package.json'));
-  const Libraries = [
-    {
-      name: 'react-router',
-      path: 'react-router',
-    },
-    {
-      name: 'react-router-config',
-      path: 'react-router-config',
-    },
-    {
-      name: 'react-router-dom', // hack for plugin-dva
-      path: 'react-router-native',
-    },
-    {
-      name: 'react-router-native',
-      path: 'react-router-native',
-    },
-    // {
-    //   name: '@umijs/runtime',
-    //   path: '@umijs/runtime',
-    // },
-    // {
-    //   name: 'history',
-    //   path: 'history-with-query',
-    // },
-  ];
 
   let appKey;
   try {
-    const appJson = JSON.parse(readFileSync(join(absSrcPath, 'app.json'), 'utf8'));
+    const appJson = JSON.parse(readFileSync(getUserLibDir('app.json') || join(absSrcPath, 'app.json'), 'utf8'));
     appKey = appJson.name;
   } catch (ignored) {}
 
@@ -78,10 +53,38 @@ export default (api: IApi) => {
   });
 
   api.chainWebpack((memo) => {
-    Libraries.forEach(({ name, path }) => {
-      memo.resolve.alias.set(name, getUserLibDir({ library: path }) || winPath(require.resolve(join(path))));
-    });
-    memo.resolve.alias.set('react-native', REACT_NATIVE_PATH).set('metro', METRO_PATH);
+    const reactRouterNativePath = winPath(
+      getUserLibDir('react-router-native', true) || dirname(require.resolve('react-router-native/package.json')),
+    );
+    memo.resolve.alias
+      .set(
+        'history',
+        winPath(
+          getUserLibDir('history-with-query/esm/history.js') || require.resolve('history-with-query/esm/history.js'),
+        ),
+      )
+      .set(
+        'react-router',
+        winPath(
+          getUserLibDir('react-router/esm/react-router.js') || require.resolve('react-router/esm/react-router.js'),
+        ),
+      )
+      .set('react-router-dom', reactRouterNativePath) // hack for dva
+      .set('react-router-native', reactRouterNativePath)
+      .set(
+        'react-router-config',
+        winPath(
+          getUserLibDir('react-router-config/esm/react-router-config.js') ||
+            require.resolve('react-router-config/esm/react-router-config.js'),
+        ),
+      )
+      .set(
+        '@umijs/runtime',
+        winPath(
+          getUserLibDir('@umijs/runtime/dist/index.esm.js') ||
+            resolve.sync('@umijs/runtime/dist/index.esm.js', { basedir: process.env.UMI_DIR }),
+        ),
+      );
     return memo;
   });
 

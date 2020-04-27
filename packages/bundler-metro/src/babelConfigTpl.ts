@@ -1,26 +1,6 @@
 export default `
 module.exports = {
-  presets: ['{{{ metroPresetsPath }}}'],
-  plugins: [
-    [
-      '{{{ moduleResolverPath }}}',
-      {
-        root: ['{{{ root }}}'],
-        extensions: [
-          '.ios.ts',
-          '.android.ts',
-          '.ts',
-          '.ios.tsx',
-          '.android.tsx',
-          '.tsx',
-          '.jsx',
-          '.js',
-          '.json',
-        ],
-        alias: {{{ alias }}},
-      },
-    ],
-  ],
+  presets: ['module:metro-react-native-babel-preset'],
 };
 
 `;

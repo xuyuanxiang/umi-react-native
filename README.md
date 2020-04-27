@@ -5,8 +5,8 @@
 > 👷 正在施工...
 
 - [x] umi-preset-react-native：react-native 插件集，**必需**；
+- [x] umi-plugin-react-native-bundler-haul：第三方 [haul](https://github.com/callstack/haul) 打包器，与 metro 只能**二选一**。
 - [ ] umi-plugin-react-native-bundler-metro：RN 官方 [metro](https://facebook.github.io/metro/) 打包器，与 haul 只能**二选一**；
-- [ ] umi-plugin-react-native-bundler-haul：第三方 [haul](https://github.com/callstack/haul) 打包器，与 metro 只能**二选一**。
 
 ## 目录
 

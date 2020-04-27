@@ -11,7 +11,6 @@ export default makeConfig({
   bundles: {
     index: {
       entry: withPolyfills('./index.js'),
-      type: 'basic-bundle',
       transform,
     },
   },

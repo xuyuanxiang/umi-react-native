@@ -4,9 +4,8 @@ if (global.window === undefined) {
 }
 
 {{{ importsAhead }}}
-import {AppRegistry} from 'react-native';
-import {createHistory} from './core/history';
-import {plugin} from './core/plugin';
+import {ApplyPluginsType} from 'umi';
+import {plugin, history} from './core/umiExports';
 import {renderClient} from './rn/renderClient';
 {{{ imports }}}
 
@@ -14,12 +13,13 @@ import {renderClient} from './rn/renderClient';
 
 const getClientRender = (args = {}) => plugin.applyPlugins({
   key: 'render',
-  type: 'compose',
+  type: ApplyPluginsType.compose,
   initialValue: () => {
     return renderClient({
       routes: require('./core/routes').routes,
       plugin,
-      history: createHistory(args.hot),
+      history,
+      appKey: '{{{ appKey }}}',
     });
   },
   args,
@@ -27,11 +27,7 @@ const getClientRender = (args = {}) => plugin.applyPlugins({
 
 const clientRender = getClientRender();
 
-const App = clientRender();
-
-export default App;
-
-AppRegistry.registerComponent('{{{ appKey }}}', () => () => App);
+export default clientRender();
 
 {{{ entryCode }}}
 

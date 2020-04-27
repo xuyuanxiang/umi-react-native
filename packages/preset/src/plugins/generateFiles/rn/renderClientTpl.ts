@@ -1,6 +1,8 @@
 export default `import React, {useEffect} from 'react';
+import {AppRegistry} from 'react-native';
 import {matchRoutes} from 'react-router-config';
 import {Route, Router} from 'react-router-native';
+import {ApplyPluginsType} from '@umijs/runtime';
 
 function renderRoutes(routes) {
   if (Array.isArray(routes)) {
@@ -30,7 +32,7 @@ function RouterComponent({history, plugin, routes}) {
 
       plugin.applyPlugins({
         key: 'onRouteChange',
-        type: 'event',
+        type: ApplyPluginsType.event,
         args: {
           routes,
           matchedRoutes,
@@ -47,9 +49,9 @@ function RouterComponent({history, plugin, routes}) {
   return <Router history={history}>{renderRoutes(routes)}</Router>;
 }
 
-export function renderClient({history, routes, plugin}) {
-  return plugin.applyPlugins({
-    type: 'modify',
+export function renderClient({history, routes, plugin, appKey}) {
+  const App = plugin.applyPlugins({
+    type: ApplyPluginsType.modify,
     key: 'rootContainer',
     initialValue: (
       <RouterComponent history={history} routes={routes} plugin={plugin} />
@@ -60,6 +62,10 @@ export function renderClient({history, routes, plugin}) {
       plugin,
     },
   });
+
+  AppRegistry.registerComponent(appKey, () => () => App);
+
+  return App;
 }
 
 `;

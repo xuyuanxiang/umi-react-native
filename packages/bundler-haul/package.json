@@ -46,9 +46,11 @@
     "@haul-bundler/babel-preset-react-native": "0.16.0",
     "@haul-bundler/cli": "0.19.0",
     "@haul-bundler/preset-0.59": "0.18.0",
-    "@haul-bundler/preset-0.60": "0.18.0"
+    "@haul-bundler/preset-0.60": "0.18.0",
+    "metro": "^0.59.0"
   },
   "devDependencies": {
-    "@umijs/types": "^3.0.0"
+    "@umijs/types": "^3.0.0",
+    "@umijs/utils": "^3.0.0"
   }
 }

@@ -45,7 +45,8 @@
     "umi-preset-react-native": "^0.0.0"
   },
   "devDependencies": {
-    "@umijs/types": "^3.0.0"
+    "@umijs/types": "^3.0.0",
+    "@umijs/utils": "^3.0.0"
   },
   "dependencies": {
     "babel-plugin-module-resolver": "^4.0.0"

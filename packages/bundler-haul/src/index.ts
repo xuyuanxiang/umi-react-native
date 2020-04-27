@@ -1,4 +1,5 @@
 import { dirname, join } from 'path';
+import { fork } from 'child_process';
 import { IApi } from '@umijs/types';
 import { yargs } from '@umijs/utils';
 import { name } from '../package.json';
@@ -6,7 +7,6 @@ import generateFiles from './generateFiles';
 import babelConfigTpl from './babelConfigTpl';
 import haulConfigTpl from './haulConfigTpl';
 import clean from './asyncClean';
-import { fork } from 'child_process';
 
 export interface IHaulStartOptions {
   port?: number;
@@ -33,7 +33,7 @@ interface ICommand {
 export default (api: IApi) => {
   const {
     utils: { portfinder, semver, Mustache, lodash, resolve, winPath },
-    paths: { absTmpPath, cwd },
+    paths: { absTmpPath },
   } = api;
   async function handler({ args }: { args: yargs.Arguments<IHaulStartOptions> }): Promise<void> {
     const defaultPort = process.env.PORT || args?.port;
@@ -69,9 +69,9 @@ export default (api: IApi) => {
 
     watch(await generateFiles({ api, watch: isWatch }));
 
-    const child = fork(require.resolve('@haul-bundler/cli/bin/haul.js'), argv, {
+    const child = fork(resolve.sync('@haul-bundler/cli/bin/haul.js', { basedir: absTmpPath }), argv, {
       stdio: 'inherit',
-      cwd,
+      cwd: absTmpPath,
     });
     child.on('close', (code) => {
       unwatch();
@@ -133,11 +133,17 @@ export default (api: IApi) => {
     const config = bundleConfigs.filter((bundleConfig: any) => {
       return bundleConfig.entry?.umi;
     })[0];
+
+    const alias = lodash.omit(config.resolve?.alias, ['react-dom']);
+    Object.assign(alias, {
+      // haul似乎没有开启treeShaking, 会加载umi common js格式的代码， 导致webpack构建时：out of memory
+      umi: resolve.sync('umi/dist/index.esm.js', { basedir: absTmpPath }),
+    });
     api.writeTmpFile({
       path: 'haul.config.js',
       content: Mustache.render(haulConfigTpl, {
         haulPresetPath: winPath(detectHaulPresetPath()),
-        alias: JSON.stringify(lodash.omit(config.resolve?.alias, ['react-dom']), null, 2),
+        alias: JSON.stringify(alias, null, 2),
       }),
     });
   });
