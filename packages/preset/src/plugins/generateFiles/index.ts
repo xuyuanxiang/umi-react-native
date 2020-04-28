@@ -58,9 +58,9 @@ export default (api: IApi) => {
         ).join('\r\n'),
       }),
     });
-    const link = join(absTmpPath || '', 'node_modules');
-    if (!existsSync(link)) {
-      symlinkSync(absNodeModulesPath || '', link, PLATFORM === 'win32' ? 'junction' : 'dir');
-    }
+    // const link = join(absTmpPath || '', 'node_modules');
+    // if (!existsSync(link)) {
+    //   symlinkSync(absNodeModulesPath || '', link, PLATFORM === 'win32' ? 'junction' : 'dir');
+    // }
   });
 };

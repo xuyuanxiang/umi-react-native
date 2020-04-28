@@ -1,12 +1,11 @@
 {
-  "name": "umi-plugin-react-native-bundler-haul",
+  "name": "umi-react-native-runtime",
   "version": "0.0.0",
-  "description": "umi-plugin-react-native-bundler-haul",
+  "description": "umi-react-native-runtime",
   "keywords": [
     "umi",
     "umijs",
-    "react-native",
-    "haul"
+    "react-native"
   ],
   "author": "xuyuanxiang <hi@xuyuanxiang.cn>",
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
@@ -14,7 +13,9 @@
   "engines": {
     "node": ">=10.x"
   },
-  "main": "lib/index.js",
+  "react-native": "lib/index.js",
+  "browser": "lib/index.js",
+  "module": "lib/index.js",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
   "directories": {
@@ -40,17 +41,15 @@
   "peerDependencies": {
     "react": "^16.8.3",
     "react-native": ">=0.59.0 <1.0.x",
-    "umi-preset-react-native": "^0.0.0"
+    "umi": "^3.0.0"
   },
   "dependencies": {
-    "@haul-bundler/babel-preset-react-native": "0.16.0",
-    "@haul-bundler/cli": "0.19.0",
-    "@haul-bundler/preset-0.59": "0.18.0",
-    "@haul-bundler/preset-0.60": "0.18.0",
-    "metro": "^0.59.0"
+    "react-router-native": "5.1.2"
   },
   "devDependencies": {
-    "@umijs/types": "^3.0.0",
-    "@umijs/utils": "^3.0.0"
+    "@types/react": "^16.9.34",
+    "@types/react-native": "^0.62.4",
+    "@types/react-router-native": "^5.1.0",
+    "@umijs/runtime": "^3.0.0"
   }
 }

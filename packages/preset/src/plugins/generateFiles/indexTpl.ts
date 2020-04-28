@@ -4,9 +4,10 @@ if (global.window === undefined) {
 }
 
 {{{ importsAhead }}}
-import {ApplyPluginsType} from 'umi';
+import {ApplyPluginsType} from 'umi-react-native-runtime';
+import {renderClient} from 'umi-react-native-renderer';
 import {plugin, history} from './core/umiExports';
-import {renderClient} from './rn/renderClient';
+import {routes} from './core/routes';
 {{{ imports }}}
 
 {{{ entryCodeAhead }}}
@@ -16,7 +17,7 @@ const getClientRender = (args = {}) => plugin.applyPlugins({
   type: ApplyPluginsType.compose,
   initialValue: () => {
     return renderClient({
-      routes: require('./core/routes').routes,
+      routes,
       plugin,
       history,
       appKey: '{{{ appKey }}}',

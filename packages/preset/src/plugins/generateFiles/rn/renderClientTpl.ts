@@ -2,7 +2,7 @@ export default `import React, {useEffect} from 'react';
 import {AppRegistry} from 'react-native';
 import {matchRoutes} from 'react-router-config';
 import {Route, Router} from 'react-router-native';
-import {ApplyPluginsType} from '@umijs/runtime';
+import {ApplyPluginsType} from 'umi-react-native-runtime';
 
 function renderRoutes(routes) {
   if (Array.isArray(routes)) {

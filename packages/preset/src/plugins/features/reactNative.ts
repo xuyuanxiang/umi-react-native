@@ -3,10 +3,11 @@ import { dirname, join } from 'path';
 import { readFileSync } from 'fs';
 import { EOL } from 'os';
 import { assertExists } from '../../utils';
+import { name } from '../../../package.json';
 
 export default (api: IApi) => {
   const {
-    utils: { winPath, resolve },
+    utils: { winPath, resolve, semver },
     paths: { absNodeModulesPath = '', absSrcPath = '', absTmpPath },
   } = api;
 
@@ -52,6 +53,19 @@ export default (api: IApi) => {
     },
   });
 
+  function detectUmiRuntimeDirs(): string[] {
+    const results: string[] = [];
+    let baseDir;
+    try {
+      baseDir = dirname(resolve.sync('@umijs/preset-built-in/package.json', { basedir: process.env.UMI_DIR }));
+      results.push(dirname(resolve.sync('@umijs/runtime/package.json', { basedir: baseDir })));
+    } catch (ignored) {}
+    try {
+      results.push(dirname(resolve.sync('@umijs/runtime/package.json', { basedir: process.env.UMI_DIR })));
+    } catch (ignored) {}
+    return results;
+  }
+
   api.chainWebpack((memo) => {
     const reactRouterNativePath = winPath(
       getUserLibDir('react-router-native', true) || dirname(require.resolve('react-router-native/package.json')),
@@ -79,13 +93,14 @@ export default (api: IApi) => {
             require.resolve('react-router-config/esm/react-router-config.js'),
         ),
       )
-      .set(
-        '@umijs/runtime',
-        winPath(
-          getUserLibDir('@umijs/runtime/dist/index.esm.js') ||
-            resolve.sync('@umijs/runtime/dist/index.esm.js', { basedir: process.env.UMI_DIR }),
-        ),
-      );
+      // .set('@umi/runtime', winPath(join(absTmpPath || '', 'rn', 'runtime')))
+      .set('@umi/runtime', 'umi-react-native-runtime')
+      .set('umi', winPath(join(absTmpPath || '', 'rn', 'umi')));
+    const umiRuntimeDirs = detectUmiRuntimeDirs();
+    umiRuntimeDirs.forEach((dir) => {
+      // memo.resolve.alias.set(dir, winPath(join(absTmpPath || '', 'rn', 'runtime')));
+      memo.resolve.alias.set(dir, 'umi-react-native-runtime');
+    });
     return memo;
   });
 
@@ -100,5 +115,13 @@ export default (api: IApi) => {
 };。${EOL}小贴士：${EOL}  "appKey" 即 RN JS 代码域中: "AppRegistry.registerComponent(appKey, componentProvider);"的第一个参数，也是 iOS/Android 原生代码中加载 bundle 时所需的 "moduleName"；${EOL}  其值是使用 react-native 命令行工具初始化新建 RN 工程时所指定的项目名称，存储在工程根目录下 app.json 文件的 "name" 字段中。`);
       throw new TypeError('"react-native.appKey" 未配置');
     }
+    if (
+      semver.valid(api.config?.reactNative?.version) &&
+      semver.gte(api.config.reactNative.version, '0.59.0') &&
+      semver.lt(api.config.reactNative.version, '1.0.0')
+    ) {
+      return;
+    }
+    throw new TypeError(`"${name}" 只支持 react-native："0.59.0及以上（>= 0.59.0）" 和 "1.0.0以下（< 1.0.0）" 版本。`);
   });
 };

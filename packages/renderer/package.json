@@ -1,21 +1,21 @@
 {
-  "name": "umi-plugin-react-native-bundler-metro",
+  "name": "umi-react-native-renderer",
   "version": "0.0.0",
-  "description": "umi-plugin-react-native-bundler-metro",
+  "description": "umi-react-native-renderer",
   "keywords": [
     "umi",
     "umijs",
-    "react-native",
-    "metro"
+    "react-native"
   ],
   "author": "xuyuanxiang <hi@xuyuanxiang.cn>",
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
   "license": "MIT",
-  "engineStrict": true,
   "engines": {
-    "node": ">=8.3"
+    "node": ">=10.x"
   },
-  "main": "lib/index.js",
+  "react-native": "lib/index.js",
+  "browser": "lib/index.js",
+  "module": "lib/index.js",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
   "directories": {
@@ -39,16 +39,16 @@
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "peerDependencies": {
-    "metro": "^0.58.0",
-    "react": "^16.11.0",
-    "react-native": ">=0.62.0-rc.0 <1.0.x",
-    "umi-preset-react-native": "^0.0.0"
-  },
-  "devDependencies": {
-    "@umijs/types": "^3.0.0",
-    "@umijs/utils": "^3.0.0"
+    "react": "^16.8.3",
+    "react-native": ">=0.59.0 <1.0.x"
   },
   "dependencies": {
-    "babel-plugin-module-resolver": "^4.0.0"
+    "react-router-config": "^5.1.1",
+    "umi-react-native-runtime": "^0.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.34",
+    "@types/react-native": "^0.62.4",
+    "@types/react-router-config": "^5.0.1"
   }
 }

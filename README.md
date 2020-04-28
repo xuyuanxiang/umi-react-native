@@ -2,20 +2,10 @@
 
 [umi](https://umijs.org/) preset plugins for react-native.
 
-> 👷 正在施工...
-
-- [x] umi-preset-react-native：react-native 插件集，**必需**；
-- [x] umi-plugin-react-native-bundler-haul：第三方 [haul](https://github.com/callstack/haul) 打包器，与 metro 只能**二选一**。
-- [ ] umi-plugin-react-native-bundler-metro：RN 官方 [metro](https://facebook.github.io/metro/) 打包器，与 haul 只能**二选一**；
-
 ## 目录
 
 - [必备](#%E5%BF%85%E5%A4%87)
 - [安装](#%E5%AE%89%E8%A3%85)
-  - [安装 react-native 预设插件集](#%E5%AE%89%E8%A3%85-react-native-%E9%A2%84%E8%AE%BE%E6%8F%92%E4%BB%B6%E9%9B%86)
-  - [安装 react-native 打包器](#%E5%AE%89%E8%A3%85-react-native-%E6%89%93%E5%8C%85%E5%99%A8)
-    - [选用官方 metro 打包](#%E9%80%89%E7%94%A8%E5%AE%98%E6%96%B9-metro-%E6%89%93%E5%8C%85)
-    - [选用第三方 haul 打包](#%E9%80%89%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9-haul-%E6%89%93%E5%8C%85)
 - [使用](#%E4%BD%BF%E7%94%A8)
   - [配置 umi](#%E9%85%8D%E7%BD%AE-umi)
   - [开发](#%E5%BC%80%E5%8F%91)
@@ -28,61 +18,24 @@
 
 ## 安装
 
-### 安装 react-native 预设插件集
-
 在 RN 工程内部安装：
 
 ```npm
 yarn add umi-preset-react-native --dev
 ```
 
-### 安装 react-native 打包器
-
-**二选一，同时安装会导致 umi 报错（`dev`和`build`命令行工具冲突）。**
-
-#### 选用官方 metro 打包
-
-在 RN 工程内部安装：
-
-```npm
-yarn add umi-plugin-react-native-bundler-metro  --dev
-```
-
-**注意：**
+**注意：** 以下是`umi-preset-react-native`对 Node、react、react-native、umi 版本的要求：
 
 ```json
 {
-  "name": "umi-plugin-react-native-bundler-metro",
-  "engines": {
-    "node": ">=8.3"
-  },
-  "peerDependencies": {
-    "metro": "^0.58.0",
-    "react": "^16.11.0",
-    "react-native": ">=0.62.0-rc.0 <1.0.x"
-  }
-}
-```
-
-#### 选用第三方 haul 打包
-
-在 RN 工程内部安装：
-
-```npm
-yarn add umi-plugin-react-native-bundler-haul  --dev
-```
-
-**注意：**
-
-```json
-{
-  "name": "umi-plugin-react-native-bundler-haul",
+  "name": "umi-preset-react-native",
   "engines": {
     "node": ">=10.x"
   },
   "peerDependencies": {
     "react": "^16.8.3",
-    "react-native": ">=0.59.0 <1.0.x"
+    "react-native": ">=0.59.0 <1.0.x",
+    "umi": "^3.0.0"
   }
 }
 ```
@@ -97,16 +50,12 @@ export default {
   history: {
     type: 'memory',
   },
-  // dynamicImport: {
-  //  loading: 'components/MyLoading.js'
-  // },
 };
 ```
 
 **注意：**
 
 - `history`配置项：在 RN 中只能使用：`'memory'`类型，[umi](https://umijs.org/) 默认值是：`'browser'`。`'browser'`和`'hash'`类型都需要 DOM，在 RN 中会报错；
-- `dynamicImport`配置项：如果打算启用该功能，则必须实现一个自定义的 Loading 组件，且将组件的**相对路径**配置到这里覆盖默认值，[umi](https://umijs.org/) 默认 loading 使用了 HTML 的`<p></p>`标签，在 RN 中会报错。
 
 **在 RN 中集成其他[umi](https://umijs.org/)插件需要开发者自行斟酌。**
 
