@@ -68,7 +68,7 @@ _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者�
 
 ### 开发
 
-修改`package.json`文件，使用`umi-rn`取代`react-native`：
+修改`package.json`文件，使用`umi`取代`react-native`：
 
 ```diff
 {
