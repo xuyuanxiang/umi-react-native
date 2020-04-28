@@ -1,6 +1,6 @@
 # umi-react-native
 
-[![npm version](https://img.shields.io/npm/v/umi-preset-react-native.svg?style=flat-square)](https://www.npmjs.com/package/umi-preset-react-native) 
+[![npm version](https://img.shields.io/npm/v/umi-preset-react-native.svg?style=flat-square)](https://www.npmjs.com/package/umi-preset-react-native)
 
 [umi](https://umijs.org/) preset plugins for react-native.
 
@@ -64,7 +64,9 @@ export default {
 
 **注意：**
 
-- `history`配置项：在 RN 中只能使用：`'memory'`类型，[umi](https://umijs.org/) 默认值是：`'browser'`。`'browser'`和`'hash'`类型都需要 DOM，在 RN 中会报错；
+- `history`：在 RN 中只能使用：`'memory'`类型，[umi](https://umijs.org/) 默认值是：`'browser'`。`'browser'`和`'hash'`类型都需要 DOM，在 RN 中会报错；
+
+_umi 3.x 后会自动探测宿主工程`devDependencies`和`dependencies`中所有含`umi-preset-`和`umi-plugin-`前缀的 npm 包，自动装配。所以不再需要在`.umirc.js`中配置`plugins`和`presets`_
 
 **在 RN 中集成其他[umi](https://umijs.org/)插件需要开发者自行斟酌。**
 
