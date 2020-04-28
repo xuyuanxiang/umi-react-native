@@ -1,11 +1,12 @@
 {
   "extends": "../../tsconfig",
   "compilerOptions": {
-    "jsx": "react-native",
-    "target": "ESNext",
-    "module": "ESNext",
+    "jsx": "react",
+    "target": "ES5",
+    "module": "ES2015",
     "rootDir": "src",
     "outDir": "lib"
   },
   "include": ["src", "../../types"]
 }
+
