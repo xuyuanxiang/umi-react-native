@@ -5,6 +5,7 @@
 ## 目录
 
 - [必备](#%E5%BF%85%E5%A4%87)
+- [示例](#%E7%A4%BA%E4%BE%8B)
 - [安装](#%E5%AE%89%E8%A3%85)
 - [使用](#%E4%BD%BF%E7%94%A8)
   - [配置 umi](#%E9%85%8D%E7%BD%AE-umi)
@@ -15,6 +16,12 @@
 
 - RN 工程（已有，或使用`react-native init`新建）；
 - 全局 或 RN 工程本地（内部）安装 umi 3.0 及以上版本。
+
+## 示例
+
+RN 示例工程：[UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample)
+
+- [compare/0.0.1...0.1.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...0.1.0)：使用`react-native init`初始化工程 到 集成 `umi-preset-react-native` 后的改动内容。
 
 ## 安装
 
