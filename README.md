@@ -13,6 +13,7 @@
   - [配置 umi](#%E9%85%8D%E7%BD%AE-umi)
   - [开发](#%E5%BC%80%E5%8F%91)
   - [构建离线包（offline bundle）](#%E6%9E%84%E5%BB%BA%E7%A6%BB%E7%BA%BF%E5%8C%85offline-bundle)
+- [TODO](#todo)
 
 ## 必备
 
@@ -104,3 +105,15 @@ _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者�
 ```shell
 umi build-rn --platform <ios|android>
 ```
+
+## TODO
+
+以下[umi 配置](https://umijs.org/config)还未实现（有关 CSS 的配置项暂不考虑实现）：
+
+- [ ] [chainwebpack](https://umijs.org/config#chainwebpack)
+- [ ] [chunks](https://umijs.org/config#chunks)
+- [ ] [extraBabelPlugins](https://umijs.org/config#extrababelplugins)
+- [ ] [extraBabelPresets](https://umijs.org/config#extrababelpresets)
+- [ ] [proxy](https://umijs.org/config#proxy)
+
+考虑将[dynamicImport](https://umijs.org/config#dynamicimport)采用多 Bundle 的方式实现，需要原生 iOS/Android Bridge API 支持。参考示例：[react-native-multibundle](https://github.com/react-native-community/react-native-multibundle)
