@@ -93,12 +93,9 @@ export default (api: IApi) => {
             require.resolve('react-router-config/esm/react-router-config.js'),
         ),
       )
-      // .set('@umi/runtime', winPath(join(absTmpPath || '', 'rn', 'runtime')))
-      .set('@umi/runtime', 'umi-react-native-runtime')
       .set('umi', winPath(join(absTmpPath || '', 'rn', 'umi')));
     const umiRuntimeDirs = detectUmiRuntimeDirs();
     umiRuntimeDirs.forEach((dir) => {
-      // memo.resolve.alias.set(dir, winPath(join(absTmpPath || '', 'rn', 'runtime')));
       memo.resolve.alias.set(dir, 'umi-react-native-runtime');
     });
     return memo;

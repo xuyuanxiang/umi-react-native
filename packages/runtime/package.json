@@ -44,12 +44,12 @@
     "umi": "^3.0.0"
   },
   "dependencies": {
+    "@umijs/runtime": "^3.0.0",
     "react-router-native": "5.1.2"
   },
   "devDependencies": {
     "@types/react": "^16.9.34",
     "@types/react-native": "^0.62.4",
-    "@types/react-router-native": "^5.1.0",
-    "@umijs/runtime": "^3.0.0"
+    "@types/react-router-native": "^5.1.0"
   }
 }
