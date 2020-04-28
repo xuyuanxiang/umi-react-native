@@ -19,7 +19,7 @@ export default (api: IApi) => {
 
   api.onGenerateFiles(async () => {
     api.writeTmpFile({
-      path: 'index.js',
+      path: 'index.ts',
       content: Mustache.render(indexTpl, {
         appKey: api.config?.reactNative?.appKey,
         entryCode: (
@@ -35,6 +35,13 @@ export default (api: IApi) => {
             type: api.ApplyPluginsType.add,
             initialValue: [],
           })
+        ).join('\r\n'),
+        polyfillImports: importsToStr(
+          await api.applyPlugins({
+            key: 'addPolyfillImports',
+            type: api.ApplyPluginsType.add,
+            initialValue: [],
+          }),
         ).join('\r\n'),
         importsAhead: importsToStr(
           await api.applyPlugins({

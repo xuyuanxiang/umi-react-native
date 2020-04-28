@@ -14,7 +14,7 @@ export * from '../core/umiExports';
 export default (api: IApi) => {
   api.onGenerateFiles(async () => {
     api.writeTmpFile({
-      path: 'rn/umi.js',
+      path: 'rn/umi.ts',
       content: CONTENT,
     });
   });

@@ -13,7 +13,7 @@ const transform = ({ config }) => {
 export default makeConfig({
   bundles: {
     index: {
-      entry: withPolyfills('./index.js'),
+      entry: withPolyfills('./index.ts'),
       transform,
     },
   },
@@ -49,7 +49,7 @@ export default (api: IApi) => {
       return bundleConfig.entry?.umi;
     })[0];
 
-    const alias = lodash.omit(config.resolve?.alias, ['react-dom']);
+    const alias = lodash.cloneDeep(config.resolve?.alias);
     Object.assign(alias, {
       // 防止加载umi Common JS格式的代码
       umi: winPath(join(absTmpPath || '', 'rn', 'umi')),

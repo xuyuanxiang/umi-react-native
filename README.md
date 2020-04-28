@@ -23,7 +23,12 @@
 
 RN 示例工程：[UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample)
 
-- [compare/0.0.1...0.1.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...0.1.0)：使用`react-native init`初始化工程 到 集成 `umi-preset-react-native` 后的改动内容。
+- [0.0.1](https://github.com/xuyuanxiang/UMIRNExample/tree/0.0.1): 使用`react-native init`得到的初始工程
+- [0.1.0](https://github.com/xuyuanxiang/UMIRNExample/tree/0.1.0)：添加`umi`依赖并集成`umi-preset-react-native`
+  - [compare/0.0.1...0.1.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...0.1.0)
+- [1.0.0](https://github.com/xuyuanxiang/UMIRNExample/tree/1.0.0)：集成`@umijs/plugin-dva`
+  - [compare/0.0.1...1.0.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...1.0.0)
+  - [compare/0.1.0...1.0.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.1.0...1.0.0)
 
 ## 安装
 
@@ -66,7 +71,7 @@ export default {
 
 - `history`：在 RN 中只能使用：`'memory'`类型，[umi](https://umijs.org/) 默认值是：`'browser'`。`'browser'`和`'hash'`类型都需要 DOM，在 RN 中会报错；
 
-_umi 3.x 后会自动探测宿主工程`devDependencies`和`dependencies`中所有含`umi-preset-`和`umi-plugin-`前缀的 npm 包，自动装配。所以不再需要在`.umirc.js`中配置`plugins`和`presets`_
+_umi 3.x 后会自动探测宿主工程`devDependencies`和`dependencies`并自动装配插件。所以不需要在`.umirc.js`中配置`plugins`和`presets`选项。_
 
 **在 RN 中集成其他[umi](https://umijs.org/)插件需要开发者自行斟酌。**
 
