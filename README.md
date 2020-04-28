@@ -23,7 +23,7 @@
 
 RN 示例工程：[UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample)
 
-- [0.0.1](https://github.com/xuyuanxiang/UMIRNExample/tree/0.0.1): 使用`react-native init`得到的初始工程
+- [0.0.1](https://github.com/xuyuanxiang/UMIRNExample/tree/0.0.1)：使用`react-native init`得到的初始工程
 - [0.1.0](https://github.com/xuyuanxiang/UMIRNExample/tree/0.1.0)：添加`umi`依赖并集成`umi-preset-react-native`
   - [compare/0.0.1...0.1.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...0.1.0)
 - [1.0.0](https://github.com/xuyuanxiang/UMIRNExample/tree/1.0.0)：集成`@umijs/plugin-dva`
