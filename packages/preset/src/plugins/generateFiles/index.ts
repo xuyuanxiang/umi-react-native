@@ -1,15 +1,9 @@
-import { existsSync, symlinkSync } from 'fs';
-import { join } from 'path';
-import { platform } from 'os';
 import { IApi } from '@umijs/types';
 import indexTpl from './indexTpl';
-
-const PLATFORM = platform();
 
 export default (api: IApi) => {
   const {
     utils: { Mustache, winPath },
-    paths: { absTmpPath, absNodeModulesPath },
   } = api;
 
   function importsToStr(imports: { source: string; specifier?: string }[]): string[] {
@@ -58,9 +52,5 @@ export default (api: IApi) => {
         ).join('\r\n'),
       }),
     });
-    // const link = join(absTmpPath || '', 'node_modules');
-    // if (!existsSync(link)) {
-    //   symlinkSync(absNodeModulesPath || '', link, PLATFORM === 'win32' ? 'junction' : 'dir');
-    // }
   });
 };
