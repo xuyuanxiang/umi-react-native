@@ -1,5 +1,7 @@
 # umi-react-native
 
+[![npm version](https://img.shields.io/npm/v/umi-preset-react-native.svg?style=flat-square)](https://www.npmjs.com/package/umi-preset-react-native) 
+
 [umi](https://umijs.org/) preset plugins for react-native.
 
 ## 目录
