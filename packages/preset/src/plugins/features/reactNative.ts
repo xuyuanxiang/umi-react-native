@@ -11,6 +11,11 @@ export default (api: IApi) => {
     paths: { absNodeModulesPath = '', absSrcPath = '', absTmpPath },
   } = api;
 
+  /**
+   * 优先读取用户目录下依赖的绝对路径（下面会解释为什么不用api.addProjectFirstLibraries）
+   * @param library 比如：'react-native'（目录） 或者 'react-router/esm/index.js'（文件）
+   * @param dir true-返回目录绝对路径，false-返回文件绝对路径。
+   */
   function getUserLibDir(library: string, dir?: boolean) {
     try {
       if (dir) {
@@ -45,14 +50,18 @@ export default (api: IApi) => {
       schema(joi) {
         return joi
           .object({
-            appKey: joi.string(),
-            version: joi.string(),
+            appKey: joi.string(), // moduleName  app.json#name
+            version: joi.string(), // RN package.json文件中的版本号
           })
           .optional();
       },
     },
   });
 
+  /**
+   * @umijs/preset-built-in中会把`@umijs/runtime`替换为绝对路径写到临时文件中。
+   * 这里要利用 alias 把绝对路径的`@umijs/runtime`替换为`umi-react-native-runtime`
+   */
   function detectUmiRuntimeDirs(): string[] {
     const results: string[] = [];
     let baseDir;
@@ -66,6 +75,11 @@ export default (api: IApi) => {
     return results;
   }
 
+  /**
+   * 为什么不用api.addProjectFirstLibraries？
+   * haul HastePlugin 中 mailField是写死的：['react-native', 'browser', 'main']
+   * 所以不支持treeShaking的"module"字段，必须在这里添加alias，指定到ESM 格式的代码文件。
+   */
   api.chainWebpack((memo) => {
     const reactRouterNativePath = winPath(
       getUserLibDir('react-router-native', true) || dirname(require.resolve('react-router-native/package.json')),
@@ -92,8 +106,7 @@ export default (api: IApi) => {
           getUserLibDir('react-router-config/esm/react-router-config.js') ||
             require.resolve('react-router-config/esm/react-router-config.js'),
         ),
-      )
-      .set('umi', winPath(join(absTmpPath || '', 'rn', 'umi')));
+      );
     const umiRuntimeDirs = detectUmiRuntimeDirs();
     umiRuntimeDirs.forEach((dir) => {
       memo.resolve.alias.set(dir, 'umi-react-native-runtime');

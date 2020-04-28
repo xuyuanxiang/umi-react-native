@@ -4,6 +4,8 @@
 
 [umi](https://umijs.org/) preset plugins for react-native.
 
+使用 umi 的"姿势"来开发 react-native 应用。
+
 ## 目录
 
 - [必备](#%E5%BF%85%E5%A4%87)
@@ -22,14 +24,37 @@
 
 ## 示例
 
-RN 示例工程：[UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample)
+RN 示例工程：[UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample)，通过 compare 查看改造内容。
 
-- [0.0.1](https://github.com/xuyuanxiang/UMIRNExample/tree/0.0.1)：使用`react-native init`得到的初始工程
-- [0.1.0](https://github.com/xuyuanxiang/UMIRNExample/tree/0.1.0)：添加`umi`依赖并集成`umi-preset-react-native`
-  - [compare/0.0.1...0.1.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...0.1.0)
-- [1.0.0](https://github.com/xuyuanxiang/UMIRNExample/tree/1.0.0)：集成`@umijs/plugin-dva`
-  - [compare/0.0.1...1.0.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...1.0.0)
-  - [compare/0.1.0...1.0.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.1.0...1.0.0)
+### [UMIRNExample@0.0.1](https://github.com/xuyuanxiang/UMIRNExample/tree/0.0.1)
+
+使用`react-native init`得到的初始工程。
+
+### [UMIRNExample@0.1.0](https://github.com/xuyuanxiang/UMIRNExample/tree/0.1.0)
+
+添加`umi`依赖并集成`umi-preset-react-native`：
+
+- [compare/0.0.1...0.1.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...0.1.0)
+
+### [UMIRNExample@1.0.0](https://github.com/xuyuanxiang/UMIRNExample/tree/1.0.0)
+
+集成`@umijs/plugin-dva`：
+
+- [compare/0.0.1...1.0.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...1.0.0)
+- [compare/0.1.0...1.0.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.1.0...1.0.0)
+
+### [UMIRNExample@1.1.0](https://github.com/xuyuanxiang/UMIRNExample/tree/1.1.0)
+
+集成`@umijs/plugin-antd`和`@ant-design/react-native`：
+
+- [compare/0.0.1...1.1.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...1.1.0)
+- [compare/1.0.0...1.1.0](https://github.com/xuyuanxiang/UMIRNExample/compare/1.0.0...1.1.0)
+
+需要在 RN 工程本地安装：`@ant-design/react-native`
+
+```npm
+yarn add @ant-design/react-native
+```
 
 ## 安装
 
@@ -103,17 +128,52 @@ _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者�
 ### 构建离线包（offline bundle）
 
 ```shell
-umi build-rn --platform <ios|android>
+umi build-rn --platform <ios|android> --bundle-output <filename>
 ```
+
+```diff
+{
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "umi dev-rn",
++   "build:ios": "NODE_ENV=production umi build-rn --platform ios --bundle-output main.jsbundle",
++   "build:android": "NODE_ENV=production umi build-rn --platform android --bundle-output index.android.bundle"
+  },
+}
+```
+
+- 执行`yarn build:ios`会打包生成`main.jsbundle`文件到`dist/`目录;
+- 执行`yarn build:android`会打包生成`index.android.bundle`文件到`dist/`目录。
+
+_`dist` 是 [outputPath](https://umijs.org/config#outputpath)配置项的缺省（默认）值。_
 
 ## TODO
 
-以下[umi 配置](https://umijs.org/config)还未实现（有关 CSS 的配置项暂不考虑实现）：
+**下文未列出的[UMI 配置](https://umijs.org/config)天然支持**。
 
-- [ ] [chainwebpack](https://umijs.org/config#chainwebpack)
-- [ ] [chunks](https://umijs.org/config#chunks)
+以下[umi 配置](https://umijs.org/config)正在实现：
+
+- [ ] [chainWebpack](https://umijs.org/config#chainwebpack)
+- [ ] [externals](https://umijs.org/config#externals)
 - [ ] [extraBabelPlugins](https://umijs.org/config#extrababelplugins)
 - [ ] [extraBabelPresets](https://umijs.org/config#extrababelpresets)
 - [ ] [proxy](https://umijs.org/config#proxy)
+- [ ] [nodeModulesTransform](https://umijs.org/config#nodemodulestransform-31)
 
-考虑将[dynamicImport](https://umijs.org/config#dynamicimport)采用多 Bundle 的方式实现，需要原生 iOS/Android Bridge API 支持。参考示例：[react-native-multibundle](https://github.com/react-native-community/react-native-multibundle)
+* [ ] [dynamicImport](https://umijs.org/config#dynamicimport)需要更进一步，采用多 Bundle 的方式，需要原生 iOS/Android Bridge API 支持。参考示例：[react-native-multibundle](https://github.com/react-native-community/react-native-multibundle)
+* [ ] [chunks](https://umijs.org/config#chunks)在 RN 的实现也是涉及多 Bundle 的切分。
+
+比较低频的，暂时延后：
+
+- [ ] [terserOptions](https://umijs.org/config#terseroptions)
+- [ ] [targets](https://umijs.org/config#targets)
+- [ ] [forkTSCheker](https://umijs.org/config#forktscheker)
+- [ ] [hash](https://umijs.org/config#hash)
+- [ ] [analyze](https://umijs.org/config#analyze)
+
+下面这些，在 RN 中均不考虑实现：
+
+- HTML：title、favicon、metas、mountElementId、exportStatic、mpa；
+- CSS 预处理: styleLoader、cssLoader、lessLoader、postcssLoader、extraPostCSSPlugins、cssModulesTypescriptLoader、 autoprefixer、cssnano、theme、styles；
+- 其他：base、publicPath、runtimePublicPath、ssr。

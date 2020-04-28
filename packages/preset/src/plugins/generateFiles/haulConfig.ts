@@ -45,21 +45,30 @@ export default (api: IApi) => {
     });
     const { getBundleAndConfigs } = require(buildDevUtilsPath);
     const { bundleConfigs } = await getBundleAndConfigs({ api });
-    const config = bundleConfigs.filter((bundleConfig: any) => {
+    const webpackConfig = bundleConfigs.filter((bundleConfig: any) => {
       return bundleConfig.entry?.umi;
     })[0];
-
-    const alias = lodash.cloneDeep(config.resolve?.alias);
-    Object.assign(alias, {
-      // 防止加载umi Common JS格式的代码
-      umi: winPath(join(absTmpPath || '', 'rn', 'umi')),
+    const haulPresetPath = detectHaulPresetPath();
+    const { makeConfig, withPolyfills } = require(haulPresetPath);
+    const haulConfig = makeConfig({
+      bundles: {
+        index: {
+          entry: withPolyfills('./index.ts'),
+        },
+      },
     });
-    api.writeTmpFile({
-      path: 'haul.config.js',
-      content: Mustache.render(CONTENT, {
-        haulPresetPath: winPath(detectHaulPresetPath()),
-        alias: JSON.stringify(alias, null, 2),
-      }),
-    });
+    api.logger.info('haul config:', haulConfig);
+    // const alias = lodash.cloneDeep(config.resolve?.alias);
+    // Object.assign(alias, {
+    //   // 防止加载umi Common JS格式的代码
+    //   umi: winPath(join(absTmpPath || '', 'rn', 'umi')),
+    // });
+    // api.writeTmpFile({
+    //   path: 'haul.config.js',
+    //   content: Mustache.render(CONTENT, {
+    //     haulPresetPath: winPath(detectHaulPresetPath()),
+    //     alias: JSON.stringify(alias, null, 2),
+    //   }),
+    // });
   });
 };
