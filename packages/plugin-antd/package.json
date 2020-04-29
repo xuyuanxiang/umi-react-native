@@ -1,11 +1,13 @@
 {
-  "name": "umi-react-native-runtime",
-  "version": "0.0.1",
-  "description": "umi-react-native-runtime",
+  "name": "umi-plugin-antd-react-native",
+  "version": "0.0.2-alpha.0",
+  "description": "umi-plugin-antd-react-native",
   "keywords": [
     "umi",
     "umijs",
-    "react-native"
+    "react-native",
+    "ant-design",
+    "antd-mobile"
   ],
   "author": "xuyuanxiang <hi@xuyuanxiang.cn>",
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
@@ -13,9 +15,7 @@
   "engines": {
     "node": ">=10.x"
   },
-  "react-native": "lib/index.js",
-  "browser": "lib/index.js",
-  "module": "lib/index.js",
+  "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
   "directories": {
@@ -39,18 +39,12 @@
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "peerDependencies": {
-    "react": "^16.8.3",
-    "react-native": ">=0.59.0 <1.0.x",
-    "umi": "^3.0.0",
-    "umi-preset-react-native": "^0.0.2-alpha.0"
+    "umi": "^3.0.0"
   },
   "dependencies": {
-    "@umijs/runtime": "^3.0.0",
-    "react-router-native": "5.1.2"
+    "@ant-design/react-native": "^3.3.0"
   },
   "devDependencies": {
-    "@types/react": "^16.9.34",
-    "@types/react-native": "^0.62.4",
-    "@types/react-router-native": "^5.1.0"
+    "@umijs/types": "^3.0.0"
   }
 }
