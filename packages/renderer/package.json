@@ -1,6 +1,6 @@
 {
   "name": "umi-react-native-renderer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "umi-react-native-renderer",
   "keywords": [
     "umi",
@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "react-router-config": "5.1.1",
-    "umi-react-native-runtime": "^0.0.1"
+    "umi-react-native-runtime": "^0.0.2"
   },
   "devDependencies": {
     "@types/react": "^16.9.34",
