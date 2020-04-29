@@ -12,7 +12,7 @@ export default (api: IApi) => {
   } = api;
 
   /**
-   * 优先读取用户目录下依赖的绝对路径（下面会解释为什么不用api.addProjectFirstLibraries）
+   * 优先读取用户目录下依赖的绝对路径
    * @param library 比如：'react-native'（目录） 或者 'react-router/esm/index.js'（文件）
    * @param defaults library找不到时的缺省值
    * @param dir true-返回目录绝对路径，false-返回文件绝对路径
@@ -57,12 +57,15 @@ export default (api: IApi) => {
           .object({
             appKey: joi.string(), // moduleName  app.json#name
             version: joi.string(), // RN 版本号
+            templates: joi.string(),
+            bundles: joi.object(),
           })
           .optional();
       },
     },
   });
 
+  // haul中没有treeShaking， mainFields 写死了。
   api.addProjectFirstLibraries(() => [
     { name: 'react-native', path: REACT_NATIVE_PATH },
     { name: 'react-router', path: require.resolve('react-router/esm/react-router.js') },
@@ -117,4 +120,6 @@ export default (api: IApi) => {
     }
     throw new TypeError(`"${name}" 只支持 react-native："0.59.0及以上（>= 0.59.0）" 和 "1.0.0以下（< 1.0.0）" 版本。`);
   });
+
+  api.addTmpGenerateWatcherPaths(() => ['react-native']);
 };

@@ -12,9 +12,9 @@ export * from '../core/umiExports';
 `;
 
 export default (api: IApi) => {
-  api.onGenerateFiles(async () => {
+  api.onGenerateFiles(() => {
     api.writeTmpFile({
-      path: 'rn/umi.ts',
+      path: 'react-native/umi.ts',
       content: CONTENT,
     });
   });

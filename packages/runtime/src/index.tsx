@@ -25,6 +25,7 @@ export const dynamic = (opts = {}) =>
 
 export {
   Link,
+  Link as NavLink,
   Prompt,
   Redirect,
   Route,
