@@ -1,16 +1,14 @@
-# [](https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.2-alpha.0...v) (2020-04-29)
+# [](https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.2...v) (2020-04-29)
+
+
+
+## [0.0.2](https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.2-alpha.0...v0.0.2) (2020-04-29)
 
 
 ### Features
 
 * umi-plugin-antd-react-native ([c5d63d1](https://github.com/xuyuanxiang/umi-react-native/commit/c5d63d1d87150bbdd4342feba28d147416fb5e9c))
 * 支持下列umi配置： ([edff808](https://github.com/xuyuanxiang/umi-react-native/commit/edff80802731bd93df79ce184cd827732fae32f5))
-  - [x] [chainWebpack](https://umijs.org/config#chainwebpack)
-  - [x] [extraBabelPlugins](https://umijs.org/config#extrababelplugins)
-  - [x] [extraBabelPresets](https://umijs.org/config#extrababelpresets)
-
-
-# [](https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.2-alpha.0...v) (2020-04-29)
 
 
 
