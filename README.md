@@ -60,7 +60,7 @@ _以下是`umi-preset-react-native`对 Node、react、react-native、umi 版本�
 ```javascript
 // .umirc.js
 export default {
-  mountElementId: '',
+  mountElementId: false,
   history: {
     type: 'memory',
   },
@@ -69,7 +69,7 @@ export default {
 
 **注意：RN 环境中没有 DOM 和 BOM， 所以这两项配置为必填，需要覆盖[umi](https://umijs.org/)的默认值，避免运行时进入到调用 DOM/BOM API 的代码分支导致运行错误。**
 
-- `mountElementId`：[umi](https://umijs.org/) 默认值是：`'root'`，在 RN 中**必须覆盖为空字符串**。
+- `mountElementId`：[umi](https://umijs.org/) 默认值是：`'root'`，在 RN 中**必须覆盖为`false`或空字符串**。
 - `history`：[umi](https://umijs.org/) 默认值是：`'browser'`，在 RN 中**只能使用：`'memory'`类型**。
 
 > All dependencies start with @umijs/preset-、@umijs/plugin-、umi-preset-、umi-plugin- will be registered as plugin/plugin-preset.
