@@ -2,6 +2,8 @@
 
 [![npm version](https://img.shields.io/npm/v/umi-preset-react-native.svg?style=flat-square)](https://www.npmjs.com/package/umi-preset-react-native)
 
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
 针对 [react-native](https://reactnative.dev/) 应用的 [umi](https://umijs.org/) 插件集。
 
 [发布日志](/CHANGELOG.md)
@@ -57,15 +59,17 @@ _以下是`umi-preset-react-native`对 Node、react、react-native、umi 版本�
 ```javascript
 // .umirc.js
 export default {
+  mountElementId: '',
   history: {
     type: 'memory',
   },
 };
 ```
 
-**注意：**
+**注意：RN 环境中没有 DOM 和 BOM， 所以这两项配置为必填，需要覆盖[umi](https://umijs.org/)的默认值，避免运行时进入到调用 DOM/BOM API 的代码分支导致运行错误。**
 
-- `history`：[umi](https://umijs.org/) 默认值是：`'browser'`，在 RN 中只能使用：`'memory'`类型。
+- `mountElementId`：[umi](https://umijs.org/) 默认值是：`'root'`，在 RN 中**必须覆盖为空字符串**。
+- `history`：[umi](https://umijs.org/) 默认值是：`'browser'`，在 RN 中**只能使用：`'memory'`类型**。
 
 > All dependencies start with @umijs/preset-、@umijs/plugin-、umi-preset-、umi-plugin- will be registered as plugin/plugin-preset.
 
@@ -127,10 +131,37 @@ _上文未列出的[umi 配置](https://umijs.org/config)暂不支持。RN 开�
   - [ ] theme
   - [ ] styles
 - 其他：
+
   - [ ] base
   - [ ] publicPath
   - [ ] runtimePublicPath
   - [ ] ssr
+
+#### umi-preset-react-native 扩展配置
+
+```javascript
+// .umirc.js
+module.default = {
+  reactNative: {
+    appKey: require('./app.json').name,
+    version: require('react-native/package.json').version,
+  },
+  haul: {
+    bundles: {
+      index: {
+        entry: './umi.ts',
+      },
+    },
+  },
+};
+```
+
+- `reactNative`：选填，默认值：上面代码示例中的值
+- `haul`：选填，默认值：上面代码示例中的值，即[Project Configuration](https://github.com/callstack/haul/blob/master/docs/Configuration.md#project-configuration-reference)。
+
+**注意**：不需要使用 haul 提供的工具：`makeConfig`和`withPolyfills`。直接填入[Project Configuration](https://github.com/callstack/haul/blob/master/docs/Configuration.md#project-configuration-reference)的字段即可。
+
+在做多 bundle 切分时，要保证主 bundle 中必须包含`./umi.ts`。
 
 ### 开发
 
@@ -219,3 +250,7 @@ yarn add @umijs/plugin-dva --dev
 ```npm
 yarn add umi-plugin-antd-react-native --dev
 ```
+
+## 深入
+
+### 切分多 bundle

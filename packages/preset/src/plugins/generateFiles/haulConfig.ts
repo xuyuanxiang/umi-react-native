@@ -4,19 +4,23 @@ import webpack from 'webpack';
 import Config from 'webpack-chain';
 
 const CONTENT = `import _defaultsDeep from 'lodash/defaultsDeep';
-import { withPolyfills, makeConfig } from '{{{ haulPresetPath }}}';
+import { makeConfig } from '{{{ haulPresetPath }}}';
 
 const transform = ({ config }) => {
   return _defaultsDeep({{{ webpackConfig }}}, config);
 };
 
+const haulConfig = {{{ haulConfig }}};
+
+const bundles = haulConfig.bundles;
+
 export default makeConfig({
-  bundles: {
-    index: {
-      entry: withPolyfills('./index.ts'),
-      transform,
-    },
-  },
+  bundles: Object.keys(bundles)
+    .map((bundleName) => ({
+      [bundleName]: _defaultsDeep(bundles[bundleName], {transform}),
+    }))
+    .reduce((prev, curr) => ({...prev, ...curr})),
+  ...haulConfig,
 });
 
 `;
@@ -69,12 +73,13 @@ export default (api: IApi) => {
       await api.config.chainWebpack(webpackConfig, { env, webpack: defaultWebpack, createCSSRule });
     }
     // 防止加载umi Common JS格式的代码
-    webpackConfig.resolve.alias.set('umi', winPath(join(absTmpPath || '', 'rn', 'umi')));
+    webpackConfig.resolve.alias.set('umi', winPath(join(absTmpPath || '', 'react-native', 'umi')));
     const config = webpackConfig.toConfig();
     api.writeTmpFile({
       path: 'haul.config.js',
       content: Mustache.render(CONTENT, {
         haulPresetPath: winPath(detectHaulPresetPath()),
+        haulConfig: JSON.stringify(api.config?.haul || {}, null, 2),
         webpackConfig: JSON.stringify(config, null, 2),
       }),
     });
