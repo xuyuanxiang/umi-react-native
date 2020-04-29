@@ -100,7 +100,7 @@ _上文未列出的[umi 配置](https://umijs.org/config)对 `umi-preset-react-n
 
 ```javascript
 // .umirc.js
-module.default = {
+export default {
   reactNative: {
     appKey: require('./app.json').name,
     version: require('react-native/package.json').version,
