@@ -15,6 +15,7 @@
 - [使用](#%E4%BD%BF%E7%94%A8)
   - [配置](#%E9%85%8D%E7%BD%AE)
     - [目前支持的 umi 配置项](#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84-umi-%E9%85%8D%E7%BD%AE%E9%A1%B9)
+    - [umi-preset-react-native 扩展配置](#umi-preset-react-native-%E6%89%A9%E5%B1%95%E9%85%8D%E7%BD%AE)
   - [开发](#%E5%BC%80%E5%8F%91)
   - [打包](#%E6%89%93%E5%8C%85)
 - [示例](#%E7%A4%BA%E4%BE%8B)
@@ -22,6 +23,8 @@
   - [集成`umi-preset-react-native`](#%E9%9B%86%E6%88%90umi-preset-react-native)
   - [集成`@umijs/plugin-dva`](#%E9%9B%86%E6%88%90umijsplugin-dva)
   - [集成`@ant-design/react-native`](#%E9%9B%86%E6%88%90ant-designreact-native)
+- [深入](#%E6%B7%B1%E5%85%A5)
+  - [切分多 bundle](#%E5%88%87%E5%88%86%E5%A4%9A-bundle)
 
 ## 必备
 
@@ -254,3 +257,47 @@ yarn add umi-plugin-antd-react-native --dev
 ## 深入
 
 ### 切分多 bundle
+
+参考[react-native-community/react-native-multibundle](https://github.com/react-native-community/react-native-multibundle)。
+
+使用 haul 切分多 bundle：
+
+```javascript
+// .umirc.js
+export default {
+  haul: {
+    templates: {
+      filename: {
+        ios: '[bundleName].ios.bundle',
+      },
+    },
+    features: {
+      multiBundle: 2,
+    },
+    bundles: {
+      index: {
+        entry: ['./umi.ts', 'react', 'react-native'],
+        dll: true,
+        type: 'indexed-ram-bundle',
+      },
+      host: {
+        entry: '@/app.js',
+        dependsOn: ['index'],
+        app: true,
+      },
+      login: {
+        entry: '@/pages/login.js',
+        type: 'indexed-ram-bundle',
+        dependsOn: ['index'],
+        app: true,
+      },
+      home: {
+        entry: '@/pages/home.js',
+        type: 'indexed-ram-bundle',
+        dependsOn: ['index'],
+        app: true,
+      },
+    },
+  },
+};
+```
