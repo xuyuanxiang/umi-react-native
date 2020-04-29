@@ -40,10 +40,11 @@
   },
   "peerDependencies": {
     "react": "^16.8.3",
-    "react-native": ">=0.59.0 <1.0.x"
+    "react-native": ">=0.59.0 <1.0.x",
+    "umi-preset-react-native": "^0.0.2-alpha.0"
   },
   "dependencies": {
-    "react-router-config": "^5.1.1",
+    "react-router-config": "5.1.1",
     "umi-react-native-runtime": "^0.0.1"
   },
   "devDependencies": {

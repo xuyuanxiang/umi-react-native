@@ -2,34 +2,29 @@
 
 [![npm version](https://img.shields.io/npm/v/umi-preset-react-native.svg?style=flat-square)](https://www.npmjs.com/package/umi-preset-react-native)
 
-[umi](https://umijs.org/) preset plugins for react-native.
+针对 [react-native](https://reactnative.dev/) 应用的 [umi](https://umijs.org/) 插件集。
+
+[发布日志](/CHANGELOG.md)
 
 ## 目录
 
 - [必备](#%E5%BF%85%E5%A4%87)
-- [示例](#%E7%A4%BA%E4%BE%8B)
 - [安装](#%E5%AE%89%E8%A3%85)
 - [使用](#%E4%BD%BF%E7%94%A8)
-  - [配置 umi](#%E9%85%8D%E7%BD%AE-umi)
+  - [配置](#%E9%85%8D%E7%BD%AE)
+    - [目前支持的 umi 配置项](#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84-umi-%E9%85%8D%E7%BD%AE%E9%A1%B9)
   - [开发](#%E5%BC%80%E5%8F%91)
-  - [构建离线包（offline bundle）](#%E6%9E%84%E5%BB%BA%E7%A6%BB%E7%BA%BF%E5%8C%85offline-bundle)
-- [TODO](#todo)
+  - [打包](#%E6%89%93%E5%8C%85)
+- [示例](#%E7%A4%BA%E4%BE%8B)
+  - [初始工程](#%E5%88%9D%E5%A7%8B%E5%B7%A5%E7%A8%8B)
+  - [集成`umi-preset-react-native`](#%E9%9B%86%E6%88%90umi-preset-react-native)
+  - [集成`@umijs/plugin-dva`](#%E9%9B%86%E6%88%90umijsplugin-dva)
+  - [集成`@ant-design/react-native`](#%E9%9B%86%E6%88%90ant-designreact-native)
 
 ## 必备
 
 - RN 工程（已有，或使用`react-native init`新建）；
 - 全局 或 RN 工程本地（内部）安装 umi 3.0 及以上版本。
-
-## 示例
-
-RN 示例工程：[UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample)
-
-- [0.0.1](https://github.com/xuyuanxiang/UMIRNExample/tree/0.0.1)：使用`react-native init`得到的初始工程
-- [0.1.0](https://github.com/xuyuanxiang/UMIRNExample/tree/0.1.0)：添加`umi`依赖并集成`umi-preset-react-native`
-  - [compare/0.0.1...0.1.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...0.1.0)
-- [1.0.0](https://github.com/xuyuanxiang/UMIRNExample/tree/1.0.0)：集成`@umijs/plugin-dva`
-  - [compare/0.0.1...1.0.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...1.0.0)
-  - [compare/0.1.0...1.0.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.1.0...1.0.0)
 
 ## 安装
 
@@ -39,7 +34,7 @@ RN 示例工程：[UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample)
 yarn add umi-preset-react-native --dev
 ```
 
-**注意：** 以下是`umi-preset-react-native`对 Node、react、react-native、umi 版本的要求：
+_以下是`umi-preset-react-native`对 Node、react、react-native、umi 版本的要求：_
 
 ```json
 {
@@ -57,7 +52,7 @@ yarn add umi-preset-react-native --dev
 
 ## 使用
 
-### 配置 umi
+### 配置
 
 ```javascript
 // .umirc.js
@@ -70,9 +65,11 @@ export default {
 
 **注意：**
 
-- `history`：在 RN 中只能使用：`'memory'`类型，[umi](https://umijs.org/) 默认值是：`'browser'`。`'browser'`和`'hash'`类型都需要 DOM，在 RN 中会报错；
+- `history`：[umi](https://umijs.org/) 默认值是：`'browser'`，在 RN 中只能使用：`'memory'`类型。
 
-_umi 3.x 后会自动探测宿主工程`devDependencies`和`dependencies`并自动装配插件。所以不需要在`.umirc.js`中配置`plugins`和`presets`选项。_
+> All dependencies start with @umijs/preset-、@umijs/plugin-、umi-preset-、umi-plugin- will be registered as plugin/plugin-preset.
+
+_umi 3.x 后会自动探测、装配插件。所以不需要在`.umirc.js`中配置[plugins](https://umijs.org/config#plugins)和[presets](https://umijs.org/config#presets)。_
 
 **在 RN 中集成其他[umi](https://umijs.org/)插件需要开发者自行斟酌。**
 
@@ -82,6 +79,58 @@ _umi 3.x 后会自动探测宿主工程`devDependencies`和`dependencies`并自�
 - 额外扩展插件：[@umijs/plugins](https://github.com/umijs/plugins)
 
 _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者说支持服务端渲染的插件基本也是可以在 RN 运行环境中使用的。_
+
+`umi-preset-react-native`直接使用[haul](https://github.com/callstack/haul)打包。
+
+[haul](https://github.com/callstack/haul)也是基于`webpack`，理论上是可以和`@umijs/bundler-webpack`整合的。
+
+#### 目前支持的 umi 配置项
+
+仅仅为满足集成一些常用[@umijs/plugins](https://github.com/umijs/plugins)的需要：
+
+- [x] [alias](https://umijs.org/config#alias)
+- [x] [chainWebpack](https://umijs.org/config#chainwebpack)：其中`createCSSRule`不生效，使用`lodash.defaultsDeep(userConfig, haulWebapckConfig)`合并，[chainWebpack](https://umijs.org/config#chainwebpack)注入的用户配置优先级高于[haul](https://github.com/callstack/haul)配置
+- [x] [dynamicImport](https://umijs.org/config#dynamicimport)
+- [x] [extraBabelPlugins](https://umijs.org/config#extrababelplugins)
+- [x] [extraBabelPresets](https://umijs.org/config#extrababelpresets)
+- [x] [history](https://umijs.org/config#history)：只能使用：`{ type: 'memory' }`
+- [ ] [mock](https://umijs.org/config#mock)：开发中...
+- [x] [outputPath](https://umijs.org/config#outputpath)
+- [x] [plugins](https://umijs.org/config#plugins)
+- [x] [presets](https://umijs.org/config#presets)
+- [ ] [proxy](https://umijs.org/config#proxy)：开发中...
+- [x] [routes](https://umijs.org/config#routes)
+- [x] [singular](https://umijs.org/config#singular)
+
+_上文未列出的[umi 配置](https://umijs.org/config)暂不支持。RN 开发不同于 Web 开发，基本上无须在编译工具上做过多配置。_
+
+---
+
+下列这些视情况，看将来是否需要支持 React Native for Web：
+
+- **HTML**：
+  - [ ] title
+  - [ ] favicon
+  - [ ] metas
+  - [ ] mountElementId
+  - [ ] exportStatic
+  - [ ] mpa
+- **CSS**:
+  - [ ] styleLoader
+  - [ ] cssLoader
+  - [ ] lessLoader
+  - [ ] postcssLoader
+  - [ ] extraPostCSSPlugins
+  - [ ] cssModulesTypescriptLoader
+  - [ ] autoprefixer
+  - [ ] cssnano
+  - [ ] theme
+  - [ ] styles
+- 其他：
+  - [ ] base
+  - [ ] publicPath
+  - [ ] runtimePublicPath
+  - [ ] ssr
 
 ### 开发
 
@@ -100,20 +149,85 @@ _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者�
 
 执行`yarn start`之后，再使用 `yarn android` 或者 `yarn ios`。
 
-### 构建离线包（offline bundle）
+### 打包
+
+构建离线包（offline bundle）：
 
 ```shell
-umi build-rn --platform <ios|android>
+umi build-rn --platform <ios|android> --bundle-output <relative/to/output/path/filename> --assets-dest <relative/to/output/path>
 ```
 
-## TODO
+_`relative/to/output/path`: 表示相对于[outputPath](https://umijs.org/config#outputpath)的路径。_
 
-以下[umi 配置](https://umijs.org/config)还未实现（有关 CSS 的配置项暂不考虑实现）：
+package.json:
 
-- [ ] [chainwebpack](https://umijs.org/config#chainwebpack)
-- [ ] [chunks](https://umijs.org/config#chunks)
-- [ ] [extraBabelPlugins](https://umijs.org/config#extrababelplugins)
-- [ ] [extraBabelPresets](https://umijs.org/config#extrababelpresets)
-- [ ] [proxy](https://umijs.org/config#proxy)
+```diff
+{
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "umi dev-rn",
++   "build:ios": "NODE_ENV=production umi build-rn --platform ios --bundle-output ios/main.jsbundle --assets-dest ios/assets",
++   "build:android": "NODE_ENV=production umi build-rn --platform android --bundle-output android/index.android.bundle --assets-dest android/assets"
+  },
+}
+```
 
-考虑将[dynamicImport](https://umijs.org/config#dynamicimport)采用多 Bundle 的方式实现，需要原生 iOS/Android Bridge API 支持。参考示例：[react-native-multibundle](https://github.com/react-native-community/react-native-multibundle)
+- 执行`yarn build:ios`：
+  1. 构建生成`main.jsbundle`文件到`dist/ios/`目录；
+  2. 拷贝静态资源到`dist/ios/assets/`目录。
+- 执行`yarn build:android`：
+  1. 构建生成`index.android.bundle`文件到`dist/anrdoid/`目录；
+  2. 拷贝静态资源到`dist/android/assets/`目录。
+
+_`dist` 是[outputPath](https://umijs.org/config#outputpath)配置项的缺省（默认）值，可在`.umirc.js`中配置其他目录。_
+
+## 示例
+
+**需要配置好 RN 开发环境：[Setting up the development environmen](https://reactnative.dev/docs/environment-setup)，才能在查看应用运行效果。**
+
+### 初始工程
+
+使用`react-native init`得到初始工程： [UMIRNExample@0.0.1](https://github.com/xuyuanxiang/UMIRNExample/tree/0.0.1)
+
+```npm
+npx react-native init UMIRNExample
+```
+
+### 集成`umi-preset-react-native`
+
+添加`umi`和`umi-preset-react-native`依赖：[UMIRNExample@0.1.0](https://github.com/xuyuanxiang/UMIRNExample/tree/0.1.0)
+
+```npm
+yarn add umi umi-preset-react-native --dev
+```
+
+查看变动内容：
+
+- [compare/0.0.1...0.1.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...0.1.0)
+
+### 集成`@umijs/plugin-dva`
+
+添加`@umijs/plugin-dva`依赖：[UMIRNExample@1.0.0](https://github.com/xuyuanxiang/UMIRNExample/tree/1.0.0)
+
+```npm
+yarn add @umijs/plugin-dva --dev
+```
+
+查看变动内容：
+
+- [compare/0.0.1...1.0.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...1.0.0)
+- [compare/0.1.0...1.0.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.1.0...1.0.0)
+
+### 集成`@ant-design/react-native`
+
+添加[umi-plugin-antd-react-native](/packages/plugin-antd/README.md)依赖：[UMIRNExample@1.1.0](https://github.com/xuyuanxiang/UMIRNExample/tree/1.1.0)
+
+```npm
+yarn add umi-plugin-antd-react-native --dev
+```
+
+查看变动内容：
+
+- [compare/0.0.1...1.1.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...1.1.0)
+- [compare/1.0.0...1.1.0](https://github.com/xuyuanxiang/UMIRNExample/compare/1.0.0...1.1.0)

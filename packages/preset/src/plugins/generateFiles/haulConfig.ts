@@ -1,13 +1,13 @@
 import { IApi } from '@umijs/types';
 import { dirname, join } from 'path';
+import webpack from 'webpack';
+import Config from 'webpack-chain';
 
-const CONTENT = `import { withPolyfills, makeConfig } from '{{{ haulPresetPath }}}';
+const CONTENT = `import _defaultsDeep from 'lodash/defaultsDeep';
+import { withPolyfills, makeConfig } from '{{{ haulPresetPath }}}';
 
 const transform = ({ config }) => {
-  config.resolve.alias = {
-    ...config.resolve.alias,
-    ...{{{ alias }}},
-  };
+  return _defaultsDeep({{{ webpackConfig }}}, config);
 };
 
 export default makeConfig({
@@ -21,9 +21,13 @@ export default makeConfig({
 
 `;
 
+function createCSSRule() {
+  // no-op
+}
+
 export default (api: IApi) => {
   const {
-    utils: { winPath, Mustache, resolve, lodash, semver },
+    utils: { winPath, Mustache, semver, resolve },
     paths: { absTmpPath },
   } = api;
 
@@ -40,25 +44,38 @@ export default (api: IApi) => {
   }
 
   api.onGenerateFiles(async () => {
-    const buildDevUtilsPath = resolve.sync('@umijs/preset-built-in/lib/plugins/commands/buildDevUtils', {
-      basedir: process.env.UMI_DIR,
+    const env = api.env === 'production' ? 'production' : 'development';
+    const defaultWebpack: typeof webpack = require(resolve.sync('webpack', { basedir: absTmpPath }));
+    const webpackConfig = new Config();
+    const alias = api.config.alias;
+    if (typeof alias === 'object') {
+      Object.keys(alias).forEach((key) => {
+        const value = alias[key];
+        if (value) {
+          webpackConfig.resolve.alias.set(key, value);
+        }
+      });
+    }
+    await api.applyPlugins({
+      type: api.ApplyPluginsType.modify,
+      key: 'chainWebpack',
+      initialValue: webpackConfig,
+      args: {
+        webpack: defaultWebpack,
+        createCSSRule,
+      },
     });
-    const { getBundleAndConfigs } = require(buildDevUtilsPath);
-    const { bundleConfigs } = await getBundleAndConfigs({ api });
-    const config = bundleConfigs.filter((bundleConfig: any) => {
-      return bundleConfig.entry?.umi;
-    })[0];
-
-    const alias = lodash.cloneDeep(config.resolve?.alias);
-    Object.assign(alias, {
-      // 防止加载umi Common JS格式的代码
-      umi: winPath(join(absTmpPath || '', 'rn', 'umi')),
-    });
+    if (typeof api.config.chainWebpack === 'function') {
+      await api.config.chainWebpack(webpackConfig, { env, webpack: defaultWebpack, createCSSRule });
+    }
+    // 防止加载umi Common JS格式的代码
+    webpackConfig.resolve.alias.set('umi', winPath(join(absTmpPath || '', 'rn', 'umi')));
+    const config = webpackConfig.toConfig();
     api.writeTmpFile({
       path: 'haul.config.js',
       content: Mustache.render(CONTENT, {
         haulPresetPath: winPath(detectHaulPresetPath()),
-        alias: JSON.stringify(alias, null, 2),
+        webpackConfig: JSON.stringify(config, null, 2),
       }),
     });
   });

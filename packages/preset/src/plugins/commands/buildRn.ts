@@ -32,19 +32,20 @@ export default (api: IApi) => {
     utils: { rimraf },
   } = api;
   async function handler({ args }: { args: yargs.Arguments<IHaulBundleOptions> }): Promise<void> {
-    if (!args.platform) {
+    const platform = args.platform;
+    if (!platform) {
       throw new TypeError('The required argument: "--platform <ios|android>" was not present!');
     }
-    const assetPath = resolve(absOutputPath || '', 'assets');
-    const bundleOutput = join(absOutputPath || '', args.bundleOutput || `index.${args.platform}.bundle`);
-    const sourcemapOutput = join(
+    const assetPath = resolve(absOutputPath || '', args.assetsDest || 'assets');
+    const bundleOutput = resolve(
       absOutputPath || '',
-      args.bundleOutput ? `${args.bundleOutput}.map` : `index.${args.platform}.bundle.map`,
+      args.bundleOutput || platform === 'ios' ? 'main.jsbundle' : `index.${platform}.bundle`,
     );
+    const sourcemapOutput = join(absOutputPath || '', `${bundleOutput}.map`);
     const argv: string[] = [
       'bundle',
       '--platform',
-      args.platform,
+      platform,
       '--config',
       join(absTmpPath || '', 'haul.config.js'),
       '--entry-file',
@@ -58,9 +59,8 @@ export default (api: IApi) => {
       '--progress',
       'minimal',
       '--dev',
-      JSON.stringify(process.env.NODE_ENV === 'development'),
+      JSON.stringify(api.env === 'development'),
     ];
-    api.logger.info('bundle for:', args.platform, ',output:', bundleOutput);
 
     if (absTmpPath) {
       await asyncClean(api, absTmpPath, '.cache', 'node_modules');

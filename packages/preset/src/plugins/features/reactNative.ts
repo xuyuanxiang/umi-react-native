@@ -7,34 +7,44 @@ import { name } from '../../../package.json';
 
 export default (api: IApi) => {
   const {
-    utils: { winPath, resolve, semver },
+    utils: { resolve, semver },
     paths: { absNodeModulesPath = '', absSrcPath = '', absTmpPath },
   } = api;
 
-  function getUserLibDir(library: string, dir?: boolean) {
+  /**
+   * 优先读取用户目录下依赖的绝对路径（下面会解释为什么不用api.addProjectFirstLibraries）
+   * @param library 比如：'react-native'（目录） 或者 'react-router/esm/index.js'（文件）
+   * @param defaults library找不到时的缺省值
+   * @param dir true-返回目录绝对路径，false-返回文件绝对路径
+   * @param basedir 用户目录查找起始路径
+   */
+  function getUserLibDir(library: string, defaults: string, dir: boolean = false, basedir = absTmpPath): string {
     try {
+      const path = resolve.sync(library, {
+        basedir,
+      });
       if (dir) {
-        return dirname(
-          resolve.sync(join(library, 'package.json'), {
-            basedir: absTmpPath,
-          }),
-        );
+        return dirname(path);
       } else {
-        return resolve.sync(library, {
-          basedir: absTmpPath,
-        });
+        return path;
       }
     } catch (ignored) {}
-    return null;
+    return defaults;
   }
 
-  const REACT_NATIVE_PATH = getUserLibDir('react-native', true) || join(absNodeModulesPath, 'react-native');
+  const REACT_NATIVE_PATH = getUserLibDir(
+    join('react-native', 'package.json'),
+    join(absNodeModulesPath, 'react-native'),
+    true,
+  );
   assertExists(REACT_NATIVE_PATH);
   const { version } = require(join(REACT_NATIVE_PATH, 'package.json'));
 
   let appKey;
   try {
-    const appJson = JSON.parse(readFileSync(getUserLibDir('app.json') || join(absSrcPath, 'app.json'), 'utf8'));
+    const appJson = JSON.parse(
+      readFileSync(getUserLibDir('app.json', join(absSrcPath, 'app.json'), false, absSrcPath), 'utf8'),
+    );
     appKey = appJson.name;
   } catch (ignored) {}
 
@@ -45,14 +55,28 @@ export default (api: IApi) => {
       schema(joi) {
         return joi
           .object({
-            appKey: joi.string(),
-            version: joi.string(),
+            appKey: joi.string(), // moduleName  app.json#name
+            version: joi.string(), // RN 版本号
           })
           .optional();
       },
     },
   });
 
+  api.addProjectFirstLibraries(() => [
+    { name: 'react-native', path: REACT_NATIVE_PATH },
+    { name: 'react-router', path: require.resolve('react-router/esm/react-router.js') },
+    { name: 'react-router-native', path: dirname(require.resolve('react-router-native/package.json')) },
+    // @umijs/plugin-dva或许还有其他插件中会引用`react-router-dom`这里通过alias 将其改为引用 `react-router-native`
+    { name: 'react-router-dom', path: dirname(require.resolve('react-router-native/package.json')) },
+    { name: 'react-router-config', path: require.resolve('react-router-config/esm/react-router-config.js') },
+    { name: 'history', path: require.resolve('history-with-query/esm/history.js') },
+  ]);
+
+  /**
+   * `@umijs/preset-built-in`生成的临时文件中会将`@umijs/runtime`转换为绝对路径。
+   * 这里添加 alias 将`@umijs/runtime`的绝对路径映射为：`umi-react-native-runtime`。
+   */
   function detectUmiRuntimeDirs(): string[] {
     const results: string[] = [];
     let baseDir;
@@ -65,35 +89,7 @@ export default (api: IApi) => {
     } catch (ignored) {}
     return results;
   }
-
   api.chainWebpack((memo) => {
-    const reactRouterNativePath = winPath(
-      getUserLibDir('react-router-native', true) || dirname(require.resolve('react-router-native/package.json')),
-    );
-    memo.resolve.alias
-      .set('react-native', winPath(REACT_NATIVE_PATH))
-      .set(
-        'history',
-        winPath(
-          getUserLibDir('history-with-query/esm/history.js') || require.resolve('history-with-query/esm/history.js'),
-        ),
-      )
-      .set(
-        'react-router',
-        winPath(
-          getUserLibDir('react-router/esm/react-router.js') || require.resolve('react-router/esm/react-router.js'),
-        ),
-      )
-      .set('react-router-dom', reactRouterNativePath) // hack for dva
-      .set('react-router-native', reactRouterNativePath)
-      .set(
-        'react-router-config',
-        winPath(
-          getUserLibDir('react-router-config/esm/react-router-config.js') ||
-            require.resolve('react-router-config/esm/react-router-config.js'),
-        ),
-      )
-      .set('umi', winPath(join(absTmpPath || '', 'rn', 'umi')));
     const umiRuntimeDirs = detectUmiRuntimeDirs();
     umiRuntimeDirs.forEach((dir) => {
       memo.resolve.alias.set(dir, 'umi-react-native-runtime');
@@ -101,7 +97,7 @@ export default (api: IApi) => {
     return memo;
   });
 
-  // 启动时，检查appKey
+  // 启动时，检查 appKey 和 RN 版本
   api.onStart(() => {
     if (!api.config?.reactNative?.appKey) {
       api.logger
