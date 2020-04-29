@@ -184,11 +184,13 @@ _`dist` 是[outputPath](https://umijs.org/config#outputpath)配置项的缺省�
 
 ## 示例
 
-**需要配置好 RN 开发环境：[Setting up the development environmen](https://reactnative.dev/docs/environment-setup)，才能在查看应用运行效果。**
+[UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample#readme)
+
+**需要配置好 RN 开发环境：[Setting up the development environmen](https://reactnative.dev/docs/environment-setup)，才能查看应用运行效果。**
 
 ### 初始工程
 
-使用`react-native init`得到初始工程： [UMIRNExample@0.0.1](https://github.com/xuyuanxiang/UMIRNExample/tree/0.0.1)
+使用`react-native init`得到初始工程：
 
 ```npm
 npx react-native init UMIRNExample
@@ -196,38 +198,24 @@ npx react-native init UMIRNExample
 
 ### 集成`umi-preset-react-native`
 
-添加`umi`和`umi-preset-react-native`依赖：[UMIRNExample@0.1.0](https://github.com/xuyuanxiang/UMIRNExample/tree/0.1.0)
+添加`umi`和`umi-preset-react-native`依赖：
 
 ```npm
 yarn add umi umi-preset-react-native --dev
 ```
 
-查看变动内容：
-
-- [compare/0.0.1...0.1.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...0.1.0)
-
 ### 集成`@umijs/plugin-dva`
 
-添加`@umijs/plugin-dva`依赖：[UMIRNExample@1.0.0](https://github.com/xuyuanxiang/UMIRNExample/tree/1.0.0)
+添加`@umijs/plugin-dva`依赖：
 
 ```npm
 yarn add @umijs/plugin-dva --dev
 ```
 
-查看变动内容：
-
-- [compare/0.0.1...1.0.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...1.0.0)
-- [compare/0.1.0...1.0.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.1.0...1.0.0)
-
 ### 集成`@ant-design/react-native`
 
-添加[umi-plugin-antd-react-native](/packages/plugin-antd/README.md)依赖：[UMIRNExample@1.1.0](https://github.com/xuyuanxiang/UMIRNExample/tree/1.1.0)
+添加[umi-plugin-antd-react-native](/packages/plugin-antd/README.md)依赖：
 
 ```npm
 yarn add umi-plugin-antd-react-native --dev
 ```
-
-查看变动内容：
-
-- [compare/0.0.1...1.1.0](https://github.com/xuyuanxiang/UMIRNExample/compare/0.0.1...1.1.0)
-- [compare/1.0.0...1.1.0](https://github.com/xuyuanxiang/UMIRNExample/compare/1.0.0...1.1.0)
