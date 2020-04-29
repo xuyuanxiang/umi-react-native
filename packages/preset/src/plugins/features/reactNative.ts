@@ -7,7 +7,7 @@ import { name } from '../../../package.json';
 
 export default (api: IApi) => {
   const {
-    utils: { resolve, semver },
+    utils: { resolve, semver, lodash },
     paths: { absNodeModulesPath = '', absSrcPath = '', absTmpPath },
   } = api;
 
@@ -63,6 +63,17 @@ export default (api: IApi) => {
     },
   });
 
+  api.modifyConfig((config) => {
+    config.mountElementId = '';
+    config.history = lodash.defaultsDeep(
+      {
+        type: 'memory',
+      },
+      config.history,
+    );
+    return config;
+  });
+
   // haul中没有treeShaking， mainFields 写死了。
   api.addProjectFirstLibraries(() => [
     { name: 'react-native', path: REACT_NATIVE_PATH },
@@ -70,7 +81,6 @@ export default (api: IApi) => {
     { name: 'react-router-native', path: dirname(require.resolve('react-router-native/package.json')) },
     // @umijs/plugin-dva或许还有其他插件中会引用`react-router-dom`这里通过alias 将其改为引用 `react-router-native`
     { name: 'react-router-dom', path: dirname(require.resolve('react-router-native/package.json')) },
-    { name: 'react-router-config', path: require.resolve('react-router-config/esm/react-router-config.js') },
     { name: 'history', path: require.resolve('history-with-query/esm/history.js') },
   ]);
 
