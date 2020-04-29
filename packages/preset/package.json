@@ -1,6 +1,6 @@
 {
   "name": "umi-preset-react-native",
-  "version": "0.0.2",
+  "version": "0.0.3-alpha.0",
   "description": "umi-preset-react-native",
   "keywords": [
     "umi",
@@ -49,7 +49,7 @@
     "@haul-bundler/preset-0.60": "0.18.0",
     "@umijs/bundler-utils": "^3.0.0",
     "metro": "^0.51.1",
-    "umi-react-native-runtime": "^0.0.2",
+    "umi-react-native-runtime": "^0.0.3-alpha.0",
     "webpack-chain": "6.4.0"
   },
   "devDependencies": {
