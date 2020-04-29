@@ -7,7 +7,7 @@
     "build": "cross-env NODE_ENV=production lerna run build",
     "watch": "cross-env NODE_ENV=development lerna run watch --parallel --concurrency 4",
     "test": "cross-env NODE_ENV=test jest --coverage",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "engines": {
     "node": ">= 10.13.0"
