@@ -94,7 +94,7 @@ _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者�
 仅仅为满足集成一些常用[@umijs/plugins](https://github.com/umijs/plugins)的需要：
 
 - [x] [alias](https://umijs.org/config#alias)
-- [x] [chainWebpack](https://umijs.org/config#chainwebpack)：其中`createCSSRule`不生效，使用`lodash.defaultsDeep(userConfig, haulWebapckConfig)`合并，[chainWebpack](https://umijs.org/config#chainwebpack)注入的用户配置优先级高于[haul](https://github.com/callstack/haul)配置
+- [x] [chainWebpack](https://umijs.org/config#chainwebpack)：其中`createCSSRule`不生效，使用`lodash.defaultsDeep(userConfig, haulWebapckConfig)`合并，这里注入的用户配置优先级高于[haul](https://github.com/callstack/haul)配置
 - [x] [dynamicImport](https://umijs.org/config#dynamicimport)
 - [x] [extraBabelPlugins](https://umijs.org/config#extrababelplugins)
 - [x] [extraBabelPresets](https://umijs.org/config#extrababelpresets)
