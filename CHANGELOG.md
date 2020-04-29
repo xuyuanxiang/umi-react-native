@@ -1,4 +1,13 @@
-# [](https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.3-alpha.0...v) (2020-04-29)
+# [](https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.4-alpha.0...v) (2020-04-29)
+
+
+
+## [0.0.4-alpha.0](https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.3-alpha.0...v0.0.4-alpha.0) (2020-04-29)
+
+
+### Bug Fixes
+
+* use api.modifyConfig to set mountElementId and history as RN's except ([ab9349b](https://github.com/xuyuanxiang/umi-react-native/commit/ab9349b399c76eaecc1244ecde104f574ba65654))
 
 
 
@@ -16,12 +25,11 @@
 
 ### Features
 
-- umi-plugin-antd-react-native ([c5d63d1](https://github.com/xuyuanxiang/umi-react-native/commit/c5d63d1d87150bbdd4342feba28d147416fb5e9c))
+* umi-plugin-antd-react-native ([c5d63d1](https://github.com/xuyuanxiang/umi-react-native/commit/c5d63d1d87150bbdd4342feba28d147416fb5e9c))
 - 支持下列 umi 配置： ([edff808](https://github.com/xuyuanxiang/umi-react-native/commit/edff80802731bd93df79ce184cd827732fae32f5))
   - [x] [chainWebpack](https://umijs.org/config#chainwebpack)
   - [x] [extraBabelPlugins](https://umijs.org/config#extrababelplugins)
   - [x] [extraBabelPresets](https://umijs.org/config#extrababelpresets)
-
 
 ## [0.0.2-alpha.0](https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.1...v0.0.2-alpha.0) (2020-04-28)
 
