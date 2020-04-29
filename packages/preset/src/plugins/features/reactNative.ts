@@ -57,8 +57,6 @@ export default (api: IApi) => {
           .object({
             appKey: joi.string(), // moduleName  app.json#name
             version: joi.string(), // RN 版本号
-            templates: joi.string(),
-            bundles: joi.object(),
           })
           .optional();
       },

@@ -8,7 +8,7 @@ export default (api: IApi) => {
       schema(joi) {
         return joi
           .object({
-            bundles: joi.object().required(),
+            bundles: joi.object().optional(),
           })
           .optional();
       },
