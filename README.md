@@ -109,36 +109,7 @@ _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者�
 - [x] [routes](https://umijs.org/config#routes)
 - [x] [singular](https://umijs.org/config#singular)
 
-_上文未列出的[umi 配置](https://umijs.org/config)暂不支持。RN 开发不同于 Web 开发，基本上无须在编译工具上做过多配置。_
-
----
-
-下列这些视情况，看将来是否需要支持 React Native for Web：
-
-- **HTML**：
-  - [ ] title
-  - [ ] favicon
-  - [ ] metas
-  - [ ] mountElementId
-  - [ ] exportStatic
-  - [ ] mpa
-- **CSS**:
-  - [ ] styleLoader
-  - [ ] cssLoader
-  - [ ] lessLoader
-  - [ ] postcssLoader
-  - [ ] extraPostCSSPlugins
-  - [ ] cssModulesTypescriptLoader
-  - [ ] autoprefixer
-  - [ ] cssnano
-  - [ ] theme
-  - [ ] styles
-- 其他：
-
-  - [ ] base
-  - [ ] publicPath
-  - [ ] runtimePublicPath
-  - [ ] ssr
+_上文未列出的[umi 配置](https://umijs.org/config)对 `umi-preset-react-native` 不生效。RN 开发不同于 Web 开发，基本上无须在编译工具上做过多配置。_
 
 #### umi-preset-react-native 扩展配置
 
