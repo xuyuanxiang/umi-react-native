@@ -63,6 +63,12 @@ export default (api: IApi) => {
     },
   });
 
+  api.modifyConfig((config) => ({
+    ...config,
+    mountElementId: false,
+    history: { type: 'memory' },
+  }));
+
   // haul中没有treeShaking， mainFields 写死了。
   api.addProjectFirstLibraries(() => [
     { name: 'react-native', path: REACT_NATIVE_PATH },
