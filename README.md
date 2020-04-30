@@ -96,6 +96,10 @@ _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者�
 
 _上文未列出的[umi 配置](https://umijs.org/config)对 `umi-preset-react-native` 不生效。RN 开发不同于 Web 开发，基本上无须在编译工具上做过多配置。_
 
+[haul](https://github.com/callstack/haul)使用的 devServer 是[hapi](https://hapi.dev/)，目前还不支持扩展额外的 hapi 插件（中间件）。
+
+我已经向[haul](https://github.com/callstack/haul)提交了 PR，正在等待进展。
+
 #### umi-preset-react-native 扩展配置
 
 ```javascript
