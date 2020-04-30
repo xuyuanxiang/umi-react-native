@@ -2,6 +2,8 @@
 
 在 RN 环境下，替换`@umijs/runtime`。
 
+## 动机
+
 `@umijs/runtime`中 dynamic 缺省（默认）loading 使用了 HTML p 标签和 br 标签。
 
 当用户启用[dynamicImport](https://umijs.org/config#dynamicimport)，并且没有实现自定义的 Loading 组件时，在 RN 中运行会报错，这里做了 Monkey Patch。

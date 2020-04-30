@@ -1,28 +1,21 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import { dynamic as domDynamic } from '@umijs/runtime';
+export { dynamic } from './dynamic';
+// RN 没有 treeShaking
+export {
+  Plugin,
+  ApplyPluginsType,
+  createBrowserHistory,
+  createHashHistory,
+  createMemoryHistory,
+} from '@umijs/runtime/dist/index.esm';
 
-export const dynamic = (opts = {}) =>
-  domDynamic({
-    ...opts,
-    loading({ error, isLoading }: { error: Error; isLoading: boolean }) {
-      if (process.env.NODE_ENV === 'development') {
-        if (isLoading) {
-          return <Text>loading...</Text>;
-        }
-        if (error) {
-          return (
-            <View>
-              <Text>{error.message}</Text>
-              <Text>{error.stack}</Text>
-            </View>
-          );
-        }
-      }
-      return <Text>loading...</Text>;
-    },
-  });
-
+/**
+ * 可配置化，方便通过 alias 将 react-router-native 替换为 umi-react-native-navigation-shim。
+ *
+ * umi-react-native-navigation-shim 基于 react-navigation,
+ * 使用 react-router-native API 包了一层。
+ *
+ * react-navigation 具备原生的体验效果。
+ */
 export {
   Link,
   Link as NavLink,
@@ -37,16 +30,8 @@ export {
   matchPath,
   withRouter,
   useHistory,
+  match,
   useLocation,
   useParams,
   useRouteMatch,
 } from 'react-router-native';
-
-export {
-  __RouterContext,
-  createBrowserHistory,
-  createHashHistory,
-  createMemoryHistory,
-  Plugin,
-  ApplyPluginsType,
-} from '@umijs/runtime';

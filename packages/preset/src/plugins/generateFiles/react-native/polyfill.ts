@@ -25,21 +25,11 @@ export default (api: IApi) => {
     const polyfills: string[] = [];
     if (semver.lt(api.config?.reactNative?.version, '0.60.0')) {
       polyfills.push(
-        require.resolve('@haul-bundler/preset-0.59/vendor/polyfills/Object.es6.js'),
         require.resolve('@haul-bundler/preset-0.59/vendor/polyfills/console.js'),
         require.resolve('@haul-bundler/preset-0.59/vendor/polyfills/error-guard.js'),
-        require.resolve('@haul-bundler/preset-0.59/vendor/polyfills/Number.es6.js'),
-        require.resolve('@haul-bundler/preset-0.59/vendor/polyfills/String.prototype.es6.js'),
-        require.resolve('@haul-bundler/preset-0.59/vendor/polyfills/Array.prototype.es6.js'),
-        require.resolve('@haul-bundler/preset-0.59/vendor/polyfills/Array.es6.js'),
-        require.resolve('@haul-bundler/preset-0.59/vendor/polyfills/Object.es7.js'),
       );
     } else {
-      polyfills.push(
-        'react-native/Libraries/polyfills/console.js',
-        'react-native/Libraries/polyfills/error-guard.js',
-        'react-native/Libraries/polyfills/Object.es7.js',
-      );
+      polyfills.push('react-native/Libraries/polyfills/console.js', 'react-native/Libraries/polyfills/error-guard.js');
     }
     api.writeTmpFile({
       path: 'react-native/polyfill.ts',

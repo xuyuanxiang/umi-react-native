@@ -39,21 +39,13 @@
   "peerDependencies": {
     "react": "^16.8.3",
     "react-native": ">=0.59.0 <1.0.x",
-    "umi": "^3.0.0",
-    "webpack": "4.x"
+    "umi": "^3.0.0"
   },
   "dependencies": {
-    "@haul-bundler/babel-preset-react-native": "0.16.0",
-    "@haul-bundler/cli": "0.19.0",
-    "@haul-bundler/preset-0.59": "0.18.0",
-    "@haul-bundler/preset-0.60": "0.18.0",
-    "@umijs/bundler-utils": "^3.0.0",
-    "metro": "^0.51.1",
-    "umi-react-native-runtime": "^0.0.4-alpha.0",
-    "webpack-chain": "6.4.0"
+    "umi-react-native-bundler-haul": "^0.0.4-alpha.0",
+    "umi-react-native-runtime": "^0.0.4-alpha.0"
   },
   "devDependencies": {
-    "@types/webpack": "^4.41.12",
     "@umijs/types": "^3.0.0"
   }
 }

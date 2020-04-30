@@ -1,11 +1,12 @@
 {
-  "name": "umi-react-native-runtime",
+  "name": "umi-react-native-navigation-adapter",
   "version": "0.0.4-alpha.0",
-  "description": "umi-react-native-runtime",
+  "description": "umi-react-native-navigation-adapter",
   "keywords": [
     "umi",
     "umijs",
-    "react-native"
+    "react-native",
+    "react-navigation"
   ],
   "author": "xuyuanxiang <hi@xuyuanxiang.cn>",
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
@@ -39,16 +40,17 @@
   },
   "peerDependencies": {
     "react": "^16.8.3",
-    "react-native": ">=0.59.0 <1.0.x",
-    "umi": "^3.0.0"
+    "react-native": ">=0.59.0 <1.0.x"
   },
   "dependencies": {
-    "@umijs/runtime": "^3.0.0",
-    "react-router-native": "5.1.2"
+    "@react-navigation/native": "^5.1.7",
+    "@react-navigation/stack": "^5.2.14",
+    "react-router": "^5.1.2"
   },
   "devDependencies": {
     "@types/react": "^16.9.34",
     "@types/react-native": "^0.62.4",
+    "@types/react-router": "^5.1.7",
     "@types/react-router-native": "^5.1.0"
   }
 }
