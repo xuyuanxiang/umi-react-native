@@ -1,5 +1,4 @@
 import { IApi } from '@umijs/types';
-import { HaulBundler } from 'umi-react-native-bundler-haul';
 
 export default (api: IApi) => {
   api.describe({
@@ -15,5 +14,4 @@ export default (api: IApi) => {
       },
     },
   });
-  api.modifyBundler(() => HaulBundler);
 };

@@ -16,6 +16,7 @@
   },
   "react-native": "lib/index.js",
   "browser": "lib/index.js",
+  "module": "lib/index.js",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
   "directories": {
@@ -38,14 +39,10 @@
   "bugs": {
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
-  "peerDependencies": {
-    "react": "^16.8.3",
-    "react-native": ">=0.59.0 <1.0.x"
-  },
   "dependencies": {
-    "@react-navigation/native": "^5.1.7",
-    "@react-navigation/stack": "^5.2.14",
-    "react-router": "^5.1.2"
+    "@react-navigation/native": "5.2.4",
+    "@react-navigation/stack": "5.2.19",
+    "react-router": "5.1.2"
   },
   "devDependencies": {
     "@types/react": "^16.9.34",

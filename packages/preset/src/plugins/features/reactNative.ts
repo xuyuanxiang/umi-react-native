@@ -37,8 +37,11 @@ export default (api: IApi) => {
     join(absNodeModulesPath, 'react-native'),
     true,
   );
+  const METRO_PATH = getUserLibDir(join('metro', 'package.json'), join(absNodeModulesPath, 'metro'), true);
   assertExists(REACT_NATIVE_PATH);
+  assertExists(METRO_PATH);
   const { version } = require(join(REACT_NATIVE_PATH, 'package.json'));
+  const { metroVersion } = require(join(METRO_PATH, 'package.json'));
 
   let appKey;
   try {
@@ -48,65 +51,59 @@ export default (api: IApi) => {
     appKey = appJson.name;
   } catch (ignored) {}
 
+  // 配置参数
   api.describe({
     key: 'reactNative',
     config: {
-      default: { appKey, version },
+      default: { appKey, version, router: 'react-router-native', metro: { path: METRO_PATH, version: metroVersion } },
       schema(joi) {
         return joi
           .object({
             appKey: joi.string(), // moduleName  app.json#name
             version: joi.string(), // RN 版本号
+            /**
+             * 提供两种 RN 路由解决方案：
+             * + 默认： react-router-native；
+             * + 允许用户切换为： react-navigation。
+             */
+            router: joi.string().valid('react-router-native', 'react-navigation'),
+            metro: joi.object({
+              path: joi.string(),
+              version: joi.string(),
+            }),
           })
           .optional();
       },
     },
   });
 
-  api.modifyConfig((config) => {
+  // 修改 umi 默认值（非用户值），避免进到 umi 调用 DOM相关 API的代码分支，导致 RN 运行报错。
+  api.modifyDefaultConfig((config) => {
+    // mountElementId 不为空时，@umijs/renderer-react 会调用 react-dom 在 RN 中会报错
     config.mountElementId = '';
+
+    // 'browser' 和 'hash' 类型的 history 需要 DOM，在 RN 中运行会报错。
     config.history = lodash.defaultsDeep(
       {
         type: 'memory',
       },
       config.history,
     );
+
+    config.dynamicImport = false;
+
+    config.polyfill = false;
+
     return config;
   });
 
   // haul中没有treeShaking， mainFields 写死了。
   api.addProjectFirstLibraries(() => [
     { name: 'react-native', path: REACT_NATIVE_PATH },
-    { name: 'react-router', path: require.resolve('react-router/esm/react-router.js') },
     { name: 'react-router-native', path: dirname(require.resolve('react-router-native/package.json')) },
     // @umijs/plugin-dva或许还有其他插件中会引用`react-router-dom`这里通过alias 将其改为引用 `react-router-native`
     { name: 'react-router-dom', path: dirname(require.resolve('react-router-native/package.json')) },
-    { name: 'history', path: require.resolve('history-with-query/esm/history.js') },
   ]);
-
-  /**
-   * `@umijs/preset-built-in`生成的临时文件中会将`@umijs/runtime`转换为绝对路径。
-   * 这里添加 alias 将`@umijs/runtime`的绝对路径映射为：`umi-react-native-runtime`。
-   */
-  function detectUmiRuntimeDirs(): string[] {
-    const results: string[] = [];
-    let baseDir;
-    try {
-      baseDir = dirname(resolve.sync('@umijs/preset-built-in/package.json', { basedir: process.env.UMI_DIR }));
-      results.push(dirname(resolve.sync('@umijs/runtime/package.json', { basedir: baseDir })));
-    } catch (ignored) {}
-    try {
-      results.push(dirname(resolve.sync('@umijs/runtime/package.json', { basedir: process.env.UMI_DIR })));
-    } catch (ignored) {}
-    return results;
-  }
-  api.chainWebpack((memo) => {
-    const umiRuntimeDirs = detectUmiRuntimeDirs();
-    umiRuntimeDirs.forEach((dir) => {
-      memo.resolve.alias.set(dir, 'umi-react-native-runtime');
-    });
-    return memo;
-  });
 
   // 启动时，检查 appKey 和 RN 版本
   api.onStart(() => {
@@ -118,6 +115,30 @@ export default (api: IApi) => {
   },
 };。${EOL}小贴士：${EOL}  "appKey" 即 RN JS 代码域中: "AppRegistry.registerComponent(appKey, componentProvider);"的第一个参数，也是 iOS/Android 原生代码中加载 bundle 时所需的 "moduleName"；${EOL}  其值是使用 react-native 命令行工具初始化新建 RN 工程时所指定的项目名称，存储在工程根目录下 app.json 文件的 "name" 字段中。`);
       throw new TypeError('"react-native.appKey" 未配置');
+    }
+    // 按照RN的期望修改了默认值，但这里在启动时检查用户值
+    if (api.config.mountElementId) {
+      api.logger.error(
+        `在 RN 环境中"mountElementId"只能设置为空字符串！${EOL}因为设置为其他值时，umi 会调用 react-dom 的 API，在 RN 中运行会报错！`,
+      );
+      throw new TypeError('"mountElementId" 配置错误');
+    }
+    if (api.config.history && api.config.history.type !== 'memory') {
+      api.logger.error(
+        `在 RN 环境中，"history"只能设置为："memory"类型！${EOL}因为 "browser"和"hash"类型需要 DOM，在 RN 中运行会报错！`,
+      );
+      throw new TypeError('"history.type" 配置错误');
+    }
+    if (api.config.dynamicImport && !api.config.dynamicImport.loading) {
+      api.logger.error(
+        `在 RN 环境中启用"dynamicImport"功能时，必须实现自定的"loading"！${EOL}因为 umi 默认loading使用了 HTML 标签，在 RN 中运行会报错！`,
+      );
+      throw new TypeError('"dynamicImport.loading" 未配置');
+    }
+    if (semver.valid(metroVersion) && semver.lt(metroVersion, '0.56.0')) {
+      api.logger.error(
+        `当前使用的 metro 版本存在 bug: https://github.com/facebook/react-native/issues/26958${EOL}请升级 metro 至 0.56.0及以上版本。`,
+      );
     }
     if (
       semver.valid(api.config?.reactNative?.version) &&

@@ -1,7 +1,6 @@
-import { createContext } from 'react';
-import { RouteComponentProps } from 'react-router';
+import { Context } from 'react';
+import { RouteComponentProps, __RouterContext } from 'react-router';
 
-const context = createContext<Partial<RouteComponentProps>>({});
-context.displayName = 'Router';
+const context = __RouterContext as Context<RouteComponentProps>;
 
 export default context;

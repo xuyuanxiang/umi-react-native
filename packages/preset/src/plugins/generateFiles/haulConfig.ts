@@ -3,24 +3,25 @@ import { dirname, join } from 'path';
 import webpack from 'webpack';
 import Config from 'webpack-chain';
 
-const CONTENT = `import _defaultsDeep from 'lodash/defaultsDeep';
+const CONTENT = `import _ from 'lodash';
 import { makeConfig } from '{{{ haulPresetPath }}}';
 
 const transform = ({ config }) => {
-  return _defaultsDeep({{{ webpackConfig }}}, config);
+  return _.defaultsDeep({{{ webpackConfig }}}, config);
 };
 
-const haulConfig = {{{ haulConfig }}};
+const projectConfig = {{{ haulConfig }}};
 
-const bundles = haulConfig.bundles;
+const bundles = projectConfig.bundles;
 
 export default makeConfig({
-  bundles: Object.keys(bundles)
-    .map((bundleName) => ({
-      [bundleName]: _defaultsDeep(bundles[bundleName], {transform}),
+  bundles: _.chain(bundles)
+    .keys()
+    .flatMap((bundleName) => ({
+      [bundleName]: _.defaultsDeep(bundles[bundleName], {transform}),
     }))
-    .reduce((prev, curr) => ({...prev, ...curr})),
-  ...haulConfig,
+    .value(),
+  ...projectConfig,
 });
 
 `;

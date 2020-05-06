@@ -23,6 +23,9 @@
   - [集成`@ant-design/react-native`](#%E9%9B%86%E6%88%90ant-designreact-native)
 - [深入](#%E6%B7%B1%E5%85%A5)
   - [切分多 bundle](#%E5%88%87%E5%88%86%E5%A4%9A-bundle)
+- [FAQ](#faq)
+  - [`hmrClient.send is not a function`](#hmrclientsend-is-not-a-function)
+  - [`Live Reloading`, `Fast Refresh`, `Hot Replacement`无法使用](#live-reloading-fast-refresh-hot-replacement%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8)
 
 ## 必备
 
@@ -261,3 +264,25 @@ export default {
   },
 };
 ```
+
+## FAQ
+
+### `hmrClient.send is not a function`
+
+当出现以下错误时需要升级`metro`至`^0.56.0`：[react-native#issue-26958](https://github.com/facebook/react-native/issues/26958)。
+
+```text
+TypeError: hmrClient.send is not a function. (In 'hmrClient.send(JSON.stringify({
+  type: 'log-opt-in'
+}))', 'hmrClient.send' is undefined)
+```
+
+_在 RN 工程`node_modules`目录中找到`metro`并查看版本:_
+
+```shell
+cat ./node_modules/metro/package.json | grep version
+```
+
+### `Live Reloading`, `Fast Refresh`, `Hot Replacement`无法使用
+
+[haul](https://github.com/callstack/haul)不支持：[haul#issue-682](https://github.com/callstack/haul/issues/682)。
