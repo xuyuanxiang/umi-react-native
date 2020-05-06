@@ -1,4 +1,13 @@
-# [](https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.4-alpha.0...v) (2020-04-29)
+# [](https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.4-alpha.1...v) (2020-05-06)
+
+
+
+## [0.0.4-alpha.1](https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.4-alpha.0...v0.0.4-alpha.1) (2020-05-06)
+
+
+### Bug Fixes
+
+* react-native#issue-26958 ([549be0e](https://github.com/xuyuanxiang/umi-react-native/commit/549be0e7d6818a0ae97a2e4c23947eb2665a9308)), closes [react-native#issue-26958](https://github.com/react-native/issues/issue-26958)
 
 
 
@@ -26,10 +35,11 @@
 ### Features
 
 * umi-plugin-antd-react-native ([c5d63d1](https://github.com/xuyuanxiang/umi-react-native/commit/c5d63d1d87150bbdd4342feba28d147416fb5e9c))
-- 支持下列 umi 配置： ([edff808](https://github.com/xuyuanxiang/umi-react-native/commit/edff80802731bd93df79ce184cd827732fae32f5))
+* 支持下列umi配置： ([edff808](https://github.com/xuyuanxiang/umi-react-native/commit/edff80802731bd93df79ce184cd827732fae32f5))
   - [x] [chainWebpack](https://umijs.org/config#chainwebpack)
   - [x] [extraBabelPlugins](https://umijs.org/config#extrababelplugins)
   - [x] [extraBabelPresets](https://umijs.org/config#extrababelpresets)
+
 
 ## [0.0.2-alpha.0](https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.1...v0.0.2-alpha.0) (2020-04-28)
 
