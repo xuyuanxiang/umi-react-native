@@ -37,7 +37,6 @@
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "peerDependencies": {
-    "react": "^16.8.3",
     "react-native": ">=0.59.0 <1.0.x",
     "umi": "^3.0.0",
     "webpack": "4.x"
@@ -47,7 +46,6 @@
     "@haul-bundler/cli": "0.21.0",
     "@haul-bundler/preset-0.59": "0.18.0",
     "@haul-bundler/preset-0.60": "0.18.0",
-    "@umijs/bundler-utils": "^3.0.0",
     "umi-react-native-runtime": "^0.0.4-alpha.0",
     "webpack-chain": "6.4.0"
   },
