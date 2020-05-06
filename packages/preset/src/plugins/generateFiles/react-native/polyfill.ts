@@ -9,17 +9,32 @@ if (global.window === undefined) {
   global.window = global;
 }
 
+// disable hot module replacement
+// @ts-ignore
+if (module.hot) {
+  // @ts-ignore
+  module.hot.accept = function() {
+  
+  };
+}
+
 `;
 
 export default (api: IApi) => {
   const {
     utils: { Mustache, semver },
   } = api;
-  api.addPolyfillImports(() => [
-    {
-      source: './react-native/polyfill',
-    },
-  ]);
+  // api.addPolyfillImports(() => [
+  //   {
+  //     source: './react-native/polyfill',
+  //   },
+  // ]);
+
+  // RN 不需要 @babel/polyfill，这里通过 alias 替换 @umijs/preset-built-in 中的 polyfill
+  api.chainWebpack((memo) => {
+    memo.resolve.alias.set('./core/polyfill', './react-native/polyfill');
+    return memo;
+  });
 
   api.onGenerateFiles(() => {
     const polyfills: string[] = [];
