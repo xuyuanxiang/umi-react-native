@@ -1,11 +1,13 @@
 {
-  "name": "umi-preset-react-native",
+  "name": "react-router-navigation-adapter",
   "version": "0.0.4-alpha.0",
-  "description": "umi-preset-react-native",
+  "description": "react-router-navigation-adapter",
   "keywords": [
     "umi",
     "umijs",
-    "react-native"
+    "react-native",
+    "react-router",
+    "react-navigation"
   ],
   "author": "xuyuanxiang <hi@xuyuanxiang.cn>",
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
@@ -13,7 +15,9 @@
   "engines": {
     "node": ">=10.x"
   },
-  "main": "lib/index.js",
+  "react-native": "lib/index.js",
+  "browser": "lib/index.js",
+  "module": "lib/index.js",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
   "directories": {
@@ -36,24 +40,15 @@
   "bugs": {
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
-  "peerDependencies": {
-    "metro": "^0.56.0",
-    "react-native": ">=0.59.0 <1.0.x",
-    "umi": "^3.0.0"
-  },
   "dependencies": {
-    "@haul-bundler/babel-preset-react-native": "0.16.0",
-    "@haul-bundler/cli": "0.21.0",
-    "@haul-bundler/preset-0.59": "0.18.0",
-    "@haul-bundler/preset-0.60": "0.18.0",
-    "babel-plugin-import": "^1.13.0",
-    "react-router-native": "5.1.2",
-    "webpack": "4.43.0",
-    "webpack-chain": "6.4.0"
+    "@react-navigation/native": "5.2.4",
+    "@react-navigation/stack": "5.2.19",
+    "react-router": "5.1.2"
   },
   "devDependencies": {
-    "@types/webpack": "^4.41.12",
-    "@umijs/types": "^3.0.0",
-    "metro": "0.56.0"
+    "@types/react": "^16.9.34",
+    "@types/react-native": "^0.62.4",
+    "@types/react-router": "^5.1.7",
+    "@types/react-router-native": "^5.1.0"
   }
 }

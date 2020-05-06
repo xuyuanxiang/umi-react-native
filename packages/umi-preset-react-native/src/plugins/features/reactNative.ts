@@ -2,12 +2,13 @@ import { IApi } from '@umijs/types';
 import { dirname, join } from 'path';
 import { readFileSync } from 'fs';
 import { EOL } from 'os';
+
 import { assertExists } from '../../utils';
 import { name } from '../../../package.json';
 
 export default (api: IApi) => {
   const {
-    utils: { resolve, semver, lodash },
+    utils: { resolve, semver, lodash, winPath },
     paths: { absNodeModulesPath = '', absSrcPath = '', absTmpPath },
   } = api;
 
@@ -38,8 +39,10 @@ export default (api: IApi) => {
     true,
   );
   const METRO_PATH = getUserLibDir(join('metro', 'package.json'), join(absNodeModulesPath, 'metro'), true);
+
   assertExists(REACT_NATIVE_PATH);
   assertExists(METRO_PATH);
+
   const { version } = require(join(REACT_NATIVE_PATH, 'package.json'));
   const { metroVersion } = require(join(METRO_PATH, 'package.json'));
 
@@ -55,22 +58,12 @@ export default (api: IApi) => {
   api.describe({
     key: 'reactNative',
     config: {
-      default: { appKey, version, router: 'react-router-native', metro: { path: METRO_PATH, version: metroVersion } },
+      default: { appKey, version },
       schema(joi) {
         return joi
           .object({
             appKey: joi.string(), // moduleName  app.json#name
             version: joi.string(), // RN 版本号
-            /**
-             * 提供两种 RN 路由解决方案：
-             * + 默认： react-router-native；
-             * + 允许用户切换为： react-navigation。
-             */
-            router: joi.string().valid('react-router-native', 'react-navigation'),
-            metro: joi.object({
-              path: joi.string(),
-              version: joi.string(),
-            }),
           })
           .optional();
       },
@@ -89,10 +82,6 @@ export default (api: IApi) => {
       },
       config.history,
     );
-
-    config.dynamicImport = false;
-
-    config.polyfill = false;
 
     return config;
   });
@@ -151,4 +140,5 @@ export default (api: IApi) => {
   });
 
   api.addTmpGenerateWatcherPaths(() => ['react-native']);
+  api.modifyRendererPath(() => winPath(dirname(require.resolve('umi-renderer-react-native/package.json'))));
 };

@@ -4,9 +4,6 @@ const CONTENT = `module.exports = {{{ babelConfig }}};
 
 `;
 
-// const METRO_PRESETS_REG = /metro-react-native-babel-preset/;
-// const UMI_PRESET_REG = /(@umijs\/)?babel-preset-umi/;
-
 interface IImportPluginOpts {
   libraryName: string;
   libraryDirectory?: string;
@@ -16,19 +13,8 @@ interface IImportPluginOpts {
 
 export default (api: IApi) => {
   const {
-    utils: { Mustache, lodash },
+    utils: { Mustache },
   } = api;
-
-  // api.modifyBabelOpts((opts) => {
-  //   return {
-  //     ...opts,
-  //     presets: [
-  //       // 剔除：@umijs/babel-preset-umi 和 metro-react-native-babel-preset
-  //       ...opts.presets.filter((it) => !METRO_PRESETS_REG.test(it) && !UMI_PRESET_REG.test(it)),
-  //       winPath(dirname(require.resolve('@haul-bundler/babel-preset-react-native/package.json'))),
-  //     ],
-  //   };
-  // });
 
   api.onGenerateFiles(async () => {
     const env = api.env === 'production' ? 'production' : 'development';
@@ -48,9 +34,9 @@ export default (api: IApi) => {
     const presets: (string | [string, any, string?])[] = [require.resolve('@haul-bundler/babel-preset-react-native')];
 
     const extraBabelPlugins = api.config.extraBabelPlugins;
-    if (lodash.isArray(extraBabelPlugins)) {
-      plugins.push(...extraBabelPlugins);
-    } else if (lodash.isString(extraBabelPlugins)) {
+    if (Array.isArray(extraBabelPlugins)) {
+      plugins.push(...extraBabelPlugins.filter(Boolean));
+    } else if (extraBabelPlugins) {
       plugins.push(extraBabelPlugins);
     }
 
@@ -67,9 +53,9 @@ export default (api: IApi) => {
     }
 
     const extraBabelPresets = api.config.extraBabelPresets;
-    if (lodash.isArray(extraBabelPresets)) {
+    if (Array.isArray(extraBabelPresets)) {
       presets.push(...extraBabelPresets.filter(Boolean));
-    } else if (lodash.isString(extraBabelPresets)) {
+    } else if (extraBabelPresets) {
       presets.push(extraBabelPresets);
     }
 

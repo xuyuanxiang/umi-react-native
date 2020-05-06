@@ -61,6 +61,7 @@ export default (api: IApi) => {
       path: 'react-native/umi.ts',
       content: Mustache.render(CONTENT, {
         umiRuntimePath: detectUmiRuntimeDirs(),
+        routerPath: require.resolve('react-router-navigation-adapter'),
       }),
     });
   });

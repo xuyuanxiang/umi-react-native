@@ -32,7 +32,7 @@ function createCSSRule() {
 
 export default (api: IApi) => {
   const {
-    utils: { winPath, Mustache, semver, resolve },
+    utils: { winPath, Mustache, semver },
     paths: { absTmpPath },
   } = api;
 
@@ -50,7 +50,6 @@ export default (api: IApi) => {
 
   api.onGenerateFiles(async () => {
     const env = api.env === 'production' ? 'production' : 'development';
-    const defaultWebpack: typeof webpack = require(resolve.sync('webpack', { basedir: absTmpPath }));
     const webpackConfig = new Config();
     const alias = api.config.alias;
     if (typeof alias === 'object') {
@@ -66,12 +65,12 @@ export default (api: IApi) => {
       key: 'chainWebpack',
       initialValue: webpackConfig,
       args: {
-        webpack: defaultWebpack,
+        webpack,
         createCSSRule,
       },
     });
     if (typeof api.config.chainWebpack === 'function') {
-      await api.config.chainWebpack(webpackConfig, { env, webpack: defaultWebpack, createCSSRule });
+      await api.config.chainWebpack(webpackConfig, { env, webpack, createCSSRule });
     }
     // 防止加载umi Common JS格式的代码
     webpackConfig.resolve.alias.set('umi', winPath(join(absTmpPath || '', 'react-native', 'umi')));

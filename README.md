@@ -211,7 +211,7 @@ yarn add @umijs/plugin-dva --dev
 
 ### 集成`@ant-design/react-native`
 
-添加[umi-plugin-antd-react-native](/packages/plugin-antd/README.md)依赖：
+添加[umi-plugin-antd-react-native](/packages/umi-plugin-antd-react-native/README.md)依赖：
 
 ```npm
 yarn add umi-plugin-antd-react-native --dev

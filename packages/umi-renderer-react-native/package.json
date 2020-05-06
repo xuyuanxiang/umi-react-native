@@ -1,0 +1,52 @@
+{
+  "name": "umi-renderer-react-native",
+  "version": "0.0.4-alpha.1",
+  "description": "umi-renderer-react-native",
+  "keywords": [
+    "umi",
+    "umijs",
+    "react-native"
+  ],
+  "author": "徐远翔 <xuyuanxiang@shouqianba.com>",
+  "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
+  "license": "MIT",
+  "react-native": "lib/index.js",
+  "browser": "lib/index.js",
+  "module": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuyuanxiang/umi-react-native.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "bugs": {
+    "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
+  },
+  "dependencies": {
+    "@react-navigation/native": "^5.2.4",
+    "@react-navigation/stack": "^5.2.19",
+    "react-router-config": "5.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.34",
+    "@types/react-native": "^0.62.7",
+    "@types/react-router": "^5.1.7",
+    "@types/react-router-config": "^5.0.1",
+    "@umijs/runtime": "^3.0.0",
+    "@umijs/types": "^3.0.0",
+    "history-with-query": "4.10.3"
+  }
+}
