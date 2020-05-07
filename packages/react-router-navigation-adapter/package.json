@@ -1,6 +1,6 @@
 {
   "name": "react-router-navigation-adapter",
-  "version": "0.0.4-alpha.0",
+  "version": "0.0.4-alpha.1",
   "description": "react-router-navigation-adapter",
   "keywords": [
     "umi",
@@ -17,7 +17,6 @@
   },
   "react-native": "lib/index.js",
   "browser": "lib/index.js",
-  "module": "lib/index.js",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
   "directories": {
@@ -43,12 +42,11 @@
   "dependencies": {
     "@react-navigation/native": "5.2.4",
     "@react-navigation/stack": "5.2.19",
+    "@types/react-router": "5.1.7",
     "react-router": "5.1.2"
   },
   "devDependencies": {
     "@types/react": "^16.9.34",
-    "@types/react-native": "^0.62.4",
-    "@types/react-router": "^5.1.7",
-    "@types/react-router-native": "^5.1.0"
+    "@types/react-native": "^0.62.7"
   }
 }
