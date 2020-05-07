@@ -1,0 +1,28 @@
+{{#if isPatch~}}
+  ###
+{{~else~}}
+  ##
+{{~/if}} {{#if @root.linkCompare~}}
+    {{#if @root.linkReferences~}}
+        <a target="_blank" href="
+    {{~#if @root.repository}}
+            {{~#if @root.host}}
+                {{~@root.host}}/
+    {{~/if}}
+            {{~#if @root.owner}}
+                {{~@root.owner}}/
+    {{~/if}}
+            {{~@root.repository}}
+        {{~else}}
+            {{~@root.repoUrl}}
+        {{~/if}}/compare/{{previousTag}}...{{currentTag}}">{{version}}</a>
+    {{~else}}
+        {{~hash}}
+    {{~/if}}
+{{~else}}
+  {{~version}}
+{{~/if}}
+{{~#if title}} "{{title}}"
+{{~/if}}
+{{~#if date}} ({{date}})
+{{/if}}
