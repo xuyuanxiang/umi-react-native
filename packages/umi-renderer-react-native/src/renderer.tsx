@@ -33,6 +33,11 @@ interface IScreen {
   name: string;
   component: ComponentType<any>;
   options: any;
+  exact?: boolean;
+  redirect?: string;
+  strict?: boolean;
+  sensitive?: boolean;
+  wrappers?: any[];
 }
 
 function flattenRoutes(routes: IRoute[], parent?: IScreen): IScreen[] {
@@ -46,6 +51,11 @@ function flattenRoutes(routes: IRoute[], parent?: IScreen): IScreen[] {
       name: PLATFORM === 'win32' ? name.replace(sep, '/') : name,
       component,
       options,
+      exact,
+      redirect,
+      strict,
+      sensitive,
+      wrappers,
     };
     if (!children || children.length === 0) {
       screens.push(screen);

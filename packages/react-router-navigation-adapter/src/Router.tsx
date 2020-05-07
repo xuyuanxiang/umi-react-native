@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useEffect } from 'react';
 import { RouterProps } from 'react-router';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, Link } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
