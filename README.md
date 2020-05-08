@@ -224,6 +224,8 @@ const Layout = ({ children }) => {
     </BackButton>
   );
 };
+
+export default Layout;
 ```
 
 这样做，当用户使用**系统返回键**时会返回应用的上一个路由，而不是退出应用。
@@ -232,13 +234,7 @@ const Layout = ({ children }) => {
 
 [react-navigation](https://reactnavigation.org/)可作为 umi 默认[react-router](https://reacttraining.com/react-router/)的**替代方案**。
 
-需要在 RN 工程根目录下使用 yarn 安装`umi-plugin-react-navigation`依赖:
-
-```npm
-yarn add umi-plugin-react-navigation --dev
-```
-
-[react-navigation](https://reactnavigation.org/)具备原生应用的体验效果，但同时安装也较为复杂。
+[react-navigation](https://reactnavigation.org/)依赖了一些含有原生代码的类库，具备原生应用的体验效果（页面过渡动画），但同时安装也较为复杂。
 
 了解详情，请移步至：<a href="https://github.com/xuyuanxiang/umi-react-native/tree/master/packages/umi-plugin-react-navigation#readme" target="_blank">umi-plugin-react-navigation 文档</a>
 
