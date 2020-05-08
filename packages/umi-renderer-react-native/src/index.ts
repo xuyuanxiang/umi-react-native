@@ -1,2 +1,2 @@
 export * from './shared';
-export * from './renderer';
+export * from './renderClient';

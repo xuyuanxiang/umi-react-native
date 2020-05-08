@@ -46,8 +46,9 @@
     "@haul-bundler/cli": "0.21.0",
     "@haul-bundler/preset-0.59": "0.18.0",
     "@haul-bundler/preset-0.60": "0.18.0",
+    "@types/react-router-native": "5.1.0",
     "babel-plugin-import": "^1.13.0",
-    "umi-renderer-react-native": "^0.0.4-alpha.1",
+    "react-router-native": "5.1.2",
     "webpack": "4.43.0",
     "webpack-chain": "6.4.0"
   },

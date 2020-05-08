@@ -8,7 +8,7 @@ import { name } from '../../../package.json';
 
 export default (api: IApi) => {
   const {
-    utils: { resolve, semver, lodash, winPath },
+    utils: { resolve, semver, lodash },
     paths: { absNodeModulesPath = '', absSrcPath = '', absTmpPath },
   } = api;
 
@@ -120,7 +120,7 @@ export default (api: IApi) => {
     }
     if (api.config.dynamicImport && !api.config.dynamicImport.loading) {
       api.logger.error(
-        `在 RN 环境中启用"dynamicImport"功能时，必须实现自定的"loading"！${EOL}因为 umi 默认loading使用了 HTML 标签，在 RN 中运行会报错！`,
+        `在 RN 环境中启用"dynamicImport"功能时，必须实现自定义的"loading"！${EOL}因为 umi 默认loading使用了 HTML 标签，在 RN 中运行会报错！`,
       );
       throw new TypeError('"dynamicImport.loading" 未配置');
     }
@@ -140,5 +140,4 @@ export default (api: IApi) => {
   });
 
   api.addTmpGenerateWatcherPaths(() => ['react-native']);
-  api.modifyRendererPath(() => winPath(dirname(require.resolve('umi-renderer-react-native/package.json'))));
 };

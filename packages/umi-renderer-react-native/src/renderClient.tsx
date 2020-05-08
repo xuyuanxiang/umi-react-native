@@ -4,7 +4,7 @@ import { platform } from 'os';
 import { IRoute } from './shared';
 import { ApplyPluginsType, Plugin } from '@umijs/runtime';
 import { matchRoutes } from 'react-router-config';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const PLATFORM = platform();
@@ -13,17 +13,12 @@ interface IRouterComponentProps {
   routes: IRoute[];
   plugin: Plugin;
   history: any;
+  ssrProps?: object;
   defaultTitle?: string;
-  theme?: {
-    dark?: boolean;
-    colors?: {
-      primary: string;
-      background: string;
-      card: string;
-      text: string;
-      border: string;
-    };
-  };
+}
+
+interface IOpts extends IRouterComponentProps {
+  rootElement?: string | HTMLElement;
 }
 
 const { Navigator, Screen } = createStackNavigator();
@@ -66,25 +61,8 @@ function flattenRoutes(routes: IRoute[], parent?: IScreen): IScreen[] {
   return screens;
 }
 
-export function renderRoutes({ routes, defaultTitle = '' }: IRouterComponentProps): JSX.Element {
-  return (
-    <Navigator>
-      {flattenRoutes(routes).map(({ key, options = {}, ...props }, idx) => (
-        <Screen
-          {...props}
-          key={key || idx}
-          options={{
-            title: options.title || defaultTitle,
-            ...options,
-          }}
-        />
-      ))}
-    </Navigator>
-  );
-}
-
 function RouterComponent(props: IRouterComponentProps) {
-  const { history, theme } = props;
+  const { history } = props;
 
   useEffect(() => {
     function routeChangeHandler(location: any, action?: string) {
@@ -106,10 +84,22 @@ function RouterComponent(props: IRouterComponentProps) {
     return history.listen(routeChangeHandler);
   }, [history]);
 
-  return <NavigationContainer theme={Object.assign(DefaultTheme, theme)}>{renderRoutes(props)}</NavigationContainer>;
+  return (
+    <NavigationContainer>
+      <Navigator>
+        {flattenRoutes(props.routes).map(({ key, options, ...rest }, idx) => (
+          <Screen
+            {...rest}
+            key={key || `screen_${idx}`}
+            options={{ ...options, title: options.title || props.defaultTitle }}
+          />
+        ))}
+      </Navigator>
+    </NavigationContainer>
+  );
 }
 
-export function renderer(opts: IRouterComponentProps) {
+export function renderClient(opts: IOpts) {
   return opts.plugin.applyPlugins({
     type: ApplyPluginsType.modify,
     key: 'rootContainer',

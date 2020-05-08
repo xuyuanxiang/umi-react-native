@@ -1,5 +1,5 @@
 import { IApi } from '@umijs/types';
-import { dirname, join } from 'path';
+import { dirname } from 'path';
 import webpack from 'webpack';
 import Config from 'webpack-chain';
 
@@ -32,8 +32,7 @@ function createCSSRule() {
 
 export default (api: IApi) => {
   const {
-    utils: { winPath, Mustache, semver },
-    paths: { absTmpPath },
+    utils: { winPath, Mustache, semver, resolve },
   } = api;
 
   function detectHaulPresetPath(): string {
@@ -60,6 +59,8 @@ export default (api: IApi) => {
         }
       });
     }
+
+    // 接收插件值
     await api.applyPlugins({
       type: api.ApplyPluginsType.modify,
       key: 'chainWebpack',
@@ -69,11 +70,21 @@ export default (api: IApi) => {
         createCSSRule,
       },
     });
+
+    // 接收用户值
     if (typeof api.config.chainWebpack === 'function') {
       await api.config.chainWebpack(webpackConfig, { env, webpack, createCSSRule });
     }
-    // 防止加载umi Common JS格式的代码
-    webpackConfig.resolve.alias.set('umi', winPath(join(absTmpPath || '', 'react-native', 'umi')));
+
+    /**
+     * 防止加载 umi 包 Common JS 格式的代码
+     *  umi for WEB 使用 webpack treeShaking，运行时加载的是 ES Module 格式的代码：umi/dist/index.esm.js；
+     *  但 RN 的模块加载方式不支持 treeShaking，会加载 umi Common JS 代码：umi/index.js，其中包含了大量 Node 工具类库。
+     *  在 haul 构建时甚至会导致 out of memory。
+     * 另外，使用其他方式：api.chainWebpack 或者 api.addProjectFirstLibraries "umi" alias 都会被覆盖，所以放到这里最终写 haul.config.js 时强行设置
+     */
+    webpackConfig.resolve.alias.set('umi', resolve.sync('umi/dist/index.esm.js', { basedir: process.env.UMI_DIR }));
+
     const config = webpackConfig.toConfig();
     api.writeTmpFile({
       path: 'haul.config.js',

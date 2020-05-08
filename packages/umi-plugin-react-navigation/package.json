@@ -1,12 +1,11 @@
 {
-  "name": "react-router-navigation-adapter",
+  "name": "umi-plugin-react-navigation",
   "version": "0.0.4-alpha.1",
-  "description": "react-router-navigation-adapter",
+  "description": "umi-plugin-react-navigation",
   "keywords": [
     "umi",
     "umijs",
     "react-native",
-    "react-router",
     "react-navigation"
   ],
   "author": "xuyuanxiang <hi@xuyuanxiang.cn>",
@@ -15,8 +14,7 @@
   "engines": {
     "node": ">=10.x"
   },
-  "react-native": "lib/index.js",
-  "browser": "lib/index.js",
+  "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
   "directories": {
@@ -39,12 +37,20 @@
   "bugs": {
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
+  "peerDependencies": {
+    "@react-native-community/masked-view": ">= 0.1.0",
+    "react-native-gesture-handler": ">= 1.0.0",
+    "react-native-safe-area-context": ">= 0.6.0",
+    "react-native-screens": ">= 2.0.0-alpha.0 || >= 2.0.0-beta.0 || >= 2.0.0"
+  },
   "dependencies": {
     "@react-navigation/native": "5.2.4",
     "@react-navigation/stack": "5.2.19",
     "@types/react-router": "5.1.5",
     "@types/react-router-native": "5.1.0",
-    "react-router": "5.1.2"
+    "prop-types": "^15.7.2",
+    "react-router": "5.1.2",
+    "tiny-invariant": "^1.1.0"
   },
   "devDependencies": {
     "@types/react": "^16.9.34",

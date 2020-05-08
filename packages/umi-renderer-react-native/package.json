@@ -40,8 +40,7 @@
   "dependencies": {
     "@types/react-router-config": "5.0.1",
     "@umijs/runtime": "^3.0.0",
-    "react-router-config": "5.1.1",
-    "react-router-navigation-adapter": "^0.0.4-alpha.1"
+    "react-router-config": "5.1.1"
   },
   "devDependencies": {
     "@types/react": "^16.9.34",

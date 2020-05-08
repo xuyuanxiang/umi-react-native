@@ -9,15 +9,6 @@ if (global.window === undefined) {
   global.window = global;
 }
 
-// disable hot module replacement
-// @ts-ignore
-if (module.hot) {
-  // @ts-ignore
-  module.hot.accept = function() {
-  
-  };
-}
-
 `;
 
 export default (api: IApi) => {

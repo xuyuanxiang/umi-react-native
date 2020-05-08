@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { fork } from 'child_process';
+import { ChildProcess, fork } from 'child_process';
 import { IApi } from '@umijs/types';
 import { generateFiles, asyncClean } from '../../utils';
 
@@ -45,23 +45,41 @@ export default (api: IApi) => {
 
     watch(await generateFiles({ api, watch: isWatch }));
 
-    const child = fork(require.resolve('@haul-bundler/cli/bin/haul.js'), argv, {
-      stdio: 'inherit',
-      cwd: absTmpPath,
-    });
-    child.on('close', (code) => {
-      unwatch();
-      process.exit(code);
-    });
+    let child: ChildProcess | undefined;
+
+    function start() {
+      child = fork(require.resolve('@haul-bundler/cli/bin/haul.js'), argv, {
+        stdio: 'inherit',
+        cwd: absTmpPath,
+      });
+
+      child.on('close', (code) => {
+        if (!isWatch) {
+          unwatch();
+          process.exit(code);
+        }
+      });
+    }
+
+    function destroy(single: NodeJS.Signals) {
+      if (child) {
+        child.kill(single);
+      }
+    }
+
+    function restart() {
+      destroy('SIGINT');
+      start();
+    }
+
+    start();
 
     process.on('SIGINT', () => {
-      unwatch();
-      child.kill('SIGINT');
+      destroy('SIGINT');
     });
 
     process.on('SIGTERM', () => {
-      unwatch();
-      child.kill('SIGTERM');
+      destroy('SIGTERM');
     });
   }
 

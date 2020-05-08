@@ -1,17 +1,16 @@
 import { IApi } from '@umijs/types';
-import { DefaultTheme } from '@react-navigation/native';
+import { dirname } from 'path';
 
 export default (api: IApi) => {
+  const {
+    utils: { winPath },
+  } = api;
+
   api.describe({
     key: 'navigation',
     config: {
       default: {
-        theme: {
-          dark: DefaultTheme.dark,
-          colors: {
-            ...DefaultTheme.colors,
-          },
-        },
+        theme: null,
       },
       schema(joi) {
         return joi
@@ -32,11 +31,5 @@ export default (api: IApi) => {
     },
   });
 
-  api.modifyDefaultConfig((config) => {
-    config.theme = {
-      ...DefaultTheme.colors,
-    };
-
-    return config;
-  });
+  api.modifyRendererPath(() => winPath(dirname(require.resolve('umi-renderer-react-native/package.json'))));
 };
