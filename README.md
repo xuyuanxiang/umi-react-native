@@ -234,9 +234,7 @@ export default Layout;
 
 [react-navigation](https://reactnavigation.org/)可作为 umi 默认[react-router](https://reacttraining.com/react-router/)的**替代方案**。
 
-[react-navigation](https://reactnavigation.org/)依赖了一些含有原生代码的类库，具备原生应用的体验效果（页面过渡动画），但同时安装也较为复杂。
-
-了解详情，请移步至：<a href="https://github.com/xuyuanxiang/umi-react-native/tree/master/packages/umi-plugin-react-navigation#readme" target="_blank">umi-plugin-react-navigation 文档</a>
+了解详情，请移步至：<a href="https://github.com/xuyuanxiang/umi-react-native/tree/master/packages/umi-plugin-react-navigation#readme" target="_blank">umi-plugin-react-navigation 文档</a>。
 
 ### 开发
 

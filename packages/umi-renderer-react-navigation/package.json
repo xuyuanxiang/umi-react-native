@@ -1,11 +1,12 @@
 {
-  "name": "umi-renderer-react-native",
+  "name": "umi-renderer-react-navigation",
   "version": "0.0.4-alpha.1",
-  "description": "umi-renderer-react-native",
+  "description": "umi-renderer-react-navigation",
   "keywords": [
     "umi",
     "umijs",
-    "react-native"
+    "react-native",
+    "react-navigation"
   ],
   "author": "徐远翔 <xuyuanxiang@shouqianba.com>",
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
