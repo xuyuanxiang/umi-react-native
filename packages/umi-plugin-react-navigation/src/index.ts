@@ -1,11 +1,9 @@
 import { IApi } from '@umijs/types';
 import { dirname } from 'path';
+import exportsTpl from './exportsTpl';
+import { dependencies } from '../package.json';
 
 export default (api: IApi) => {
-  const {
-    utils: { winPath },
-  } = api;
-
   api.describe({
     key: 'navigation',
     config: {
@@ -31,5 +29,25 @@ export default (api: IApi) => {
     },
   });
 
-  api.modifyRendererPath(() => winPath(dirname(require.resolve('umi-renderer-react-native/package.json'))));
+  api.addProjectFirstLibraries(() =>
+    Object.keys(dependencies).map((name) => ({ name, path: dirname(require.resolve(`${name}/package.json`)) })),
+  );
+
+  api.modifyRendererPath(() => 'umi-renderer-react-navigation');
+
+  api.addTmpGenerateWatcherPaths(() => ['react-navigation']);
+
+  api.onGenerateFiles(() => {
+    api.writeTmpFile({
+      path: 'react-navigation/exports.ts',
+      content: exportsTpl,
+    });
+  });
+
+  api.addUmiExports(() => [
+    {
+      exportAll: true,
+      source: '../react-navigation/exports',
+    },
+  ]);
 };

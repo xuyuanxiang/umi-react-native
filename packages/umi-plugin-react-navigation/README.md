@@ -8,8 +8,8 @@
 
 ## 动机
 
-- [react-navigation](https://reactnavigation.org/) 具备原生体验效果（页面过渡动画）；
-- 工作中难免会遇到挑剔的产品经理。
+- [react-navigation](https://reactnavigation.org/) 具备原生体验效果；
+- 工作中难免会遇到高要求的产品经理。
 
 ## 安装
 
@@ -43,3 +43,21 @@ RN 0.60.0 及以上版本会[自动 Link](https://github.com/react-native-commun
 
 1. 以[react-native-gesture-handler](https://github.com/software-mansion/react-native-gesture-handler#react-native-support)为例，对于 RN 0.57.2 及以上版本，需要安装`1.1.x`，不能安装最新版；
 2. 大部分依赖使用 yarn/npm 安装完成，还需要 Link 原生 iOS/Android 的依赖，按照这些依赖 README 文档中描述操作。
+
+## 导航条
+
+### 标题
+
+查看[umi#title](https://umijs.org/config#title)配置项。
+
+### 样式
+
+#### 全局设置
+
+#### 单独为某个页面设置
+
+## 页面间跳转
+
+### 命令式
+
+### 申明式

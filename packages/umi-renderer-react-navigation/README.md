@@ -2,7 +2,7 @@
 
 针对 [react-navigation](https://reactnavigation.org/) 的 [umi](https://umijs.org/) 渲染器。
 
-umi 默认 `@umijs/renderer-react` 使用[react-router](https://reacttraining.com/react-router/)渲染路由的代码逻辑无法替换。
+umi 默认渲染器： `@umijs/renderer-react` 使用[react-router](https://reacttraining.com/react-router/)渲染路由的代码逻辑无法替换。
 
 只能替换整个`@umijs/renderer-react`，于是产生了这个项目。
 
