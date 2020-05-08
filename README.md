@@ -20,12 +20,12 @@
   - [配置](#%E9%85%8D%E7%BD%AE)
     - [目前支持的 umi 配置项](#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84-umi-%E9%85%8D%E7%BD%AE%E9%A1%B9)
     - [umi-preset-react-native 扩展配置](#umi-preset-react-native-%E6%89%A9%E5%B1%95%E9%85%8D%E7%BD%AE)
-- [路由](#%E8%B7%AF%E7%94%B1)
-  - [react-router](#react-router)
-    - [`Link`组件在 RN 和 DOM 中存在差异](#link%E7%BB%84%E4%BB%B6%E5%9C%A8-rn-%E5%92%8C-dom-%E4%B8%AD%E5%AD%98%E5%9C%A8%E5%B7%AE%E5%BC%82)
-    - [没有`NavLink`组件](#%E6%B2%A1%E6%9C%89navlink%E7%BB%84%E4%BB%B6)
-    - [新增`BackButton`和`AndroidBackButton`组件](#%E6%96%B0%E5%A2%9Ebackbutton%E5%92%8Candroidbackbutton%E7%BB%84%E4%BB%B6)
-  - [react-navigation](#react-navigation)
+  - [路由](#%E8%B7%AF%E7%94%B1)
+    - [react-router](#react-router)
+      - [`Link`组件在 RN 和 DOM 中存在差异](#link%E7%BB%84%E4%BB%B6%E5%9C%A8-rn-%E5%92%8C-dom-%E4%B8%AD%E5%AD%98%E5%9C%A8%E5%B7%AE%E5%BC%82)
+      - [没有`NavLink`组件](#%E6%B2%A1%E6%9C%89navlink%E7%BB%84%E4%BB%B6)
+      - [新增`BackButton`和`AndroidBackButton`组件](#%E6%96%B0%E5%A2%9Ebackbutton%E5%92%8Candroidbackbutton%E7%BB%84%E4%BB%B6)
+    - [react-navigation](#react-navigation)
   - [开发](#%E5%BC%80%E5%8F%91)
   - [打包](#%E6%89%93%E5%8C%85)
 - [示例](#%E7%A4%BA%E4%BE%8B)
@@ -153,15 +153,15 @@ export default {
 
 在做多 bundle 切分时，要保证主 bundle 中必须包含`./umi.ts`。
 
-## 路由
+### 路由
 
-### react-router
+#### react-router
 
 [umi](https://umijs.org/)内置了`react-router-dom`，**umi-preset-react-native**在运行时会将其替换为：`react-router-native`。
 
 二者都基于 [react-router](https://reacttraining.com/react-router/)，但存在一些差异。
 
-#### `Link`组件在 RN 和 DOM 中存在差异
+##### `Link`组件在 RN 和 DOM 中存在差异
 
 以下是`react-router-native` `Link`组件的属性：
 
@@ -196,7 +196,7 @@ function Index() {
 }
 ```
 
-#### 没有`NavLink`组件
+##### 没有`NavLink`组件
 
 `react-router-native`没有`NavLink`组件，当你尝试引入时会得到`undefined`：
 
@@ -206,7 +206,7 @@ import { NavLink } from 'umi';
 typeof NavLink === 'undefined'; // true;
 ```
 
-#### 新增`BackButton`和`AndroidBackButton`组件
+##### 新增`BackButton`和`AndroidBackButton`组件
 
 对于 RN 应用，需要在[全局 layout](https://umijs.org/docs/convention-routing#%E5%85%A8%E5%B1%80-layout)中使用`BackButton`作为根容器:
 
@@ -228,7 +228,7 @@ const Layout = ({ children }) => {
 
 这样做，当用户使用**系统返回键**时会返回应用的上一个路由，而不是退出应用。
 
-### react-navigation
+#### react-navigation
 
 [react-navigation](https://reactnavigation.org/)可作为 umi 默认[react-router](https://reacttraining.com/react-router/)的**替代方案**。
 
