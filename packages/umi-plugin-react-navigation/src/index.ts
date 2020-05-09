@@ -33,6 +33,13 @@ export default (api: IApi) => {
   );
 
   api.addEntryImportsAhead(() => [{ source: 'react-native-gesture-handler' }]);
+  api.addEntryImports(() => [
+    {
+      specifier: 'enableScreens',
+      source: 'react-native-screens',
+    },
+  ]);
+  api.addEntryCode(() => `enableScreens();`);
 
   api.modifyRendererPath(() => 'umi-renderer-react-navigation');
 

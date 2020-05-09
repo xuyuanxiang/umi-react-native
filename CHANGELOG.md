@@ -1,4 +1,16 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.4-alpha.1...v"></a> (2020-05-07)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.4-alpha.1...v"></a> (2020-05-09)
+
+
+### ⚠ 破坏性改动
+
+* You need to follow the [installation document](https://github.com/ant-design/ant-design-mobile-rn#install--usage) to install `@ant-design/react-native` directly.
+
+### 重构
+
+* remove package: `umi-plugin-antd-react-native` (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/018b426">018b426</a>)
+
+  Some **peer dependencies** of `@ant-design/react-native` were **excluded** after **4.0.0**.
+
 
 ### <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.4-alpha.0...v0.0.4-alpha.1">0.0.4-alpha.1</a> (2020-05-06)
 
