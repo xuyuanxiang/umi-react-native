@@ -1,4 +1,4 @@
-import { IApi } from '@umijs/types';
+import { IApi } from 'umi';
 
 const CONTENT = `export {
   BackButton,

@@ -37,21 +37,17 @@
   "bugs": {
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
+  "peerDependencies": {
+    "umi": "^3.0.0"
+  },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
-    "@react-navigation/native": "5.2.4",
-    "@react-navigation/stack": "5.2.19",
+    "@react-navigation/native": "5.2.6",
+    "@react-navigation/stack": "5.3.1",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-reanimated": "^1.8.0",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.7.0",
     "umi-renderer-react-navigation": "^0.0.4-alpha.1"
-  },
-  "devDependencies": {
-    "@types/react": "^16.9.34",
-    "@types/react-native": "^0.62.7",
-    "@types/react-router": "5.1.5",
-    "@types/react-router-native": "5.1.0",
-    "react-router": "5.1.2"
   }
 }

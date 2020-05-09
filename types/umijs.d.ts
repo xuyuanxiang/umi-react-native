@@ -1,4 +1,9 @@
 /* eslint-disable */
+declare module 'umi' {
+  import * as utils from '@umijs/utils';
+  export { utils };
+  export * from '@umijs/types';
+}
 declare module '@umijs/runtime/dist/index.esm' {
   export * from '@umijs/runtime';
 }
@@ -6,7 +11,6 @@ declare module '@umijs/preset-built-in/lib/plugins/commands/generateFiles' {
   import { IApi } from '@umijs/types';
   export default function (arg: { api: IApi; watch?: boolean }): Promise<() => void>;
 }
-
 declare module '@umijs/preset-built-in/lib/plugins/commands/buildDevUtils' {
   import { IApi } from '@umijs/types';
   import webpack, { Configuration } from 'webpack';

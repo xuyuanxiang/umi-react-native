@@ -1,6 +1,5 @@
-import { IApi } from '@umijs/types';
+import { IApi } from 'umi';
 import { dirname } from 'path';
-import exportsTpl from './exportsTpl';
 import { dependencies } from '../package.json';
 
 export default (api: IApi) => {
@@ -33,14 +32,17 @@ export default (api: IApi) => {
     Object.keys(dependencies).map((name) => ({ name, path: dirname(require.resolve(`${name}/package.json`)) })),
   );
 
+  api.addEntryImportsAhead(() => [{ source: 'react-native-gesture-handler' }]);
+
   api.modifyRendererPath(() => 'umi-renderer-react-navigation');
 
   api.addTmpGenerateWatcherPaths(() => ['react-navigation']);
 
-  api.onGenerateFiles(() => {
+  api.onGenerateFiles(async () => {
+    const exportsTpl = await import('./exportsTpl');
     api.writeTmpFile({
       path: 'react-navigation/exports.ts',
-      content: exportsTpl,
+      content: exportsTpl.default,
     });
   });
 

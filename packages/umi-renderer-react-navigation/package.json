@@ -19,7 +19,8 @@
     "lib": "lib"
   },
   "files": [
-    "lib"
+    "lib",
+    "src"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,13 +40,10 @@
     "umi": "^3.0.0"
   },
   "dependencies": {
+    "@react-navigation/native": "5.2.6",
+    "@react-navigation/stack": "5.3.1",
     "@types/react-router-config": "5.0.1",
     "@umijs/runtime": "^3.0.0",
     "react-router-config": "5.1.1"
-  },
-  "devDependencies": {
-    "@types/react": "^16.9.34",
-    "@types/react-native": "^0.62.7",
-    "@umijs/types": "^3.0.0"
   }
 }

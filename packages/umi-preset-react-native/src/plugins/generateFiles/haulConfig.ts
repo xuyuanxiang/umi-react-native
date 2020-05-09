@@ -1,4 +1,4 @@
-import { IApi } from '@umijs/types';
+import { IApi } from 'umi';
 import { dirname } from 'path';
 import webpack from 'webpack';
 import Config from 'webpack-chain';

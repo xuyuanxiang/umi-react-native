@@ -1,4 +1,4 @@
-import { IApi } from '@umijs/types';
+import { IApi } from 'umi';
 
 const CONTENT = `module.exports = {{{ babelConfig }}};
 
@@ -15,6 +15,13 @@ export default (api: IApi) => {
   const {
     utils: { Mustache },
   } = api;
+
+  api.modifyBabelPresetOpts((opts) => {
+    return {
+      ...opts,
+      import: (opts.import || []).concat([{ libraryName: '@ant-design/react-native' }]),
+    };
+  });
 
   api.onGenerateFiles(async () => {
     const env = api.env === 'production' ? 'production' : 'development';

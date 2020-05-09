@@ -1,4 +1,4 @@
-import { IApi } from '@umijs/types';
+import { IApi } from 'umi';
 import { join } from 'path';
 
 const runtimeTpl = `import {AppRegistry} from 'react-native';

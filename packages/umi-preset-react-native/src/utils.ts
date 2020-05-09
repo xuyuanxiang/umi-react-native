@@ -1,7 +1,17 @@
 import { existsSync, readdir, stat } from 'fs';
 import { join } from 'path';
 import { EOL } from 'os';
-import { IApi } from '@umijs/types';
+import { IApi, utils } from 'umi';
+
+const { watchPkg } = require(utils.resolve.sync('@umijs/preset-built-in/lib/plugins/commands/dev/watchPkg', {
+  basedir: process.env.UMI_DIR,
+}));
+
+const generateFiles = require(utils.resolve.sync('@umijs/preset-built-in/lib/plugins/commands/generateFiles', {
+  basedir: process.env.UMI_DIR,
+})).default;
+
+export { watchPkg, generateFiles };
 
 export function assertExists(dependencyPath: string): void {
   if (!existsSync(dependencyPath)) {
@@ -9,71 +19,6 @@ export function assertExists(dependencyPath: string): void {
       `未能找到：${dependencyPath}${EOL}请确认：${EOL}  1. 是否在 react-native 工程根目录下执行；${EOL}  2. 是否已执行 \`yarn install\` 安装所有依赖。`,
     );
   }
-}
-
-export async function generateFiles({ api, watch }: { api: IApi; watch?: boolean }) {
-  const {
-    paths,
-    utils: { chokidar, lodash, winPath },
-  } = api;
-
-  async function generate() {
-    api.logger.debug('generate files');
-    await api.applyPlugins({
-      key: 'onGenerateFiles',
-      type: api.ApplyPluginsType.event,
-    });
-  }
-
-  const watchers: any[] = [];
-
-  await generate();
-
-  if (watch) {
-    const watcherPaths = await api.applyPlugins({
-      key: 'addTmpGenerateWatcherPaths',
-      type: api.ApplyPluginsType.add,
-      initialValue: [
-        paths.absPagesPath!,
-        join(paths.absSrcPath!, api.config?.singular ? 'layout' : 'layouts'),
-        join(paths.absSrcPath!, 'app.tsx'),
-        join(paths.absSrcPath!, 'app.ts'),
-        join(paths.absSrcPath!, 'app.jsx'),
-        join(paths.absSrcPath!, 'app.js'),
-      ],
-    });
-    lodash.uniq<string>(watcherPaths.map((p: string) => winPath(p))).forEach((p: string) => {
-      createWatcher(p);
-    });
-    // process.on('SIGINT', () => {
-    //   console.log('SIGINT');
-    //   unwatch();
-    // });
-  }
-
-  function unwatch() {
-    watchers.forEach((watcher) => {
-      watcher.close();
-    });
-  }
-
-  function createWatcher(path: string) {
-    const watcher = chokidar.watch(path, {
-      // ignore .dotfiles and _mock.js
-      // eslint-disable-next-line no-useless-escape
-      ignored: /(^|[\/\\])(_mock.js$|\..)/,
-      ignoreInitial: true,
-    });
-    watcher.on(
-      'all',
-      lodash.throttle(async (event, path) => {
-        // debug(`${event} ${path}`);
-        await generate();
-      }, 100),
-    );
-  }
-
-  return unwatch;
 }
 
 export function asyncClean(api: IApi, path: string, ...excludes: string[]): Promise<void> {

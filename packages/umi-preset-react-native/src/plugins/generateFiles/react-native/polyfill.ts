@@ -1,4 +1,4 @@
-import { IApi } from '@umijs/types';
+import { IApi } from 'umi';
 
 const CONTENT = `{{{ polyfills }}}
 import 'react-native/Libraries/Core/InitializeCore.js';

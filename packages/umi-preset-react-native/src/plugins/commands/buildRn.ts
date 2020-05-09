@@ -1,6 +1,6 @@
 import { join, resolve } from 'path';
 import { execFileSync } from 'child_process';
-import { IApi } from '@umijs/types';
+import { IApi } from 'umi';
 import { generateFiles, asyncClean } from '../../utils';
 
 export interface IHaulBundleOptions {

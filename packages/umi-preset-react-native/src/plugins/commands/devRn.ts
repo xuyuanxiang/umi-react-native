@@ -1,6 +1,6 @@
 import { join } from 'path';
 import { ChildProcess, fork } from 'child_process';
-import { IApi } from '@umijs/types';
+import { IApi } from 'umi';
 import { generateFiles, asyncClean } from '../../utils';
 
 // export interface IHaulStartOptions {

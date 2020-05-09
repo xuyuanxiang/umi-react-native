@@ -1,4 +1,4 @@
-import { IApi } from '@umijs/types';
+import { IApi } from 'umi';
 import { dirname, join } from 'path';
 import { readFileSync } from 'fs';
 import { EOL } from 'os';

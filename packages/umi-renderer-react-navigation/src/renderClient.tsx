@@ -1,11 +1,12 @@
 import React, { ComponentType, useEffect } from 'react';
 import { join, sep } from 'path';
 import { platform } from 'os';
-import { IRoute } from './shared';
 import { ApplyPluginsType, Plugin } from '@umijs/runtime';
+import { Router } from 'react-router';
 import { matchRoutes } from 'react-router-config';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { IRoute } from './shared';
 
 const PLATFORM = platform();
 
@@ -86,15 +87,17 @@ function RouterComponent(props: IRouterComponentProps) {
 
   return (
     <NavigationContainer>
-      <Navigator>
-        {flattenRoutes(props.routes).map(({ key, options, ...rest }, idx) => (
-          <Screen
-            {...rest}
-            key={key || `screen_${idx}`}
-            options={{ ...options, title: options.title || props.defaultTitle }}
-          />
-        ))}
-      </Navigator>
+      <Router history={history}>
+        <Navigator>
+          {flattenRoutes(props.routes).map(({ key, options, ...rest }, idx) => (
+            <Screen
+              {...rest}
+              key={key || `screen_${idx}`}
+              options={{ ...options, title: options.title || props.defaultTitle }}
+            />
+          ))}
+        </Navigator>
+      </Router>
     </NavigationContainer>
   );
 }
