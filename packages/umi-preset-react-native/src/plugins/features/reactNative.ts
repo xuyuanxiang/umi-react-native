@@ -144,12 +144,12 @@ export default (api: IApi) => {
       );
       throw new TypeError('"history.type" 配置错误');
     }
-    if (api.config.dynamicImport && !api.config.dynamicImport.loading) {
-      api.logger.error(
-        `在 RN 环境中启用"dynamicImport"功能时，必须实现自定义的"loading"！${EOL}因为 umi 默认 loading 使用了 HTML 标签，在 RN 中运行会报错！${EOL}查看如何配置自定义 loading：https://umijs.org/config#dynamicimport`,
-      );
-      throw new TypeError('"dynamicImport.loading" 未配置');
-    }
+    // if (api.config.dynamicImport && !api.config.dynamicImport.loading) {
+    //   api.logger.error(
+    //     `在 RN 环境中启用"dynamicImport"功能时，必须实现自定义的"loading"！${EOL}因为 umi 默认 loading 使用了 HTML 标签，在 RN 中运行会报错！${EOL}查看如何配置自定义 loading：https://umijs.org/config#dynamicimport`,
+    //   );
+    //   throw new TypeError('"dynamicImport.loading" 未配置');
+    // }
     if (semver.valid(metroVersion) && semver.lt(metroVersion, '0.56.0')) {
       api.logger.error(
         `当前使用的 metro 版本存在 bug: https://github.com/facebook/react-native/issues/26958${EOL}请升级 metro 至 0.56.0及以上版本。`,

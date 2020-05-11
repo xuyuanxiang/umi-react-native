@@ -38,7 +38,7 @@
   },
   "peerDependencies": {
     "metro": ">=0.56.0",
-    "react-native": ">=0.60.0 <1.0.x",
+    "react-native": ">=0.59.0 <1.0.x",
     "umi": "^3.0.0"
   },
   "dependencies": {
