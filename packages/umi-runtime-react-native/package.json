@@ -1,18 +1,18 @@
 {
-  "name": "umi-renderer-react-navigation",
+  "name": "umi-runtime-react-native",
   "version": "0.0.4-alpha.1",
-  "description": "umi-renderer-react-navigation",
+  "description": "umi-runtime-react-native",
   "keywords": [
     "umi",
     "umijs",
-    "react-native",
-    "react-navigation"
+    "react-native"
   ],
   "author": "徐远翔 <xuyuanxiang@shouqianba.com>",
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
   "license": "MIT",
   "react-native": "lib/index.js",
   "browser": "lib/index.js",
+  "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
   "directories": {
@@ -40,9 +40,8 @@
     "umi": "^3.0.0"
   },
   "dependencies": {
-    "@react-navigation/native": "5.3.0",
-    "@react-navigation/stack": "5.3.2",
-    "@types/react-router-config": "5.0.1",
-    "react-router-config": "5.1.1"
+    "@types/react-router-native": "^5.1.0",
+    "@umijs/runtime": "^3.0.0",
+    "react-router-native": "^5.1.2"
   }
 }

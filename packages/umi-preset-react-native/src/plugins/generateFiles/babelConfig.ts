@@ -1,8 +1,12 @@
 import { IApi } from 'umi';
+import { join } from 'path';
+import { existsSync } from 'fs';
 
 const CONTENT = `module.exports = {{{ babelConfig }}};
 
 `;
+
+const METRO_BABEL_PRESET_REG = /metro-react-native-babel-preset/;
 
 interface IImportPluginOpts {
   libraryName: string;
@@ -13,7 +17,7 @@ interface IImportPluginOpts {
 
 export default (api: IApi) => {
   const {
-    utils: { Mustache },
+    utils: { Mustache, resolve },
   } = api;
 
   api.modifyBabelPresetOpts((opts) => {
@@ -37,8 +41,24 @@ export default (api: IApi) => {
         import: [],
       },
     });
+
     const plugins: (string | [string, any, string?])[] = [];
     const presets: (string | [string, any, string?])[] = [require.resolve('@haul-bundler/babel-preset-react-native')];
+    const babelConfigFile = join(api.paths.absSrcPath || '', 'babel.config.js');
+    if (existsSync(babelConfigFile)) {
+      try {
+        const userPresets = require(babelConfigFile).presets;
+        if (Array.isArray(userPresets)) {
+          presets.push(...userPresets.filter((it) => !METRO_BABEL_PRESET_REG.test(it) && !presets.includes(it)));
+        }
+      } catch (ignored) {}
+      try {
+        const userPlugins = require(babelConfigFile).plugins;
+        if (Array.isArray(userPlugins)) {
+          plugins.push(...userPlugins);
+        }
+      } catch (ignored) {}
+    }
 
     const extraBabelPlugins = api.config.extraBabelPlugins;
     if (Array.isArray(extraBabelPlugins)) {
@@ -54,7 +74,7 @@ export default (api: IApi) => {
        */
       plugins.push(
         ...presetOpts.import.map((importOpts: IImportPluginOpts) => {
-          return [require.resolve('babel-plugin-import'), importOpts, importOpts.libraryName];
+          return [resolve.sync('babel-plugin-import', { basedir: api.paths.cwd }), importOpts, importOpts.libraryName];
         }),
       );
     }

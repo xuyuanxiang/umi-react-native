@@ -1,17 +1,7 @@
 import { existsSync, readdir, stat } from 'fs';
 import { join } from 'path';
 import { EOL } from 'os';
-import { IApi, utils } from 'umi';
-
-const { watchPkg } = require(utils.resolve.sync('@umijs/preset-built-in/lib/plugins/commands/dev/watchPkg', {
-  basedir: process.env.UMI_DIR,
-}));
-
-const generateFiles = require(utils.resolve.sync('@umijs/preset-built-in/lib/plugins/commands/generateFiles', {
-  basedir: process.env.UMI_DIR,
-})).default;
-
-export { watchPkg, generateFiles };
+import { IApi } from 'umi';
 
 export function assertExists(dependencyPath: string): void {
   if (!existsSync(dependencyPath)) {
@@ -21,8 +11,10 @@ export function assertExists(dependencyPath: string): void {
   }
 }
 
-export function asyncClean(api: IApi, path: string, ...excludes: string[]): Promise<void> {
+export function asyncClean(api: IApi, ...excludes: string[]): Promise<void> {
   return new Promise<void>((resolve, reject) => {
+    const path = api.paths.absTmpPath;
+    if (!path) return resolve();
     stat(path, (_, stats) => {
       if (!_ && stats.isDirectory()) {
         readdir(path, (err, files) => {
@@ -50,4 +42,23 @@ export function asyncClean(api: IApi, path: string, ...excludes: string[]): Prom
       }
     });
   });
+}
+
+function kebabCase(input: string): string {
+  return input
+    .replace(input.charAt(0), input.charAt(0).toLowerCase())
+    .replace(/[A-Z]/g, ($1) => $1.replace($1, `-${$1.toLowerCase()}`));
+}
+
+export function argsToArgv(args: { [key: string]: unknown }): string[] {
+  const results: string[] = [];
+  Object.keys(args).forEach((key) => {
+    if (/^[a-zA-Z]+$/.test(key)) {
+      const value = args[key];
+      if (typeof value !== 'undefined' && value != null) {
+        results.push(`--${kebabCase(key)}`, JSON.stringify(value));
+      }
+    }
+  });
+  return results;
 }

@@ -1,7 +1,7 @@
 import React, { ComponentType, useEffect } from 'react';
 import { join, sep } from 'path';
 import { platform } from 'os';
-import { ApplyPluginsType, Plugin } from '@umijs/runtime';
+import { ApplyPluginsType, Plugin } from 'umi';
 import { Router } from 'react-router';
 import { matchRoutes } from 'react-router-config';
 import { NavigationContainer } from '@react-navigation/native';

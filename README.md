@@ -84,24 +84,7 @@ _待 yarn 安装完成后开箱即用。_
 
 ### 集成 @ant-design/react-native
 
-在 RN 工程根目录下使用 yarn 添加`@ant-design/react-native`和`@ant-design/icons-react-native`依赖：
-
-```npm
-yarn add @ant-design/react-native @ant-design/icons-react-native
-```
-
-**RN`0.60.0`及以上版本**会[自动链接](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md)`@ant-design/icons-react-native`，待 yarn 安装完成后，如果是 iOS 需要：
-
-```shell
-cd ios && pod install
-```
-
-**RN`0.50.x`版本**，待 yarn 安装完成，还需要使用`react-native link`**手动链接**`@ant-design/icons-react-native`:
-
-```npm
-yarn react-native link @ant-design/icons-react-native
-# ./node_modules/.bin/react-native link @ant-design/icons-react-native
-```
+按照[ant-design/ant-design-mobile-rn#安装 & 使用](https://github.com/ant-design/ant-design-mobile-rn/blob/master/README.zh-CN.md#%E5%AE%89%E8%A3%85--%E4%BD%BF%E7%94%A8)安装。
 
 **umi-preset-react-native**已经为`@ant-design/react-native`添加了[**按需加载**](https://rn.mobile.ant.design/docs/react/introduce-cn#%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD)（[babel-plugin-import](https://github.com/ant-design/babel-plugin-import)）的配置。
 

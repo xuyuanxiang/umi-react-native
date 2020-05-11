@@ -1,16 +1,9 @@
-import { IApi, IRoute } from 'umi';
+import { IApi } from 'umi';
 import { dirname } from 'path';
 import { dependencies } from '../package.json';
 
 const exportsTpl = `export * from '@react-navigation/stack';
 export * from '@react-navigation/native';
-
-`;
-const screenWrapperTpl = `import {Screen} from 'react-native-screens';
-
-export default (props) => {
-   return <Screen>{ props.children }</Screen>;
-}
 
 `;
 export default (api: IApi) => {
@@ -56,31 +49,10 @@ export default (api: IApi) => {
 
   api.addTmpGenerateWatcherPaths(() => ['react-navigation']);
 
-  function addWrapper(routes: IRoute[]): IRoute[] {
-    const results: IRoute[] = [];
-    for (const route of routes) {
-      if (Array.isArray(route.wrappers)) {
-        route.wrappers.unshift('@@/react-navigation/screenWrapper');
-      } else {
-        route.wrappers = ['@@/react-navigation/screenWrapper'];
-      }
-      if (Array.isArray(route.routes)) {
-        route.routes = addWrapper(route.routes);
-      }
-    }
-    return results;
-  }
-
-  api.modifyRoutes((routes) => addWrapper(routes));
-
   api.onGenerateFiles(() => {
     api.writeTmpFile({
       path: 'react-navigation/exports.ts',
       content: exportsTpl,
-    });
-    api.writeTmpFile({
-      path: 'react-navigation/screenWrapper.ts',
-      content: screenWrapperTpl,
     });
   });
 

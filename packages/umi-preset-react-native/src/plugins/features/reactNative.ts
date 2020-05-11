@@ -86,13 +86,39 @@ export default (api: IApi) => {
     return config;
   });
 
-  // haul中没有treeShaking， mainFields 写死了。
-  api.addProjectFirstLibraries(() => [
-    { name: 'react-native', path: REACT_NATIVE_PATH },
-    { name: 'react-router-native', path: dirname(require.resolve('react-router-native/package.json')) },
-    // @umijs/plugin-dva或许还有其他插件中会引用`react-router-dom`这里通过alias 将其改为引用 `react-router-native`
-    { name: 'react-router-dom', path: dirname(require.resolve('react-router-native/package.json')) },
-  ]);
+  // haul中没有treeShaking， mainFields 写死了，尽量通过alias 映射到 ESModule 文件路径（不知道 RN 中有没帮助）。
+  api.addProjectFirstLibraries(() => {
+    // const umiRuntimePath = resolve.sync('@umijs/runtime/dist/index.esm.js', { basedir: api.paths.cwd });
+    return [
+      { name: 'react-native', path: REACT_NATIVE_PATH },
+      {
+        name: 'react-router-dom',
+        path: 'react-router-native',
+      },
+      { name: 'react-router-native', path: dirname(require.resolve('react-router-native/package.json')) },
+      {
+        name: 'umi-runtime-react-native',
+        path: dirname(require.resolve('umi-runtime-react-native/package.json')),
+      },
+      {
+        name: '@umijs/runtime/dist/index.esm.js',
+        path: resolve.sync('@umijs/runtime/dist/index.esm.js', { basedir: api.paths.cwd }),
+      },
+      { name: '@umijs/runtime', path: 'umi-runtime-react-native' },
+      {
+        name: dirname(resolve.sync('@umijs/runtime/package.json', { basedir: process.env.UMI_DIR })),
+        path: 'umi-runtime-react-native',
+      },
+      {
+        name: dirname(
+          resolve.sync('@umijs/runtime/package.json', {
+            basedir: dirname(resolve.sync('@umijs/preset-built-in/package.json', { basedir: process.env.UMI_DIR })),
+          }),
+        ),
+        path: 'umi-runtime-react-native',
+      },
+    ];
+  });
 
   // 启动时，检查 appKey 和 RN 版本
   api.onStart(() => {
@@ -120,7 +146,7 @@ export default (api: IApi) => {
     }
     if (api.config.dynamicImport && !api.config.dynamicImport.loading) {
       api.logger.error(
-        `在 RN 环境中启用"dynamicImport"功能时，必须实现自定义的"loading"！${EOL}因为 umi 默认loading使用了 HTML 标签，在 RN 中运行会报错！`,
+        `在 RN 环境中启用"dynamicImport"功能时，必须实现自定义的"loading"！${EOL}因为 umi 默认 loading 使用了 HTML 标签，在 RN 中运行会报错！${EOL}查看如何配置自定义 loading：https://umijs.org/config#dynamicimport`,
       );
       throw new TypeError('"dynamicImport.loading" 未配置');
     }
@@ -138,6 +164,4 @@ export default (api: IApi) => {
     }
     throw new TypeError(`"${name}" 只支持 react-native："0.59.0及以上（>= 0.59.0）" 和 "1.0.0以下（< 1.0.0）" 版本。`);
   });
-
-  api.addTmpGenerateWatcherPaths(() => ['react-native']);
 };

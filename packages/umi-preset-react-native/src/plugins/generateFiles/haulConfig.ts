@@ -1,7 +1,5 @@
 import { IApi } from 'umi';
 import { dirname } from 'path';
-import webpack from 'webpack';
-import Config from 'webpack-chain';
 
 const CONTENT = `import _ from 'lodash';
 import { makeConfig } from '{{{ haulPresetPath }}}';
@@ -49,6 +47,8 @@ export default (api: IApi) => {
 
   api.onGenerateFiles(async () => {
     const env = api.env === 'production' ? 'production' : 'development';
+    const webpack = require(resolve.sync('webpack', { basedir: api.paths.cwd }));
+    const Config = require(resolve.sync('webpack-chain', { basedir: api.paths.cwd }));
     const webpackConfig = new Config();
     const alias = api.config.alias;
     if (typeof alias === 'object') {
@@ -83,7 +83,7 @@ export default (api: IApi) => {
      *  在 haul 构建时甚至会导致 out of memory。
      * 另外，使用其他方式：api.chainWebpack 或者 api.addProjectFirstLibraries "umi" alias 都会被覆盖，所以放到这里最终写 haul.config.js 时强行设置
      */
-    webpackConfig.resolve.alias.set('umi', resolve.sync('umi/dist/index.esm.js', { basedir: process.env.UMI_DIR }));
+    webpackConfig.resolve.alias.set('umi', resolve.sync('umi/dist/index.esm.js', { basedir: api.paths.cwd }));
 
     const config = webpackConfig.toConfig();
     api.writeTmpFile({
