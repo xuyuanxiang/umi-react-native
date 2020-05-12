@@ -166,7 +166,29 @@ export default {
 }
 ```
 
-执行`yarn start`之后，再使用 `yarn android` 或者 `yarn ios`。
+启动 dev web server：
+
+```npm
+yarn start
+```
+
+执行上面命令后，会看到：
+
+![](https://cdn.xuyuanxiang.me/start_snapshot_332028d2.png)
+
+_需要原生 Android、iOS 应用启动后，请求 bundle URL 时，进度条才会更新。_
+
+接下来，另启一个终端，编译并启动 Android 应用：
+
+```npm
+yarn android
+```
+
+编译并启动 iOS 应用：
+
+```npm
+yarn ios
+```
 
 ### 打包
 
@@ -282,7 +304,7 @@ export default Layout;
 
 [react-navigation](https://reactnavigation.org/)可作为 umi 默认[react-router](https://reacttraining.com/react-router/)的**替代方案**。
 
-了解详情，请移步至：<a href="https://github.com/xuyuanxiang/umi-react-native/tree/master/packages/umi-plugin-react-navigation#readme" target="_blank">umi-plugin-react-navigation</a>。
+了解详情，请移步至：<a href="https://github.com/xuyuanxiang/umi-react-native/tree/master/packages/umi-preset-react-navigation#readme" target="_blank">umi-preset-react-navigation</a>。
 
 ## 示例
 

@@ -29,6 +29,9 @@ export default (api: IApi) => {
 
   api.onGenerateFiles(async () => {
     const env = api.env === 'production' ? 'production' : 'development';
+    const plugins: (string | [string, any, string?])[] = [];
+    const presets: (string | [string, any, string?])[] = [require.resolve('@haul-bundler/babel-preset-react-native')];
+
     const presetOpts = await api.applyPlugins({
       type: api.ApplyPluginsType.modify,
       key: 'modifyBabelPresetOpts',
@@ -42,8 +45,23 @@ export default (api: IApi) => {
       },
     });
 
-    const plugins: (string | [string, any, string?])[] = [];
-    const presets: (string | [string, any, string?])[] = [require.resolve('@haul-bundler/babel-preset-react-native')];
+    if (presetOpts.import) {
+      /**
+       * presetOpts: 即@umijs/babel-preset-umi的配置参数。
+       * 目前只有@umijs/plugin-antd用到 import 选项，其他配置赞不支持。避免和haul的babel配置冲突
+       */
+      plugins.push(
+        ...presetOpts.import.map((importOpts: IImportPluginOpts) => {
+          return [
+            resolve.sync('babel-plugin-import', { basedir: process.env.UMI_DIR }),
+            importOpts,
+            importOpts.libraryName,
+          ];
+        }),
+      );
+    }
+
+    // 接收用户工程 babel 配置
     const babelConfigFile = join(api.paths.absSrcPath || '', 'babel.config.js');
     if (existsSync(babelConfigFile)) {
       try {
@@ -65,18 +83,6 @@ export default (api: IApi) => {
       plugins.push(...extraBabelPlugins.filter(Boolean));
     } else if (extraBabelPlugins) {
       plugins.push(extraBabelPlugins);
-    }
-
-    if (presetOpts.import) {
-      /**
-       * presetOpts: 即@umijs/babel-preset-umi的配置参数。
-       * 目前只有@umijs/plugin-antd用到 import 选项，其他配置赞不支持。避免和haul的babel配置冲突
-       */
-      plugins.push(
-        ...presetOpts.import.map((importOpts: IImportPluginOpts) => {
-          return [resolve.sync('babel-plugin-import', { basedir: api.paths.cwd }), importOpts, importOpts.libraryName];
-        }),
-      );
     }
 
     const extraBabelPresets = api.config.extraBabelPresets;

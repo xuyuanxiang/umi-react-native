@@ -1,6 +1,7 @@
 import { IApi } from 'umi';
 
 export default (api: IApi) => {
+  // haul project configuration：https://github.com/callstack/haul/blob/master/docs/Configuration.md#project-configuration-reference
   api.describe({
     key: 'haul',
     config: {

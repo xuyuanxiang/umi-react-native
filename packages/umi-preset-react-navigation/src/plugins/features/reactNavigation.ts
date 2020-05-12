@@ -1,21 +1,24 @@
 import { IApi } from 'umi';
 import { dirname } from 'path';
-import { dependencies } from '../package.json';
+import { dependencies } from '../../../package.json';
 
-const exportsTpl = `export * from '@react-navigation/stack';
-export * from '@react-navigation/native';
-
-`;
 export default (api: IApi) => {
+  const {
+    utils: { winPath },
+  } = api;
+
   api.describe({
-    key: 'navigation',
+    key: 'reactNavigation',
     config: {
       default: {
         theme: null,
+        type: 'stack',
+        safeAreasSupport: true,
       },
       schema(joi) {
         return joi
           .object({
+            type: joi.string().allow('stack', 'drawer', 'bottom-tabs'),
             theme: joi.object({
               dark: joi.boolean(),
               colors: joi.object({
@@ -26,6 +29,7 @@ export default (api: IApi) => {
                 border: joi.string(),
               }),
             }),
+            safeAreasSupport: joi.boolean().optional(),
           })
           .optional();
       },
@@ -33,33 +37,24 @@ export default (api: IApi) => {
   });
 
   api.addProjectFirstLibraries(() =>
-    Object.keys(dependencies).map((name) => ({ name, path: dirname(require.resolve(`${name}/package.json`)) })),
+    Object.keys(dependencies).map((name) => ({
+      name,
+      path: winPath(dirname(require.resolve(`${name}/package.json`))),
+    })),
   );
 
   api.addEntryImportsAhead(() => [{ source: 'react-native-gesture-handler' }]);
   api.addEntryImports(() => [
     {
-      specifier: 'enableScreens',
+      specifier: '{enableScreens}',
       source: 'react-native-screens',
     },
   ]);
-  api.addEntryCode(() => `enableScreens();`);
+  api.addEntryCodeAhead(() => `enableScreens();`);
 
-  api.modifyRendererPath(() => 'umi-renderer-react-navigation');
-
-  api.addTmpGenerateWatcherPaths(() => ['react-navigation']);
-
-  api.onGenerateFiles(() => {
-    api.writeTmpFile({
-      path: 'react-navigation/exports.ts',
-      content: exportsTpl,
-    });
-  });
-
-  api.addUmiExports(() => [
-    {
-      exportAll: true,
-      source: '../react-navigation/exports',
-    },
+  api.addRuntimePluginKey(() => [
+    'onReactNavigationStateChange',
+    'getReactNavigationInitialState',
+    'getReactNavigationInitialIndicator',
   ]);
 };

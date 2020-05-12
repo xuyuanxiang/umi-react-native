@@ -2,7 +2,7 @@ import { IApi } from 'umi';
 import { dirname } from 'path';
 
 const CONTENT = `import _ from 'lodash';
-import { makeConfig } from '{{{ haulPresetPath }}}';
+import { makeConfig, withPolyfills } from '{{{ haulPresetPath }}}';
 
 const transform = ({ config }) => {
   return _.defaultsDeep({{{ webpackConfig }}}, config);
@@ -15,22 +15,24 @@ const bundles = projectConfig.bundles;
 export default makeConfig({
   bundles: _.chain(bundles)
     .keys()
-    .flatMap((bundleName) => ({
-      [bundleName]: _.defaultsDeep(bundles[bundleName], {transform}),
-    }))
+    .flatMap((bundleName) => {
+      const bundle = bundles[bundleName];
+      if (_.includes(bundle.entry, './umi.ts')) {
+        bundle.entry = withPolyfills(bundle.entry);
+      }
+      return {
+        [bundleName]: _.defaultsDeep(bundle, {transform}),
+      };
+    })
     .value(),
   ...projectConfig,
 });
 
 `;
 
-function createCSSRule() {
-  // no-op
-}
-
 export default (api: IApi) => {
   const {
-    utils: { winPath, Mustache, semver, resolve },
+    utils: { winPath, Mustache, semver, resolve, lodash },
   } = api;
 
   function detectHaulPresetPath(): string {
@@ -46,10 +48,12 @@ export default (api: IApi) => {
   }
 
   api.onGenerateFiles(async () => {
+    const webpack = require(resolve.sync('webpack', { basedir: process.env.UMI_DIR }));
+    const Config = require(resolve.sync('webpack-chain', { basedir: process.env.UMI_DIR }));
+
     const env = api.env === 'production' ? 'production' : 'development';
-    const webpack = require(resolve.sync('webpack', { basedir: api.paths.cwd }));
-    const Config = require(resolve.sync('webpack-chain', { basedir: api.paths.cwd }));
     const webpackConfig = new Config();
+
     const alias = api.config.alias;
     if (typeof alias === 'object') {
       Object.keys(alias).forEach((key) => {
@@ -67,13 +71,13 @@ export default (api: IApi) => {
       initialValue: webpackConfig,
       args: {
         webpack,
-        createCSSRule,
+        createCSSRule: lodash.noop,
       },
     });
 
     // 接收用户值
     if (typeof api.config.chainWebpack === 'function') {
-      await api.config.chainWebpack(webpackConfig, { env, webpack, createCSSRule });
+      await api.config.chainWebpack(webpackConfig, { env, webpack, createCSSRule: lodash.noop });
     }
 
     /**
@@ -83,7 +87,7 @@ export default (api: IApi) => {
      *  在 haul 构建时甚至会导致 out of memory。
      * 另外，使用其他方式：api.chainWebpack 或者 api.addProjectFirstLibraries "umi" alias 都会被覆盖，所以放到这里最终写 haul.config.js 时强行设置
      */
-    webpackConfig.resolve.alias.set('umi', resolve.sync('umi/dist/index.esm.js', { basedir: api.paths.cwd }));
+    webpackConfig.resolve.alias.set('umi', resolve.sync('umi/dist/index.esm.js', { basedir: process.env.UMI_DIR }));
 
     const config = webpackConfig.toConfig();
     api.writeTmpFile({

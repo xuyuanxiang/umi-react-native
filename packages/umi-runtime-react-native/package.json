@@ -10,11 +10,9 @@
   "author": "徐远翔 <xuyuanxiang@shouqianba.com>",
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
   "license": "MIT",
-  "react-native": "lib/index.js",
-  "browser": "lib/index.js",
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
-  "types": "lib/index.d.ts",
+  "main": "lib/index",
+  "typings": "lib/index.native.d.ts",
+  "types": "lib/index.native.d.ts",
   "directories": {
     "lib": "lib"
   },
@@ -41,8 +39,8 @@
     "umi": "^3.0.0"
   },
   "dependencies": {
-    "@types/react-router-native": "^5.1.0",
+    "@types/react-router-native": "5.1.0",
     "@umijs/runtime": "^3.0.0",
-    "react-router-native": "^5.1.2"
+    "react-router-native": "5.1.2"
   }
 }

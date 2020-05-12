@@ -45,6 +45,7 @@
     "@haul-bundler/babel-preset-react-native": "0.16.0",
     "@haul-bundler/cli": "0.22.0",
     "@haul-bundler/preset-0.60": "0.18.0",
+    "@haul-bundler/preset-0.59": "0.18.0",
     "umi-runtime-react-native": "^0.0.4-alpha.1"
   },
   "devDependencies": {
