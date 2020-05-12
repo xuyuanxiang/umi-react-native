@@ -14,6 +14,7 @@ const exportsTpl = `export {
   CommonActions,
   StackActions,
 } from '@react-navigation/native';
+export {default as SafeAreaView} from 'react-native-safe-area-view';
 
 `;
 

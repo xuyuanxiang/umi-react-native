@@ -42,19 +42,4 @@ export default (api: IApi) => {
       path: winPath(dirname(require.resolve(`${name}/package.json`))),
     })),
   );
-
-  api.addEntryImportsAhead(() => [{ source: 'react-native-gesture-handler' }]);
-  api.addEntryImports(() => [
-    {
-      specifier: '{enableScreens}',
-      source: 'react-native-screens',
-    },
-  ]);
-  api.addEntryCodeAhead(() => `enableScreens();`);
-
-  api.addRuntimePluginKey(() => [
-    'onReactNavigationStateChange',
-    'getReactNavigationInitialState',
-    'getReactNavigationInitialIndicator',
-  ]);
 };

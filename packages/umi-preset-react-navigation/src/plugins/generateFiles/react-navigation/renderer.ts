@@ -1,7 +1,18 @@
 import { IApi } from 'umi';
 
-const TEMPLATE = `import { NavigationContainer } from '@react-navigation/native';
-import createNavigator from './react-navigation/createNavigator';
+const TEMPLATE = `import createNavigator from './createNavigator';
+
+interface IScreen {
+  key: string;
+  name: string;
+  component: ComponentType<any>;
+  options: {
+    routeMatchOpts: RouteProps;
+    redirect?: string;
+    wrappers?: unknown[];
+    [key: string]: any;
+  };
+}
 
 `;
 
