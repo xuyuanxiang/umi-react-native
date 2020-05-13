@@ -6,6 +6,7 @@ export default (api: IApi) => {
     config: {
       default: {
         theme: {
+          // 使用 ant-design 默认配色作为 Navigation 的默认主题
           dark: false,
           colors: {
             primary: '#108ee9',
@@ -15,8 +16,8 @@ export default (api: IApi) => {
             border: '#dddddd',
           },
         },
-        type: 'stack',
-        enableSafeAreasSupport: true,
+        type: 'stack', // Navigator 类型
+        enableSafeAreasSupport: true, // 默认启用对 iOS Safe Areas 的适配/支持
       },
       schema(joi) {
         return joi

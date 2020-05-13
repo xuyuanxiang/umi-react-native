@@ -4,9 +4,10 @@
 
 针对 [react-native](https://reactnative.dev/) 应用的 [umi](https://umijs.org/) 插件集。
 
-- **零配置**，添加[DvaJS](https://dvajs.com/)，[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)... 依赖后开箱即用，只需专注于业务代码；
-- 路由方案默认使用 umi 内置的[react-router](https://reacttraining.com/react-router/)，可平滑替换为[react-navigation](https://reactnavigation.org/)；
-- 支持切分多 bundle，运行时按需加载 bundle，降低内存开销，提升首屏加载速度；
+- **零配置**，添加[DvaJS](https://dvajs.com/)，[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)... 等依赖后开箱即用，开发者只需专注于实现业务代码；
+- 路由方案默认使用 umi 内置的[react-router](https://reacttraining.com/react-router/)，**可选**[react-navigation](https://reactnavigation.org/)。
+
+_了解如何使用[react-navigation](https://reactnavigation.org/)开发地道的原生应用，请移步至：_ <a href="https://github.com/xuyuanxiang/umi-react-native/tree/master/packages/umi-preset-react-navigation#readme" target="_blank">umi-preset-react-navigation</a>。
 
 [发布日志](/CHANGELOG.md)
 
@@ -34,7 +35,6 @@
 - [FAQ](#faq)
   - [hmrClient.send is not a function](#hmrclientsend-is-not-a-function)
   - [Live Reloading, Fast Refresh, Hot Replacement... 无法使用](#live-reloading-fast-refresh-hot-replacement-%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8)
-  - [@ant-design/react-native 组件没有工作（比如：弹窗打不开等等）](#ant-designreact-native-%E7%BB%84%E4%BB%B6%E6%B2%A1%E6%9C%89%E5%B7%A5%E4%BD%9C%E6%AF%94%E5%A6%82%E5%BC%B9%E7%AA%97%E6%89%93%E4%B8%8D%E5%BC%80%E7%AD%89%E7%AD%89)
   - [使用@ant-design/react-native 组件时，报错：Unrecognized font family 'antoutline'](#%E4%BD%BF%E7%94%A8ant-designreact-native-%E7%BB%84%E4%BB%B6%E6%97%B6%E6%8A%A5%E9%94%99unrecognized-font-family-antoutline)
 
 ## 必备
@@ -84,9 +84,7 @@ _待 yarn 安装完成后开箱即用。_
 
 ### 集成 @ant-design/react-native
 
-按照[ant-design/ant-design-mobile-rn#安装 & 使用](https://github.com/ant-design/ant-design-mobile-rn/blob/master/README.zh-CN.md#%E5%AE%89%E8%A3%85--%E4%BD%BF%E7%94%A8)安装。
-
-**umi-preset-react-native**已经为`@ant-design/react-native`添加了[**按需加载**](https://rn.mobile.ant.design/docs/react/introduce-cn#%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD)（[babel-plugin-import](https://github.com/ant-design/babel-plugin-import)）的配置。
+查看：[umi-plugin-antd-react-native](/packages/umi-plugin-antd-react-native)
 
 ## 使用
 
@@ -124,6 +122,7 @@ _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者�
 - [ ] [proxy](https://umijs.org/config#proxy)：开发中...
 - [x] [routes](https://umijs.org/config#routes)
 - [x] [singular](https://umijs.org/config#singular)
+- [x] [theme](https://umijs.org/config#theme)：集成 [umi-plugin-antd-react-native](/packages/umi-plugin-antd-react-native)后，可覆盖 @ant-design/react-native 的[主题](https://github.com/ant-design/ant-design-mobile-rn/blob/master/components/style/themes/default.tsx)
 
 _上文未列出的[umi 配置](https://umijs.org/config)对 **umi-preset-react-native** 不生效。_
 
@@ -225,6 +224,8 @@ _`dist` 是[outputPath](https://umijs.org/config#outputpath)配置项的缺省�
 
 ## 路由
 
+**umi-preset-react-native**提供了 2 种可相互替代的路由方案：
+
 ### 使用 umi 内置的 react-router
 
 [umi](https://umijs.org/)内置了`react-router-dom`，**umi-preset-react-native**在运行时会将其替换为：`react-router-native`。
@@ -314,6 +315,8 @@ export default Layout;
 
 ### 切分多 bundle
 
+> TODO: 这一部分还是理论阶段，有待实践。（先画个饼）
+
 参考[react-native-community/react-native-multibundle](https://github.com/react-native-community/react-native-multibundle)。
 
 使用 haul 切分多 bundle：
@@ -385,22 +388,6 @@ cat ./node_modules/metro/package.json | grep version
 
 [haul](https://github.com/callstack/haul)不支持：[haul#issue-682](https://github.com/callstack/haul/issues/682)。
 
-### @ant-design/react-native 组件没有工作（比如：弹窗打不开等等）
-
-按照[@ant-design/react-native](https://rn.mobile.ant.design/docs/react/introduce-cn)文档示例使用组件时，未能达到预期效果，可能是因为没有使用`Provider`作为根节点：
-
-```jsx
-// <projectRoot>/layouts/index.js
-import React from 'react';
-import { Provider } from '@ant-design/react-native';
-
-function Layout({ children }) {
-  return <Provider>{children}</Provider>;
-}
-
-export default Layout;
-```
-
-### 使用@ant-design/react-native 组件时，报错：Unrecognized font family 'antoutline'
+### 使用 @ant-design/react-native 组件时，报错：Unrecognized font family 'antoutline'
 
 [ant-design/ant-design-mobile-rn#issue-194](https://github.com/ant-design/ant-design-mobile-rn/issues/194)中有解决方案。

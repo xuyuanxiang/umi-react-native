@@ -37,12 +37,10 @@
   },
   "peerDependencies": {
     "@react-navigation/native": "^5.3.0",
-    "@react-navigation/stack": "^5.3.2",
     "umi": "^3.0.0"
   },
   "dependencies": {
     "@umijs/renderer-react": "^3.0.0",
-    "@umijs/runtime": "^3.0.0",
     "blueimp-md5": "2.15.0",
     "url-join": "4.0.1"
   }

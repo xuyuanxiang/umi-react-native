@@ -35,7 +35,6 @@ export default (api: IApi) => {
       path: 'antd-react-native/runtime.ts',
       content: api.utils.Mustache.render(runtimeTpl, {
         theme: JSON.stringify(api.config.theme, null, 2),
-        locale: api.config.locale,
       }),
     });
     // api.writeTmpFile({

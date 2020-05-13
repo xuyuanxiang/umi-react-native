@@ -2,7 +2,7 @@ import { IApi } from 'umi';
 
 const exportsTpl = `export {
   useNavigation,
-  useRoute,
+  useRoute as useScreen,
   useFocusEffect,
   useNavigationState,
   useIsFocused,

@@ -1,8 +1,7 @@
 import React, { ComponentType, useEffect } from 'react';
-import { Linking, View } from 'react-native';
-import { ApplyPluginsType, Plugin, History, Redirect, __RouterContext as RouterContext } from 'umi';
+import { Linking } from 'react-native';
+import { ApplyPluginsType, Plugin, History, Redirect, __RouterContext as RouterContext, matchPath } from 'umi';
 import { IRoute, IRouteComponentProps } from '@umijs/renderer-react';
-import { matchPath } from 'react-router';
 import { matchRoutes } from 'react-router-config';
 import { TypedNavigator, Route, NavigationHelpers } from '@react-navigation/native';
 import urlJoin from 'url-join';
@@ -18,7 +17,7 @@ interface INavigationProps {
   [key: string]: any;
 }
 
-export interface IScreen {
+interface IScreen {
   key: string;
   name: string;
   component: ComponentType<any>;
@@ -85,45 +84,6 @@ function flattenRoutes(routes?: IRoute[], parent?: IScreen): IScreen[] {
     }
   }
   return screens;
-}
-
-function renderRoutes(navigator: TypedNavigator<any, any, any, any, any>, routes?: IRoute[]) {
-  if (Array.isArray(routes)) {
-    const { Navigator, Screen } = navigator;
-    for (const route of routes) {
-      const Component = route.component;
-      if (Component) {
-        return (
-          <Navigator initialRouteName={route.path}>
-            <Screen name={route.path || '/'}>
-              {(props) => <Component {...props}>{renderRoutes(navigator, route.routes)}</Component>}
-            </Screen>
-          </Navigator>
-        );
-      }
-    }
-  }
-}
-
-function renderRoute(route: IRoute, navigator: TypedNavigator<any, any, any, any, any>) {
-  const Component = route.component;
-  const Screen = navigator.Screen;
-  return (
-    <Screen name={route.path || '/'}>
-      {(props) => {
-        if (route.component) {
-          return React.createElement(route.component, props);
-        }
-      }}
-    </Screen>
-  );
-}
-
-function renderRoutes(routes: IRoute[], navigator: TypedNavigator<any, any, any, any, any>): React.ReactNodeArray {
-  const results: React.ReactNode[] = [];
-  for (const route of routes) {
-  }
-  return results;
 }
 
 export function Navigation(props: INavigationProps) {
