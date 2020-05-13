@@ -14,15 +14,23 @@ const exportsTpl = `export {
   CommonActions,
   StackActions,
 } from '@react-navigation/native';
-export {default as SafeAreaView} from 'react-native-safe-area-view';
-
+{{#enableSafeAreasSupport}}
+export {
+  SafeAreaProvider,
+  SafeAreaView,
+  useSafeAreaInsets,
+  useSafeAreaFrame,
+} from 'react-native-safe-area-context';
+{{/enableSafeAreasSupport}}
 `;
 
 export default (api: IApi) => {
   api.onGenerateFiles(() => {
     api.writeTmpFile({
       path: 'react-navigation/exports.ts',
-      content: exportsTpl,
+      content: api.utils.Mustache.render(exportsTpl, {
+        enableSafeAreasSupport: Boolean(api.config?.reactNavigation?.enableSafeAreasSupport),
+      }),
     });
   });
 

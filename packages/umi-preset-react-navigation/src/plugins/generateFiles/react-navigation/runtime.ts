@@ -1,26 +1,35 @@
 import { IApi } from 'umi';
-import { join } from 'path';
+import { dirname, join } from 'path';
+import { dependencies } from '../../../../package.json';
 
 const runtimeTpl = `import React from 'react';
 {{^loading}}import {View, Text} from 'react-native';{{/loading}}
 import {ApplyPluginsType, dynamic} from 'umi';
 import {NavigationContainer, NavigationState} from '@react-navigation/native';
-{{#safeAreasSupport}}
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-// import SafeAreaView from 'react-native-safe-area-view';
+import {Navigation} from 'umi-renderer-react-navigation';
+import createNavigator from './createNavigator';
+{{#enableSafeAreasSupport}}
+import {SafeAreaProvider, SafeAreaView} from './exports';
 
-// export function patchRoutes({routes}) {
-//   for (const route of routes) {
-//     route.component = (props) =>
-//       React.createElement(
-//         SafeAreaView,
-//         props,
-//         React.createElement(route.component, props),
-//       );
-//   }
-// }
+function SafeAreaViewWrapper({children}) {
+  return <SafeAreaView>{children}</SafeAreaView>;
+}
 
-export function rootContainer(container, {plugin}) {
+export function patchRoutes({routes}) {
+  if (Array.isArray(routes)) {
+    for (const route of routes) {
+      if (route.wrappers) {
+        route.wrappers.push(SafeAreaViewWrapper);
+      } else {
+        route.wrappers = [SafeAreaViewWrapper];
+      }
+    }
+  }
+  console.log('patchRoutes:', routes);
+}
+{{/enableSafeAreasSupport}}
+
+export function rootContainer(container, {plugin, routes, history}) {
   return React.createElement(
     dynamic({
       loading: plugin.applyPlugins({
@@ -45,12 +54,14 @@ export function rootContainer(container, {plugin}) {
           async: true,
         });
         return () =>
+          {{#enableSafeAreasSupport}}
           React.createElement(
             SafeAreaProvider,
             null,
             React.createElement(
               NavigationContainer,
               {
+                theme: {{{ theme }}},
                 initialState,
                 onStateChange: (state?: NavigationState): void => {
                   plugin.applyPlugins({
@@ -61,43 +72,23 @@ export function rootContainer(container, {plugin}) {
                   });
                 },
               },
-              container,
+              React.createElement(Navigation, {
+                routes, 
+                history, 
+                navigator: createNavigator(), 
+                plugin,
+                {{#enableTitle}}
+                defaultTitle: '{{{ defaultTitle }}}',
+                {{/enableTitle}}
+              }),
             ),
           );
-      },
-    }),
-  );
-}
-{{/safeAreasSupport}}
-{{^safeAreasSupport}}
-export function rootContainer(container, {plugin}) {
-  return React.createElement(
-    dynamic({
-      loading: plugin.applyPlugins({
-        key: 'getReactNavigationInitialIndicator',
-        type: ApplyPluginsType.modify,
-        initialValue: {{#loading}}{{{ loading }}}{{/loading}}{{^loading}}({ error, isLoading }: { error: Error; isLoading: boolean }) => {
-          if (__DEV__) {
-            if (isLoading) {
-              return React.createElement(Text, null, 'Loading...');
-            }
-            if (error) {
-              return React.createElement(View, null, React.createElement(Text, null, error.message), React.createElement(Text, null, error.stack));
-            }
-          }
-          return React.createElement(Text, null, 'Loading...');
-        }{{/loading}},
-      }),
-      loader: async () => {
-        const initialState = await plugin.applyPlugins({
-          key: 'getReactNavigationInitialState',
-          type: ApplyPluginsType.modify,
-          async: true,
-        });
-        return () =>
+          {{/enableSafeAreasSupport}}
+          {{^enableSafeAreasSupport}}
           React.createElement(
             NavigationContainer,
             {
+              theme: {{{ theme }}},
               initialState,
               onStateChange: (state?: NavigationState): void => {
                 plugin.applyPlugins({
@@ -108,21 +99,35 @@ export function rootContainer(container, {plugin}) {
                 });
               },
             },
-            container,
+            React.createElement(Navigation, {
+              routes, 
+              history, 
+              navigator: createNavigator(), 
+              plugin,
+              {{#enableTitle}}
+              defaultTitle: '{{{ defaultTitle }}}',
+              {{/enableTitle}}
+            }),
           );
+          {{/enableSafeAreasSupport}}
       },
     }),
   );
 }
-{{/safeAreasSupport}}
 
 `;
 
 export default (api: IApi) => {
   const {
-    utils: { Mustache },
+    utils: { Mustache, winPath },
   } = api;
 
+  api.addProjectFirstLibraries(() =>
+    Object.keys(dependencies).map((name) => ({
+      name,
+      path: winPath(dirname(require.resolve(`${name}/package.json`))),
+    })),
+  );
   api.addEntryImportsAhead(() => [{ source: 'react-native-gesture-handler' }]);
   api.addEntryImports(() => [
     {
@@ -143,13 +148,16 @@ export default (api: IApi) => {
   api.onGenerateFiles(() => {
     const dynamicImport = api.config.dynamicImport;
     api.writeTmpFile({
-      path: 'react-navigation/runtime.ts',
+      path: 'react-navigation/runtime.tsx',
       content: Mustache.render(runtimeTpl, {
-        safeAreasSupport: api.config?.reactNavigation?.safeAreasSupport,
+        enableSafeAreasSupport: Boolean(api.config?.reactNavigation?.enableSafeAreasSupport),
         loading:
           typeof dynamicImport === 'object' && typeof dynamicImport.loading === 'string'
             ? `require('${dynamicImport.loading}').default`
             : '',
+        theme: JSON.stringify(api.config?.reactNavigation?.theme || {}, null, 2),
+        enableTitle: api.config.title !== false,
+        defaultTitle: api.config.title || '',
       }),
     });
   });

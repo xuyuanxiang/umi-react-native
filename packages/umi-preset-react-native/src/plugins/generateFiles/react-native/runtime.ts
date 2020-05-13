@@ -4,7 +4,6 @@ import { join } from 'path';
 const runtimeTpl = `import {AppRegistry} from 'react-native';
 
 export function render(clientRender: () => any, args: {hot?: boolean} = {}) {
-  console.log('render registerComponent');
   AppRegistry.registerComponent('{{{ appKey }}}', () => clientRender);
 }
 

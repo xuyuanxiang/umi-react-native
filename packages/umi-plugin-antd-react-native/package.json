@@ -1,25 +1,28 @@
 {
-  "name": "umi-renderer-react-navigation",
+  "name": "umi-plugin-antd-react-native",
   "version": "0.0.4-alpha.1",
-  "description": "umi-renderer-react-navigation",
+  "description": "umi-plugin-antd-react-native",
   "keywords": [
     "umi",
     "umijs",
     "react-native",
-    "react-navigation"
+    "ant-design",
+    "antd-mobile-rn"
   ],
-  "author": "徐远翔 <xuyuanxiang@shouqianba.com>",
+  "author": "xuyuanxiang <hi@xuyuanxiang.cn>",
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
   "license": "MIT",
-  "main": "lib/index",
-  "typings": "lib/index.native.d.ts",
-  "types": "lib/index.native.d.ts",
+  "engines": {
+    "node": ">=10.x"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "types": "lib/index.d.ts",
   "directories": {
     "lib": "lib"
   },
   "files": [
-    "lib",
-    "src"
+    "lib"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,14 +39,6 @@
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "peerDependencies": {
-    "@react-navigation/native": "^5.3.0",
-    "@react-navigation/stack": "^5.3.2",
     "umi": "^3.0.0"
-  },
-  "dependencies": {
-    "@umijs/renderer-react": "^3.0.0",
-    "@umijs/runtime": "^3.0.0",
-    "blueimp-md5": "2.15.0",
-    "url-join": "4.0.1"
   }
 }

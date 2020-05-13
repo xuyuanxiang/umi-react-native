@@ -11,11 +11,18 @@ export default (api: IApi) => {
     utils: { Mustache, lodash },
   } = api;
   api.onGenerateFiles(() => {
+    let importSpecifier: string;
+    const type = api.config?.reactNavigation?.type || 'stack';
+    if (type === 'bottom-tabs') {
+      importSpecifier = 'createBottomTabNavigator';
+    } else {
+      importSpecifier = `create${lodash.upperFirst(lodash.camelCase(api.config?.reactNavigation?.type))}Navigator`;
+    }
     api.writeTmpFile({
       path: 'react-navigation/createNavigator.ts',
       content: Mustache.render(TEMPLATE, {
-        importSpecifier: `create${lodash.capitalize(lodash.camelCase(api.config?.reactNavigation?.type))}Navigator`,
-        source: `@react-navigation/${api.config?.reactNavigation?.type}`,
+        importSpecifier,
+        source: `@react-navigation/${type}`,
       }),
     });
   });

@@ -86,7 +86,7 @@ export default (api: IApi) => {
         lodash.throttle(async () => {
           await generate();
           execFileSync(cli, ['reload']);
-        }, 250),
+        }, 100),
       );
       unwatches.push(watcher);
     }
@@ -102,6 +102,12 @@ export default (api: IApi) => {
     });
     process.on('exit', () => {
       unwatchAll();
+    });
+    process.on('SIGINT', () => {
+      child.kill('SIGINT');
+    });
+    process.on('SIGTERM', () => {
+      child.kill('SIGTERM');
     });
   }
 

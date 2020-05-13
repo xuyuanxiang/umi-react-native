@@ -18,7 +18,7 @@ export default makeConfig({
     .flatMap((bundleName) => {
       const bundle = bundles[bundleName];
       if (_.includes(bundle.entry, './umi.ts')) {
-        bundle.entry = withPolyfills(bundle.entry);
+        bundle.entry = withPolyfills(bundle.entry, {additionalSetupFiles: ['./core/plugin']});
       }
       return {
         [bundleName]: _.defaultsDeep(bundle, {transform}),

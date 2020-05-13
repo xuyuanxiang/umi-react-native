@@ -25,6 +25,18 @@ export default (api: IApi) => {
     return memo;
   });
 
+  api.addEntryCode(
+    () => `// hot module replacement
+// @ts-ignore
+if (module.hot) {
+  console.warn('Hot Replacement');
+  // @ts-ignore
+  module.hot.accept = (...args): void => {
+    console.warn('Hot Replacement Accept:', args);
+  };
+}`,
+  );
+
   api.onGenerateFiles(() => {
     // const polyfills: string[] = [];
     // if (semver.lt(api.config?.reactNative?.version, '0.60.0')) {

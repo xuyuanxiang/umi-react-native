@@ -1,45 +1,43 @@
 import { IApi } from 'umi';
-import { dirname } from 'path';
-import { dependencies } from '../../../package.json';
 
 export default (api: IApi) => {
-  const {
-    utils: { winPath },
-  } = api;
-
   api.describe({
     key: 'reactNavigation',
     config: {
       default: {
-        theme: null,
+        theme: {
+          dark: false,
+          colors: {
+            primary: '#108ee9',
+            background: '#ffffff',
+            card: '#ffffff',
+            text: '#000000',
+            border: '#dddddd',
+          },
+        },
         type: 'stack',
-        safeAreasSupport: true,
+        enableSafeAreasSupport: true,
       },
       schema(joi) {
         return joi
           .object({
-            type: joi.string().allow('stack', 'drawer', 'bottom-tabs'),
-            theme: joi.object({
-              dark: joi.boolean(),
-              colors: joi.object({
-                primary: joi.string(),
-                background: joi.string(),
-                card: joi.string(),
-                text: joi.string(),
-                border: joi.string(),
-              }),
-            }),
-            safeAreasSupport: joi.boolean().optional(),
+            type: joi.string().allow('stack', 'drawer', 'bottom-tabs').optional(),
+            theme: joi
+              .object({
+                dark: joi.boolean().required(),
+                colors: joi.object({
+                  primary: joi.string().required(),
+                  background: joi.string().required(),
+                  card: joi.string().required(),
+                  text: joi.string().required(),
+                  border: joi.string().required(),
+                }),
+              })
+              .optional(),
+            enableSafeAreasSupport: joi.boolean().optional(),
           })
           .optional();
       },
     },
   });
-
-  api.addProjectFirstLibraries(() =>
-    Object.keys(dependencies).map((name) => ({
-      name,
-      path: winPath(dirname(require.resolve(`${name}/package.json`))),
-    })),
-  );
 };

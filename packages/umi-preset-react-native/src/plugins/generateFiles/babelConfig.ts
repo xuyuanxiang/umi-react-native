@@ -20,13 +20,6 @@ export default (api: IApi) => {
     utils: { Mustache, resolve },
   } = api;
 
-  api.modifyBabelPresetOpts((opts) => {
-    return {
-      ...opts,
-      import: (opts.import || []).concat([{ libraryName: '@ant-design/react-native' }]),
-    };
-  });
-
   api.onGenerateFiles(async () => {
     const env = api.env === 'production' ? 'production' : 'development';
     const plugins: (string | [string, any, string?])[] = [];
