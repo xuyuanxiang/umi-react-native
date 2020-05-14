@@ -32,7 +32,7 @@ _了解如何使用[umi](https://umijs.org/)开发 RN 应用，请移步至：_<
 
 ## 安装
 
-这些是[react-navigation](https://reactnavigation.org/)的依赖：
+以下是[react-navigation](https://reactnavigation.org/)的依赖：
 
 - react-native-reanimated
 - react-native-gesture-handler
@@ -40,7 +40,7 @@ _了解如何使用[umi](https://umijs.org/)开发 RN 应用，请移步至：_<
 - react-native-safe-area-context
 - @react-native-community/masked-view
 
-必须将上面所有依赖，全部安装到 RN 工程本地：
+必须全部安装到 RN 工程本地：
 
 ```yarn
 yarn add react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view

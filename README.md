@@ -11,7 +11,8 @@
 | --- | --- | --- |
 | [umi-plugin-antd-react-native](packages/umi-plugin-antd-react-native) | [![npm version](https://img.shields.io/npm/v/umi-plugin-antd-react-native.svg?style=flat-square)](https://www.npmjs.com/package/umi-plugin-antd-react-native) | 针对[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)的[umi](https://umijs.org/)插件，为其提供按需加载，主题/皮肤定制、预设、切换，国际化等支持。 |
 | [umi-preset-react-native](packages/umi-preset-react-native) | [![npm version](https://img.shields.io/npm/v/umi-preset-react-native.svg?style=flat-square)](https://www.npmjs.com/package/umi-preset-react-native) | 针对 [react-native](https://reactnative.dev/) 应用的 [umi](https://umijs.org/) 插件集，为其提供 开发、编译、打包的支持。 |
-| [umi-preset-react-navigation](packages/umi-preset-react-navigation) | [![npm version](https://img.shields.io/npm/v/umi-preset-react-navigation.svg?style=flat-square)](https://www.npmjs.com/package/umi-preset-react-navigation) | 针对 [react-navigation](https://reactnavigation.org/) 的插件集，替换 [umi](https://umijs.org/) 内置的 [react-router](https://reacttraining.com/react-router/)，开发地道的原生应用。 |
+| [umi-preset-react-navigation](packages/umi-preset-react-navigation) | [![npm version](https://img.shields.io/npm/v/umi-preset-react-navigation.svg?style=flat-square)](https://www.npmjs.com/package/umi-preset-react-navigation) | 针对 [react-navigation](https://reactnavigation.org/) 的插件集，替换 [umi](https://umijs.org/) 内置的 [react-router](https://reacttraining.com/react-router/)，开发地道的原生应用。需要 [react-native](https://reactnative.dev/) **0.60.0 及以上版本（>=0.60.x）**
+ |
 
 [发布日志](/CHANGELOG.md)
 
@@ -90,13 +91,66 @@ _待 yarn 安装完成后开箱即用。_
 
 ### 集成 @ant-design/react-native
 
+在 RN 工程目录下，使用 yarn 安装`@ant-design/react-native`:
+
+```npm
+yarn add @ant-design/react-native
+```
+
+**链接 @ant-design/react-native 字体图标资源文件：**
+
+```npm
+yarn react-native link
+# 等价于: ./node_modules/.bin/react-native link
+```
+
+@ant-design/react-native 当前（2020/05/14）版本：`3.x`。如需使用`4.x`请按照：[安装 & 使用](https://github.com/ant-design/ant-design-mobile-rn/blob/master/README.zh-CN.md#%E5%AE%89%E8%A3%85--%E4%BD%BF%E7%94%A8)操作。
+
+最后安装**umi-plugin-antd-react-native**：
+
+```npm
+yarn add umi-plugin-antd-react-native --dev
+```
+
 查看详情：[umi-plugin-antd-react-native](/packages/umi-plugin-antd-react-native)
 
 ### 集成 react-navigation（可选）
 
 [react-navigation](https://reactnavigation.org/)可作为 umi 默认[react-router](https://reacttraining.com/react-router/)的**替代方案**。
 
-查看详情：[umi-preset-react-navigation](/packages/umi-preset-react-navigation)
+需要 [react-native](https://reactnative.dev/) **0.60.0 及以上版本（>=0.60.x）**
+
+以下是[react-navigation](https://reactnavigation.org/)的依赖：
+
+- react-native-reanimated
+- react-native-gesture-handler
+- react-native-screens
+- react-native-safe-area-context
+- @react-native-community/masked-view
+
+必须全部安装到 RN 工程本地：
+
+```yarn
+yarn add react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
+```
+
+RN **0.60.0 及以上**版本有[自动链接](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md)功能，Android 会自动搞定这些[react-navigation](https://reactnavigation.org/)的原生依赖，但对于**iOS**，待 yarn 安装完成后，还需要进到 ios 目录，使用 pod 安装：
+
+```shell
+cd ios && pod install
+```
+
+![](https://cdn.xuyuanxiang.me/pod_install_d498622c.png)
+
+最后，使用 yarn 安装**umi-preset-react-navigation**：
+
+```npm
+yarn add umi-preset-react-navigation --dev
+```
+
+_注意：因为添加了原生依赖，需要执行：`yarn ios`和`yarn android`重新编译和启动 iOS 和 Android 工程。_
+
+查看详情：[umi-preset-react-navigation](/packages/umi-preset-react-navigation)。
 
 ## 配置
 
