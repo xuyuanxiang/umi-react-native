@@ -12,7 +12,7 @@ _了解如何使用[umi](https://umijs.org/)开发 RN 应用，请移步至：_<
 yarn add umi-plugin-antd-react-native --dev
 ```
 
-在 RN 工程目录下，使用 yarn 安装`@ant-design/react-native@3.x`:
+在 RN 工程目录下，使用 yarn 安装`@ant-design/react-native`:
 
 ```npm
 yarn add @ant-design/react-native

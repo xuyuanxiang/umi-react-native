@@ -88,7 +88,13 @@ _待 yarn 安装完成后开箱即用。_
 
 ### 集成 @ant-design/react-native
 
-查看：[umi-plugin-antd-react-native](/packages/umi-plugin-antd-react-native)
+查看详情：[umi-plugin-antd-react-native](/packages/umi-plugin-antd-react-native)
+
+### 集成 react-navigation（可选）
+
+[react-navigation](https://reactnavigation.org/)可作为 umi 默认[react-router](https://reacttraining.com/react-router/)的**替代方案**。
+
+查看详情：[umi-preset-react-navigation](/packages/umi-preset-react-navigation)
 
 ## 配置
 
@@ -232,7 +238,7 @@ _`dist` 是[outputPath](https://umijs.org/config#outputpath)配置项的缺省�
 
 ### 使用 umi 内置的 react-router
 
-[umi](https://umijs.org/)内置了`react-router-dom`，**umi-preset-react-native**在运行时会将其替换为：`react-router-native`。
+[umi](https://umijs.org/)内置了`react-router-dom`，**umi-preset-react-native**使用[alias](https://umijs.org/config#alias)在编译时将其替换为：`react-router-native`。
 
 二者都基于 [react-router](https://reacttraining.com/react-router/)，但存在一些差异。
 
@@ -307,8 +313,6 @@ export default Layout;
 这样做，当用户使用**Android 系统返回键**时会返回应用的上一个路由，而不是退出应用。
 
 ### 使用 react-navigation
-
-[react-navigation](https://reactnavigation.org/)可作为 umi 默认[react-router](https://reacttraining.com/react-router/)的**替代方案**。
 
 了解详情，请移步至：<a href="https://github.com/xuyuanxiang/umi-react-native/tree/master/packages/umi-preset-react-navigation#readme" target="_blank">umi-preset-react-navigation</a>。
 

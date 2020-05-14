@@ -94,6 +94,7 @@ export default (api: IApi) => {
       path: 'react-router-native',
     },
     { name: 'react-router-native', path: winPath(dirname(require.resolve('react-router-native/package.json'))) },
+    { name: 'react-router-config', path: winPath(dirname(require.resolve('react-router-config/package.json'))) },
   ]);
 
   // 启动时检查

@@ -26,30 +26,27 @@ _了解如何使用[umi](https://umijs.org/)开发 RN 应用，请移步至：_<
 - react-native-safe-area-context
 - @react-native-community/masked-view
 
-**umi-preset-react-navigation**内置了上面所有依赖。
+必须将上面所有依赖，全部安装到 RN 工程本地：
 
-只需在 RN 工程根目录，使用 yarn 安装**umi-preset-react-navigation**即可：
-
-```npm
-yarn add umi-preset-react-navigation --dev
+```yarn
+yarn add react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
 ```
 
-RN **0.60.0 及以上**版本有[自动链接](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md)功能，Android 会自动搞定这些[react-navigation](https://reactnavigation.org/)的原生依赖，但对于**iOS**还需要进到 ios 目录，使用 pod 安装：
+RN **0.60.0 及以上**版本有[自动链接](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md)功能，Android 会自动搞定这些[react-navigation](https://reactnavigation.org/)的原生依赖，但对于**iOS**，待 yarn 安装完成后，还需要进到 ios 目录，使用 pod 安装：
 
 ```shell
 cd ios && pod install
 ```
 
-**注意：**
+![](https://cdn.xuyuanxiang.me/pod_install_d498622c.png)
 
-虽然有[自动链接](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md)功能，如果还是发生了意外，在 RN 工程根目录下手动重新链接一下可以解决大部分的出现了原生代码报错：
+最后，使用 yarn 安装**umi-preset-react-navigation**：
 
 ```npm
-yarn react-native unlink && yarn react-native link
-# ./node_modules/.bin/react-native unlink && ./node_modules/.bin/react-native link
+yarn add umi-preset-react-navigation --dev
 ```
 
-每次添加原生依赖后，都需要执行：`yarn ios`和`yarn android`重新编译和启动 iOS 和 Android 工程。
+_注意：因为添加了原生依赖，需要执行：`yarn ios`和`yarn android`重新编译和启动 iOS 和 Android 工程。_
 
 ## 扩展配置
 
