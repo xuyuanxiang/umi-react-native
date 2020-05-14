@@ -7,6 +7,9 @@ module.exports = {
       jsx: true, // Allows for the parsing of JSX
     },
   },
+  globals: {
+    __DEV__: true,
+  },
   env: {
     es6: true,
     browser: true,

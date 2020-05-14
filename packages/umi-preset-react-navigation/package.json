@@ -1,0 +1,54 @@
+{
+  "name": "umi-preset-react-navigation",
+  "version": "0.0.4-alpha.1",
+  "description": "umi-preset-react-navigation",
+  "keywords": [
+    "umi",
+    "umijs",
+    "react-native",
+    "react-navigation"
+  ],
+  "author": "xuyuanxiang <hi@xuyuanxiang.cn>",
+  "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
+  "license": "MIT",
+  "engines": {
+    "node": ">=10.x"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuyuanxiang/umi-react-native.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "bugs": {
+    "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
+  },
+  "peerDependencies": {
+    "react-native": ">=0.60.x",
+    "umi": "^3.0.0"
+  },
+  "dependencies": {
+    "@react-native-community/masked-view": "0.1.10",
+    "@react-navigation/native": "5.3.0",
+    "@react-navigation/stack": "5.3.3",
+    "react-native-gesture-handler": "1.6.1",
+    "react-native-reanimated": "1.8.0",
+    "react-native-safe-area-context": "1.0.0",
+    "react-native-screens": "2.7.0",
+    "umi-renderer-react-navigation": "^0.0.4-alpha.1"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "umi-renderer-react-navigation",
+  "version": "0.0.4-alpha.1",
+  "description": "umi-renderer-react-navigation",
+  "keywords": [
+    "umi",
+    "umijs",
+    "react-native",
+    "react-navigation"
+  ],
+  "author": "徐远翔 <xuyuanxiang@shouqianba.com>",
+  "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
+  "license": "MIT",
+  "main": "lib/index",
+  "typings": "lib/index.native.d.ts",
+  "types": "lib/index.native.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuyuanxiang/umi-react-native.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "bugs": {
+    "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-native": ">=0.60.0",
+    "umi": "^3.0.0"
+  },
+  "dependencies": {
+    "@react-navigation/native": "5.3.0",
+    "@react-navigation/routers": "5.4.4",
+    "@react-navigation/stack": "5.3.3",
+    "@umijs/renderer-react": "^3.0.0",
+    "blueimp-md5": "2.15.0",
+    "url-join": "4.0.1"
+  }
+}
