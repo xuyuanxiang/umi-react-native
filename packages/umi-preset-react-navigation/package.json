@@ -1,6 +1,6 @@
 {
   "name": "umi-preset-react-navigation",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "umi-preset-react-navigation",
   "keywords": [
     "umi",
@@ -44,6 +44,6 @@
   "dependencies": {
     "@react-navigation/native": "5.3.0",
     "@react-navigation/stack": "5.3.3",
-    "umi-renderer-react-navigation": "^0.1.0-alpha.0"
+    "umi-renderer-react-navigation": "^0.1.0-alpha.2"
   }
 }
