@@ -33,7 +33,6 @@ _了解如何使用[react-navigation](https://reactnavigation.org/)开发地道�
 - [深入](#%E6%B7%B1%E5%85%A5)
   - [切分多 bundle](#%E5%88%87%E5%88%86%E5%A4%9A-bundle)
 - [FAQ](#faq)
-
   - [hmrClient.send is not a function](#hmrclientsend-is-not-a-function)
   - [Live Reloading, Fast Refresh, Hot Replacement... 无法使用](#live-reloading-fast-refresh-hot-replacement-%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8)
   - [使用 @ant-design/react-native 组件时，报错：Unrecognized font family 'antoutline'](#%E4%BD%BF%E7%94%A8-ant-designreact-native-%E7%BB%84%E4%BB%B6%E6%97%B6%E6%8A%A5%E9%94%99unrecognized-font-family-antoutline)
@@ -208,18 +207,18 @@ package.json:
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "umi dev-rn",
-+   "build:ios": "NODE_ENV=production umi build-rn --platform ios --bundle-output ios/main.jsbundle --assets-dest ios/assets",
-+   "build:android": "NODE_ENV=production umi build-rn --platform android --bundle-output android/index.android.bundle --assets-dest android/assets"
++   "build:ios": "umi build-rn --platform ios",
++   "build:android": "umi build-rn --platform android"
   },
 }
 ```
 
 - 执行`yarn build:ios`：
-  1. 构建生成`main.jsbundle`文件到`dist/ios/`目录；
-  2. 拷贝静态资源到`dist/ios/assets/`目录。
+  1. 构建生成`main.jsbundle`文件到`dist/`目录；
+  2. 拷贝静态资源到`dist/assets/`目录。
 - 执行`yarn build:android`：
-  1. 构建生成`index.android.bundle`文件到`dist/anrdoid/`目录；
-  2. 拷贝静态资源到`dist/android/assets/`目录。
+  1. 构建生成`index.android.bundle`文件到`dist/`目录；
+  2. 拷贝静态资源到`dist/assets/`目录。
 
 _`dist` 是[outputPath](https://umijs.org/config#outputpath)配置项的缺省（默认）值，可在`.umirc.js`中配置其他目录。_
 
@@ -300,7 +299,7 @@ const Layout = ({ children }) => {
 export default Layout;
 ```
 
-这样做，当用户使用**系统返回键**时会返回应用的上一个路由，而不是退出应用。
+这样做，当用户使用**Android 系统返回键**时会返回应用的上一个路由，而不是退出应用。
 
 ### 使用 react-navigation
 
