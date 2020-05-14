@@ -87,117 +87,14 @@ export default (api: IApi) => {
     return config;
   });
 
-  // 获取 @umijs/runtime/dist/index.esm.js 的绝对路径
-  function getUMIRuntimePath(): string {
-    try {
-      // 用户工程 node_modules中的 @umijs/runtime
-      return resolve.sync('@umijs/runtime/dist/index.esm.js', { basedir: absSrcPath });
-    } catch (ignored) {}
-    try {
-      // @umijs/preset-build-in/node_modules 中的 @umijs/runtime
-      return resolve.sync('@umijs/runtime/dist/index.esm.js', {
-        basedir: dirname(resolve.sync('@umijs/preset-built-in/package.json', { basedir: absSrcPath })),
-      });
-    } catch (ignored) {}
-    try {
-      // @umijs/preset-build-in/node_modules 中的 @umijs/runtime
-      return resolve.sync('@umijs/runtime/dist/index.esm.js', {
-        basedir: dirname(resolve.sync('@umijs/preset-built-in/package.json', { basedir: process.env.UMI_DIR })),
-      });
-    } catch (ignored) {}
-    try {
-      // umi/node_modules 中的 @umijs/runtime
-      return resolve.sync('@umijs/runtime/dist/index.esm.js', { basedir: process.env.UMI_DIR });
-    } catch (ignored) {}
-    // 以上都没有，才使用 umi-runtime-react-native/node_modules 中的 @umijs/runtime
-    return require.resolve('@umijs/runtime/dist/index.esm.js');
-  }
-
-  function getAllUMIRuntimeAbsPaths(): string[] {
-    const results: string[] = ['@umijs/runtime'];
-
-    try {
-      // <userProjectRootDir>/node_modules/@umijs/runtime
-      results.push(
-        dirname(
-          resolve.sync('@umijs/runtime/package.json', {
-            basedir: absSrcPath,
-          }),
-        ),
-      );
-    } catch (ignored) {}
-
-    try {
-      // <userProjectRootDir>/node_modules/@umijs/preset-built-in/node_modules/@umijs/runtime
-      results.push(
-        dirname(
-          resolve.sync('@umijs/runtime/package.json', {
-            basedir: dirname(resolve.sync('@umijs/preset-built-in/package.json', { basedir: absSrcPath })),
-          }),
-        ),
-      );
-    } catch (ignored) {}
-
-    try {
-      // <umiDir>/node_modules/@umijs/preset-built-in/node_modules/@umijs/runtime
-      results.push(
-        dirname(
-          resolve.sync('@umijs/runtime/package.json', {
-            basedir: dirname(resolve.sync('@umijs/preset-built-in/package.json', { basedir: process.env.UMI_DIR })),
-          }),
-        ),
-      );
-    } catch (ignored) {}
-
-    try {
-      // <umiDir>/node_modules/@umijs/runtime
-      results.push(dirname(resolve.sync('@umijs/runtime/package.json', { basedir: process.env.UMI_DIR })));
-    } catch (ignored) {}
-
-    return results;
-  }
-
-  /**
-   * haul mainFields 写死了：['react-native', 'browser', 'main']
-   * 所以 没法使用 treeShaking，因为 treeShaking 需要 mainFields: 'module'。
-   * 在 RN 中大多加载的 CommonJS 格式的代码。
-   * 专供 RN 的包，比如：react-router-native 的 package.json 文件中，通常都会提供："react-native"或"browser"字段。
-   */
-  api.addProjectFirstLibraries(() => {
-    return [
-      { name: 'react-native', path: winPath(REACT_NATIVE_PATH) },
-      {
-        name: 'react-router-dom',
-        path: 'react-router-native',
-      },
-      { name: 'react-router-native', path: winPath(dirname(require.resolve('react-router-native/package.json'))) },
-    ];
-    // return [
-    //   { name: 'react-native', path: winPath(REACT_NATIVE_PATH) },
-    //   {
-    //     name: 'react-router-dom',
-    //     path: 'react-router-native',
-    //   },
-    //   { name: 'react-router-native', path: winPath(dirname(require.resolve('react-router-native/package.json'))) },
-    //   /**
-    //    * umi-runtime-react-native 包中会引用 @umi/runtime。
-    //    *
-    //    * 但后面需要把 @umi/runtime 替换为 umi-runtime-react-native，为了避免二者"循环引用"。
-    //    *
-    //    * 故 umi-runtime-react-native 直接引用 @umi/runtime ESModule 格式的代码。
-    //    *
-    //    * 后面将 @umi/runtime CommonJS 格式的代码 通过 alias 替换为： umi-runtime-react-native
-    //    */
-    //   {
-    //     name: '@umijs/runtime/dist/index.esm.js',
-    //     path: winPath(getUMIRuntimePath()),
-    //   },
-    //   {
-    //     name: 'umi-runtime-react-native',
-    //     path: winPath(dirname(require.resolve('umi-runtime-react-native/package.json'))),
-    //   },
-    // ].concat(getAllUMIRuntimeAbsPaths().map((dir) => ({ name: winPath(dir), path: 'umi-runtime-react-native' })));
-  });
+  api.addProjectFirstLibraries(() => [
+    { name: 'react-native', path: winPath(REACT_NATIVE_PATH) },
+    {
+      name: 'react-router-dom',
+      path: 'react-router-native',
+    },
+    { name: 'react-router-native', path: winPath(dirname(require.resolve('react-router-native/package.json'))) },
+  ]);
 
   // 启动时检查
   api.onStart(() => {

@@ -28,11 +28,10 @@ export default (api: IApi) => {
       throw new TypeError('The required argument: "--platform <ios|android>" was not present!');
     }
     process.env.NODE_ENV = 'production';
-    const assetsDest = resolve(paths.absOutputPath || '', opts.args.assetsDest || 'assets');
-    const bundleOutput = resolve(
-      paths.absOutputPath || '',
-      opts.args.bundleOutput || platform === 'ios' ? 'main.jsbundle' : `index.${platform}.bundle`,
-    );
+    const assetsDest = opts.args.assetsDest || resolve(paths.absOutputPath || '', 'assets');
+    const bundleOutput =
+      opts.args.bundleOutput ||
+      resolve(paths.absOutputPath || '', platform === 'ios' ? 'main.jsbundle' : `index.${platform}.bundle`);
     const defaultsArgs: IBundleOptions = {
       config: join(paths.absTmpPath || '', 'haul.config.js'),
       entryFile: join(paths.absTmpPath || '', 'umi.ts'),

@@ -40,30 +40,18 @@ function flattenRoutes(routes?: IRoute[], parent?: IScreen): IScreen[] {
   const screens: IScreen[] = [];
   for (let idx = 0; idx < routes.length; idx++) {
     const route = routes[idx];
-    const {
-      key: routeKey,
-      path,
-      exact,
-      component: Component,
-      strict,
-      redirect,
-      wrappers,
-      routes: children,
-      ...options
-    } = route;
+    const { key: routeKey, path, exact, component, strict, redirect, wrappers, routes: children, ...options } = route;
     const name = parent && parent.name ? urlJoin(parent.name, path || '/') : path || '/';
     const screenKey = routeKey || `s_${md5(name)}`;
     const screen: IScreen = {
       key: screenKey,
       name,
       component: function ScreenComponent(props) {
-        let children;
         if (redirect) {
-          children = <Redirect from={path} to={redirect} exact={exact} strict={strict} />;
-        } else {
-          children = Component ? <Component {...props} /> : <React.Fragment {...props} />;
+          return <Redirect from={path} to={redirect} exact={exact} strict={strict} />;
         }
-        const Layout = parent?.component || null;
+        const children = component ? React.createElement(component, props) : null;
+        return parent && parent.component ? React.createElement(parent.component, props, children) : children;
         // if (Array.isArray(wrappers)) {
         //   let len = wrappers.length - 1;
         //   while (len >= 0) {
@@ -71,7 +59,6 @@ function flattenRoutes(routes?: IRoute[], parent?: IScreen): IScreen[] {
         //     len -= 1;
         //   }
         // }
-        return Layout ? <Layout>{children}</Layout> : children;
       },
       options: {
         ...options,
@@ -110,12 +97,6 @@ export function Navigation(props: INavigationProps) {
   }, [history]);
 
   const screens = flattenRoutes(routes);
-
-  if (__DEV__) {
-    console.info('extraProps:', extraProps);
-    console.info('otherProps:', rests);
-    console.info('screens:', screens);
-  }
 
   const context = {
     history,
