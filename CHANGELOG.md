@@ -1,9 +1,31 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.4-alpha.1...v"></a> (2020-05-09)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.1.0-alpha.2...v"></a> (2020-05-14)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.1.0-alpha.1...v0.1.0-alpha.2">0.1.0-alpha.2</a> (2020-05-14)
+
+
+### Bug 修复
+
+* add react-router-config (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/8775653">8775653</a>)
+
+
+
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.1.0-alpha.0...v0.1.0-alpha.1">0.1.0-alpha.1</a> (2020-05-14)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.0.4-alpha.1...v0.1.0-alpha.0">0.1.0-alpha.0</a> (2020-05-14)
 
 
 ### ⚠ 破坏性改动
 
 * You need to follow the [installation document](https://github.com/ant-design/ant-design-mobile-rn#install--usage) to install `@ant-design/react-native` directly.
+
+### 新功能
+
+* 新增umi-preset-react-navigation包，支持使用react-navigation替换react-router。 (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/9411fd9">9411fd9</a>)
+
+
+
+
 
 ### 重构
 
