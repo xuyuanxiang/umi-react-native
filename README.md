@@ -86,9 +86,7 @@ _待 yarn 安装完成后开箱即用。_
 
 查看：[umi-plugin-antd-react-native](/packages/umi-plugin-antd-react-native)
 
-## 使用
-
-### 配置
+## 配置
 
 > All dependencies start with @umijs/preset-、@umijs/plugin-、umi-preset-、umi-plugin- will be registered as plugin/plugin-preset.
 
@@ -103,7 +101,7 @@ _umi 3.x 后会自动探测、装配插件。所以不需要在`.umirc.js`中配
 
 _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者说支持服务端渲染的插件基本也是可以在 RN 运行环境中使用的。_
 
-#### 目前支持的 umi 配置项
+### 目前支持的 umi 配置项
 
 **umi-preset-react-native**使用[haul](https://github.com/callstack/haul)打包器。
 
@@ -128,7 +126,7 @@ _上文未列出的[umi 配置](https://umijs.org/config)对 **umi-preset-react-
 
 [haul](https://github.com/callstack/haul)使用的 devServer 是[hapi](https://hapi.dev/)，目前还不支持扩展额外的 hapi 插件（中间件），暂时无法支持[mock](https://umijs.org/config#mock)和[proxy](https://umijs.org/config#proxy)功能。
 
-#### umi-preset-react-native 扩展配置
+### umi-preset-react-native 扩展配置
 
 ```javascript
 // .umirc.js
@@ -149,6 +147,8 @@ export default {
 
 - `reactNative`：选填，默认值：上面代码示例中的值；
 - `haul`：选填，默认值：上面代码示例中的值，即[Project Configuration](https://github.com/callstack/haul/blob/master/docs/Configuration.md#project-configuration-reference)。
+
+## 使用
 
 ### 开发
 
@@ -301,7 +301,7 @@ export default Layout;
 
 这样做，当用户使用**系统返回键**时会返回应用的上一个路由，而不是退出应用。
 
-### 替换为 react-navigation
+### 使用 react-navigation
 
 [react-navigation](https://reactnavigation.org/)可作为 umi 默认[react-router](https://reacttraining.com/react-router/)的**替代方案**。
 
