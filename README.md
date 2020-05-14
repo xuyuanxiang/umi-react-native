@@ -253,20 +253,21 @@ Link.propTypes = {
 
 ```jsx
 import React from 'react';
-import { Text, View } from 'react-native';
 import { Link } from 'umi';
-import { Button } from '@ant-design/react-native';
+import { List } from '@ant-design/react-native';
+
+const Item = List.Item;
 
 function Index() {
   return (
-    <View>
-      <Link to="/details" component={Button}>
-        <Text>Go to details</Text>
+    <List>
+      <Link to="/home" component={Item} arrow="horizontal">
+        主页
       </Link>
-      <Link to="/login" component={Button}>
-        <Text>Go to login</Text>
+      <Link to="/login" component={Item} arrow="horizontal">
+        登录页
       </Link>
-    </View>
+    </List>
   );
 }
 ```
