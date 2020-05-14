@@ -17,10 +17,10 @@ _了解如何使用[react-navigation](https://reactnavigation.org/)开发地道�
 - [安装](#%E5%AE%89%E8%A3%85)
   - [集成 DvaJS](#%E9%9B%86%E6%88%90-dvajs)
   - [集成 @ant-design/react-native](#%E9%9B%86%E6%88%90-ant-designreact-native)
+- [配置](#%E9%85%8D%E7%BD%AE)
+  - [目前支持的 umi 配置项](#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84-umi-%E9%85%8D%E7%BD%AE%E9%A1%B9)
+  - [umi-preset-react-native 扩展配置](#umi-preset-react-native-%E6%89%A9%E5%B1%95%E9%85%8D%E7%BD%AE)
 - [使用](#%E4%BD%BF%E7%94%A8)
-  - [配置](#%E9%85%8D%E7%BD%AE)
-    - [目前支持的 umi 配置项](#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84-umi-%E9%85%8D%E7%BD%AE%E9%A1%B9)
-    - [umi-preset-react-native 扩展配置](#umi-preset-react-native-%E6%89%A9%E5%B1%95%E9%85%8D%E7%BD%AE)
   - [开发](#%E5%BC%80%E5%8F%91)
   - [打包](#%E6%89%93%E5%8C%85)
 - [路由](#%E8%B7%AF%E7%94%B1)
@@ -28,14 +28,15 @@ _了解如何使用[react-navigation](https://reactnavigation.org/)开发地道�
     - [`Link`组件在 RN 和 DOM 中存在差异](#link%E7%BB%84%E4%BB%B6%E5%9C%A8-rn-%E5%92%8C-dom-%E4%B8%AD%E5%AD%98%E5%9C%A8%E5%B7%AE%E5%BC%82)
     - [没有`NavLink`组件](#%E6%B2%A1%E6%9C%89navlink%E7%BB%84%E4%BB%B6)
     - [新增`BackButton`和`AndroidBackButton`组件](#%E6%96%B0%E5%A2%9Ebackbutton%E5%92%8Candroidbackbutton%E7%BB%84%E4%BB%B6)
-  - [替换为 react-navigation](#%E6%9B%BF%E6%8D%A2%E4%B8%BA-react-navigation)
+  - [使用 react-navigation](#%E4%BD%BF%E7%94%A8-react-navigation)
 - [示例](#%E7%A4%BA%E4%BE%8B)
 - [深入](#%E6%B7%B1%E5%85%A5)
   - [切分多 bundle](#%E5%88%87%E5%88%86%E5%A4%9A-bundle)
 - [FAQ](#faq)
+
   - [hmrClient.send is not a function](#hmrclientsend-is-not-a-function)
   - [Live Reloading, Fast Refresh, Hot Replacement... 无法使用](#live-reloading-fast-refresh-hot-replacement-%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8)
-  - [使用@ant-design/react-native 组件时，报错：Unrecognized font family 'antoutline'](#%E4%BD%BF%E7%94%A8ant-designreact-native-%E7%BB%84%E4%BB%B6%E6%97%B6%E6%8A%A5%E9%94%99unrecognized-font-family-antoutline)
+  - [使用 @ant-design/react-native 组件时，报错：Unrecognized font family 'antoutline'](#%E4%BD%BF%E7%94%A8-ant-designreact-native-%E7%BB%84%E4%BB%B6%E6%97%B6%E6%8A%A5%E9%94%99unrecognized-font-family-antoutline)
 
 ## 必备
 
