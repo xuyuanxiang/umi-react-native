@@ -15,6 +15,8 @@
 
 [发布日志](/CHANGELOG.md)
 
+示例工程： [UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample#readme)
+
 ## 目录
 
 - [必备](#%E5%BF%85%E5%A4%87)
@@ -315,10 +317,6 @@ export default Layout;
 ### 使用 react-navigation
 
 了解详情，请移步至：<a href="https://github.com/xuyuanxiang/umi-react-native/tree/master/packages/umi-preset-react-navigation#readme" target="_blank">umi-preset-react-navigation</a>。
-
-## 示例
-
-[UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample#readme)
 
 ## 深入
 

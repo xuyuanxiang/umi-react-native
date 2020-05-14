@@ -8,6 +8,22 @@
 
 _了解如何使用[umi](https://umijs.org/)开发 RN 应用，请移步至：_<a href="https://github.com/xuyuanxiang/umi-react-native#readme" target="_blank">umi-react-native</a>
 
+## 目录
+
+- [动机](#%E5%8A%A8%E6%9C%BA)
+- [安装](#%E5%AE%89%E8%A3%85)
+- [扩展配置](#%E6%89%A9%E5%B1%95%E9%85%8D%E7%BD%AE)
+  - [reactNavigation](#reactnavigation)
+- [扩展运行时配置](#%E6%89%A9%E5%B1%95%E8%BF%90%E8%A1%8C%E6%97%B6%E9%85%8D%E7%BD%AE)
+  - [getReactNavigationInitialState](#getreactnavigationinitialstate)
+  - [getReactNavigationInitialIndicator](#getreactnavigationinitialindicator)
+  - [onReactNavigationStateChange](#onreactnavigationstatechange)
+  - [案例：持久化导航状态](#%E6%A1%88%E4%BE%8B%E6%8C%81%E4%B9%85%E5%8C%96%E5%AF%BC%E8%88%AA%E7%8A%B6%E6%80%81)
+- [扩展路由属性](#%E6%89%A9%E5%B1%95%E8%B7%AF%E7%94%B1%E5%B1%9E%E6%80%A7)
+  - [案例：单独为某个页面设置导航条](#%E6%A1%88%E4%BE%8B%E5%8D%95%E7%8B%AC%E4%B8%BA%E6%9F%90%E4%B8%AA%E9%A1%B5%E9%9D%A2%E8%AE%BE%E7%BD%AE%E5%AF%BC%E8%88%AA%E6%9D%A1)
+- [页面间跳转](#%E9%A1%B5%E9%9D%A2%E9%97%B4%E8%B7%B3%E8%BD%AC)
+- [DeepLink](#deeplink)%
+
 ## 动机
 
 - [react-navigation](https://reactnavigation.org/) 具备原生体验效果；
