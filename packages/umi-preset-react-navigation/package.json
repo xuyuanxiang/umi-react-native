@@ -1,6 +1,6 @@
 {
   "name": "umi-preset-react-navigation",
-  "version": "0.0.4-alpha.1",
+  "version": "0.1.0-alpha.0",
   "description": "umi-preset-react-navigation",
   "keywords": [
     "umi",
@@ -49,6 +49,6 @@
     "react-native-reanimated": "1.8.0",
     "react-native-safe-area-context": "1.0.0",
     "react-native-screens": "2.7.0",
-    "umi-renderer-react-navigation": "^0.0.4-alpha.1"
+    "umi-renderer-react-navigation": "^0.1.0-alpha.0"
   }
 }

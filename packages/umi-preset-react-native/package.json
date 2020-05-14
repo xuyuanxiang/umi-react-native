@@ -1,6 +1,6 @@
 {
   "name": "umi-preset-react-native",
-  "version": "0.0.4-alpha.1",
+  "version": "0.1.0-alpha.0",
   "description": "umi-preset-react-native",
   "keywords": [
     "umi",
@@ -44,8 +44,8 @@
   "dependencies": {
     "@haul-bundler/babel-preset-react-native": "0.16.0",
     "@haul-bundler/cli": "0.22.1",
-    "@haul-bundler/preset-0.60": "0.18.0",
     "@haul-bundler/preset-0.59": "0.18.0",
+    "@haul-bundler/preset-0.60": "0.18.0",
     "@types/react-router-native": "5.1.0",
     "@umijs/runtime": "^3.0.0",
     "react-router-native": "5.1.2"
