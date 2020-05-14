@@ -2,7 +2,7 @@
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-依托 [umi](https://umijs.org/) 强大的引擎，提升 [react-native](https://reactnative.dev/) 开发效率和编程体验：
+使用 [umi](https://umijs.org/) 加速 [react-native](https://reactnative.dev/) 开发效率，提升编程体验：
 
 - **零配置**，添加[DvaJS](https://dvajs.com/)，[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)... 等依赖后开箱即用，开发者只需专注于实现业务代码；
 - 路由方案默认使用 [umi](https://umijs.org/) 内置的[react-router](https://reacttraining.com/react-router/)，**可选**[react-navigation](https://reactnavigation.org/)。
