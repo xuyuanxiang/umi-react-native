@@ -186,6 +186,7 @@ export async function onReactNavigationStateChange(state) {
 ```jsx
 import React from 'react';
 import { Text } from 'react-native';
+import { Button } from '@ant-design/react-native';
 
 function HomePage({ navigation }) {
   // 处理导航条右侧按钮点击事件
