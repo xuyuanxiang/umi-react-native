@@ -14,6 +14,8 @@ _了解如何使用[umi](https://umijs.org/)开发 RN 应用，请移步至：_<
 - 还可以更好，突破自我，体现价值；
 - 工作中难免会遇到高要求的产品经理。
 
+![](https://cdn.xuyuanxiang.me/UMIRNExample_233cdfef.webm)
+
 ## 安装
 
 这些是[react-navigation](https://reactnavigation.org/)的依赖：
