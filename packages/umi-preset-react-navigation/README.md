@@ -1,6 +1,10 @@
 # umi-preset-react-navigation
 
-支持在 RN 应用中 使用 [react-navigation](https://reactnavigation.org/) 替换 [umi](https://umijs.org/) 内置的 [react-router](https://reacttraining.com/react-router/)。
+针对 [react-navigation](https://reactnavigation.org/) 的 [umi](https://umijs.org/) 插件集。
+
+支持在 RN 应用中替换 [umi](https://umijs.org/) 默认的 [react-router](https://reacttraining.com/react-router/)。
+
+内置[react-navigation](https://reactnavigation.org/) `5.x` 版本，需要 [react-native](https://reactnative.dev/) **0.60.0 及以上版本（>=0.60.x）**。
 
 _了解如何使用[umi](https://umijs.org/)开发 RN 应用，请移步至：_<a href="https://github.com/xuyuanxiang/umi-react-native#readme" target="_blank">umi-react-native</a>
 
@@ -20,13 +24,9 @@ _了解如何使用[umi](https://umijs.org/)开发 RN 应用，请移步至：_<
 - react-native-safe-area-context
 - @react-native-community/masked-view
 
-**强烈推荐**使用 RN 0.60.0 及以上版本，否则安装会及其繁琐。
+**umi-preset-react-navigation**内置了上面所有依赖。
 
-### RN`0.60.x`版本
-
-**umi-preset-react-navigation**内置了[react-navigation](https://reactnavigation.org/)所有依赖最新版本。
-
-在 RN 工程根目录，使用 yarn 安装**umi-preset-react-navigation**即可：
+只需在 RN 工程根目录，使用 yarn 安装**umi-preset-react-navigation**即可：
 
 ```npm
 yarn add umi-preset-react-navigation --dev
@@ -40,25 +40,14 @@ cd ios && pod install
 
 **注意：**
 
-虽然有[自动链接](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md)功能，如果还是出现了原生代码报错，在 RN 工程根目录下手动重新链接一下：
+虽然有[自动链接](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md)功能，如果还是发生了意外，在 RN 工程根目录下手动重新链接一下可以解决大部分的出现了原生代码报错：
 
 ```npm
 yarn react-native unlink && yarn react-native link
 # ./node_modules/.bin/react-native unlink && ./node_modules/.bin/react-native link
 ```
 
-每次添加原生依赖，都需要执行：`yarn ios`和`yarn android`重新编译和启动 iOS 和 Android 工程。
-
-**RN`0.60.x`版本安装至此结束。**
-
-### RN`0.50.x`版本
-
-按照[react-navigation](https://reactnavigation.org/)的[安装文档](https://reactnavigation.org/docs/getting-started/#installation)操作，将所有[react-navigation](https://reactnavigation.org/)所需依赖安装到 RN 工程本地。
-
-**一定要逐一查看这些依赖的 README 文档**，因为：
-
-1. 需要根据 RN 版本安装对应依赖的版本，以[react-native-gesture-handler](https://github.com/software-mansion/react-native-gesture-handler#react-native-support)为例，RN 0.57.2 及以上版本，需要安装`react-native-gesture-handler@1.1.x`，**不能使用最新版**；
-2. 有些[react-navigation](https://reactnavigation.org/)的依赖使用 yarn/npm 安装完成，还需要**手动链接**原生 iOS 和 Android 代码，可以按照这些依赖的 README 文档操作。
+每次添加原生依赖后，都需要执行：`yarn ios`和`yarn android`重新编译和启动 iOS 和 Android 工程。
 
 ## 扩展配置
 
@@ -66,13 +55,13 @@ yarn react-native unlink && yarn react-native link
 
 ### reactNavigation
 
-全都是选填参数，下面示例中填入的是默认值，等价于不填：
+`theme`字段选填，下面示例中填入的是默认值，等价于不填：
 
 ```javascript
 // .umirc.js
 export default {
   reactNavigation: {
-    // 使用 ant-design 默认配色作为 Navigation 的默认主题
+    // 使用 ant-design 默认配色作为导航条的默认主题
     theme: {
       dark: false,
       colors: {
@@ -83,17 +72,9 @@ export default {
         border: '#dddddd',
       },
     },
-    type: 'stack', // Navigator 类型
-    enableSafeAreasSupport: true, // 默认启用对 iOS Safe Areas 的适配/支持
   },
 };
 ```
-
-| 变量名                 | 类型    | 说明                                                   |                 默认值 |
-| :--------------------- | :------ | :----------------------------------------------------- | ---------------------: |
-| type                   | enum    | 导航类型，可选值：`'stack'`, `drawer`, `bottom-tabs`。 |                'stack' |
-| enableSafeAreasSupport | boolean | 是否适配 iOS Safe Areas。                              |                   true |
-| theme                  | object  | 初始主题，将来考虑支持运行时切换主题/皮肤。            | _上面代码示例中所填值_ |
 
 ## 扩展运行时配置
 
@@ -234,13 +215,34 @@ export default HomePage;
 
 **如果页面的`title`属性未设置，则使用`.umirc.js`中的全局[title](https://umijs.org/config#title)。**
 
-## 应用内部页面跳转
+## 页面间跳转
 
-### 使用命令式
+查看 umi 文档：[页面间跳转](https://umijs.org/zh-CN/docs/navigate-between-pages)，姿势保持不变。
 
-### 使用申明式
+使用**声明式**的`Link`组件时需要注意，在 RN 中 与 DOM 存在较大差异：
 
-### 传递和接收参数
+```jsx
+import React from 'react';
+import { Link } from 'umi';
+import { List } from '@ant-design/react-native';
+
+const Item = List.Item;
+
+function Index() {
+  return (
+    <List>
+      <Link to="/home" component={Item} arrow="horizontal">
+        主页
+      </Link>
+      <Link to="/login" component={Item} arrow="horizontal">
+        登录页
+      </Link>
+    </List>
+  );
+}
+```
+
+使用**命令式**跳转页面时，只能使用`history`的 API，**umi-preset-react-navigation**目前还不支持使用[react-navigation](https://reactnavigation.org/)提供的`navigation`来跳转，只能做导航条设置之类的操作。
 
 ## DeepLink
 

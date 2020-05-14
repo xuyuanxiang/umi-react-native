@@ -16,13 +16,10 @@ export default (api: IApi) => {
             border: '#dddddd',
           },
         },
-        type: 'stack', // Navigator 类型
-        enableSafeAreasSupport: true, // 默认启用对 iOS Safe Areas 的适配/支持
       },
       schema(joi) {
         return joi
           .object({
-            type: joi.string().allow('stack', 'drawer', 'bottom-tabs').optional(),
             theme: joi
               .object({
                 dark: joi.boolean().required(),
@@ -35,7 +32,6 @@ export default (api: IApi) => {
                 }),
               })
               .optional(),
-            enableSafeAreasSupport: joi.boolean().optional(),
           })
           .optional();
       },

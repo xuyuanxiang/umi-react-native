@@ -1,6 +1,6 @@
 import { IApi } from 'umi';
 
-const exportsTpl = `export {
+const CONTENT = `export {
   useNavigation,
   useRoute as useScreen,
   useFocusEffect,
@@ -14,23 +14,20 @@ const exportsTpl = `export {
   CommonActions,
   StackActions,
 } from '@react-navigation/native';
-{{#enableSafeAreasSupport}}
 export {
   SafeAreaProvider,
   SafeAreaView,
   useSafeAreaInsets,
   useSafeAreaFrame,
 } from 'react-native-safe-area-context';
-{{/enableSafeAreasSupport}}
+
 `;
 
 export default (api: IApi) => {
   api.onGenerateFiles(() => {
     api.writeTmpFile({
       path: 'react-navigation/exports.ts',
-      content: api.utils.Mustache.render(exportsTpl, {
-        enableSafeAreasSupport: Boolean(api.config?.reactNavigation?.enableSafeAreasSupport),
-      }),
+      content: CONTENT,
     });
   });
 

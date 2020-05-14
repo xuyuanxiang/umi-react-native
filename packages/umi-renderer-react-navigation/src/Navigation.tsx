@@ -1,16 +1,17 @@
 import React, { ComponentType, useEffect } from 'react';
-import { Linking } from 'react-native';
 import { ApplyPluginsType, Plugin, History, Redirect, __RouterContext as RouterContext, matchPath } from 'umi';
 import { IRoute, IRouteComponentProps } from '@umijs/renderer-react';
 import { matchRoutes } from 'react-router-config';
-import { TypedNavigator, Route, NavigationHelpers } from '@react-navigation/native';
+import { Route, NavigationHelpers } from '@react-navigation/native';
 import urlJoin from 'url-join';
 import md5 from 'blueimp-md5';
+import { createHistoryNavigator } from './createHistoryNavigator';
+
+const { Navigator, Screen } = createHistoryNavigator();
 
 interface INavigationProps {
   routes: IRoute[];
   plugin: Plugin;
-  navigator: TypedNavigator<any, any, any, any, any>;
   history: History<any>;
   defaultTitle?: string;
   extraProps?: object;
@@ -87,9 +88,7 @@ function flattenRoutes(routes?: IRoute[], parent?: IScreen): IScreen[] {
 }
 
 export function Navigation(props: INavigationProps) {
-  const { history, plugin, routes, defaultTitle, navigator, extraProps = {}, ...rests } = props;
-
-  const { Navigator, Screen } = navigator;
+  const { history, plugin, routes, defaultTitle, extraProps = {}, ...rests } = props;
 
   useEffect(() => {
     function routeChangeHandler(location: any, action?: string) {
@@ -106,7 +105,6 @@ export function Navigation(props: INavigationProps) {
         },
       });
     }
-    Linking.getInitialURL().then((url) => console.info('initialURL:', url));
     routeChangeHandler(history.location, 'POP');
     return history.listen(routeChangeHandler);
   }, [history]);
@@ -127,27 +125,25 @@ export function Navigation(props: INavigationProps) {
 
   return (
     <RouterContext.Provider value={context}>
-      <Navigator initialRouteName="/">
-        {screens.map(
-          ({ key, component: Component, options: { routeMatchOpts: route, title, ...options }, ...rest }, idx) => (
-            <Screen {...rest} key={key || `screen_${idx}`} options={{ ...options, title: title || defaultTitle }}>
-              {({ route: screen, ...props }) => {
-                const match = matchPath(history.location.pathname, options.routeMatchOpts) || context.match;
-                const newProps = {
-                  ...rests,
-                  ...extraProps,
-                  history,
-                  location: history.location,
-                  route,
-                  match,
-                  screen,
-                  ...props,
-                };
-                return <Component {...newProps} />;
-              }}
-            </Screen>
-          ),
-        )}
+      <Navigator initialRouteName="/" history={history}>
+        {screens.map(({ key, component: Component, options: { routeMatchOpts, title, ...options }, ...rest }, idx) => (
+          <Screen {...rest} key={key || `screen_${idx}`} options={{ ...options, title: title || defaultTitle }}>
+            {({ route: screen, ...props }) => {
+              const match = matchPath(history.location.pathname, routeMatchOpts) || context.match;
+              const newProps = {
+                ...rests,
+                ...extraProps,
+                history,
+                location: history.location,
+                route: routeMatchOpts,
+                match,
+                screen, // 避免和 umi 约定注入的 route 命名冲突，这里将 react-navigation 注入的 route 更换为 screen。
+                ...props,
+              };
+              return <Component {...newProps} />;
+            }}
+          </Screen>
+        ))}
       </Navigator>
     </RouterContext.Provider>
   );

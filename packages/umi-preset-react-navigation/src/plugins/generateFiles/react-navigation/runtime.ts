@@ -36,7 +36,6 @@ export default (api: IApi) => {
     api.writeTmpFile({
       path: 'react-navigation/runtime.tsx',
       content: Mustache.render(runtimeTpl, {
-        enableSafeAreasSupport: Boolean(api.config?.reactNavigation?.enableSafeAreasSupport),
         loading:
           typeof dynamicImport === 'object' && typeof dynamicImport.loading === 'string'
             ? `require('${dynamicImport.loading}').default`

@@ -2,14 +2,8 @@
 
 针对 [react-navigation](https://reactnavigation.org/) 的 [umi](https://umijs.org/) 渲染器。
 
-umi 默认渲染器： `@umijs/renderer-react` 使用[react-router](https://reacttraining.com/react-router/)渲染路由的代码逻辑无法替换。
+开发者无须单独安装该依赖，需要和 <a href="https://github.com/xuyuanxiang/umi-react-native/tree/master/packages/umi-preset-react-navigation#readme" target="_blank">umi-preset-react-navigation</a> 配套使用，目前仅支持 Native，暂不考虑 Web。
 
-只能替换整个`@umijs/renderer-react`，于是产生了这个项目。
+_umi 默认渲染器：`@umijs/renderer-react` 使用[react-router](https://reacttraining.com/react-router/)渲染路由。_
 
-## 如何使用 [umi](https://umijs.org/) 开发 RN 应用
-
-请移步至：<a href="https://github.com/xuyuanxiang/umi-react-native#readme" target="_blank">umi-react-native</a>。
-
-## 如何使用 [react-navigation](https://reactnavigation.org/) 替换 umi 默认的 [react-router](https://reacttraining.com/react-router/)
-
-请移步至：<a href="https://github.com/xuyuanxiang/umi-react-native/tree/master/packages/umi-preset-react-navigation#readme" target="_blank">umi-preset-react-navigation</a>
+_了解如何使用[umi](https://umijs.org/)开发 RN 应用，请移步至：_<a href="https://github.com/xuyuanxiang/umi-react-native#readme" target="_blank">umi-react-native</a>
