@@ -1,6 +1,8 @@
 import { Service } from 'umi';
 import rimraf from 'rimraf';
 import { join } from 'path';
+import { runInNewContext } from 'vm';
+import { readFileSync } from 'fs';
 import { render } from '@testing-library/react-native';
 
 const cwd = join(__dirname, 'fixtures');
@@ -57,5 +59,27 @@ describe('umi-preset-react-native', () => {
     const { BackButton, AndroidBackButton } = require(join(absTmp, 'react-native', 'exports.ts'));
     expect(BackButton).toBeDefined();
     expect(AndroidBackButton).toBeDefined();
+  });
+  it('should add runtime plugin and registerComponent', () => {
+    jest.mock('react-native', () => ({
+      AppRegistry: {
+        registerComponent(appKey: string, componentFactory: () => any) {
+          if (appKey === 'RNTestApp') {
+            componentFactory()();
+          }
+        },
+      },
+    }));
+    const { render } = require(join(absTmp, 'react-native', 'runtime.ts'));
+    const fn = jest.fn();
+    render(fn);
+    jest.unmock('react-native');
+    expect(fn).toBeCalledTimes(1);
+  });
+  it('should add polyfill', () => {
+    const code = readFileSync(join(absTmp, 'react-native', 'polyfill.ts'), 'utf8');
+    const global: { window?: any } = {};
+    runInNewContext(code, { global });
+    expect(global?.window).toBe(global);
   });
 });
