@@ -8,7 +8,7 @@
     "build": "cross-env NODE_ENV=production lerna run build",
     "watch": "cross-env NODE_ENV=development lerna run watch --parallel --concurrency 4",
     "test": "cross-env NODE_ENV=test jest --coverage",
-    "changelog": "node scripts/changelog",
+    "changelog": "rimraf CHANGELOG.md && node scripts/changelog",
     "prerelease": "yarn clean && yarn build",
     "release": "lerna publish",
     "postrelease": "yarn changelog"
