@@ -1,4 +1,12 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.1.0-alpha.2...v"></a> (2020-05-14)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.1.0-alpha.2...v"></a> (2020-05-15)
+
+
+### 新功能
+
+* Work with HOC: withRouter. (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/d9f0d49">d9f0d49</a>)
+
+
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.1.0-alpha.1...v0.1.0-alpha.2">0.1.0-alpha.2</a> (2020-05-14)
 
