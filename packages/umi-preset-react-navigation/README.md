@@ -23,7 +23,7 @@ _了解如何使用[umi](https://umijs.org/)开发 RN 应用，请移步至：_<
   - [案例：单独为某个页面设置导航条](#%E6%A1%88%E4%BE%8B%E5%8D%95%E7%8B%AC%E4%B8%BA%E6%9F%90%E4%B8%AA%E9%A1%B5%E9%9D%A2%E8%AE%BE%E7%BD%AE%E5%AF%BC%E8%88%AA%E6%9D%A1)
 - [页面间跳转](#%E9%A1%B5%E9%9D%A2%E9%97%B4%E8%B7%B3%E8%BD%AC)
 - [页面间传递/接收参数](#%E9%A1%B5%E9%9D%A2%E9%97%B4%E4%BC%A0%E9%80%92%E6%8E%A5%E6%94%B6%E5%8F%82%E6%95%B0)
-- [DeepLink](#deeplink)%
+- [DeepLink](#deeplink)
 
 ## 动机
 
