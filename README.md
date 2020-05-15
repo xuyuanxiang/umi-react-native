@@ -259,10 +259,10 @@ yarn ios
 构建离线包（offline bundle）：
 
 ```shell
-umi build-rn --platform <ios|android> --bundle-output <relative/to/output/path/filename> --assets-dest <relative/to/output/path>
+umi build-rn --platform <ios|android> [--bundle-output relative/to/output/outputPath/js.bundle] [--assets-dest relative/to/outputPath/assets]
 ```
 
-_`relative/to/output/path`: 表示相对于[outputPath](https://umijs.org/config#outputpath)的路径。_
+_`relative/to/output/outputPath`: 表示相对于[outputPath](https://umijs.org/config#outputpath)的路径。_
 
 package.json:
 
