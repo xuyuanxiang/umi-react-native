@@ -158,3 +158,6 @@ packages/*/types
 packages/*/esm
 packages/*/lib
 *.tsbuildinfo
+.umi
+.umi-test
+.umi-production

@@ -1,26 +1,4 @@
 /* eslint-disable */
-declare module 'umi' {
-  import * as utils from '@umijs/utils';
-  export { utils };
-  export * from '@umijs/types';
-  export * from '@umijs/runtime';
-}
-
-declare module '@umijs/bundler-utils' {
-  enum ConfigType {
-    csr = 'csr',
-    ssr = 'ssr',
-  }
-  export { ConfigType };
-}
-
-declare module '@umijs/bundler-webpack' {
-  import webpack from 'webpack';
-  import { ConfigType } from '@umijs/bundler-utils';
-
-  export { webpack, ConfigType };
-}
-
 declare module '@umijs/runtime/dist/index.esm.js' {
   export * from '@umijs/runtime';
 }

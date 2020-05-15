@@ -39,6 +39,7 @@
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "peerDependencies": {
+    "@ant-design/react-native": "*",
     "umi": "^3.0.0"
   }
 }
