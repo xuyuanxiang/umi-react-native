@@ -4,8 +4,9 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "rimraf packages/*/lib",
+    "lint": "eslint packages/*/src/**/*.{ts,tsx}",
     "build": "cross-env NODE_ENV=production lerna run build",
-    "watch": "cross-env NODE_ENV=development lerna run watch --parallel --concurrency 5",
+    "watch": "cross-env NODE_ENV=development lerna run watch --parallel --concurrency 4",
     "test": "cross-env NODE_ENV=test jest --coverage",
     "changelog": "node scripts/changelog",
     "prerelease": "yarn build",

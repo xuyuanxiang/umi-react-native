@@ -1,20 +1,17 @@
 import { IApi } from 'umi';
 import { dirname, join } from 'path';
 import runtimeTpl from './runtimeTpl';
-import { dependencies } from '../../../../package.json';
 
 export default (api: IApi) => {
   const {
     utils: { Mustache, winPath },
   } = api;
 
-  api.addProjectFirstLibraries(() =>
-    Object.keys(dependencies).map((name) => ({
-      name,
-      path: winPath(dirname(require.resolve(`${name}/package.json`))),
-    })),
-  );
-  api.addEntryImportsAhead(() => [{ source: 'react-native-gesture-handler' }]);
+  api.addEntryImportsAhead(() => [
+    {
+      source: 'react-native-gesture-handler',
+    },
+  ]);
   api.addEntryImports(() => [
     {
       specifier: '{enableScreens}',
@@ -36,6 +33,8 @@ export default (api: IApi) => {
     api.writeTmpFile({
       path: 'react-navigation/runtime.tsx',
       content: Mustache.render(runtimeTpl, {
+        rendererPath: winPath(dirname(require.resolve('umi-renderer-react-navigation/package.json'))),
+        reactNavigationPath: winPath(dirname(require.resolve('@react-navigation/native/package.json'))),
         loading:
           typeof dynamicImport === 'object' && typeof dynamicImport.loading === 'string'
             ? `require('${dynamicImport.loading}').default`

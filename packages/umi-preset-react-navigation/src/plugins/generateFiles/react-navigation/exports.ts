@@ -1,6 +1,7 @@
 import { IApi } from 'umi';
+import { dirname } from 'path';
 
-const CONTENT = `export {
+const TEMPLATE = `export {
   useNavigation,
   useRoute as useScreen,
   useFocusEffect,
@@ -13,21 +14,20 @@ const CONTENT = `export {
   useScrollToTop,
   CommonActions,
   StackActions,
-} from '@react-navigation/native';
-export {
-  SafeAreaProvider,
-  SafeAreaView,
-  useSafeAreaInsets,
-  useSafeAreaFrame,
-} from 'react-native-safe-area-context';
+} from '{{{ reactNavigationPath }}}';
 
 `;
 
 export default (api: IApi) => {
+  const {
+    utils: { Mustache, winPath },
+  } = api;
   api.onGenerateFiles(() => {
     api.writeTmpFile({
       path: 'react-navigation/exports.ts',
-      content: CONTENT,
+      content: Mustache.render(TEMPLATE, {
+        reactNavigationPath: winPath(dirname(require.resolve('@react-navigation/native/package.json'))),
+      }),
     });
   });
 

@@ -109,19 +109,22 @@ export function Navigation(props: INavigationProps) {
       <Navigator initialRouteName="/" history={history}>
         {screens.map(({ key, component: Component, options: { routeMatchOpts, title, ...options }, ...rest }, idx) => (
           <Screen {...rest} key={key || `screen_${idx}`} options={{ ...options, title: title || defaultTitle }}>
-            {({ route: screen, ...props }) => {
-              const match = matchPath(history.location.pathname, routeMatchOpts) || context.match;
+            {(props) => {
               const newProps = {
                 ...rests,
                 ...extraProps,
-                history,
-                location: history.location,
-                route: routeMatchOpts,
-                match,
-                screen, // 避免和 umi 约定注入的 route 命名冲突，这里将 react-navigation 注入的 route 更换为 screen。
                 ...props,
               };
-              return <Component {...newProps} />;
+              return (
+                <RouterContext.Provider
+                  value={{
+                    ...context,
+                    match: matchPath(history.location.pathname, routeMatchOpts) || context.match,
+                  }}
+                >
+                  <Component {...newProps} />
+                </RouterContext.Provider>
+              );
             }}
           </Screen>
         ))}

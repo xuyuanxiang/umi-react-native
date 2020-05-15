@@ -1,8 +1,8 @@
 export default `import React from 'react';
 {{^loading}}import {View, Text} from 'react-native';{{/loading}}
 import {ApplyPluginsType, dynamic} from 'umi';
-import {NavigationContainer, NavigationState} from '@react-navigation/native';
-import {Navigation} from 'umi-renderer-react-navigation';
+import {Navigation} from '{{{ rendererPath }}}';
+import {NavigationContainer} from '{{{ reactNavigationPath }}}';
 
 export function rootContainer(container, {plugin, routes, history}) {
   return React.createElement(
@@ -34,7 +34,7 @@ export function rootContainer(container, {plugin, routes, history}) {
             {
               theme: {{{ theme }}},
               initialState,
-              onStateChange: (state?: NavigationState): void => {
+              onStateChange: (state: any): void => {
                 plugin.applyPlugins({
                   key: 'onReactNavigationStateChange',
                   type: ApplyPluginsType.event,

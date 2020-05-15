@@ -258,6 +258,42 @@ function Index() {
 
 使用**命令式**跳转页面时，只能使用`history`的 API，**umi-preset-react-navigation**目前还不支持使用[react-navigation](https://reactnavigation.org/)提供的`navigation`来跳转，只能做导航条设置之类的操作。
 
+## 页面间传递/接收参数
+
+在`IndexPage`点击`Link`，携带`query`参数路由到`HomePage`:
+
+```jsx
+import React from 'react';
+import { Link } from 'umi';
+import { List } from '@ant-design/react-native';
+
+const Item = List.Item;
+
+export default function IndexPage() {
+  return (
+    <List>
+      <Link to="/home?name=bar" component={Item} arrow="horizontal">
+        主页
+      </Link>
+    </List>
+  );
+}
+```
+
+```jsx
+export default function HomePage({ route }) {
+  console.log(route); // route 属性字段查看下面
+
+  // ...
+}
+```
+
+`route`属性示例：
+
+```json
+{ "key": "/home-WnnfQomYXFls0kS0v0lxo", "name": "/home", "params": { "name": "bar" } }
+```
+
 ## DeepLink
 
 > 什么是 DeepLink ？
