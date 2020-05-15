@@ -1,4 +1,6 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.1.0-alpha.2...v"></a> (2020-05-15)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.1.0-alpha.3...v"></a> (2020-05-15)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.1.0-alpha.2...v0.1.0-alpha.3">0.1.0-alpha.3</a> (2020-05-15)
 
 
 ### 新功能
