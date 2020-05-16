@@ -2,14 +2,15 @@
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-使用 [umi](https://umijs.org/) 加速 [react-native](https://reactnative.dev/) 开发效率，提升编程体验：
+使用 [umi](https://umijs.org/) 加速 [react-native](https://reactnative.dev/) 开发效率：
 
 - **零配置**，添加[DvaJS](https://dvajs.com/)，[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)... 等依赖后开箱即用，开发者只需专注于实现业务代码；
 - 路由方案默认使用 [umi](https://umijs.org/) 内置的[react-router](https://reacttraining.com/react-router/)，**可选**[react-navigation](https://reactnavigation.org/)。
 
-[umi](https://umijs.org/) 仅用来生成中间代码（临时文件），仍然需要使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#start)来开发和打包。
 
-可以使用第三方的[haul](https://github.com/callstack/haul)打包器取代 RN 官方打包器，也可以使用像[expo](https://expo.io/)这样的开发工具。
+umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**和**构建**的之间，旨在引入 umi 的开发姿势来提升 RN 编程体验。
+
+下游可以使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#start)来开发和打包，或者使用第三方的[haul](https://github.com/callstack/haul)打包器，也可以使用像[expo](https://expo.io/)这样的开发工具。
 
 | NPM 包 | 当前版本 | 简介 |
 | --- | --- | --- |
