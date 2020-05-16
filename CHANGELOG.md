@@ -1,4 +1,18 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.1.0-alpha.3...v"></a> (2020-05-15)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.0...v"></a> (2020-05-16)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.1.0-alpha.3...v0.2.0-alpha.0">0.2.0-alpha.0</a> (2020-05-16)
+
+
+### ⚠ 破坏性改动
+
+* 去除`umi dev-rn`和`umi dev-build`命令，不再支持chainWebpack配置。新增`umi watch`命令。
+
+### 重构
+
+* 去除第三方haul打包器，换为 RN 官方的 metro。 (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/c2f1435">c2f1435</a>)
+
+  原因：haul 不支持 Fast Refresh、Live Reloading功能。
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.1.0-alpha.2...v0.1.0-alpha.3">0.1.0-alpha.3</a> (2020-05-15)
 
