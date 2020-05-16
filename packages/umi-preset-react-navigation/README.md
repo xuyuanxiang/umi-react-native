@@ -106,11 +106,7 @@ export default {
 
 自定义初始化 react-navigation 状态过程中的指示器/Loading。通常在实现了上面的`getReactNavigationInitialState`后才会生效。
 
-缺省情况下：
-
-1. 如果**未启用**[dynamicImport](https://umijs.org/config#dynamicimport)配置，则会使用一个内置的简陋 Loading；
-2. 如果**启用**[dynamicImport](https://umijs.org/config#dynamicimport)配置，则会使用`dynamicImport.loading`；
-   1. 如果未实现自定义的`dynamicImport.loading`，[dynamicImport](https://umijs.org/config#dynamicimport)默认的 Loading 同样也很简陋。
+缺省情况下会使用一个内置的简陋 Loading。
 
 ### onReactNavigationStateChange
 
