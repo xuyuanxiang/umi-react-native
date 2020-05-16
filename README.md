@@ -7,6 +7,12 @@
 - **零配置**，添加[DvaJS](https://dvajs.com/)，[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)... 等依赖后开箱即用，开发者只需专注于实现业务代码；
 - 路由方案默认使用 [umi](https://umijs.org/) 内置的[react-router](https://reacttraining.com/react-router/)，**可选**[react-navigation](https://reactnavigation.org/)。
 
+[umi](https://umijs.org/) 仅用来生成中间代码（临时文件），仍然需要使用`react-native start`或者`react-native bundle`来开发和打包。
+
+你可以使用第三方的[haul](https://github.com/callstack/haul)打包器取代 RN 官方打包器。
+
+也可以使用像[expo](https://expo.io/)这样的开发工具。
+
 | NPM 包 | 当前版本 | 简介 |
 | --- | --- | --- |
 | [umi-plugin-antd-react-native](packages/umi-plugin-antd-react-native) | [![npm version](https://img.shields.io/npm/v/umi-plugin-antd-react-native.svg?style=flat-square)](https://www.npmjs.com/package/umi-plugin-antd-react-native) | 针对[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)的[umi](https://umijs.org/)插件，为其提供按需加载，主题/皮肤定制、预设、切换，国际化等支持。 |
