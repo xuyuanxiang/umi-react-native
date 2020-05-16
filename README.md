@@ -7,11 +7,9 @@
 - **零配置**，添加[DvaJS](https://dvajs.com/)，[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)... 等依赖后开箱即用，开发者只需专注于实现业务代码；
 - 路由方案默认使用 [umi](https://umijs.org/) 内置的[react-router](https://reacttraining.com/react-router/)，**可选**[react-navigation](https://reactnavigation.org/)。
 
-[umi](https://umijs.org/) 仅用来生成中间代码（临时文件），仍然需要使用`react-native start`或者`react-native bundle`来开发和打包。
+[umi](https://umijs.org/) 仅用来生成中间代码（临时文件），仍然需要使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#start)来开发和打包。
 
-你可以使用第三方的[haul](https://github.com/callstack/haul)打包器取代 RN 官方打包器。
-
-也可以使用像[expo](https://expo.io/)这样的开发工具。
+可以使用第三方的[haul](https://github.com/callstack/haul)打包器取代 RN 官方打包器，也可以使用像[expo](https://expo.io/)这样的开发工具。
 
 | NPM 包 | 当前版本 | 简介 |
 | --- | --- | --- |
@@ -577,4 +575,12 @@ cat ./node_modules/metro/package.json | grep version
 
 ### 使用 @ant-design/react-native 组件时，报错：Unrecognized font family 'antoutline'
 
-[ant-design/ant-design-mobile-rn#issue-194](https://github.com/ant-design/ant-design-mobile-rn/issues/194)中有解决方案。
+[ant-design/ant-design-mobile-rn#issue-194](https://github.com/ant-design/ant-design-mobile-rn/issues/194)：
+
+```npm
+yarn react-native unlink && yarn react-native link
+```
+
+### Unable to Resolve Module in React Native App
+
+[facebook/react-native#issue-1924](https://github.com/facebook/react-native/issues/1924)：`yarn react-native start --reset-cache`
