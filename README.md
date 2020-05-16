@@ -196,6 +196,21 @@ _上文未列出的[umi 配置](https://umijs.org/config)对 **umi-preset-react-
 
 ### 开发
 
+修改`package.json`文件：
+
+```diff
+{
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
++   "watch": "umi watch",
+    "test": "jest",
+    "lint": "eslint ."
+  }
+}
+```
+
 先执行 umi watch 监听源码文件变动，重新生成临时代码：
 
 ```npm
