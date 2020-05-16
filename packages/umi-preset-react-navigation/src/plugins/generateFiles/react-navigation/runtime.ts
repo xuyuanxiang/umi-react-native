@@ -4,8 +4,30 @@ import runtimeTpl from './runtimeTpl';
 
 export default (api: IApi) => {
   const {
-    utils: { Mustache, winPath },
+    utils: { Mustache, winPath, resolve },
+    paths: { absSrcPath },
   } = api;
+
+  /**
+   * 优先读取用户目录下依赖的绝对路径
+   * @param library 比如：'react-native'（目录） 或者 'react-router/esm/index.js'（文件）
+   * @param defaults library找不到时的缺省值
+   * @param dir true-返回目录绝对路径，false-返回文件绝对路径
+   * @param basedir 用户目录查找起始路径
+   */
+  function getUserLibDir(library: string, defaults: string, dir: boolean = false, basedir = absSrcPath): string {
+    try {
+      const path = resolve.sync(library, {
+        basedir,
+      });
+      if (dir) {
+        return dirname(path);
+      } else {
+        return path;
+      }
+    } catch (ignored) {}
+    return defaults;
+  }
 
   api.addEntryImportsAhead(() => [
     {
@@ -33,8 +55,20 @@ export default (api: IApi) => {
     api.writeTmpFile({
       path: 'react-navigation/runtime.tsx',
       content: Mustache.render(runtimeTpl, {
-        rendererPath: winPath(dirname(require.resolve('umi-renderer-react-navigation/package.json'))),
-        reactNavigationPath: winPath(dirname(require.resolve('@react-navigation/native/package.json'))),
+        rendererPath: winPath(
+          getUserLibDir(
+            'umi-renderer-react-navigation/package.json',
+            dirname(require.resolve('umi-renderer-react-navigation/package.json')),
+            true,
+          ),
+        ),
+        reactNavigationPath: winPath(
+          getUserLibDir(
+            '@react-navigation/native/package.json',
+            dirname(require.resolve('@react-navigation/native/package.json')),
+            true,
+          ),
+        ),
         loading:
           typeof dynamicImport === 'object' && typeof dynamicImport.loading === 'string'
             ? `require('${dynamicImport.loading}').default`

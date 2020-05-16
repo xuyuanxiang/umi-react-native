@@ -43,22 +43,3 @@ export function asyncClean(api: IApi, ...excludes: string[]): Promise<void> {
     });
   });
 }
-
-function kebabCase(input: string): string {
-  return input
-    .replace(input.charAt(0), input.charAt(0).toLowerCase())
-    .replace(/[A-Z]/g, ($1) => $1.replace($1, `-${$1.toLowerCase()}`));
-}
-
-export function argsToArgv(args: { [key: string]: unknown }): string[] {
-  const results: string[] = [];
-  Object.keys(args).forEach((key) => {
-    if (/^[a-zA-Z]+$/.test(key)) {
-      const value = args[key];
-      if (typeof value !== 'undefined' && value != null) {
-        results.push(`--${kebabCase(key)}`, JSON.stringify(value));
-      }
-    }
-  });
-  return results;
-}

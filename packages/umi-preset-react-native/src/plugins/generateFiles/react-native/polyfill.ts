@@ -6,6 +6,17 @@ if (global.window === undefined) {
   global.window = global;
 }
 
+// hot module replacement
+// @ts-ignore
+if (module.hot) {
+  // @ts-ignore
+  const accept = module.hot.accept;
+  // @ts-ignore
+  module.hot.accept = (path, fn) => {
+    accept(fn);
+  };
+}
+
 `;
 
 export default (api: IApi) => {

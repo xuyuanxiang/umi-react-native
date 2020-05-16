@@ -1,35 +1,18 @@
 import { join } from 'path';
-import { fork, ChildProcess, execFileSync } from 'child_process';
 import { IApi } from 'umi';
-import { Arguments, ICommand } from './shared';
-import { asyncClean, argsToArgv } from '../../utils';
-
-export interface IHaulStartOptions {
-  port?: number;
-  dev?: boolean;
-  interactive?: boolean;
-  minify?: boolean;
-  tempDir?: string;
-  config?: string;
-  eager?: string;
-  maxWorkers?: number;
-  skipHostCheck?: boolean;
-}
+import { asyncClean } from '../../utils';
 
 export default (api: IApi) => {
   const {
     paths,
     utils: { lodash, chokidar, winPath },
   } = api;
-  async function handler(opts: { args: Arguments<IHaulStartOptions> }): Promise<void> {
-    const defaultsArgs: IHaulStartOptions = {
-      config: join(paths.absTmpPath || '', 'haul.config.js'),
-      dev: true,
-    };
+  async function handler(): Promise<void> {
     const watch = process.env.WATCH !== 'none';
-    const argv: string[] = ['start', ...argsToArgv(lodash.defaults(defaultsArgs, opts.args))];
-    const cli = require.resolve('@haul-bundler/cli/bin/haul.js');
 
+    if (watch) {
+      api.logger.info('Starting umi in watch mode.');
+    }
     await asyncClean(api, '.cache', 'node_modules');
 
     async function generate() {
@@ -84,36 +67,24 @@ export default (api: IApi) => {
       watcher.on(
         'all',
         lodash.throttle(async () => {
+          api.logger.info('File change detected. Starting regenerate...');
           await generate();
-          execFileSync(cli, ['reload']);
-        }, 100),
+        }, 250),
       );
       unwatches.push(watcher);
     }
 
-    api.logger.info(`haul ${argv.join(' ')}`);
-    const child: ChildProcess = fork(cli, argv, {
-      stdio: 'inherit',
-      cwd: paths.absTmpPath,
-      env: process.env,
-    });
-    child.on('exit', () => {
-      process.exit();
-    });
+    api.logger.info(
+      'You can use the `react-native run-ios` or `react-native run-android` command to launch your application.',
+    );
     process.on('exit', () => {
       unwatchAll();
-    });
-    process.on('SIGINT', () => {
-      child.kill('SIGINT');
-    });
-    process.on('SIGTERM', () => {
-      child.kill('SIGTERM');
     });
   }
 
   api.registerCommand({
-    name: 'dev-rn',
-    description: 'starts react-native dev server',
+    name: 'watch',
+    description: 'watch sourcecode files and regenerate on changes',
     fn: handler,
-  } as ICommand);
+  });
 };

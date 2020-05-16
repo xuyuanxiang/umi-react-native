@@ -37,20 +37,12 @@
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "peerDependencies": {
-    "metro": ">=0.56.0",
-    "react-native": ">=0.59.0 <1.0.x",
+    "react-native": ">=0.44",
     "umi": "^3.0.0"
   },
   "dependencies": {
-    "@haul-bundler/babel-preset-react-native": "0.16.0",
-    "@haul-bundler/cli": "0.22.1",
-    "@haul-bundler/preset-0.59": "0.18.0",
-    "@haul-bundler/preset-0.60": "0.18.0",
     "@types/react-router-native": "5.1.0",
-    "@umijs/runtime": "^3.0.0",
+    "babel-plugin-module-resolver": "^4.0.0",
     "react-router-native": "5.1.2"
-  },
-  "devDependencies": {
-    "metro": ">=0.56.0"
   }
 }

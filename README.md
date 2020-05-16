@@ -10,8 +10,8 @@
 | NPM 包 | 当前版本 | 简介 |
 | --- | --- | --- |
 | [umi-plugin-antd-react-native](packages/umi-plugin-antd-react-native) | [![npm version](https://img.shields.io/npm/v/umi-plugin-antd-react-native.svg?style=flat-square)](https://www.npmjs.com/package/umi-plugin-antd-react-native) | 针对[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)的[umi](https://umijs.org/)插件，为其提供按需加载，主题/皮肤定制、预设、切换，国际化等支持。 |
-| [umi-preset-react-native](packages/umi-preset-react-native) | [![npm version](https://img.shields.io/npm/v/umi-preset-react-native.svg?style=flat-square)](https://www.npmjs.com/package/umi-preset-react-native) | 针对 [react-native](https://reactnative.dev/) 应用的 [umi](https://umijs.org/) 插件集，为其提供 开发、编译、打包的支持。需要 [react-native](https://reactnative.dev/) **0.59.0 及以上版本（>=0.59.0）** |
-| [umi-preset-react-navigation](packages/umi-preset-react-navigation) | [![npm version](https://img.shields.io/npm/v/umi-preset-react-navigation.svg?style=flat-square)](https://www.npmjs.com/package/umi-preset-react-navigation) | 针对 [react-navigation](https://reactnavigation.org/) 的插件集，替换 [umi](https://umijs.org/) 内置的 [react-router](https://reacttraining.com/react-router/)，开发地道的原生应用。需要 [react-native](https://reactnative.dev/) **0.60.0 及以上版本（>=0.60.0）** |
+| [umi-preset-react-native](packages/umi-preset-react-native) | [![npm version](https://img.shields.io/npm/v/umi-preset-react-native.svg?style=flat-square)](https://www.npmjs.com/package/umi-preset-react-native) | 基础包，让[umi](https://umijs.org/)具备开发 RN 的能力。**需要 [react-native](https://reactnative.dev/) 0.44.0 及以上版本（>=0.44.0）** |
+| [umi-preset-react-navigation](packages/umi-preset-react-navigation) | [![npm version](https://img.shields.io/npm/v/umi-preset-react-navigation.svg?style=flat-square)](https://www.npmjs.com/package/umi-preset-react-navigation) | 针对 [react-navigation](https://reactnavigation.org/) 的插件集，替换 [umi](https://umijs.org/) 内置的 [react-router](https://reacttraining.com/react-router/)，开发地道的原生应用。**需要 [react-native](https://reactnative.dev/) 0.60.0 及以上版本（>=0.60.0）** |
 
 [发布日志](/CHANGELOG.md)
 
@@ -26,7 +26,6 @@
   - [集成 react-navigation（可选）](#%E9%9B%86%E6%88%90-react-navigation%E5%8F%AF%E9%80%89)
 - [配置](#%E9%85%8D%E7%BD%AE)
   - [目前支持的 umi 配置项](#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84-umi-%E9%85%8D%E7%BD%AE%E9%A1%B9)
-  - [umi-preset-react-native 扩展配置](#umi-preset-react-native-%E6%89%A9%E5%B1%95%E9%85%8D%E7%BD%AE)
 - [使用](#%E4%BD%BF%E7%94%A8)
   - [开发](#%E5%BC%80%E5%8F%91)
   - [打包](#%E6%89%93%E5%8C%85)
@@ -36,33 +35,14 @@
     - [没有`NavLink`组件](#%E6%B2%A1%E6%9C%89navlink%E7%BB%84%E4%BB%B6)
     - [新增`BackButton`和`AndroidBackButton`组件](#%E6%96%B0%E5%A2%9Ebackbutton%E5%92%8Candroidbackbutton%E7%BB%84%E4%BB%B6)
   - [使用 react-navigation](#%E4%BD%BF%E7%94%A8-react-navigation)
-- [深入](#%E6%B7%B1%E5%85%A5)
-  - [切分多 bundle](#%E5%88%87%E5%88%86%E5%A4%9A-bundle)
 - [FAQ](#faq)
   - [hmrClient.send is not a function](#hmrclientsend-is-not-a-function)
-  - [Live Reloading, Fast Refresh, Hot Replacement... 无法使用](#live-reloading-fast-refresh-hot-replacement-%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8)
   - [使用 @ant-design/react-native 组件时，报错：Unrecognized font family 'antoutline'](#%E4%BD%BF%E7%94%A8-ant-designreact-native-%E7%BB%84%E4%BB%B6%E6%97%B6%E6%8A%A5%E9%94%99unrecognized-font-family-antoutline)
 
 ## 必备
 
 - RN 工程（已有，或使用`react-native init`新建）；
 - 全局 或 RN 工程本地（内部）安装 umi 3.0 及以上版本。
-
-Node、react、react-native、umi 版本要求：
-
-```json
-{
-  "name": "umi-preset-react-native",
-  "engines": {
-    "node": ">=10.x"
-  },
-  "peerDependencies": {
-    "react": "^16.8.3",
-    "react-native": ">=0.59.0 <1.0.x",
-    "umi": "^3.0.0"
-  }
-}
-```
 
 ## 安装
 
@@ -168,13 +148,11 @@ _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者�
 
 ### 目前支持的 umi 配置项
 
-**umi-preset-react-native**使用[haul](https://github.com/callstack/haul)打包器。
+**umi-preset-react-native**使用 RN 官方的[metro](https://github.com/facebook/metro)打包器。
 
 目前支持的 umi 配置如下（已满足集成一些常用[umi 插件](https://github.com/umijs/plugins)的需要）：
 
 - [x] [alias](https://umijs.org/config#alias)
-- [x] [chainWebpack](https://umijs.org/config#chainwebpack)：其中`createCSSRule`不生效，不支持添加 webpack 插件，使用`lodash.defaultsDeep(userConfig, haulWebapckConfig)`合并，这里注入的用户配置优先级高于[haul](https://github.com/callstack/haul)配置
-- [x] [dynamicImport](https://umijs.org/config#dynamicimport)
 - [x] [extraBabelPlugins](https://umijs.org/config#extrababelplugins)
 - [x] [extraBabelPresets](https://umijs.org/config#extrababelpresets)
 - [x] [history](https://umijs.org/config#history)：只能使用：`{ type: 'memory' }`
@@ -189,58 +167,31 @@ _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者�
 
 _上文未列出的[umi 配置](https://umijs.org/config)对 **umi-preset-react-native** 不生效。_
 
-[haul](https://github.com/callstack/haul)使用的 devServer 是[hapi](https://hapi.dev/)，目前还不支持扩展额外的 hapi 插件（中间件），暂时无法支持[mock](https://umijs.org/config#mock)和[proxy](https://umijs.org/config#proxy)功能。
+**注意**：
 
-### umi-preset-react-native 扩展配置
+使用**umi-preset-react-native**会在 RN 工程根目录下生成以下临时文件：
 
-```javascript
-// .umirc.js
-export default {
-  reactNative: {
-    appKey: require('./app.json').name,
-    version: require('react-native/package.json').version,
-  },
-  haul: {
-    bundles: {
-      index: {
-        entry: './umi.ts',
-      },
-    },
-  },
-};
-```
+- index.js
+- babel.config.js
+- metro.config.js
 
-- `reactNative`：选填，默认值：上面代码示例中的值；
-- `haul`：选填，默认值：上面代码示例中的值，即[Project Configuration](https://github.com/callstack/haul/blob/master/docs/Configuration.md#project-configuration-reference)。
+`react-native init`得到的这 3 个原文件将会被覆盖。
+
+额外添加 Babel 配置只能在`umirc.js`中使用[extraBabelPlugins](https://umijs.org/config#extrababelplugins)和[extraBabelPresets](https://umijs.org/config#extrababelpresets)配置项。
+
+额外添加[Metro 配置](https://facebook.github.io/metro/docs/configuration)需要使用环境变量：[UMI_ENV](https://umijs.org/docs/env-variables#umi_env)指定要加载的配置文件：`metro.${UMI_ENV}.config.js`。
+
+比如，执行`UMI_ENV=dev umi watch`时，会加载`metro.dev.config.js`文件中的配置，使用[mergeConfig](https://facebook.github.io/metro/docs/configuration#merging-configurations)同`metro.config.js`中的配置进行合并。
 
 ## 使用
 
 ### 开发
 
-修改`package.json`文件，使用`umi`取代`react-native`：
-
-```diff
-{
-  "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
--   "start": "react-native start",
-+   "start": "umi dev-rn",
-  },
-}
-```
-
-启动 dev web server：
+先执行 umi watch 监听源码文件变动，重新生成临时代码：
 
 ```npm
-yarn start
+yarn watch
 ```
-
-执行上面命令后，会看到：
-
-![](https://cdn.xuyuanxiang.me/start_snapshot_332028d2.png)
-
-_需要原生 Android、iOS 应用启动后，请求 bundle URL 时，进度条才会更新。_
 
 接下来，另启一个终端，编译并启动 Android 应用：
 
@@ -256,36 +207,13 @@ yarn ios
 
 ### 打包
 
-构建离线包（offline bundle）：
+先使用 umi 生成临时代码：
 
-```shell
-umi build-rn --platform <ios|android> [--bundle-output relative/to/output/outputPath/js.bundle] [--assets-dest relative/to/outputPath/assets]
+```npm
+umi g tmp
 ```
 
-_`relative/to/output/outputPath`: 表示相对于[outputPath](https://umijs.org/config#outputpath)的路径。_
-
-package.json:
-
-```diff
-{
-  "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "umi dev-rn",
-+   "build:ios": "umi build-rn --platform ios",
-+   "build:android": "umi build-rn --platform android"
-  },
-}
-```
-
-- 执行`yarn build:ios`：
-  1. 构建生成`main.jsbundle`文件到`dist/`目录；
-  2. 拷贝静态资源到`dist/assets/`目录。
-- 执行`yarn build:android`：
-  1. 构建生成`index.android.bundle`文件到`dist/`目录；
-  2. 拷贝静态资源到`dist/assets/`目录。
-
-_`dist` 是[outputPath](https://umijs.org/config#outputpath)配置项的缺省（默认）值，可在`.umirc.js`中配置其他目录。_
+再使用[react-native bundle](https://github.com/react-native-community/cli/blob/master/docs/commands.md#bundle)构建离线包（offline bundle)。
 
 ## 路由
 
@@ -371,61 +299,6 @@ export default Layout;
 
 了解详情，请移步至：<a href="https://github.com/xuyuanxiang/umi-react-native/tree/master/packages/umi-preset-react-navigation#readme" target="_blank">umi-preset-react-navigation</a>。
 
-## 深入
-
-### 切分多 bundle
-
-> TODO: 这一部分还是理论阶段，有待实践。（先画个饼）
-
-参考[react-native-community/react-native-multibundle](https://github.com/react-native-community/react-native-multibundle)。
-
-使用 haul 切分多 bundle：
-
-```javascript
-// .umirc.js
-export default {
-  haul: {
-    templates: {
-      filename: {
-        ios: '[bundleName].ios.bundle',
-      },
-    },
-    features: {
-      multiBundle: 2,
-    },
-    bundles: {
-      index: {
-        entry: ['./umi.ts', 'react', 'react-native'],
-        dll: true,
-        type: 'indexed-ram-bundle',
-      },
-      host: {
-        entry: '@/app.js',
-        dependsOn: ['index'],
-        app: true,
-      },
-      login: {
-        entry: '@/pages/login.js',
-        type: 'indexed-ram-bundle',
-        dependsOn: ['index'],
-        app: true,
-      },
-      home: {
-        entry: '@/pages/home.js',
-        type: 'indexed-ram-bundle',
-        dependsOn: ['index'],
-        app: true,
-      },
-    },
-  },
-};
-```
-
-**注意**：
-
-- **不要**使用 haul 提供的工具：`makeConfig`和`withPolyfills`；
-- **要**保证主 bundle 中必须包含：`./umi.ts`。
-
 ## FAQ
 
 ### hmrClient.send is not a function
@@ -443,10 +316,6 @@ _在 RN 工程`node_modules`目录中找到`metro`并查看版本:_
 ```shell
 cat ./node_modules/metro/package.json | grep version
 ```
-
-### Live Reloading, Fast Refresh, Hot Replacement... 无法使用
-
-[haul](https://github.com/callstack/haul)不支持：[haul#issue-682](https://github.com/callstack/haul/issues/682)。
 
 ### 使用 @ant-design/react-native 组件时，报错：Unrecognized font family 'antoutline'
 

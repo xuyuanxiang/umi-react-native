@@ -115,6 +115,7 @@ export function Navigation(props: INavigationProps) {
                 ...extraProps,
                 ...props,
               };
+              console.info('Screen:', Component);
               return (
                 <RouterContext.Provider
                   value={{

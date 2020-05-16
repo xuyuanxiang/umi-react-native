@@ -1,12 +1,16 @@
 import { IApi } from 'umi';
 import { join } from 'path';
-import { existsSync } from 'fs';
+import { existsSync, writeFileSync } from 'fs';
 
-const CONTENT = `module.exports = {{{ babelConfig }}};
+const CONTENT = `/**
+ * @file umi 生成临时文件
+ */
+module.exports = {
+  presets: {{{presets}}},
+  plugins: {{{plugins}}},
+};
 
 `;
-
-const METRO_BABEL_PRESET_REG = /metro-react-native-babel-preset/;
 
 interface IImportPluginOpts {
   libraryName: string;
@@ -17,13 +21,50 @@ interface IImportPluginOpts {
 
 export default (api: IApi) => {
   const {
-    utils: { Mustache, resolve },
+    utils: { Mustache, resolve, lodash },
+    paths,
   } = api;
 
   api.onGenerateFiles(async () => {
     const env = api.env === 'production' ? 'production' : 'development';
-    const plugins: (string | [string, any, string?])[] = [];
-    const presets: (string | [string, any, string?])[] = [require.resolve('@haul-bundler/babel-preset-react-native')];
+    const webpack = require(resolve.sync('webpack', { basedir: process.env.UMI_DIR }));
+    const Config = require(resolve.sync('webpack-chain', { basedir: process.env.UMI_DIR }));
+
+    const webpackConfig = new Config();
+    const alias = api.config.alias;
+    if (typeof alias === 'object') {
+      Object.keys(alias).forEach((key) => {
+        const value = alias[key];
+        if (value) {
+          webpackConfig.resolve.alias.set(key, value);
+        }
+      });
+    }
+
+    // 接收插件值
+    await api.applyPlugins({
+      type: api.ApplyPluginsType.modify,
+      key: 'chainWebpack',
+      initialValue: webpackConfig,
+      args: {
+        webpack,
+        createCSSRule: lodash.noop,
+      },
+    });
+
+    const config = webpackConfig.toConfig();
+
+    const plugins: (string | [string, any, string?])[] = [
+      [
+        require.resolve('babel-plugin-module-resolver'),
+        {
+          root: [paths.absSrcPath],
+          extensions: ['.ios.js', '.android.js', '.native.js', '.esm.js', '.js', '.ts', '.tsx', '.json'],
+          alias: config.resolve.alias,
+        },
+      ],
+    ];
+    const presets: (string | [string, any, string?])[] = ['module:metro-react-native-babel-preset'];
 
     const presetOpts = await api.applyPlugins({
       type: api.ApplyPluginsType.modify,
@@ -60,7 +101,7 @@ export default (api: IApi) => {
       try {
         const userPresets = require(babelConfigFile).presets;
         if (Array.isArray(userPresets)) {
-          presets.push(...userPresets.filter((it) => !METRO_BABEL_PRESET_REG.test(it) && !presets.includes(it)));
+          presets.push(...userPresets);
         }
       } catch (ignored) {}
       try {
@@ -94,11 +135,13 @@ export default (api: IApi) => {
       },
     });
 
-    api.writeTmpFile({
-      path: 'babel.config.js',
-      content: Mustache.render(CONTENT, {
-        babelConfig: JSON.stringify(babelConfig, null, 2),
+    writeFileSync(
+      join(paths.absSrcPath || '', 'babel.config.js'),
+      Mustache.render(CONTENT, {
+        presets: JSON.stringify(lodash.uniqBy(babelConfig.presets, lodash.isEqual)),
+        plugins: JSON.stringify(lodash.uniqBy(babelConfig.plugins, lodash.isEqual)),
       }),
-    });
+      'utf8',
+    );
   });
 };
