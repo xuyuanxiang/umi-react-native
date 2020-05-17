@@ -4,19 +4,18 @@
 
 使用 [umi](https://umijs.org/) 加速 [react-native](https://reactnative.dev/) 开发效率：
 
-- **零配置**，添加[DvaJS](https://dvajs.com/)，[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)... 等依赖后开箱即用，开发者只需专注于实现业务代码；
+- **零配置**，添加[DvaJS](https://dvajs.com/)，[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)... 等依赖后开箱即用；
 - 路由方案默认使用 [umi](https://umijs.org/) 内置的[react-router](https://reacttraining.com/react-router/)，**可选**[react-navigation](https://reactnavigation.org/)。
-
 
 umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**和**构建**的之间，旨在引入 umi 的开发姿势来提升 RN 编程体验。
 
-下游可以使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#start)来开发和打包，或者使用第三方的[haul](https://github.com/callstack/haul)打包器，也可以使用像[expo](https://expo.io/)这样的开发工具。
+下游可以使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#start)来开发和打包，也可以使用像[expo](https://expo.io/)这样的开发工具。
 
 | NPM 包 | 当前版本 | 简介 |
 | --- | --- | --- |
-| [umi-plugin-antd-react-native](packages/umi-plugin-antd-react-native) | [![npm version](https://img.shields.io/npm/v/umi-plugin-antd-react-native.svg?style=flat-square)](https://www.npmjs.com/package/umi-plugin-antd-react-native) | 针对[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)的[umi](https://umijs.org/)插件，为其提供按需加载，主题/皮肤定制、预设、切换，国际化等支持。 |
+| [umi-plugin-antd-react-native](packages/umi-plugin-antd-react-native) | [![npm version](https://img.shields.io/npm/v/umi-plugin-antd-react-native.svg?style=flat-square)](https://www.npmjs.com/package/umi-plugin-antd-react-native) | 为[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)提供按需加载，主题/皮肤定制、预设、切换，国际化等支持。 |
 | [umi-preset-react-native](packages/umi-preset-react-native) | [![npm version](https://img.shields.io/npm/v/umi-preset-react-native.svg?style=flat-square)](https://www.npmjs.com/package/umi-preset-react-native) | 基础包，让[umi](https://umijs.org/)具备开发 RN 的能力。**需要 [react-native](https://reactnative.dev/) 0.44.0 及以上版本（>=0.44.0）** |
-| [umi-preset-react-navigation](packages/umi-preset-react-navigation) | [![npm version](https://img.shields.io/npm/v/umi-preset-react-navigation.svg?style=flat-square)](https://www.npmjs.com/package/umi-preset-react-navigation) | 针对 [react-navigation](https://reactnavigation.org/) 的插件集，替换 [umi](https://umijs.org/) 内置的 [react-router](https://reacttraining.com/react-router/)，开发地道的原生应用。**需要 [react-native](https://reactnative.dev/) 0.60.0 及以上版本（>=0.60.0）** |
+| [umi-preset-react-navigation](packages/umi-preset-react-navigation) | [![npm version](https://img.shields.io/npm/v/umi-preset-react-navigation.svg?style=flat-square)](https://www.npmjs.com/package/umi-preset-react-navigation) | 使用[react-navigation](https://reactnavigation.org/)替换[react-router](https://reacttraining.com/react-router/)开发地道的原生应用。**需要 [react-native](https://reactnative.dev/) 0.60.0 及以上版本（>=0.60.0）** |
 
 [发布日志](/CHANGELOG.md)
 
@@ -54,6 +53,7 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 - [FAQ](#faq)
   - [hmrClient.send is not a function](#hmrclientsend-is-not-a-function)
   - [使用 @ant-design/react-native 组件时，报错：Unrecognized font family 'antoutline'](#%E4%BD%BF%E7%94%A8-ant-designreact-native-%E7%BB%84%E4%BB%B6%E6%97%B6%E6%8A%A5%E9%94%99unrecognized-font-family-antoutline)
+  - [Unable to Resolve Module in React Native App](#unable-to-resolve-module-in-react-native-app)
 
 ## 必备
 
