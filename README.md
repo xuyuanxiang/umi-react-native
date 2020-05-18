@@ -586,4 +586,10 @@ yarn react-native unlink && yarn react-native link
 
 ### Unable to Resolve Module in React Native App
 
-[facebook/react-native#issue-1924](https://github.com/facebook/react-native/issues/1924)：`yarn react-native start --reset-cache`
+[facebook/react-native#issue-1924](https://github.com/facebook/react-native/issues/1924)：
+
+加上`--reset-cache`参数：`yarn react-native start --reset-cache`
+
+如果不行：`rm -rf node_modules && yarn && yarn react-native start --reset-cache`
+
+对于 MacOS，如果使用 watchman 还需要：`watchman watch-del-all`
