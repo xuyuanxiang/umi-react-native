@@ -50,18 +50,21 @@ export default (api: IApi) => {
 
   api.addRuntimePlugin(() => [join(api.paths.absTmpPath || '', 'react-navigation', 'runtime')]);
 
+  api.modifyRendererPath(() =>
+    winPath(
+      getUserLibDir(
+        'umi-renderer-react-navigation/package.json',
+        dirname(require.resolve('umi-renderer-react-navigation/package.json')),
+        true,
+      ),
+    ),
+  );
+
   api.onGenerateFiles(() => {
     const dynamicImport = api.config.dynamicImport;
     api.writeTmpFile({
       path: 'react-navigation/runtime.tsx',
       content: Mustache.render(runtimeTpl, {
-        rendererPath: winPath(
-          getUserLibDir(
-            'umi-renderer-react-navigation/package.json',
-            dirname(require.resolve('umi-renderer-react-navigation/package.json')),
-            true,
-          ),
-        ),
         reactNavigationPath: winPath(
           getUserLibDir(
             '@react-navigation/native/package.json',
@@ -74,8 +77,6 @@ export default (api: IApi) => {
             ? `require('${dynamicImport.loading}').default`
             : '',
         theme: JSON.stringify(api.config?.reactNavigation?.theme || {}, null, 2),
-        enableTitle: api.config.title !== false,
-        defaultTitle: api.config.title || '',
       }),
     });
   });

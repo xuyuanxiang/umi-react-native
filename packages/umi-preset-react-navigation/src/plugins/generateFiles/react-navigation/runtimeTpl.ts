@@ -1,10 +1,9 @@
 export default `import React from 'react';
 {{^loading}}import {View, Text} from 'react-native';{{/loading}}
 import {ApplyPluginsType, dynamic} from 'umi';
-import {Navigation} from '{{{ rendererPath }}}';
 import {NavigationContainer} from '{{{ reactNavigationPath }}}';
 
-export function rootContainer(container, {plugin, routes, history}) {
+export function rootContainer(container, {plugin}) {
   return React.createElement(
     dynamic({
       loading: plugin.applyPlugins({
@@ -43,14 +42,7 @@ export function rootContainer(container, {plugin, routes, history}) {
                 });
               },
             },
-            React.createElement(Navigation, {
-              routes, 
-              history, 
-              plugin,
-              {{#enableTitle}}
-              defaultTitle: '{{{ defaultTitle }}}',
-              {{/enableTitle}}
-            }),
+            container,
           );
       },
     }),

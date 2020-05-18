@@ -6,7 +6,7 @@ const { execFileSync } = require('child_process');
 const cwd = process.cwd();
 const umi = join(cwd, 'node_modules', 'umi', 'bin', 'umi.js');
 
-const child = execFileSync(umi, ['g', 'rn', '--dev'], { cwd, stdio: 'inherit' });
+const child = execFileSync(umi, ['g', 'rn'], { cwd, stdio: 'inherit' });
 
 child.on('close', (code) => {
   process.exit(code);

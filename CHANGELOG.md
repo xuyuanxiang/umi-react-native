@@ -1,4 +1,14 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.2...v"></a> (2020-05-18)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.3...v"></a> (2020-05-18)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.2...v0.2.0-alpha.3">0.2.0-alpha.3</a> (2020-05-18)
+
+
+### 新功能
+
+* React Naitve CLI hooks supporting (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/3065d12">3065d12</a>)
+
+
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.1...v0.2.0-alpha.2">0.2.0-alpha.2</a> (2020-05-18)
 
