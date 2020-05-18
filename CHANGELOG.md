@@ -1,4 +1,14 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.3...v"></a> (2020-05-18)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.4...v"></a> (2020-05-18)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.3...v0.2.0-alpha.4">0.2.0-alpha.4</a> (2020-05-18)
+
+
+### Bug 修复
+
+* 替换@umijs/renderer-react，解决RN Fast Refresh 触发时 umi runtime plugin: rootContainer 未执行的问题 (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/2cbf82a">2cbf82a</a>)
+
+
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.2...v0.2.0-alpha.3">0.2.0-alpha.3</a> (2020-05-18)
 
