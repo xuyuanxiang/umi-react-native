@@ -17,7 +17,7 @@
     "node": ">= 10.13.0"
   },
   "devDependencies": {
-    "@ant-design/react-native": "^3.3.0",
+    "@ant-design/react-native": "3.3.0",
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",
     "@testing-library/react-native": "^5.0.3",

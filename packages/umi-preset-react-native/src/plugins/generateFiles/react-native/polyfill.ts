@@ -21,6 +21,29 @@ export default (api: IApi) => {
     return memo;
   });
 
+  api.addEntryCode(
+    () => `// @ts-ignore
+let accept: unknown;
+// @ts-ignore
+if (module.hot) {
+  // @ts-ignore
+  if (!accept) {
+    accept = module.hot.accept;
+  }
+  // @ts-ignore
+  module.hot.accept = function (path, fn) {
+    console.info('path=', path, 'fn=', fn);
+    if (typeof path === 'function' && typeof accept === 'function') {
+      accept(path);
+    }
+    if (typeof fn === 'function' && typeof accept === 'function') {
+      accept(fn);
+    }
+  };
+}
+  `,
+  );
+
   api.onGenerateFiles(() => {
     api.writeTmpFile({
       path: 'react-native/polyfill.ts',

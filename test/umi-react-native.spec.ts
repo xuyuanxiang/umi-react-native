@@ -1,9 +1,11 @@
-import { Service } from 'umi';
+import { Service, utils } from 'umi';
 import rimraf from 'rimraf';
-import { join } from 'path';
+import { dirname, join } from 'path';
 import { runInNewContext } from 'vm';
 import { readFileSync } from 'fs';
 import { render } from '@testing-library/react-native';
+
+const { winPath, resolve } = utils;
 
 const cwd = join(__dirname, 'fixtures');
 const absTmp = join(cwd, '.umi-test');
@@ -22,7 +24,7 @@ beforeAll(async () => {
   await service.run({
     name: 'g',
     args: {
-      _: ['g', 'tmp'],
+      _: ['g', 'rn'],
     },
   });
 });
@@ -35,7 +37,7 @@ describe('umi-plugin-antd-react-native', () => {
     expect(container.props.children).toMatchSnapshot();
   });
   it('should add babel-plugin-import options for @ant-design/react-native', async () => {
-    const { plugins } = require(join(absTmp, 'babel.config.js'));
+    const { plugins } = require(join(cwd, 'babel.config.js'));
     expect(plugins).toContainEqual([
       require.resolve('babel-plugin-import'),
       {
@@ -48,12 +50,49 @@ describe('umi-plugin-antd-react-native', () => {
 
 describe('umi-preset-react-native', () => {
   it('should create babel.config.js', () => {
-    const { presets, plugins } = require(join(absTmp, 'babel.config.js'));
-    expect(presets).toContainEqual(require.resolve('@haul-bundler/babel-preset-react-native'));
-    expect(presets).toContainEqual('babel-preset-fake');
+    const { presets, plugins } = require(join(cwd, 'babel.config.js'));
+    expect(presets).toContainEqual('module:metro-react-native-babel-preset');
     expect(presets).toContainEqual('babel-preset-extra-fake');
-    expect(plugins).toContainEqual('babel-plugin-fake');
     expect(plugins).toContainEqual('babel-plugin-extra-fake');
+    const libsBuiltIn = ['react', 'react-router', 'react-dom'];
+    const presetBuiltInPath = dirname(resolve.sync('@umijs/preset-built-in/package.json'));
+    const aliasBuiltIn = libsBuiltIn
+      .map((key) => ({
+        [key]: winPath(dirname(resolve.sync(`${key}/package.json`, { basedir: presetBuiltInPath }))),
+      }))
+      .reduce((previousValue, currentValue) => ({ ...previousValue, ...currentValue }));
+    const libs = [
+      { name: 'umi', path: 'umi' },
+      { name: 'regenerator-runtime', path: 'regenerator-runtime' },
+      { name: 'history', path: 'history-with-query' },
+      { name: 'react-router-native', path: 'react-router-native' },
+      { name: 'react-native', path: 'react-native' },
+    ];
+    const alias = libs
+      .map(({ name, path }) => {
+        try {
+          return { [name]: winPath(dirname(resolve.sync(`${path}/package.json`))) };
+        } catch (ignored) {
+          return { [name]: winPath(dirname(require.resolve('react-router-native/package.json'))) };
+        }
+      })
+      .reduce((previousValue, currentValue) => ({ ...previousValue, ...currentValue }));
+
+    expect(plugins).toContainEqual([
+      require.resolve('babel-plugin-module-resolver'),
+      {
+        root: [cwd],
+        extensions: ['.ts', '.tsx', '.native.js', '.native.jsx', '.esm.js', '.js', '.jsx', '.json'],
+        alias: {
+          ...aliasBuiltIn,
+          ...alias,
+          'react-router-dom': 'react-router-native',
+          '@': cwd,
+          '@@': absTmp,
+          './core/polyfill': './react-native/polyfill',
+        },
+      },
+    ]);
   });
   it('should exports BackButton and AndroidBackButton', () => {
     const { BackButton, AndroidBackButton } = require(join(absTmp, 'react-native', 'exports.ts'));

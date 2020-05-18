@@ -1,3 +1,7 @@
 node_modules
 packages/*/lib
 types
+*.config.js
+test/fixtures/babel.config.js
+test/fixtures/metro.config.js
+test/fixtures/index.js

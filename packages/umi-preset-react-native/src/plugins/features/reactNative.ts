@@ -2,14 +2,12 @@ import { IApi } from 'umi';
 import { dirname, join } from 'path';
 import { readFileSync } from 'fs';
 import { EOL } from 'os';
-
 import { assertExists } from '../../utils';
-import { name } from '../../../package.json';
 
 export default (api: IApi) => {
   const {
-    utils: { resolve, semver, lodash, winPath },
-    paths: { absNodeModulesPath = '', absSrcPath = '', absTmpPath },
+    utils: { resolve, lodash, winPath },
+    paths: { absNodeModulesPath = '', absSrcPath = '' },
   } = api;
 
   /**
@@ -19,7 +17,7 @@ export default (api: IApi) => {
    * @param dir true-返回目录绝对路径，false-返回文件绝对路径
    * @param basedir 用户目录查找起始路径
    */
-  function getUserLibDir(library: string, defaults: string, dir: boolean = false, basedir = absTmpPath): string {
+  function getUserLibDir(library: string, defaults: string, dir: boolean = false, basedir = absSrcPath): string {
     try {
       const path = resolve.sync(library, {
         basedir,
@@ -38,13 +36,10 @@ export default (api: IApi) => {
     join(absNodeModulesPath, 'react-native'),
     true,
   );
-  const METRO_PATH = getUserLibDir(join('metro', 'package.json'), join(absNodeModulesPath, 'metro'), true);
 
   assertExists(REACT_NATIVE_PATH);
-  assertExists(METRO_PATH);
 
   const { version } = require(join(REACT_NATIVE_PATH, 'package.json'));
-  const { metroVersion } = require(join(METRO_PATH, 'package.json'));
 
   let appKey;
   try {
@@ -93,7 +88,14 @@ export default (api: IApi) => {
       name: 'react-router-dom',
       path: 'react-router-native',
     },
-    { name: 'react-router-native', path: winPath(dirname(require.resolve('react-router-native/package.json'))) },
+    {
+      name: 'react-router-native',
+      path: getUserLibDir(
+        'react-router-native',
+        winPath(dirname(require.resolve('react-router-native/package.json'))),
+        true,
+      ),
+    },
   ]);
 
   // 启动时检查
@@ -131,23 +133,5 @@ export default (api: IApi) => {
       );
       throw new TypeError('"dynamicImport.loading" 未配置');
     }
-
-    // metro 0.56.0 以下版本有重大 bug：https://github.com/facebook/react-native/issues/26958
-    if (semver.valid(metroVersion) && semver.lt(metroVersion, '0.56.0')) {
-      api.logger.error(
-        `当前使用的 metro 版本存在 bug: https://github.com/facebook/react-native/issues/26958${EOL}请升级 metro 至 0.56.0及以上版本。`,
-      );
-    }
-
-    // 检查 RN 版本是否符合 haul 的要求
-    if (
-      semver.valid(api.config?.reactNative?.version) &&
-      semver.gte(api.config.reactNative.version, '0.59.0') &&
-      semver.lt(api.config.reactNative.version, '1.0.0')
-    ) {
-      return;
-    }
-
-    throw new TypeError(`"${name}" 只支持 react-native："0.59.0及以上（>= 0.59.0）" 和 "1.0.0以下（< 1.0.0）" 版本。`);
   });
 };

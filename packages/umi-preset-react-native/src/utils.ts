@@ -1,7 +1,8 @@
-import { existsSync, readdir, stat } from 'fs';
+import { existsSync, readdir, stat, writeFile } from 'fs';
 import { join } from 'path';
 import { EOL } from 'os';
 import { IApi } from 'umi';
+import memoizerific from 'memoizerific';
 
 export function assertExists(dependencyPath: string): void {
   if (!existsSync(dependencyPath)) {
@@ -10,6 +11,39 @@ export function assertExists(dependencyPath: string): void {
     );
   }
 }
+const DEFAULTS = {
+  bracketSpacing: false,
+  jsxBracketSameLine: true,
+  singleQuote: true,
+  trailingComma: 'all',
+  parser: 'babel',
+};
+export const createFormatter = memoizerific(3)((api: IApi): ((code: string) => string) => {
+  try {
+    const prettier = require(api.utils.resolve.sync('prettier', { basedir: api.paths.absSrcPath }));
+    try {
+      const options = require(join(api.paths.absSrcPath || '', '.prettierrc.js'));
+      return memoizerific(3)((code: string) => prettier.format(code, { ...DEFAULTS, ...options }));
+    } catch (ignored) {
+      return memoizerific(3)((code: string) => prettier.format(code, DEFAULTS));
+    }
+  } catch (ignored) {
+    return (code: string) => code;
+  }
+});
+export const asyncWriteTmpFile = memoizerific(3)(
+  (api: IApi, filename: string, content: string): Promise<void> => {
+    return new Promise<void>((resolve, reject) => {
+      writeFile(filename, createFormatter(api)(content), 'utf8', (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+  },
+);
 
 export function asyncClean(api: IApi, ...excludes: string[]): Promise<void> {
   return new Promise<void>((resolve, reject) => {
@@ -42,23 +76,4 @@ export function asyncClean(api: IApi, ...excludes: string[]): Promise<void> {
       }
     });
   });
-}
-
-function kebabCase(input: string): string {
-  return input
-    .replace(input.charAt(0), input.charAt(0).toLowerCase())
-    .replace(/[A-Z]/g, ($1) => $1.replace($1, `-${$1.toLowerCase()}`));
-}
-
-export function argsToArgv(args: { [key: string]: unknown }): string[] {
-  const results: string[] = [];
-  Object.keys(args).forEach((key) => {
-    if (/^[a-zA-Z]+$/.test(key)) {
-      const value = args[key];
-      if (typeof value !== 'undefined' && value != null) {
-        results.push(`--${kebabCase(key)}`, JSON.stringify(value));
-      }
-    }
-  });
-  return results;
 }
