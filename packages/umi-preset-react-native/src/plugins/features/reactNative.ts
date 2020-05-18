@@ -7,7 +7,7 @@ import { assertExists } from '../../utils';
 export default (api: IApi) => {
   const {
     utils: { resolve, lodash, winPath },
-    paths: { absNodeModulesPath = '', absSrcPath = '', absTmpPath },
+    paths: { absNodeModulesPath = '', absSrcPath = '' },
   } = api;
 
   /**

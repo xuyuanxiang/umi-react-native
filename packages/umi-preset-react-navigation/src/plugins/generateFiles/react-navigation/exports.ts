@@ -3,7 +3,7 @@ import { dirname } from 'path';
 
 const TEMPLATE = `export {
   useNavigation,
-  useRoute as useScreen,
+  useRoute,
   useFocusEffect,
   useNavigationState,
   useIsFocused,
@@ -12,9 +12,22 @@ const TEMPLATE = `export {
   useLinkBuilder,
   useLinking,
   useScrollToTop,
+  useTheme,
   CommonActions,
   StackActions,
+  DrawerActions,
+  TabActions,
 } from '{{{ reactNavigationPath }}}';
+
+export {
+  Header,
+  HeaderBackButton,
+  HeaderBackground,
+  HeaderTitle,
+  useGestureHandlerRef,
+  useCardAnimation,
+  useHeaderHeight,
+} from '{{{ reactNavigationStackPath }}}';
 
 `;
 
@@ -53,6 +66,13 @@ export default (api: IApi) => {
           getUserLibDir(
             '@react-navigation/native/package.json',
             dirname(require.resolve('@react-navigation/native/package.json')),
+            true,
+          ),
+        ),
+        reactNavigationStackPath: winPath(
+          getUserLibDir(
+            '@react-navigation/stack/package.json',
+            dirname(require.resolve('@react-navigation/stack/package.json')),
             true,
           ),
         ),

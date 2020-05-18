@@ -211,14 +211,14 @@ _上文未列出的[umi 配置](https://umijs.org/config)对 **umi-preset-react-
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-+   "watch": "umi watch",
++   "watch": "umi g rn --dev",
     "test": "jest",
     "lint": "eslint ."
   }
 }
 ```
 
-先执行 umi watch 监听源码文件变动，重新生成临时代码：
+先启动 watch 进程监听源码文件变动，重新生成中间代码：
 
 ```npm
 yarn watch
@@ -238,10 +238,10 @@ yarn ios
 
 ### 打包
 
-先使用 umi 生成临时代码：
+先使用 umi 生成中间代码：
 
 ```npm
-umi g tmp
+umi g rn
 ```
 
 再使用[react-native bundle](https://github.com/react-native-community/cli/blob/master/docs/commands.md#bundle)构建离线包（offline bundle)。

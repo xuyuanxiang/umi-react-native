@@ -1,11 +1,4 @@
 /* eslint-disable */
-declare module 'umi' {
-  import * as utils from '@umijs/utils';
-  export { utils };
-  export * from '@umijs/types';
-  export * from '@umijs/runtime';
-}
-
 declare module '@umijs/bundler-utils' {
   enum ConfigType {
     csr = 'csr',
