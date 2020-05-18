@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`umi-plugin-antd-react-native should add runtime plugin 1`] = `
+exports[`umi-plugin-antd-react-native should write antd-react-native/runtime.ts 1`] = `
 <Provider
   theme={
     Object {

@@ -63,7 +63,7 @@ export default (api: IApi) => {
   api.onGenerateFiles(() => {
     const dynamicImport = api.config.dynamicImport;
     api.writeTmpFile({
-      path: 'react-navigation/runtime.tsx',
+      path: 'react-navigation/runtime.ts',
       content: Mustache.render(runtimeTpl, {
         reactNavigationPath: winPath(
           getUserLibDir(

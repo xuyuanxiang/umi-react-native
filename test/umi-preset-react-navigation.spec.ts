@@ -1,10 +1,10 @@
+import React from 'react';
+import { Text } from 'react-native';
 import { Service, utils } from 'umi';
 import rimraf from 'rimraf';
 import { dirname, join } from 'path';
-import { runInNewContext } from 'vm';
 import { readFileSync } from 'fs';
 import { render } from '@testing-library/react-native';
-
 const { winPath, resolve } = utils;
 
 const cwd = join(__dirname, 'fixtures');
@@ -12,7 +12,10 @@ const absTmp = join(cwd, '.umi-test');
 const service = new Service({
   cwd,
   plugins: [require.resolve('../packages/umi-plugin-antd-react-native/src')],
-  presets: [require.resolve('../packages/umi-preset-react-native/src')],
+  presets: [
+    require.resolve('../packages/umi-preset-react-native/src'),
+    require.resolve('../packages/umi-preset-react-navigation/src'),
+  ],
 });
 
 beforeAll(async () => {
@@ -26,27 +29,8 @@ beforeAll(async () => {
   });
 });
 
-describe('umi-plugin-antd-react-native', () => {
-  it('should write antd-react-native/runtime.ts', async () => {
-    const { rootContainer } = require(join(absTmp, 'antd-react-native', 'runtime.ts'));
-    const RootComponent = rootContainer(null);
-    const { container } = render(RootComponent);
-    expect(container.props.children).toMatchSnapshot();
-  });
-  it('should add babel-plugin-import for @ant-design/react-native', async () => {
-    const { plugins } = require(join(cwd, 'babel.config.js'));
-    expect(plugins).toContainEqual([
-      require.resolve('babel-plugin-import'),
-      {
-        libraryName: '@ant-design/react-native',
-      },
-      '@ant-design/react-native',
-    ]);
-  });
-});
-
 describe('umi-preset-react-native', () => {
-  it('should write babel.config.js', () => {
+  it('should append alias into babel-plugin-module-resolver', () => {
     const { presets, plugins } = require(join(cwd, 'babel.config.js'));
     expect(presets).toContainEqual('module:metro-react-native-babel-preset');
     expect(presets).toContainEqual('babel-preset-extra-fake');
@@ -64,6 +48,11 @@ describe('umi-preset-react-native', () => {
       { name: 'history', path: 'history-with-query' },
       { name: 'react-router-native', path: 'react-router-native' },
       { name: 'react-native', path: 'react-native' },
+      { name: '@react-native-community/masked-view', path: '@react-native-community/masked-view' },
+      { name: 'react-native-gesture-handler', path: 'react-native-gesture-handler' },
+      { name: 'react-native-reanimated', path: 'react-native-reanimated' },
+      { name: 'react-native-safe-area-context', path: 'react-native-safe-area-context' },
+      { name: 'react-native-screens', path: 'react-native-screens' },
     ];
     const alias = libs
       .map(({ name, path }) => {
@@ -92,33 +81,7 @@ describe('umi-preset-react-native', () => {
     ]);
   });
 
-  it('should write react-native/exports.ts', () => {
-    const { BackButton, AndroidBackButton } = require(join(absTmp, 'react-native', 'exports.ts'));
-    expect(BackButton).toBeDefined();
-    expect(AndroidBackButton).toBeDefined();
-  });
-
-  it('should write react-native/runtime.ts', () => {
-    jest.mock('react-native', () => ({
-      AppRegistry: {
-        registerComponent(appKey: string, componentFactory: () => any) {
-          if (appKey === 'RNTestApp') {
-            componentFactory()();
-          }
-        },
-      },
-    }));
-    const { render } = require(join(absTmp, 'react-native', 'runtime.ts'));
-    const fn = jest.fn();
-    render(fn);
-    jest.unmock('react-native');
-    expect(fn).toBeCalledTimes(1);
-  });
-
-  it('should write react-native/polyfill.ts', () => {
-    const code = readFileSync(join(absTmp, 'react-native', 'polyfill.ts'), 'utf8');
-    const global: { window?: any } = {};
-    runInNewContext(code, { global });
-    expect(global?.window).toBe(global);
+  it('should write react-navigation/exports.ts', () => {
+    expect(readFileSync(join(absTmp, 'react-navigation', 'exports.ts'), 'utf8')).toMatchSnapshot();
   });
 });

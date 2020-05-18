@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`umi-preset-react-native should write react-navigation/exports.ts 1`] = `
+"export {
+  useNavigation,
+  useRoute,
+  useFocusEffect,
+  useNavigationState,
+  useIsFocused,
+  useLinkTo,
+  useLinkProps,
+  useLinkBuilder,
+  useLinking,
+  useScrollToTop,
+  useTheme,
+  CommonActions,
+  StackActions,
+  DrawerActions,
+  TabActions,
+} from '/Users/xuyuanxiang/Workspaces/Github/xuyuanxiang/umi-react-native/node_modules/@react-navigation/native';
+
+export {
+  Header,
+  HeaderBackButton,
+  HeaderBackground,
+  HeaderTitle,
+  useGestureHandlerRef,
+  useCardAnimation,
+  useHeaderHeight,
+} from '/Users/xuyuanxiang/Workspaces/Github/xuyuanxiang/umi-react-native/node_modules/@react-navigation/stack';
+
+"
+`;

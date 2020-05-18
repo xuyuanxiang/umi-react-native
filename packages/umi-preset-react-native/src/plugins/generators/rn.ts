@@ -2,7 +2,6 @@ import { join } from 'path';
 import { IApi } from 'umi';
 import { asyncClean, asyncWriteTmpFile } from '../../utils';
 import { existsSync } from 'fs';
-import generateFiles from '@umijs/preset-built-in/lib/plugins/commands/buildDevUtils';
 import BABEL_CONFIG_TPL from './babelConfigTpl';
 import METRO_CONFIG_TPL from './metroConfigTpl';
 import INDEX_TPL from './indexTpl';
