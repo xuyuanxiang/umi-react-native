@@ -9,7 +9,7 @@
 
 umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**和**构建**的之间，旨在引入 umi 的开发姿势来提升 RN 编程体验。
 
-下游可以使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#start)来开发和打包，也可以使用像[expo](https://expo.io/)这样的开发工具。
+下游可以使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)来开发和打包，也可以使用像[expo](https://expo.io/)这样的开发工具。
 
 | NPM 包 | 当前版本 | 简介 |
 | --- | --- | --- |
@@ -218,7 +218,7 @@ _上文未列出的[umi 配置](https://umijs.org/config)对 **umi-preset-react-
 }
 ```
 
-先启动 watch 进程监听源码文件变动，重新生成中间代码：
+启动 watch 进程，监听源码文件变动并重新生成中间代码：
 
 ```npm
 yarn watch
