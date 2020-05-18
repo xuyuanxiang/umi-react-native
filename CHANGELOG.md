@@ -1,4 +1,19 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.1...v"></a> (2020-05-16)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.2...v"></a> (2020-05-18)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.1...v0.2.0-alpha.2">0.2.0-alpha.2</a> (2020-05-18)
+
+
+### ⚠ 破坏性改动
+
+* 移除子命令：`umi watch`。
+
+### 重构
+
+* 扩展umi generate子命令，新增RN Generator：`umi g rn`。 (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/3386006">3386006</a>)
+
+  + `umi g rn --dev`：在 NODE_ENV=development 模式下，启动watch进程，监听源码文件变动并重新生成中间代码临时文件。
+  + `umi g rn`：在 NODE_ENV=production 模式下，生成中间代码临时文件。
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.0...v0.2.0-alpha.1">0.2.0-alpha.1</a> (2020-05-16)
 
