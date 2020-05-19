@@ -8,7 +8,11 @@
     "react-native",
     "react-navigation"
   ],
-  "author": "徐远翔 <xuyuanxiang@shouqianba.com>",
+  "author": {
+    "name": "xuyuanxiang",
+    "email": "hi@xuyuanxiang.cn",
+    "url": "https://xuyuanxiang.me/about/"
+  },
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
   "license": "MIT",
   "main": "lib/index",
@@ -41,10 +45,10 @@
     "umi": "^3.0.0"
   },
   "dependencies": {
-    "@react-navigation/native": "5.3.0",
-    "@react-navigation/stack": "5.3.3",
+    "@react-navigation/native": "5.4.0",
+    "@react-navigation/routers": "5.4.4",
+    "@react-navigation/stack": "5.3.6",
     "@types/react-router-config": "^5.0.1",
-    "@umijs/renderer-react": "^3.0.0",
     "blueimp-md5": "2.15.0",
     "react-router-config": "5.1.1",
     "url-join": "4.0.1"

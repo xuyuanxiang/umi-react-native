@@ -1,6 +1,14 @@
 import React, { ComponentType, useEffect } from 'react';
-import { ApplyPluginsType, Plugin, History, Redirect, __RouterContext as RouterContext, matchPath } from 'umi';
-import { IRoute, IRouteComponentProps } from '@umijs/renderer-react';
+import {
+  ApplyPluginsType,
+  Plugin,
+  History,
+  Redirect,
+  __RouterContext as RouterContext,
+  matchPath,
+  IRouteProps,
+  IRouteComponentProps,
+} from 'umi';
 import { matchRoutes } from 'react-router-config';
 import { Route, NavigationHelpers } from '@react-navigation/native';
 import urlJoin from 'url-join';
@@ -10,7 +18,7 @@ import { createHistoryNavigator } from './createHistoryNavigator';
 const { Navigator, Screen } = createHistoryNavigator();
 
 interface INavigationProps {
-  routes: IRoute[];
+  routes: IRouteProps[];
   plugin: Plugin;
   history: History<any>;
   defaultTitle?: string;
@@ -23,7 +31,7 @@ interface IScreen {
   name: string;
   component: ComponentType<any>;
   options: {
-    routeMatchOpts: IRoute;
+    routeMatchOpts: IRouteProps;
     sensitive?: boolean;
     title?: string;
     [key: string]: any;
@@ -35,7 +43,7 @@ export interface IScreenComponentProps extends IRouteComponentProps {
   navigation: NavigationHelpers<any, any>;
 }
 
-function flattenRoutes(routes?: IRoute[], parent?: IScreen): IScreen[] {
+function flattenRoutes(routes?: IRouteProps[], parent?: IScreen): IScreen[] {
   if (!Array.isArray(routes)) return [];
   const screens: IScreen[] = [];
   for (let idx = 0; idx < routes.length; idx++) {

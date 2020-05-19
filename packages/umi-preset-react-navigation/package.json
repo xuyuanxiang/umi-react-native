@@ -8,7 +8,11 @@
     "react-native",
     "react-navigation"
   ],
-  "author": "xuyuanxiang <hi@xuyuanxiang.cn>",
+  "author": {
+    "name": "xuyuanxiang",
+    "email": "hi@xuyuanxiang.cn",
+    "url": "https://xuyuanxiang.me/about/"
+  },
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
   "license": "MIT",
   "engines": {

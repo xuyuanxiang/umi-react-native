@@ -1,4 +1,4 @@
-import { join, resolve } from 'path';
+import { join, resolve as pathResolve } from 'path';
 import { execFileSync } from 'child_process';
 import { IApi } from 'umi';
 import { Arguments } from './shared';
@@ -20,18 +20,23 @@ export interface IBundleOptions {
 export default (api: IApi) => {
   const {
     paths,
-    utils: { rimraf, lodash },
+    utils: { rimraf, lodash, resolve },
   } = api;
+
+  const generateFiles = require(resolve.sync('@umijs/preset-built-in/lib/plugins/commands/generateFiles', {
+    basedir: process.env.UMI_DIR,
+  })).default;
+
   return async function handler(opts: { args: Arguments<IBundleOptions> }): Promise<void> {
     const platform = opts.args.platform;
     if (!platform) {
       throw new TypeError('The required argument: "--platform <ios|android>" was not present!');
     }
     process.env.NODE_ENV = 'production';
-    const assetsDest = opts.args.assetsDest || resolve(paths.absOutputPath || '', 'assets');
+    const assetsDest = opts.args.assetsDest || pathResolve(paths.absOutputPath || '', 'assets');
     const bundleOutput =
       opts.args.bundleOutput ||
-      resolve(paths.absOutputPath || '', platform === 'ios' ? 'main.jsbundle' : `index.${platform}.bundle`);
+      pathResolve(paths.absOutputPath || '', platform === 'ios' ? 'main.jsbundle' : `index.${platform}.bundle`);
     const defaultsArgs: IBundleOptions = {
       config: join(paths.absTmpPath || '', 'haul.config.js'),
       entryFile: join(paths.absTmpPath || '', 'umi.ts'),
@@ -44,10 +49,7 @@ export default (api: IApi) => {
 
     await asyncClean(api, '.cache', 'node_modules');
 
-    await api.applyPlugins({
-      key: 'onGenerateFiles',
-      type: api.ApplyPluginsType.event,
-    });
+    await generateFiles({ api, watch: false });
 
     api.logger.info(`haul ${argv.join(' ')}`);
     execFileSync(require.resolve('@haul-bundler/cli/bin/haul.js'), argv, {

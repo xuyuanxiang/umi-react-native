@@ -3,15 +3,18 @@ import { Platform } from 'react-native';
 import {
   createNavigatorFactory,
   useNavigationBuilder,
-  StackNavigationState,
-  StackRouterOptions,
   StackRouter,
   DefaultNavigatorOptions,
   StackActions,
   EventArg,
 } from '@react-navigation/native';
-import { StackView, StackNavigationOptions } from '@react-navigation/stack';
-import { StackNavigationEventMap, StackNavigationConfig } from '@react-navigation/stack/lib/typescript/src/types';
+import { StackView } from '@react-navigation/stack';
+import { StackRouterOptions, StackNavigationState } from '@react-navigation/routers/lib/typescript/src/StackRouter';
+import {
+  StackNavigationEventMap,
+  StackNavigationConfig,
+  StackNavigationOptions,
+} from '@react-navigation/stack/lib/typescript/src/types';
 import { History, Location, Action } from 'history';
 import { parse } from 'querystring';
 

@@ -1,10 +1,9 @@
 import React from 'react';
-import { ApplyPluginsType, Plugin } from 'umi';
-import { IRoute } from '@umijs/renderer-react';
+import { ApplyPluginsType, Plugin, IRouteProps } from 'umi';
 import { Navigation } from './Navigation';
 
 interface IRouterComponentProps {
-  routes: IRoute[];
+  routes: IRouteProps[];
   plugin: Plugin;
   history: any;
   ssrProps?: object;

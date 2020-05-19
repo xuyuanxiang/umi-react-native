@@ -158,10 +158,11 @@ packages/*/types
 packages/*/esm
 packages/*/lib
 *.tsbuildinfo
-.umi
-.umi-test
-.umi-production
-packages/*/test/fixtures/*/metro.config.js
-packages/*/test/fixtures/*/index.js
-packages/*/test/fixtures/*/babel.config.js
-haul.config.js
+
+# Android/IntelliJ
+#
+build/
+.idea
+.gradle
+local.properties
+*.iml

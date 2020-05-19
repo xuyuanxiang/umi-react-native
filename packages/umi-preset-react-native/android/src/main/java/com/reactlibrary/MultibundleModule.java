@@ -22,14 +22,13 @@ public class MultibundleModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void loadBundle(String bundleName, int bundleId, Promise promise) {
-
         try {
             CatalystInstance catalystInstance = this.reactContext.getCatalystInstance();
             catalystInstance.loadScriptFromAssets(
               this.reactContext.getAssets(),
               "assets://" + bundleName + ".android.bundle",
-              bundleId,
               false);
+            catalystInstance.registerSegment(bundleId, "assets://" + bundleName + ".android.bundle");
             promise.resolve(null);
         } catch(Exception e) {
             promise.reject(e);

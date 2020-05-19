@@ -1,11 +1,10 @@
-import { dirname, join } from 'path';
+import { join } from 'path';
 import { IApi } from 'umi';
-import { asyncClean, asyncWriteTmpFile, transformRoutesToBundle } from '../../utils';
 import { existsSync } from 'fs';
+import { asyncClean, asyncWriteTmpFile } from '../../utils';
 import BABEL_CONFIG_TPL from './babelConfigTpl';
 import METRO_CONFIG_TPL from './metroConfigTpl';
 import INDEX_TPL from './indexTpl';
-import HAUL_CONFIG_TPL from './haulConfigTpl';
 
 interface IImportPluginOpts {
   libraryName: string;
@@ -21,20 +20,12 @@ interface IRNGeneratorArguments {
 export default (api: IApi) => {
   const {
     paths,
-    utils: { lodash, chokidar, winPath, resolve, Mustache, semver },
+    utils: { lodash, winPath, resolve, Mustache },
   } = api;
 
-  function detectHaulPresetPath(): string {
-    if (semver.valid(api.config?.reactNative?.version)) {
-      const minor = semver.minor(api.config.reactNative.version);
-      if (minor >= 60) {
-        return dirname(require.resolve('@haul-bundler/preset-0.60/package.json'));
-      } else {
-        return dirname(require.resolve('@haul-bundler/preset-0.59/package.json'));
-      }
-    }
-    throw new TypeError('未知 react-native 版本！');
-  }
+  const generateFiles = require(resolve.sync('@umijs/preset-built-in/lib/plugins/commands/generateFiles', {
+    basedir: process.env.UMI_DIR,
+  })).default;
 
   async function genConfigFiles(): Promise<void> {
     const env = process.env.NODE_ENV === 'production' ? 'production' : 'development';
@@ -62,20 +53,6 @@ export default (api: IApi) => {
         createCSSRule: lodash.noop,
       },
     });
-
-    // 接收用户值
-    if (typeof api.config.chainWebpack === 'function') {
-      await api.config.chainWebpack(webpackConfig, { env, webpack, createCSSRule: lodash.noop });
-    }
-
-    /**
-     * 防止加载 umi 包 Common JS 格式的代码
-     *  umi for WEB 使用 webpack treeShaking，运行时加载的是 ES Module 格式的代码：umi/dist/index.esm.js；
-     *  但 RN 的模块加载方式不支持 treeShaking，会加载 umi Common JS 代码：umi/index.js，其中包含了大量 Node 工具类库。
-     *  在 haul 构建时甚至会导致 out of memory。
-     * 另外，使用其他方式：api.chainWebpack 或者 api.addProjectFirstLibraries "umi" alias 都会被覆盖，所以放到这里最终写 haul.config.js 时强行设置
-     */
-    webpackConfig.resolve.alias.set('umi', resolve.sync('umi/dist/index.esm.js', { basedir: process.env.UMI_DIR }));
 
     const config = webpackConfig.toConfig();
 
@@ -148,8 +125,6 @@ export default (api: IApi) => {
       `metro.${process.env.UMI_ENV || 'local'}.config.js`,
     );
 
-    const routes = await api.getRoutes();
-
     await Promise.all([
       asyncWriteTmpFile(
         api,
@@ -169,39 +144,8 @@ export default (api: IApi) => {
           useUserConfig: existsSync(userConfigFile),
         }),
       ),
-      await asyncWriteTmpFile(
-        api,
-        join(paths.absSrcPath || '', 'haul.config.js'),
-        Mustache.render(HAUL_CONFIG_TPL, {
-          haulPresetPath: winPath(detectHaulPresetPath()),
-          haulConfig: JSON.stringify(api.config?.haul || {}),
-          webpackConfig: JSON.stringify(config),
-          dependencies: JSON.stringify(
-            lodash.keys(
-              lodash.omit(config.resolve.alias, [
-                '@',
-                '@@',
-                'react-dom',
-                'react-router-dom',
-                'regenerator-runtime',
-                './core/polyfill',
-              ]),
-            ),
-          ),
-          bundles: JSON.stringify(transformRoutesToBundle(routes)),
-        }),
-      ),
       asyncWriteTmpFile(api, join(paths.absSrcPath || '', 'index.js'), INDEX_TPL),
     ]);
-    api.logger.info('Config files generated.');
-  }
-
-  async function generateFiles() {
-    await api.applyPlugins({
-      key: 'onGenerateFiles',
-      type: api.ApplyPluginsType.event,
-    });
-    api.logger.info('Temp files generated.');
   }
 
   async function handler(watch?: boolean): Promise<void> {
@@ -210,58 +154,8 @@ export default (api: IApi) => {
 
     await asyncClean(api, '.cache', 'node_modules');
 
-    await generateFiles();
+    const unwatch = await generateFiles({ api, watch });
     await genConfigFiles();
-
-    const unwatches: ((() => void) | { close: () => void })[] = [];
-
-    if (watch) {
-      const watcherPaths = await api.applyPlugins({
-        key: 'addTmpGenerateWatcherPaths',
-        type: api.ApplyPluginsType.add,
-        initialValue: [
-          paths.absPagesPath!,
-          join(paths.absSrcPath!, api.config?.singular ? 'layout' : 'layouts'),
-          join(paths.absSrcPath!, 'app.tsx'),
-          join(paths.absSrcPath!, 'app.ts'),
-          join(paths.absSrcPath!, 'app.jsx'),
-          join(paths.absSrcPath!, 'app.js'),
-        ],
-      });
-      lodash.uniq<string>(watcherPaths.map((p: string) => winPath(p))).forEach((p: string) => {
-        createWatcher(p);
-      });
-    }
-
-    function unwatchAll() {
-      while (unwatches.length) {
-        const unwatch = unwatches.pop();
-        try {
-          if (typeof unwatch === 'function') {
-            unwatch();
-          } else if (unwatch && typeof unwatch.close === 'function') {
-            unwatch.close();
-          }
-        } catch (ignored) {}
-      }
-    }
-
-    function createWatcher(path: string) {
-      const watcher = chokidar.watch(path, {
-        // ignore .dotfiles and _mock.js
-        // eslint-disable-next-line no-useless-escape
-        ignored: /(^|[\/\\])(_mock.js$|\..)/,
-        ignoreInitial: true,
-      });
-      watcher.on(
-        'all',
-        lodash.throttle(async () => {
-          api.logger.info('File change detected. Starting regenerate...');
-          await generateFiles();
-        }, 250),
-      );
-      unwatches.push(watcher);
-    }
 
     if (watch) {
       api.logger.info(
@@ -270,7 +164,7 @@ export default (api: IApi) => {
     }
 
     process.on('exit', () => {
-      unwatchAll();
+      unwatch();
       if (!watch) {
         api.logger.info(`Successfully completed in ${Date.now() - start}ms.`);
       }
