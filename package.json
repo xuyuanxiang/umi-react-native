@@ -74,10 +74,5 @@
     "**/*.{js,jsx,ts,tsx}": [
       "eslint --fix"
     ]
-  },
-  "babel": {
-    "presets": [
-      "module:metro-react-native-babel-preset"
-    ]
   }
 }
