@@ -164,3 +164,4 @@ packages/*/lib
 packages/*/test/fixtures/*/metro.config.js
 packages/*/test/fixtures/*/index.js
 packages/*/test/fixtures/*/babel.config.js
+haul.config.js

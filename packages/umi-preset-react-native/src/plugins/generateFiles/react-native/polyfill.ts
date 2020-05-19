@@ -28,6 +28,7 @@ let accept: unknown;
 if (module.hot) {
   // @ts-ignore
   if (!accept) {
+    // @ts-ignore
     accept = module.hot.accept;
   }
   // @ts-ignore

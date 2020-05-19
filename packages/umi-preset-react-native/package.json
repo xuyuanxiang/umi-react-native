@@ -13,7 +13,7 @@
   "engines": {
     "node": ">=10.x"
   },
-  "main": "lib/index.js",
+  "main": "lib",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
   "directories": {
@@ -21,8 +21,9 @@
   },
   "files": [
     "lib",
-    "hooks",
-    "react-native.config.js"
+    "android",
+    "ios",
+    "umi-preset-react-native.podspec"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,13 +40,21 @@
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "peerDependencies": {
-    "react-native": ">=0.44",
+    "metro": ">=0.56.0",
+    "react-native": ">=0.59.0 <1.0.x",
     "umi": "^3.0.0"
   },
   "dependencies": {
+    "@haul-bundler/babel-preset-react-native": "0.16.0",
+    "@haul-bundler/cli": "0.22.1",
+    "@haul-bundler/preset-0.59": "0.18.0",
+    "@haul-bundler/preset-0.60": "0.18.0",
     "@types/react-router-native": "5.1.0",
     "babel-plugin-module-resolver": "^4.0.0",
     "memoizerific": "^1.11.3",
     "react-router-native": "5.1.2"
+  },
+  "devDependencies": {
+    "metro": ">=0.56.0"
   }
 }
