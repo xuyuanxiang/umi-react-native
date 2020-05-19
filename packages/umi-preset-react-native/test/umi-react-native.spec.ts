@@ -18,7 +18,7 @@ const service = new Service({
 jest.mock('@ant-design/react-native', () => {
   const React = require('react');
   const View = require('react-native').View;
-  function Provider(props) {
+  function Provider(props: any) {
     return React.createElement(View, props);
   }
   return {
@@ -63,7 +63,6 @@ describe('umi-plugin-antd-react-native', () => {
 describe('umi-preset-react-native', () => {
   it('should write babel.config.js', () => {
     const { presets, plugins } = require(join(cwd, 'babel.config.js'));
-    expect(presets).toContainEqual('module:metro-react-native-babel-preset');
     expect(presets).toContainEqual('babel-preset-extra-fake');
     expect(plugins).toContainEqual('babel-plugin-extra-fake');
     const libsBuiltIn = ['react', 'react-router', 'react-dom'];

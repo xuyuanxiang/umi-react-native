@@ -79,6 +79,8 @@ export default (api: IApi) => {
       config.history,
     );
 
+    config.extraBabelPresets = ['module:metro-react-native-babel-preset'];
+
     return config;
   });
 

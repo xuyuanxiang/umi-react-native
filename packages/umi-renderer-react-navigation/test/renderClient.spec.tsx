@@ -24,8 +24,8 @@ const plugin = new Plugin({
   ],
 });
 
-describe('umi-renderer-react-navigation', () => {
-  it('should renderClient', function () {
+describe('renderClient', () => {
+  it('should work', function () {
     const App = renderClient({
       routes: [],
       plugin,

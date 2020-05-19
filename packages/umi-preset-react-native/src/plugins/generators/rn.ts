@@ -62,7 +62,7 @@ export default (api: IApi) => {
         },
       ],
     ];
-    const presets: (string | [string, any, string?])[] = ['module:metro-react-native-babel-preset'];
+    const presets: (string | [string, any, string?])[] = [];
 
     const presetOpts = await api.applyPlugins({
       type: api.ApplyPluginsType.modify,

@@ -23,7 +23,7 @@ function HistoryNavigator({
   ...rest
 }: DefaultNavigatorOptions<StackNavigationOptions> &
   StackRouterOptions &
-  StackNavigationConfig & { history: History<StackNavigationState> }) {
+  StackNavigationConfig & { history: History<any> }) {
   const defaultOptions = {
     gestureEnabled: Platform.OS === 'ios',
     animationEnabled: Platform.OS !== 'web',

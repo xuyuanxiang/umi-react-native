@@ -9,7 +9,7 @@
 
 umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**和**构建**的之间，旨在引入 umi 的开发姿势来提升 RN 编程体验。
 
-下游可以使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)来开发和打包，也可以使用像[expo](https://expo.io/)这样的开发工具。
+下游可以使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)来开发和打包，可以使用第三方[haul](https://github.com/callstack/haul)取代[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)，也可以使用像[expo](https://expo.io/)这样的开发工具。
 
 | NPM 包 | 当前版本 | 简介 |
 | --- | --- | --- |
@@ -191,13 +191,48 @@ _上文未列出的[umi 配置](https://umijs.org/config)对 **umi-preset-react-
 - babel.config.js
 - metro.config.js
 
-`react-native init`得到的这 3 个原文件将会被覆盖。
+每次执行`umi g rn`，这 3 个文件都会被覆盖。
 
-额外添加 Babel 配置只能在`umirc.js`中使用[extraBabelPlugins](https://umijs.org/config#extrababelplugins)和[extraBabelPresets](https://umijs.org/config#extrababelpresets)配置项。
+推荐在`.gitignore`文件末尾，追加以下内容：
 
-额外添加[Metro 配置](https://facebook.github.io/metro/docs/configuration)需要使用环境变量：[UMI_ENV](https://umijs.org/docs/env-variables#umi_env)指定要加载的配置文件：`metro.${UMI_ENV}.config.js`。
+```text
+# umi-react-native
+.umi
+index.js
+metro.config.js
+babel.config.js
 
-比如，执行`UMI_ENV=dev umi watch`时，会加载`metro.dev.config.js`文件中的配置，使用[mergeConfig](https://facebook.github.io/metro/docs/configuration#merging-configurations)同`metro.config.js`中的配置进行合并。
+```
+
+#### Babel 配置
+
+使用[extraBabelPlugins](https://umijs.org/config#extrababelplugins)和[extraBabelPresets](https://umijs.org/config#extrababelpresets)扩展 Babel 配置。
+
+[extraBabelPresets](https://umijs.org/config#extrababelpresets)默认值：`['module:metro-react-native-babel-preset']`。
+
+使用[haul](https://github.com/callstack/haul)时可以修改为：
+
+```javascript
+// .umirc.js
+export default {
+  extraBabelPresets: ['@haul-bundler/babel-preset-react-native'],
+};
+```
+
+使用[expo](https://expo.io/)时可以修改为：
+
+```javascript
+// .umirc.js
+export default {
+  extraBabelPresets: ['babel-preset-expo'],
+};
+```
+
+#### Metro 配置
+
+[Metro 配置](https://facebook.github.io/metro/docs/configuration)需要使用环境变量：[UMI_ENV](https://umijs.org/docs/env-variables#umi_env)指定要加载的配置文件：`metro.${UMI_ENV}.config.js`。
+
+比如，执行`UMI_ENV=dev umi g rn`时，会加载`metro.dev.config.js`文件中的配置，使用[mergeConfig](https://facebook.github.io/metro/docs/configuration#merging-configurations)同`metro.config.js`中的配置进行合并。
 
 ## 使用
 

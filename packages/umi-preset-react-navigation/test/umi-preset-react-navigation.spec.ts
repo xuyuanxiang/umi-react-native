@@ -42,7 +42,8 @@ afterAll(() => {
 
 describe('umi-preset-react-navigation', () => {
   it('should append alias into babel-plugin-module-resolver', () => {
-    const { plugins } = require(join(cwd, 'babel.config.js'));
+    const { plugins, presets } = require(join(cwd, 'babel.config.js'));
+    expect(presets).toContainEqual('module:metro-react-native-babel-preset');
     const libsBuiltIn = ['react', 'react-router', 'react-dom'];
     const presetBuiltInPath = dirname(resolve.sync('@umijs/preset-built-in/package.json'));
     const aliasBuiltIn = libsBuiltIn
