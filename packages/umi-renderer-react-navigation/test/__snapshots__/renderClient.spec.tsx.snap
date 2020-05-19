@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`umi-renderer-react-navigation should renderClient 1`] = `
+<View
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    collapsable={true}
+    pointerEvents="box-none"
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <View
+      defaultTitle="title-test"
+      history={null}
+      plugin={
+        Plugin {
+          "hooks": Object {},
+          "validKeys": Array [
+            "patchRoutes",
+            "rootContainer",
+            "render",
+            "onRouteChange",
+            "onReactNavigationStateChange",
+            "getReactNavigationInitialState",
+            "getReactNavigationInitialIndicator",
+            "dva",
+          ],
+        }
+      }
+      routes={Array []}
+    />
+  </View>
+</View>
+`;

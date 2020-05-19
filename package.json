@@ -17,7 +17,7 @@
     "node": ">= 10.13.0"
   },
   "devDependencies": {
-    "@ant-design/react-native": "3.3.0",
+    "@ant-design/react-native": "^3.3.0",
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",
     "@react-native-community/masked-view": "0.1.10",
@@ -30,8 +30,6 @@
     "@typescript-eslint/eslint-plugin": "^2.28.0",
     "@typescript-eslint/parser": "^2.28.0",
     "babel-jest": "^26.0.1",
-    "babel-plugin-import": "^1.13.0",
-    "babel-plugin-module-resolver": "^4.0.0",
     "conventional-changelog": "^3.1.18",
     "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
@@ -75,6 +73,11 @@
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
       "eslint --fix"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "module:metro-react-native-babel-preset"
     ]
   }
 }

@@ -161,3 +161,6 @@ packages/*/lib
 .umi
 .umi-test
 .umi-production
+babel.config.js
+metro.config.js
+packages/*/test/fixtures/*/index.js

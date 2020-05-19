@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`umi-preset-react-native should write react-navigation/exports.ts 1`] = `
+exports[`umi-preset-react-navigation should write react-navigation/exports.ts 1`] = `
 "export {
   useNavigation,
   useRoute,
@@ -30,4 +30,29 @@ export {
 } from '/Users/xuyuanxiang/Workspaces/Github/xuyuanxiang/umi-react-native/node_modules/@react-navigation/stack';
 
 "
+`;
+
+exports[`umi-preset-react-navigation should write react-navigation/runtime.ts 1`] = `
+<View
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    collapsable={true}
+    pointerEvents="box-none"
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <Text>
+      Loading...
+    </Text>
+  </View>
+</View>
 `;

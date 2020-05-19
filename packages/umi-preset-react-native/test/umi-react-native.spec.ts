@@ -3,16 +3,27 @@ import rimraf from 'rimraf';
 import { dirname, join } from 'path';
 import { runInNewContext } from 'vm';
 import { readFileSync } from 'fs';
-import { render } from '@testing-library/react-native';
+import { render, cleanup } from '@testing-library/react-native';
 
 const { winPath, resolve } = utils;
 
-const cwd = join(__dirname, 'fixtures');
+const cwd = join(__dirname, 'fixtures', 'normal');
 const absTmp = join(cwd, '.umi-test');
 const service = new Service({
   cwd,
-  plugins: [require.resolve('../packages/umi-plugin-antd-react-native/src')],
-  presets: [require.resolve('../packages/umi-preset-react-native/src')],
+  plugins: [require.resolve('../../umi-plugin-antd-react-native/src')],
+  presets: [require.resolve('../src')],
+});
+
+jest.mock('@ant-design/react-native', () => {
+  const React = require('react');
+  const View = require('react-native').View;
+  function Provider(props) {
+    return React.createElement(View, props);
+  }
+  return {
+    Provider,
+  };
 });
 
 beforeAll(async () => {
@@ -24,6 +35,10 @@ beforeAll(async () => {
       _: ['g', 'rn'],
     },
   });
+});
+afterEach(cleanup);
+afterAll(() => {
+  rimraf.sync(absTmp);
 });
 
 describe('umi-plugin-antd-react-native', () => {

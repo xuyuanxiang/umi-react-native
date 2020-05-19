@@ -1,5 +1,5 @@
 module.exports = {
-  testMatch: ['<rootDir>**/test/**/*.(spec|test).[jt]s?(x)'],
+  testMatch: ['<rootDir>packages/*/test/**/*.(spec|test).[jt]s?(x)'],
   collectCoverageFrom: ['<rootDir>/packages/*/src/**/*.{ts,tsx}'],
   preset: '@testing-library/react-native',
   setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
