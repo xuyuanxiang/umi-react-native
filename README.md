@@ -9,7 +9,7 @@
 
 umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**和**构建**的之间，旨在引入 umi 的开发姿势来提升 RN 编程体验。
 
-下游可以使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)，可以使用第三方的[haul](https://github.com/callstack/haul)，也可以使用像[expo](https://expo.io/)这样的开发工具。
+下游可以使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)，也可以使用像[expo](https://expo.io/)这样的开发工具。
 
 | NPM 包 | 当前版本 | 简介 |
 | --- | --- | --- |
@@ -23,7 +23,6 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 
 - [UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample#readme)：使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)的 RN 工程；
 - [UMIExpoExample](https://github.com/xuyuanxiang/UMIExpoExample#readme)：使用[expo](https://expo.io/)的 RN 工程；
-- [UMIHaulExample](https://github.com/xuyuanxiang/UMIHaulExample#readme)：使用[haul](https://github.com/callstack/haul)的 RN 工程。
 
 **请点击 Star 给我一些鼓励吧。**
 
@@ -190,11 +189,10 @@ _上文未列出的[umi 配置](https://umijs.org/config)对 **umi-preset-react-
 
 ### umi-preset-react-native 扩展配置
 
-**umi-preset-react-native**会探测用户工程内的依赖，自动为下列 3 种 RN 开发/打包工具生成所需的**配置文件**和**入口文件**。
+**umi-preset-react-native**会探测用户工程内的依赖，自动为下列开发工具生成所需的**配置文件**和**入口文件**。
 
 - [React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)
 - [expo](https://expo.io/)
-- [haul](https://github.com/callstack/haul)
 
 推荐在`.gitignore`文件末尾，追加以下内容：
 
@@ -204,15 +202,12 @@ tmp
 index.js
 metro.config.js
 babel.config.js
-haul.config.js
 
 ```
 
-**umi-preset-react-native**不支持同时使用多种 RN 开发工具。
-
 如果你的 RN 工程只使用一种开发工具则无需任何配置。
 
-如果你的 RN 工程安装了多种 RN 开发工具，则**必须**通过 umi 配置指定当前使用哪一个：
+如果你的 RN 工程安装了多种开发工具，则**必须**通过 umi 配置指定当前使用哪一个：
 
 使用[expo](https://expo.io/)：
 
@@ -220,17 +215,6 @@ haul.config.js
 // .umirc.js
 export default {
   expo: true,
-  haul: false,
-};
-```
-
-使用[haul](https://github.com/callstack/haul):
-
-```javascript
-// .umirc.js
-export default {
-  expo: false,
-  haul: true,
 };
 ```
 
@@ -240,7 +224,6 @@ export default {
 // .umirc.js
 export default {
   expo: false,
-  haul: false,
 };
 ```
 
