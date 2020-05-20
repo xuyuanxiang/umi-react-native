@@ -1,4 +1,14 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.3...v"></a> (2020-05-20)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.4...v"></a> (2020-05-20)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.3...v0.3.0-alpha.4">0.3.0-alpha.4</a> (2020-05-20)
+
+
+### Bug 修复
+
+* 将 `@umijs/runtime` 加入 `dependencies`。 (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/9fe342d">9fe342d</a>)
+
+  `@umijs/runtime`必须安装到用户 RN 工程的 node_modules 中，否则 umi 会使用 @umijs/preset-built-in/node_modules 目录中的`@umijs/runtime`，导致 RN Haste Module 无法加载。
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.2...v0.3.0-alpha.3">0.3.0-alpha.3</a> (2020-05-20)
 
