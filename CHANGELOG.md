@@ -1,4 +1,18 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.6...v"></a> (2020-05-19)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.0...v"></a> (2020-05-20)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.6...v0.3.0-alpha.0">0.3.0-alpha.0</a> (2020-05-20)
+
+
+### 新功能
+
+* add NotFound Screen (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/c4d59ac">c4d59ac</a>)
+
+
+
+* support mutiply bundlers: react-native-cli, haul, expo (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/b9368d2">b9368d2</a>)
+
+
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.5...v0.2.0-alpha.6">0.2.0-alpha.6</a> (2020-05-19)
 
