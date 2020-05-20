@@ -1,4 +1,15 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.2...v"></a> (2020-05-20)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.3...v"></a> (2020-05-20)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.2...v0.3.0-alpha.3">0.3.0-alpha.3</a> (2020-05-20)
+
+
+### Bug 修复
+
+* 将umi默认的临时文件目录由`.umi`修改为：tmp. (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/8cd3fd4">8cd3fd4</a>)
+
+  解决：[metro/issues/325](https://github.com/facebook/metro/issues/325)
+  这个问题很诡异，直接使用React Native CLI时没问题；但换用expo确加载不到文件。
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.1...v0.3.0-alpha.2">0.3.0-alpha.2</a> (2020-05-20)
 
