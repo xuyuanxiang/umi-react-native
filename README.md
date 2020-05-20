@@ -200,7 +200,7 @@ _上文未列出的[umi 配置](https://umijs.org/config)对 **umi-preset-react-
 
 ```text
 # umi-react-native
-.umi
+tmp
 index.js
 metro.config.js
 babel.config.js
