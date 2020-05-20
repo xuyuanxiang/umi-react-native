@@ -15,7 +15,7 @@ export default (api: IApi) => {
 
   // expo 不需要使用 AppRegistry
   api.onGenerateFiles(() => {
-    if (api.config.expo) {
+    if (!api.config.expo) {
       api.writeTmpFile({
         path: 'react-native/runtime.ts',
         content: api.utils.Mustache.render(runtimeTpl, {
