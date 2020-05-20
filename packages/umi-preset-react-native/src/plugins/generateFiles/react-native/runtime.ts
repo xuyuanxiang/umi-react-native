@@ -10,13 +10,20 @@ export function render(clientRender: () => any, args: {hot?: boolean} = {}) {
 `;
 
 export default (api: IApi) => {
-  api.addRuntimePlugin(() => [join(api.paths.absTmpPath!, 'react-native', 'runtime.ts')]);
+  // expo 不需要使用 AppRegistry
+  api.addRuntimePlugin(() =>
+    api.config?.reactNative?.bundler !== 'expo' ? [join(api.paths.absTmpPath!, 'react-native', 'runtime.ts')] : [],
+  );
+
+  // expo 不需要使用 AppRegistry
   api.onGenerateFiles(() => {
-    api.writeTmpFile({
-      path: 'react-native/runtime.ts',
-      content: api.utils.Mustache.render(runtimeTpl, {
-        appKey: api.config?.reactNative?.appKey,
-      }),
-    });
+    if (api.config?.reactNative?.bundler !== 'expo') {
+      api.writeTmpFile({
+        path: 'react-native/runtime.ts',
+        content: api.utils.Mustache.render(runtimeTpl, {
+          appKey: api.config?.reactNative?.appKey,
+        }),
+      });
+    }
   });
 };

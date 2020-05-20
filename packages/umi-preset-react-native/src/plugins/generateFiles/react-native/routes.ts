@@ -17,6 +17,10 @@ export { routes };
 
 `;
 
+/**
+ * 在 RN 中启用 dynamicImport 时，会拆分多 bundle。
+ * 这里需要重写，并使用 alias 替换 umi 生成的路由。
+ */
 export default (api: IApi) => {
   api.chainWebpack((memo) => {
     if (api.config.dynamicImport && api.config.dynamicImport.loading) {

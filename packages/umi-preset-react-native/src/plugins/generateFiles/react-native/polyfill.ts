@@ -33,7 +33,6 @@ if (module.hot) {
   }
   // @ts-ignore
   module.hot.accept = function (path, fn) {
-    console.info('path=', path, 'fn=', fn);
     if (typeof path === 'function' && typeof accept === 'function') {
       accept(path);
     }

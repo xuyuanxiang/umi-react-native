@@ -48,8 +48,8 @@
     "@react-navigation/native": "5.4.0",
     "@react-navigation/routers": "5.4.4",
     "@react-navigation/stack": "5.3.6",
-    "@types/react-router-config": "^5.0.1",
-    "blueimp-md5": "2.15.0",
+    "@types/react-router-config": "5.0.1",
+    "blueimp-md5": "2.16.0",
     "react-router-config": "5.1.1",
     "url-join": "4.0.1"
   }

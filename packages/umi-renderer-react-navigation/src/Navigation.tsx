@@ -105,38 +105,37 @@ export function Navigation(props: INavigationProps) {
   }, [history]);
 
   const screens = flattenRoutes(routes);
-
-  const context = {
-    history,
-    location: history.location,
-    match: { path: '/', params: {}, isExact: true, url: '/' },
-  };
+  console.info('screens:', screens);
 
   return (
-    <RouterContext.Provider value={context}>
-      <Navigator initialRouteName="/" history={history}>
-        {screens.map(({ key, component: Component, options: { routeMatchOpts, title, ...options }, ...rest }, idx) => (
-          <Screen {...rest} key={key || `screen_${idx}`} options={{ ...options, title: title || defaultTitle }}>
-            {(props) => {
-              const newProps = {
-                ...rests,
-                ...extraProps,
-                ...props,
-              };
-              return (
-                <RouterContext.Provider
-                  value={{
-                    ...context,
-                    match: matchPath(history.location.pathname, routeMatchOpts) || context.match,
-                  }}
-                >
-                  <Component {...newProps} />
-                </RouterContext.Provider>
-              );
-            }}
-          </Screen>
-        ))}
-      </Navigator>
-    </RouterContext.Provider>
+    <Navigator initialRouteName="/" history={history}>
+      {screens.map(({ key, component: Component, options: { routeMatchOpts, title, ...options }, ...rest }, idx) => (
+        <Screen {...rest} key={key || `screen_${idx}`} options={{ ...options, title: title || defaultTitle }}>
+          {(props) => {
+            const newProps = {
+              ...rests,
+              ...extraProps,
+              ...props,
+            };
+            return (
+              <RouterContext.Provider
+                value={{
+                  history,
+                  location: history.location,
+                  match: matchPath(history.location.pathname, routeMatchOpts) || {
+                    path: '/',
+                    params: {},
+                    isExact: true,
+                    url: '/',
+                  },
+                }}
+              >
+                <Component {...newProps} />
+              </RouterContext.Provider>
+            );
+          }}
+        </Screen>
+      ))}
+    </Navigator>
   );
 }

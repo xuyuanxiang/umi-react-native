@@ -5,6 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
+    "watch": "umi g rn --dev",
     "start": "react-native start",
     "test": "jest"
   },
