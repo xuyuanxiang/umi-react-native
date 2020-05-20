@@ -1,4 +1,14 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.4...v"></a> (2020-05-20)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.5...v"></a> (2020-05-20)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.4...v0.3.0-alpha.5">0.3.0-alpha.5</a> (2020-05-20)
+
+
+### 新功能
+
+* umi-plugin-antd-react-native 支持在 expo 中为 @ant-design/react-native [链接字体图标](https://rn.mobile.ant.design/docs/react/introduce-cn#%E9%93%BE%E6%8E%A5%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87) (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/de8e7c3">de8e7c3</a>)
+
+
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.3...v0.3.0-alpha.4">0.3.0-alpha.4</a> (2020-05-20)
 
