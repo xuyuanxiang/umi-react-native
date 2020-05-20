@@ -1,4 +1,14 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.5...v"></a> (2020-05-20)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0...v"></a> (2020-05-20)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.5...v0.3.0">0.3.0</a> (2020-05-20)
+
+
+### Bug 修复
+
+* Windows path (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/a1c7801">a1c7801</a>)
+
+
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.4...v0.3.0-alpha.5">0.3.0-alpha.5</a> (2020-05-20)
 
