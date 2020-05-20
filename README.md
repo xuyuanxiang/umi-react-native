@@ -171,8 +171,6 @@ _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者�
 
 ### 目前支持的 umi 配置项
 
-**umi-preset-react-native**使用 RN 官方的[metro](https://github.com/facebook/metro)打包器。
-
 目前支持的 umi 配置如下（已满足集成一些常用[umi 插件](https://github.com/umijs/plugins)的需要）：
 
 - [x] [alias](https://umijs.org/config#alias)
