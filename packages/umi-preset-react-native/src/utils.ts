@@ -302,6 +302,8 @@ export async function generateConfigFiles(api: IApi): Promise<void> {
    * 另外，使用其他方式：api.chainWebpack 或者 api.addProjectFirstLibraries "umi" alias 都会被覆盖，所以放到这里最终写 haul.config.js 时强行设置
    */
   webpackConfig.resolve.alias.set('umi', resolve.sync('umi/dist/index.esm.js', { basedir: process.env.UMI_DIR }));
+  webpackConfig.resolve.alias.set('@', paths.absSrcPath);
+  webpackConfig.resolve.alias.set('@@', paths.absTmpPath);
 
   const config = webpackConfig.toConfig();
 
