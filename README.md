@@ -9,7 +9,7 @@
 
 umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**和**构建**的之间，旨在引入 umi 的开发姿势来提升 RN 编程体验。
 
-下游可以使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)来开发和打包，可以使用第三方[haul](https://github.com/callstack/haul)取代[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)，也可以使用像[expo](https://expo.io/)这样的开发工具。
+下游可以使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)，可以使用第三方的[haul](https://github.com/callstack/haul)，也可以使用像[expo](https://expo.io/)这样的开发工具。
 
 | NPM 包 | 当前版本 | 简介 |
 | --- | --- | --- |
@@ -36,6 +36,7 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
   - [集成 react-navigation（可选）](#%E9%9B%86%E6%88%90-react-navigation%E5%8F%AF%E9%80%89)
 - [配置](#%E9%85%8D%E7%BD%AE)
   - [目前支持的 umi 配置项](#%E7%9B%AE%E5%89%8D%E6%94%AF%E6%8C%81%E7%9A%84-umi-%E9%85%8D%E7%BD%AE%E9%A1%B9)
+  - [umi-preset-react-native 扩展配置](#umi-preset-react-native-%E6%89%A9%E5%B1%95%E9%85%8D%E7%BD%AE)
     - [Babel 配置](#babel-%E9%85%8D%E7%BD%AE)
     - [Metro 配置](#metro-%E9%85%8D%E7%BD%AE)
 - [使用](#%E4%BD%BF%E7%94%A8)
@@ -189,15 +190,13 @@ _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者�
 
 _上文未列出的[umi 配置](https://umijs.org/config)对 **umi-preset-react-native** 不生效。_
 
-**注意**：
+### umi-preset-react-native 扩展配置
 
-使用**umi-preset-react-native**会在 RN 工程根目录下生成以下临时文件：
+**umi-preset-react-native**会探测用户工程内的依赖，自动为下列 3 种 RN 开发/打包工具生成所需的**配置文件**和**入口文件**。
 
-- index.js
-- babel.config.js
-- metro.config.js
-
-每次执行`umi g rn`，这 3 个文件都会被覆盖。
+- [React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)
+- [expo](https://expo.io/)
+- [haul](https://github.com/callstack/haul)
 
 推荐在`.gitignore`文件末尾，追加以下内容：
 
@@ -207,36 +206,53 @@ _上文未列出的[umi 配置](https://umijs.org/config)对 **umi-preset-react-
 index.js
 metro.config.js
 babel.config.js
+haul.config.js
 
+```
+
+**umi-preset-react-native**不支持同时使用多种 RN 开发工具。
+
+如果你的 RN 工程只使用一种开发工具则无需任何配置。
+
+如果你的 RN 工程安装了多种 RN 开发工具，则**必须**通过 umi 配置指定当前使用哪一个：
+
+使用[expo](https://expo.io/)：
+
+```javascript
+// .umirc.js
+export default {
+  expo: true,
+  haul: false,
+};
+```
+
+使用[haul](https://github.com/callstack/haul):
+
+```javascript
+// .umirc.js
+export default {
+  expo: false,
+  haul: true,
+};
+```
+
+使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands):
+
+```javascript
+// .umirc.js
+export default {
+  expo: false,
+  haul: false,
+};
 ```
 
 #### Babel 配置
 
-使用[extraBabelPlugins](https://umijs.org/config#extrababelplugins)和[extraBabelPresets](https://umijs.org/config#extrababelpresets)扩展 Babel 配置。
-
-[extraBabelPresets](https://umijs.org/config#extrababelpresets)默认值：`['module:metro-react-native-babel-preset']`。
-
-使用[haul](https://github.com/callstack/haul)时可以修改为：
-
-```javascript
-// .umirc.js
-export default {
-  extraBabelPresets: ['@haul-bundler/babel-preset-react-native'],
-};
-```
-
-使用[expo](https://expo.io/)时可以修改为：
-
-```javascript
-// .umirc.js
-export default {
-  extraBabelPresets: ['babel-preset-expo'],
-};
-```
+使用[extraBabelPlugins](https://umijs.org/config#extrababelplugins)和[extraBabelPresets](https://umijs.org/config#extrababelpresets)添加额外的 Babel 配置。
 
 #### Metro 配置
 
-[Metro 配置](https://facebook.github.io/metro/docs/configuration)需要使用环境变量：[UMI_ENV](https://umijs.org/docs/env-variables#umi_env)指定要加载的配置文件：`metro.${UMI_ENV}.config.js`。
+添加额外的[Metro 配置](https://facebook.github.io/metro/docs/configuration)需要使用环境变量：[UMI_ENV](https://umijs.org/docs/env-variables#umi_env)指定要加载的配置文件：`metro.${UMI_ENV}.config.js`。
 
 比如，执行`UMI_ENV=dev umi g rn`时，会加载`metro.dev.config.js`文件中的配置，使用[mergeConfig](https://facebook.github.io/metro/docs/configuration#merging-configurations)同`metro.config.js`中的配置进行合并。
 

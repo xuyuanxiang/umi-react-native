@@ -1,4 +1,14 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.0...v"></a> (2020-05-20)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.1...v"></a> (2020-05-20)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.0...v0.3.0-alpha.1">0.3.0-alpha.1</a> (2020-05-20)
+
+
+### Bug 修复
+
+* Unable to resolve .umi/react-native/runtime.ts (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/82ac1d5">82ac1d5</a>)
+
+
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.2.0-alpha.6...v0.3.0-alpha.0">0.3.0-alpha.0</a> (2020-05-20)
 
