@@ -1,4 +1,14 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0...v"></a> (2020-05-20)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.1...v"></a> (2020-05-20)
+
+### <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0...v0.3.1">0.3.1</a> (2020-05-20)
+
+
+### Bug 修复
+
+* 解决umi@3.1.x中api.modifyPaths不生效，absTmpPath的alias依然被设置为'.umi'的问题 (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/7e394c9">7e394c9</a>)
+
+
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.0-alpha.5...v0.3.0">0.3.0</a> (2020-05-20)
 
