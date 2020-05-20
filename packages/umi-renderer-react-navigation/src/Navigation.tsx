@@ -1,4 +1,5 @@
 import React, { ComponentType, useEffect } from 'react';
+import { View, Text } from 'react-native';
 import {
   ApplyPluginsType,
   Plugin,
@@ -105,7 +106,24 @@ export function Navigation(props: INavigationProps) {
   }, [history]);
 
   const screens = flattenRoutes(routes);
-  console.info('screens:', screens);
+
+  if (__DEV__) {
+    if (!screens || screens.length === 0) {
+      return (
+        <Navigator initialRouteName="/" history={history}>
+          <Screen
+            name="/"
+            component={() => (
+              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{ fontWeight: 'bold', fontSize: 17, color: '#f4333c' }}>404</Text>
+                <Text style={{ fontSize: 14, color: '#f4333c' }}>请在 pages/ 目录下实现一个 index 页面。</Text>
+              </View>
+            )}
+          />
+        </Navigator>
+      );
+    }
+  }
 
   return (
     <Navigator initialRouteName="/" history={history}>

@@ -19,9 +19,13 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 
 [发布日志](/CHANGELOG.md)
 
-示例工程：[UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample#readme)
+示例：
 
-请点一下 Star 给我一些鼓励吧。
+- [UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample#readme)：使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)的 RN 工程；
+- [UMIExpoExample](https://github.com/xuyuanxiang/UMIExpoExample#readme)：使用[expo](https://expo.io/)的 RN 工程；
+- [UMIHaulExample](https://github.com/xuyuanxiang/UMIHaulExample#readme)：使用[haul](https://github.com/callstack/haul)的 RN 工程。
+
+**请点击 Star 给我一些鼓励吧。**
 
 ## 目录
 
@@ -623,10 +627,18 @@ yarn react-native unlink && yarn react-native link
 
 ### Unable to Resolve Module in React Native App
 
-[facebook/react-native#issue-1924](https://github.com/facebook/react-native/issues/1924)：
+[facebook/react-native#issue-1924](https://github.com/facebook/react-native/issues/1924)
 
-加上`--reset-cache`参数：`yarn react-native start --reset-cache`
+终极清缓存方案：
 
-如果不行：`rm -rf node_modules && yarn && yarn react-native start --reset-cache`
+MacOS
 
-对于 MacOS，如果使用 watchman 还需要：`watchman watch-del-all`
+```shell
+watchman watch-del-all && rm -fr $TMPDIR/react-* && rm -fr $TMPDIR/metro-* && rm -fr $TMPDIR/haste-map-* && rm -fr node_modules && yarn cache clean --force && yarn && yarn start --reset-cache
+```
+
+Windows
+
+```shell
+del %appdata%\Temp\react-* & del %appdata%\Temp\metro-* & del %appdata%\Temp\haste-map-* & cd android & gradlew clean & cd .. & del node_modules/ & yarn cache clean --force & yarn & yarn start --reset-cache
+```

@@ -1,5 +1,5 @@
 import { existsSync, readdir, stat, writeFile } from 'fs';
-import { join } from 'path';
+import { dirname, join } from 'path';
 import { EOL } from 'os';
 import { IApi, IRoute } from 'umi';
 import memoizerific from 'memoizerific';
@@ -317,14 +317,12 @@ export async function generateConfigFiles(api: IApi): Promise<void> {
   ];
   const presets: (string | [string, any, string?])[] = [];
 
-  const bundler = api.config?.reactNative?.bundler;
-
-  if (bundler === 'react-native-cli') {
-    presets.push('module:metro-react-native-babel-preset');
-  } else if (bundler === 'haul') {
+  if (api.config.haul) {
     presets.push('@haul-bundler/babel-preset-react-native');
-  } else if (bundler === 'expo') {
+  } else if (api.config.expo) {
     presets.push('babel-preset-expo');
+  } else {
+    presets.push('module:metro-react-native-babel-preset');
   }
 
   const presetOpts = await api.applyPlugins({
@@ -384,6 +382,7 @@ export async function generateConfigFiles(api: IApi): Promise<void> {
     `metro.${process.env.UMI_ENV || 'local'}.config.js`,
   );
 
+  const isExpo = Boolean(api.config.expo);
   const tasks: Promise<any>[] = [
     asyncWriteTmpFile(
       api,
@@ -391,22 +390,22 @@ export async function generateConfigFiles(api: IApi): Promise<void> {
       Mustache.render(BABEL_CONFIG_TPL, {
         presets: JSON.stringify(lodash.uniqWith(babelConfig.presets, lodash.isEqual)),
         plugins: JSON.stringify(lodash.uniqWith(babelConfig.plugins, lodash.isEqual)),
-        isExpo: api.config?.reactNative?.bundler === 'expo',
+        isExpo,
       }),
     ),
     asyncWriteTmpFile(
       api,
       join(cwd, 'metro.config.js'),
-      api.utils.Mustache.render(METRO_CONFIG_TPL, {
+      Mustache.render(METRO_CONFIG_TPL, {
         watchFolders: [paths.absTmpPath],
         userConfigFile: winPath(userConfigFile),
         useUserConfig: existsSync(userConfigFile),
       }),
     ),
-    asyncWriteTmpFile(api, join(cwd, 'index.js'), INDEX_TPL),
+    asyncWriteTmpFile(api, join(cwd, 'index.js'), Mustache.render(INDEX_TPL, { isExpo })),
   ];
 
-  if (api.config?.reactNative?.bundler === 'haul') {
+  if (api.config.hual) {
     const routes = await api.getRoutes();
     tasks.push(
       asyncWriteTmpFile(
@@ -444,4 +443,37 @@ export async function generateFiles(api: IApi, watch?: boolean): Promise<() => v
   })).default;
 
   return generateFiles({ api, watch });
+}
+
+interface IGetUserLibDirOptions {
+  api: IApi;
+  /**
+   * 比如：'react-native'（目录） 或者 'react-router/esm/index.js'（文件）
+   */
+  target: string;
+  /**
+   * true-返回目录绝对路径，false-返回文件绝对路径
+   */
+  dir?: boolean;
+  /**
+   * 用户目录查找起始路径
+   */
+  basedir?: string;
+}
+
+export function getUserLib(opts: IGetUserLibDirOptions): string {
+  const { api, target, dir, basedir = api.paths.absSrcPath } = opts;
+  let path: string | undefined;
+  try {
+    path = api.utils.resolve.sync(target, {
+      basedir,
+    });
+  } catch (ignored) {
+    path = target;
+  }
+  if (dir) {
+    return dirname(path);
+  } else {
+    return path;
+  }
 }

@@ -14,12 +14,6 @@ export default (api: IApi) => {
     const unwatch = await generateFiles(api, watch);
     await generateConfigFiles(api);
 
-    if (watch) {
-      api.logger.info(
-        'You can open another terminal and type: `yarn react-native run-ios` or `yarn react-native run-android` to launch your application.',
-      );
-    }
-
     process.on('exit', () => {
       unwatch();
       if (!watch) {

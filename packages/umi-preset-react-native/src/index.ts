@@ -1,6 +1,8 @@
 export default function () {
   return {
     plugins: [
+      require.resolve('./plugins/features/expo'),
+      require.resolve('./plugins/features/haul'),
       require.resolve('./plugins/features/reactNative'),
       require.resolve('./plugins/generateFiles/react-native/exports'),
       require.resolve('./plugins/generateFiles/react-native/polyfill'),

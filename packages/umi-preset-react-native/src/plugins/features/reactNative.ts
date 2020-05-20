@@ -1,71 +1,41 @@
 import { IApi } from 'umi';
-import { dirname, join } from 'path';
-import { existsSync, readFileSync } from 'fs';
+import { join } from 'path';
+import { readFileSync } from 'fs';
 import { EOL } from 'os';
-import { assertExists } from '../../utils';
+import { assertExists, getUserLib } from '../../utils';
 
 export default (api: IApi) => {
   const {
-    utils: { resolve, lodash, winPath },
-    paths: { absNodeModulesPath = '', absSrcPath = '' },
+    utils: { lodash, winPath },
+    paths: { absSrcPath = '' },
   } = api;
 
-  /**
-   * 优先读取用户目录下依赖的绝对路径
-   * @param library 比如：'react-native'（目录） 或者 'react-router/esm/index.js'（文件）
-   * @param defaults library找不到时的缺省值
-   * @param dir true-返回目录绝对路径，false-返回文件绝对路径
-   * @param basedir 用户目录查找起始路径
-   */
-  function getUserLibDir(library: string, defaults: string, dir: boolean = false, basedir = absSrcPath): string {
-    try {
-      const path = resolve.sync(library, {
-        basedir,
-      });
-      if (dir) {
-        return dirname(path);
-      } else {
-        return path;
-      }
-    } catch (ignored) {}
-    return defaults;
-  }
+  const REACT_NATIVE_PATH = getUserLib({
+    api,
+    target: 'react-native/package.json',
+    dir: true,
+  });
 
-  const REACT_NATIVE_PATH = getUserLibDir(
-    join('react-native', 'package.json'),
-    join(absNodeModulesPath, 'react-native'),
-    true,
-  );
-  const EXPO_PATH = getUserLibDir(join('expo', 'package.json'), join(absNodeModulesPath, 'expo'));
-  const HAUL_CLI_PATH = getUserLibDir(join('@haul-bundler', 'cli', 'package.json'), join(absNodeModulesPath, 'expo'));
   assertExists(REACT_NATIVE_PATH);
-
-  const isExpo = existsSync(EXPO_PATH);
-  const isHaul = existsSync(HAUL_CLI_PATH);
 
   const { version } = require(join(REACT_NATIVE_PATH, 'package.json'));
 
   let appKey;
   try {
-    if (!isExpo) {
-      const appJson = JSON.parse(
-        readFileSync(getUserLibDir('app.json', join(absSrcPath, 'app.json'), false, absSrcPath), 'utf8'),
-      );
-      appKey = appJson.name;
-    }
+    const appJson = JSON.parse(readFileSync(join(absSrcPath, 'app.json'), 'utf8'));
+    appKey = appJson.name;
   } catch (ignored) {}
 
   // umi-preset-react-native 扩展配置
   api.describe({
     key: 'reactNative',
     config: {
-      default: { appKey, version, bundler: isExpo ? 'expo' : isHaul ? 'haul' : 'react-native-cli' },
+      default: { appKey, version },
       schema(joi) {
         return joi
           .object({
             appKey: joi.string(), // moduleName  app.json#name
             version: joi.string(), // RN 版本号
-            bundler: joi.allow('expo', 'react-native-cli', 'haul'),
           })
           .optional();
       },
@@ -97,16 +67,13 @@ export default (api: IApi) => {
     },
     {
       name: 'react-router-native',
-      path: getUserLibDir(
-        'react-router-native',
-        winPath(dirname(require.resolve('react-router-native/package.json'))),
-        true,
-      ),
+      path: winPath(getUserLib({ api, target: 'react-router-native/package.json', dir: true })),
     },
   ]);
 
   // 启动时检查
   api.onStart(() => {
+    const isExpo = Boolean(api.config?.expo);
     if (!isExpo) {
       // 使用 haul 和 react-native-cli 时，appKey 一定不能为空，否则 RN 引用没法注册/部署/启动。
       if (!api.config?.reactNative?.appKey) {
@@ -136,11 +103,15 @@ export default (api: IApi) => {
       throw new TypeError('"history.type" 配置错误');
     }
 
-    if (api.config.dynamicImport && !api.config.dynamicImport.loading) {
-      api.logger.error(
-        `在 RN 环境中启用"dynamicImport"功能时，必须实现自定义的"loading"！${EOL}因为 umi 默认 loading 使用了 HTML 标签，在 RN 中运行会报错！${EOL}查看如何配置自定义 loading：https://umijs.org/config#dynamicimport`,
-      );
-      throw new TypeError('"dynamicImport.loading" 未配置');
+    if (api.config.dynamicImport) {
+      api.logger.error('在 RN 环境中暂不支持："dynamicImport"功能。');
+      throw new TypeError('在 RN 环境中暂不支持："dynamicImport"功能。');
     }
+    // if (api.config.dynamicImport && !api.config.dynamicImport.loading) {
+    //   api.logger.error(
+    //     `在 RN 环境中启用"dynamicImport"功能时，必须实现自定义的"loading"！${EOL}因为 umi 默认 loading 使用了 HTML 标签，在 RN 中运行会报错！${EOL}查看如何配置自定义 loading：https://umijs.org/config#dynamicimport`,
+    //   );
+    //   throw new TypeError('"dynamicImport.loading" 未配置');
+    // }
   });
 };
