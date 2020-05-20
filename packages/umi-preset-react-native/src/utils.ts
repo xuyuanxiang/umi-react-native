@@ -402,7 +402,7 @@ export async function generateConfigFiles(api: IApi): Promise<void> {
         useUserConfig: existsSync(userConfigFile),
       }),
     ),
-    asyncWriteTmpFile(api, join(cwd, 'index.js'), Mustache.render(INDEX_TPL, { isExpo })),
+    asyncWriteTmpFile(api, join(cwd, 'index.js'), INDEX_TPL),
   ];
 
   if (api.config.hual) {
