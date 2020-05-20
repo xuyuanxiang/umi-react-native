@@ -33,7 +33,7 @@ export default (api: IApi) => {
    *  使用 React Native CLI 时，可以加载成功；
    *  但 expo 中 的 metro 总是加载不到路径中包含"."的文件夹。
    */
-  api.modifyPaths((paths) => ({ ...paths, absTmpPath: join(absSrcPath, 'tmp') }));
+  api.modifyPaths((paths) => ({ ...paths, absTmpPath: winPath(join(absSrcPath, 'tmp')) }));
 
   // umi-preset-react-native 扩展配置
   api.describe({
