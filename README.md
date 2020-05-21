@@ -35,6 +35,7 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 ## 文档
 
 - [发布日志](/CHANGELOG.md)
+- [命令行工具](/docs/Command.md)
 - [配置](/docs/Configuration.md)
 - [路由](/docs/Router.md)
 - [FAQ](/docs/FAQ.md)

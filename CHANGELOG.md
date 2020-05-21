@@ -1,4 +1,6 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.2...v"></a> (2020-05-21)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.3...v"></a> (2020-05-21)
+
+### <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.2...v0.3.3">0.3.3</a> (2020-05-21)
 
 ### <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.1...v0.3.2">0.3.2</a> (2020-05-21)
 
