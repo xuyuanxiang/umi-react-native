@@ -10,8 +10,9 @@ _了解如何使用[umi](https://umijs.org/)开发 RN 应用，请移步至：_<
 
 ## 目录
 
-- [动机](#%E5%8A%A8%E6%9C%BA)
 - [安装](#%E5%AE%89%E8%A3%85)
+  - [React Native CLI](#react-native-cli)
+  - [expo](#expo)
 - [扩展配置](#%E6%89%A9%E5%B1%95%E9%85%8D%E7%BD%AE)
   - [reactNavigation](#reactnavigation)
 - [扩展运行时配置](#%E6%89%A9%E5%B1%95%E8%BF%90%E8%A1%8C%E6%97%B6%E9%85%8D%E7%BD%AE)
@@ -23,17 +24,16 @@ _了解如何使用[umi](https://umijs.org/)开发 RN 应用，请移步至：_<
   - [案例：单独为某个页面设置导航条](#%E6%A1%88%E4%BE%8B%E5%8D%95%E7%8B%AC%E4%B8%BA%E6%9F%90%E4%B8%AA%E9%A1%B5%E9%9D%A2%E8%AE%BE%E7%BD%AE%E5%AF%BC%E8%88%AA%E6%9D%A1)
 - [页面间跳转](#%E9%A1%B5%E9%9D%A2%E9%97%B4%E8%B7%B3%E8%BD%AC)
 - [页面间传递/接收参数](#%E9%A1%B5%E9%9D%A2%E9%97%B4%E4%BC%A0%E9%80%92%E6%8E%A5%E6%94%B6%E5%8F%82%E6%95%B0)
-- [DeepLink](#deeplink)
-
-## 动机
-
-- [react-navigation](https://reactnavigation.org/) 具备原生体验效果；
-- 还可以更好，突破自我，体现价值；
-- 工作中难免会遇到高要求的产品经理。
 
 ## 安装
 
-以下是[react-navigation](https://reactnavigation.org/)的依赖：
+在 RN 工程根目录下，使用 yarn 安装**umi-preset-react-navigation**：
+
+```npm
+yarn add umi-preset-react-navigation --dev
+```
+
+接下来，安装[react-navigation](https://reactnavigation.org/)的依赖：
 
 - react-native-reanimated
 - react-native-gesture-handler
@@ -41,9 +41,13 @@ _了解如何使用[umi](https://umijs.org/)开发 RN 应用，请移步至：_<
 - react-native-safe-area-context
 - @react-native-community/masked-view
 
-必须全部安装到 RN 工程本地：
+根据你所使用的 RN 开发工具：
 
-```yarn
+### React Native CLI
+
+使用`yarn`安装[react-navigation](https://reactnavigation.org/)的依赖：
+
+```npm
 yarn add react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
 ```
 
@@ -55,13 +59,17 @@ cd ios && pod install
 
 ![](https://cdn.xuyuanxiang.me/pod_install_d498622c.png)
 
-最后，使用 yarn 安装**umi-preset-react-navigation**：
-
-```npm
-yarn add umi-preset-react-navigation --dev
-```
+最后，
 
 _注意：因为添加了原生依赖，需要执行：`yarn ios`和`yarn android`重新编译和启动 iOS 和 Android 工程。_
+
+### expo
+
+使用`expo`安装[react-navigation](https://reactnavigation.org/)的依赖：
+
+```npm
+expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+```
 
 ## 扩展配置
 
@@ -290,11 +298,3 @@ export default function HomePage({ route }) {
 ```json
 { "key": "/home-WnnfQomYXFls0kS0v0lxo", "name": "/home", "params": { "name": "bar" } }
 ```
-
-## DeepLink
-
-> 什么是 DeepLink ？
->
-> 移动端深度链接。这是一种通过 URI：`schema://path?query` 链接到 app 特定位置的一种跳转技术，不单是简单地通过网页、app 等打开目标 app，还能达到利用传递标识携带参数跳转至不同页面的效果。
->
-> TODO: 还未来得及实践，案例未完善。
