@@ -59,8 +59,6 @@ cd ios && pod install
 
 ![](https://cdn.xuyuanxiang.me/pod_install_d498622c.png)
 
-最后，
-
 _注意：因为添加了原生依赖，需要执行：`yarn ios`和`yarn android`重新编译和启动 iOS 和 Android 工程。_
 
 ### expo
