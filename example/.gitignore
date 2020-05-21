@@ -59,8 +59,8 @@ buck-out/
 /ios/Pods/
 
 # umi-react-native
-.umi
-index.js
+tmp
+/index.js
 metro.config.js
 babel.config.js
 haul.config.js

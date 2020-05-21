@@ -17,15 +17,17 @@ export default makeConfig({
   bundles: {
     index: {
       entry: withPolyfills(
-        ['@@/core/plugin', ...{{{ dependencies }}}],
+        ['@@/umi', ...{{{ dependencies }}}],
         {
-          additionalSetupFiles: ['@@/react-native/polyfill'],
+          additionalSetupFiles: ['@@/umi'],
         }
       ),
+      dll: true,
+      type: 'indexed-ram-bundle',
       transform,
     },
     host: {
-      entry: '@/index.js',
+      entry: '@/index',
       dependsOn: ['index'],
       app: true,
       transform,

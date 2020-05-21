@@ -7,7 +7,11 @@
     "ios": "react-native run-ios",
     "watch": "umi g rn --dev",
     "start": "react-native start",
-    "test": "jest"
+    "pree2e:build-android": "umi g rn",
+    "pree2e:build-ios": "umi g rn",
+    "e2e:build-ios": "cd ios && rm -rf build && /usr/bin/xcodebuild -sdk iphonesimulator -scheme RNUMITestApp -workspace RNUMITestApp.xcworkspace -configuration Debug archive -archivePath \"build/RNUMITestApp.xcarchive\" CODE_SIGN_IDENTITY=\"\" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO",
+    "e2e:run-ios": "wdio ./ios.wdio.config.js",
+    "e2e:ios": "yarn e2e:build-ios && yarn e2e:run-ios"
   },
   "dependencies": {
     "@ant-design/react-native": "3.3.0",

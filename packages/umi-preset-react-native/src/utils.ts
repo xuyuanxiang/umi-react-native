@@ -105,6 +105,7 @@ export function transformRoutesToBundle(routes: IRoute[], parent?: IRoute): IBun
               : route.component,
           dependsOn: ['index'],
           app: true,
+          type: 'indexed-ram-bundle',
           transform: 'transform',
         });
       }
@@ -114,15 +115,18 @@ export function transformRoutesToBundle(routes: IRoute[], parent?: IRoute): IBun
 }
 
 export function bundlesToJSON(api: IApi, bundles: IBundle[]): string {
-  return JSON.stringify(
-    api.utils.lodash
-      .chain(bundles)
-      .map(({ name, ...bundle }) => ({ [name]: bundle }))
-      .reduce((prev, curr) => ({ ...prev, ...curr }))
-      .value(),
-  ).replace(/("transform"\s?:"transform")/g, (global, m1) => {
-    return global.replace(m1, 'transform');
-  });
+  if (Array.isArray(bundles) && bundles.length > 0) {
+    return JSON.stringify(
+      api.utils.lodash
+        .chain(bundles)
+        .map(({ name, ...bundle }) => ({ [name]: bundle }))
+        .reduce((prev, curr) => ({ ...prev, ...curr }))
+        .value(),
+    ).replace(/("transform"\s?:"transform")/g, (global, m1) => {
+      return global.replace(m1, 'transform');
+    });
+  }
+  return JSON.stringify({});
 }
 
 export async function routesToJSON(api: IApi) {
@@ -307,24 +311,26 @@ export async function generateConfigFiles(api: IApi): Promise<void> {
 
   const config = webpackConfig.toConfig();
 
-  const plugins: (string | [string, any, string?])[] = [
-    [
+  const plugins: (string | [string, any, string?])[] = [];
+  const presets: (string | [string, any, string?])[] = [];
+
+  if (api.config.haul) {
+    presets.push('module:@haul-bundler/babel-preset-react-native');
+  } else if (api.config.expo) {
+    presets.push('babel-preset-expo');
+  } else {
+    presets.push('module:metro-react-native-babel-preset');
+  }
+
+  if (!api.config.haul) {
+    plugins.push([
       require.resolve('babel-plugin-module-resolver'),
       {
         root: [paths.absSrcPath],
         extensions: ['.ts', '.tsx', '.native.js', '.native.jsx', '.esm.js', '.js', '.jsx', '.json'],
         alias: config.resolve.alias,
       },
-    ],
-  ];
-  const presets: (string | [string, any, string?])[] = [];
-
-  if (api.config.haul) {
-    presets.push('@haul-bundler/babel-preset-react-native');
-  } else if (api.config.expo) {
-    presets.push('babel-preset-expo');
-  } else {
-    presets.push('module:metro-react-native-babel-preset');
+    ]);
   }
 
   const presetOpts = await api.applyPlugins({
@@ -395,19 +401,10 @@ export async function generateConfigFiles(api: IApi): Promise<void> {
         isExpo,
       }),
     ),
-    asyncWriteTmpFile(
-      api,
-      join(cwd, 'metro.config.js'),
-      Mustache.render(METRO_CONFIG_TPL, {
-        watchFolders: [paths.absTmpPath],
-        userConfigFile: winPath(userConfigFile),
-        useUserConfig: existsSync(userConfigFile),
-      }),
-    ),
     asyncWriteTmpFile(api, join(cwd, 'index.js'), INDEX_TPL),
   ];
 
-  if (api.config.hual) {
+  if (api.config.haul) {
     const routes = await api.getRoutes();
     tasks.push(
       asyncWriteTmpFile(
@@ -431,6 +428,18 @@ export async function generateConfigFiles(api: IApi): Promise<void> {
             ),
           ),
           bundles: bundlesToJSON(api, transformRoutesToBundle(routes)),
+        }),
+      ),
+    );
+  } else {
+    tasks.push(
+      asyncWriteTmpFile(
+        api,
+        join(cwd, 'metro.config.js'),
+        Mustache.render(METRO_CONFIG_TPL, {
+          watchFolders: [paths.absTmpPath],
+          userConfigFile: winPath(userConfigFile),
+          useUserConfig: existsSync(userConfigFile),
         }),
       ),
     );
