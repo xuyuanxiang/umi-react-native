@@ -41,10 +41,11 @@ _上文未列出的[umi 配置](https://umijs.org/config)对 **umi-preset-react-
 
 ### umi-preset-react-native 扩展配置
 
-**umi-preset-react-native**会探测用户工程内的依赖，自动为下列开发工具生成所需的**配置文件**和**入口文件**。
+**umi-preset-react-native**会探测用户工程内的依赖，自动为下列工具生成所需的**配置文件**和**入口文件**。
 
 - [React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)
 - [expo](https://expo.io/)
+- [haul](https://github.com/callstack/haul)
 
 推荐在`.gitignore`文件末尾，追加以下内容：
 
@@ -54,10 +55,11 @@ tmp
 index.js
 metro.config.js
 babel.config.js
+haul.config.js
 
 ```
 
-如果你的 RN 工程只使用一种开发工具则无需任何配置。
+如果你的 RN 工程只使用一种开发工具则**无需任何配置**。
 
 如果你的 RN 工程安装了多种开发工具，则**必须**通过 umi 配置指定当前使用哪一个：
 
@@ -67,6 +69,17 @@ babel.config.js
 // .umirc.js
 export default {
   expo: true,
+  haul: false,
+};
+```
+
+使用[haul](https://github.com/callstack/haul)：
+
+```javascript
+// .umirc.js
+export default {
+  expo: false,
+  haul: true,
 };
 ```
 
@@ -76,6 +89,7 @@ export default {
 // .umirc.js
 export default {
   expo: false,
+  haul: false,
 };
 ```
 

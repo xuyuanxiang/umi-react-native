@@ -5,13 +5,8 @@
 使用 [umi@3.x](https://umijs.org/) 加速 [react-native](https://reactnative.dev/) 开发效率：
 
 - **零配置**，添加[DvaJS](https://dvajs.com/)，[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)... 等依赖后开箱即用；
+- 开发者只需要专注于页面 UI 和业务领域模型，所有编译相关配置，各种运行框架所需 HOC 和 ContextProvider 全部由 umi 搞定；
 - 路由方案默认使用 [umi](https://umijs.org/) 内置的[react-router](https://reacttraining.com/react-router/)，**可选**[react-navigation](https://reactnavigation.org/)。
-
-umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**和**构建**的之间，旨在引入 umi 的开发姿势来提升 RN 编程体验。
-
-下游可以使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)，也可以使用像[expo](https://expo.io/)这样的开发工具。
-
-**umi-preset-react-native**会探测用户工程内的依赖，自动为[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)和[expo](https://expo.io/)生成所需的**配置文件**和**入口文件**。
 
 | NPM 包 | 当前版本 | 简介 |
 | --- | --- | --- |
@@ -21,6 +16,20 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 
 ## 快速开始
 
+umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**和**构建**的之间，旨在引入 umi 的开发姿势来提升 RN 编程体验。
+
+下游可以使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)，可以使用第三方的[haul](https://github.com/callstack/haul)，也可以使用像[expo](https://expo.io/)这样的开发工具向原生层输出 JS Bundle。
+
+**umi-preset-react-native**会探测用户工程内的依赖，自动为[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands), [haul](https://github.com/callstack/haul), [expo](https://expo.io/)生成所需的**配置文件**和**入口文件**。
+
+根据你的喜好选择一款：
+
+- [React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)：RN 官方开发/打包工具；
+- [expo](https://expo.io/)：不需要搭建 iOS 和 Android 开发环境，工程目录干净清爽；
+- [haul](https://github.com/callstack/haul)：第三方 RN 打包器，使用 webpack。缺点是不支持：Fast Refresh、Live Reloading、Hot Replacement。
+
+如果全都要，请查看：[umi-preset-react-native 扩展配置](https://github.com/xuyuanxiang/umi-react-native/blob/master/docs/Configuration.md#umi-preset-react-native-%E6%89%A9%E5%B1%95%E9%85%8D%E7%BD%AE)。
+
 ### 使用 React Native CLI
 
 查看示例工程：[UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample#readme)
@@ -28,6 +37,10 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 ### 使用 expo
 
 查看示例工程：[UMIExpoExample](https://github.com/xuyuanxiang/UMIExpoExample#readme)
+
+### 使用 haul
+
+查看示例工程：[UMIHaulExample](https://github.com/xuyuanxiang/UMIHaulExample#readme)
 
 ## 文档
 
