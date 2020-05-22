@@ -5,6 +5,7 @@ const transform = ({ config }) => {
   return _.defaultsDeep({{{ webpackConfig }}}, config);
 };
 
+{{#bundles}}
 export default makeConfig({
   templates: {
     filename: {
@@ -35,5 +36,21 @@ export default makeConfig({
     ...{{{ bundles }}},
   },
 });
+{{/bundles}}
+{{^bundles}}
+export default makeConfig({
+  bundles: {
+    index: {
+      entry: withPolyfills(
+        '@/index',
+        {
+          additionalSetupFiles: ['@@/react-native/polyfill', '@@/core/plugin'],
+        }
+      ),
+      transform,
+    },
+  },
+});
+{{/bundles}}
 
 `;

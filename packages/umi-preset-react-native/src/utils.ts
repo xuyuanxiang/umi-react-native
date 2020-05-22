@@ -322,16 +322,14 @@ export async function generateConfigFiles(api: IApi): Promise<void> {
     presets.push('module:metro-react-native-babel-preset');
   }
 
-  if (!api.config.haul) {
-    plugins.push([
-      require.resolve('babel-plugin-module-resolver'),
-      {
-        root: [paths.absSrcPath],
-        extensions: ['.ts', '.tsx', '.native.js', '.native.jsx', '.esm.js', '.js', '.jsx', '.json'],
-        alias: config.resolve.alias,
-      },
-    ]);
-  }
+  plugins.push([
+    require.resolve('babel-plugin-module-resolver'),
+    {
+      root: [paths.absSrcPath],
+      extensions: ['.ts', '.tsx', '.native.js', '.native.jsx', '.esm.js', '.js', '.jsx', '.json'],
+      alias: config.resolve.alias,
+    },
+  ]);
 
   const presetOpts = await api.applyPlugins({
     type: api.ApplyPluginsType.modify,
@@ -401,59 +399,61 @@ export async function generateConfigFiles(api: IApi): Promise<void> {
         isExpo,
       }),
     ),
+    asyncWriteTmpFile(
+      api,
+      join(cwd, 'metro.config.js'),
+      Mustache.render(METRO_CONFIG_TPL, {
+        watchFolders: [paths.absTmpPath],
+        userConfigFile: winPath(userConfigFile),
+        useUserConfig: existsSync(userConfigFile),
+      }),
+    ),
     asyncWriteTmpFile(api, join(cwd, 'index.js'), INDEX_TPL),
   ];
 
   if (api.config.haul) {
-    const routes = await api.getRoutes();
-    tasks.push(
-      asyncWriteTmpFile(
-        api,
-        join(cwd, 'haul.config.js'),
-        Mustache.render(HAUL_CONFIG_TPL, {
-          haulPresetPath: winPath(detectHaulPresetPath()),
-          webpackConfig: JSON.stringify(config, null, 2),
-          dependencies: JSON.stringify(
-            lodash.keys(
-              lodash.omit(config.resolve.alias, [
-                '@',
-                '@@',
-                'react-dom',
-                'react-router-dom',
-                'regenerator-runtime',
-                './core/polyfill',
-                './core/routes',
-                '@@/core/routes',
-              ]),
+    if (api.config.dynamicImport && api.config.dynamicImport.loading) {
+      const routes = await api.getRoutes();
+      tasks.push(
+        asyncWriteTmpFile(
+          api,
+          join(cwd, 'haul.config.js'),
+          Mustache.render(HAUL_CONFIG_TPL, {
+            haulPresetPath: winPath(detectHaulPresetPath()),
+            webpackConfig: JSON.stringify(config, null, 2),
+            dependencies: JSON.stringify(
+              lodash.keys(
+                lodash.omit(config.resolve.alias, [
+                  '@',
+                  '@@',
+                  'react-dom',
+                  'react-router-dom',
+                  'regenerator-runtime',
+                  './core/polyfill',
+                  './core/routes',
+                  '@@/core/routes',
+                ]),
+              ),
             ),
-          ),
-          bundles: bundlesToJSON(api, transformRoutesToBundle(routes)),
-        }),
-      ),
-    );
-  } else {
-    tasks.push(
-      asyncWriteTmpFile(
-        api,
-        join(cwd, 'metro.config.js'),
-        Mustache.render(METRO_CONFIG_TPL, {
-          watchFolders: [paths.absTmpPath],
-          userConfigFile: winPath(userConfigFile),
-          useUserConfig: existsSync(userConfigFile),
-        }),
-      ),
-    );
+            bundles: bundlesToJSON(api, transformRoutesToBundle(routes)),
+          }),
+        ),
+      );
+    } else {
+      tasks.push(
+        asyncWriteTmpFile(
+          api,
+          join(cwd, 'haul.config.js'),
+          Mustache.render(HAUL_CONFIG_TPL, {
+            haulPresetPath: winPath(detectHaulPresetPath()),
+            webpackConfig: JSON.stringify(config, null, 2),
+          }),
+        ),
+      );
+    }
   }
 
   await Promise.all(tasks);
-}
-
-export async function generateFiles(api: IApi, watch?: boolean): Promise<() => void> {
-  const generateFiles = require(api.utils.resolve.sync('@umijs/preset-built-in/lib/plugins/commands/generateFiles', {
-    basedir: process.env.UMI_DIR,
-  })).default;
-
-  return generateFiles({ api, watch });
 }
 
 interface IGetUserLibDirOptions {
