@@ -18,17 +18,15 @@
 
 umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**和**构建**的之间，旨在引入 umi 的开发姿势来提升 RN 编程体验。
 
-下游可以使用[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)，可以使用第三方的[haul](https://github.com/callstack/haul)，也可以使用像[expo](https://expo.io/)这样的开发工具向原生层输出 JS Bundle。
-
-**umi-preset-react-native**会探测用户工程内的依赖，自动为[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands), [haul](https://github.com/callstack/haul), [expo](https://expo.io/)生成所需的**配置文件**和**入口文件**。
-
-根据你的喜好选择一款：
+下游可以使用：
 
 - [React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)：RN 官方开发/打包工具；
 - [expo](https://expo.io/)：不需要搭建 iOS 和 Android 开发环境，工程目录干净清爽；
 - [haul](https://github.com/callstack/haul)：第三方 RN 打包器，使用 webpack。缺点是不支持：Fast Refresh、Live Reloading、Hot Replacement。
 
-如果全都要，请查看：[umi-preset-react-native 扩展配置](https://github.com/xuyuanxiang/umi-react-native/blob/master/docs/Configuration.md#umi-preset-react-native-%E6%89%A9%E5%B1%95%E9%85%8D%E7%BD%AE)。
+**umi-preset-react-native**会探测用户工程内的依赖，自动为这些工具生成所需的**配置文件**和**入口文件**。
+
+通常你只需要选择其中一款，如果全都要请查看：[umi-preset-react-native 扩展配置](https://github.com/xuyuanxiang/umi-react-native/blob/master/docs/Configuration.md#umi-preset-react-native-%E6%89%A9%E5%B1%95%E9%85%8D%E7%BD%AE)。
 
 ### 使用 React Native CLI
 
