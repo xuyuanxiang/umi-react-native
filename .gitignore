@@ -159,6 +159,12 @@ packages/*/esm
 packages/*/lib
 *.tsbuildinfo
 
+# BUCK
+buck-out/
+\.buckd/
+*.keystore
+!debug.keystore
+
 # Android/IntelliJ
 #
 build/
@@ -166,3 +172,28 @@ build/
 .gradle
 local.properties
 *.iml
+
+# Bundle artifact
+*.jsbundle
+
+# Xcode
+#
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+
+# CocoaPods
+/ios/Pods/
