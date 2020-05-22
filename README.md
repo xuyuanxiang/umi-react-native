@@ -5,7 +5,7 @@
 使用 [umi@3.x](https://umijs.org/) 加速 [react-native](https://reactnative.dev/) 开发效率：
 
 - **零配置**，添加[DvaJS](https://dvajs.com/)，[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)... 等依赖后开箱即用；
-- 只需要专注页面 UI 和业务领域模型的实现，所有编译配置，各种框架所需 HOC 和 ContextProvider 全部由 umi 搞定；
+- 只需要专注页面 UI 和业务领域模型的实现，所有编译配置，框架运行所需 HOC 和 Context Provider 全部由 umi 搞定；
 - 路由方案默认使用 [umi](https://umijs.org/) 内置的[react-router](https://reacttraining.com/react-router/)，**可选**[react-navigation](https://reactnavigation.org/)。
 
 | NPM 包 | 当前版本 | 简介 |
