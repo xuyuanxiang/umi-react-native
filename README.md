@@ -50,7 +50,7 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 
 ## 测试
 
-**需要搭建原生开发环境：[Setting up the development environment](https://reactnative.dev/docs/environment-setup)。**
+**需要搭建 iOS 和 Android 开发环境：[Setting up the development environment](https://reactnative.dev/docs/environment-setup)。**
 
 执行 iOS 端到端测试：
 
@@ -58,10 +58,14 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 cd example && yarn e2e:ios
 ```
 
+_[ios.wdio.config.js](example/ios.wdio.config.js)配置文件中的`deviceName`和`platformVersion`需要根据本机实际情况配置。_
+
 执行 Android 端到端测试：
 
 ```npm
 cd example && yarn e2e:android
 ```
+
+_[android.wdio.config.js](example/android.wdio.config.js)配置文件中的`deviceName`和`platformVersion`需要根据本机实际情况配置。_
 
 测试用例：[example/e2e](example/e2e/app.spec.js)。
