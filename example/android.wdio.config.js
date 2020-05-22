@@ -11,8 +11,9 @@ exports.config = {
     {
       maxInstances: 1,
       platformName: 'Android',
-      deviceName: 'Android Emulator',
-      app: path.resolve(__dirname, './android/app/build/outputs/apk/debug/app-debug.apk'),
+      platformVersion: '10.0',
+      deviceName: 'Nexus 6 API 29',
+      app: path.join(__dirname, 'android/app/build/outputs/apk/debug/app-debug.apk'),
       automationName: 'UiAutomator2',
     },
   ],
