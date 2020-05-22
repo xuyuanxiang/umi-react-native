@@ -1,17 +1,19 @@
 import React from 'react';
-import { Link } from 'umi';
+import { Link, connect } from 'umi';
 import { View, Text } from 'react-native';
 import { getTestProps } from '../services';
 
-export default function IndexPage() {
+function IndexPage({ greeting }) {
   return (
     <View>
       <Link to="/home?foo=bar" component={Text} {...getTestProps('linkToHome')}>
         Go to home
       </Link>
-      <Link to="/login" component={Text} {...getTestProps('linkToLogin')}>
-        Go to login
-      </Link>
+      <Text {...getTestProps('greetingText')}>{greeting}</Text>
     </View>
   );
 }
+
+const ConnectedIndexPage = connect(({ foo: { greeting } }) => ({ greeting }))(IndexPage);
+
+export default ConnectedIndexPage;

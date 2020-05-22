@@ -2,5 +2,4 @@ node_modules
 packages/*/lib
 types
 *.config.js
-.umi
-example/index.js
+example
