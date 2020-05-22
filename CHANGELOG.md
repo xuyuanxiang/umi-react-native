@@ -1,4 +1,14 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.3...v"></a> (2020-05-21)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.4...v"></a> (2020-05-22)
+
+### <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.3...v0.3.4">0.3.4</a> (2020-05-22)
+
+
+### 新功能
+
+* support haul (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/fa230d2">fa230d2</a>)
+
+
+
 
 ### <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.2...v0.3.3">0.3.3</a> (2020-05-21)
 
