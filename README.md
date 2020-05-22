@@ -21,7 +21,7 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 下游可以使用：
 
 - [React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)：RN 官方开发/打包工具；
-- [expo](https://expo.io/)：不需要搭建 iOS 和 Android 开发环境，工程目录干净清爽；
+- [expo](https://expo.io/)：不需要搭建 iOS 和 Android 开发环境，工程目录干净清爽，添加 RN 依赖方便快捷。
 - [haul](https://github.com/callstack/haul)：第三方 RN 打包器，使用 webpack。缺点是不支持：Fast Refresh、Live Reloading、Hot Replacement。
 
 **umi-preset-react-native**会探测用户工程内的依赖，自动为这些工具生成所需的**配置文件**和**入口文件**。
