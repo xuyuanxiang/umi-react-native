@@ -1,6 +1,6 @@
 # umi-react-native
 
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+![](https://img.shields.io/npm/dm/umi-preset-react-native?style=flat-square) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) 
 
 使用 [umi@3.x](https://umijs.org/) 加速 [react-native](https://reactnative.dev/) 开发效率：
 
