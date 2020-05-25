@@ -1,6 +1,6 @@
 import { IApi } from 'umi';
 import { existsSync } from 'fs';
-import { getUserLib } from '../../utils';
+import { getUserLib } from '../utils';
 
 export default (api: IApi) => {
   const EXPO_PATH = getUserLib({

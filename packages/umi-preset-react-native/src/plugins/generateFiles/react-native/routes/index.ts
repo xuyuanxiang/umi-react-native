@@ -1,8 +1,9 @@
 import { IApi } from 'umi';
-import { createFormatter, routesToJSON } from '../../../utils';
+import { createFormatter } from '../../../utils';
+import routesToJSON from './routesToJSON';
 
 const ROUTES_TPL = `import {ApplyPluginsType, dynamic} from 'umi';
-import Multibundle from 'umi-preset-react-native';
+import Multibundle from 'umi-react-native-multibundle';
 import { plugin } from '@@/core/plugin';
 
 const routes = {{#routes}}{{{ routes }}}{{/routes}}{{^routes}}{}{{/routes}};

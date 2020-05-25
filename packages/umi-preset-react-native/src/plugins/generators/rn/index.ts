@@ -1,6 +1,7 @@
 import { IApi } from 'umi';
 import { join } from 'path';
-import { asyncClean, generateConfigFiles } from '../../utils';
+import { asyncClean } from '../../utils';
+import generateConfigFiles from './generateConfigFiles';
 
 interface IRNGeneratorArguments {
   dev?: boolean;

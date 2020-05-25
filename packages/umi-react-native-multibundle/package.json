@@ -1,11 +1,12 @@
 {
-  "name": "umi-preset-react-native",
+  "name": "umi-react-native-multibundle",
   "version": "0.3.4",
-  "description": "umi-preset-react-native",
+  "description": "umi-react-native-multibundle",
   "keywords": [
     "umi",
     "umijs",
-    "react-native"
+    "react-native",
+    "multibundle"
   ],
   "author": {
     "name": "xuyuanxiang",
@@ -14,17 +15,18 @@
   },
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
   "license": "MIT",
-  "engines": {
-    "node": ">=10.x"
-  },
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
-  "types": "lib/index.d.ts",
+  "main": "lib",
+  "typings": "lib/index.native.d.ts",
+  "types": "lib/index.native.d.ts",
   "directories": {
     "lib": "lib"
   },
   "files": [
-    "lib"
+    "android",
+    "ios",
+    "lib",
+    "src",
+    "umi-react-native-multibundle.podspec"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -41,14 +43,6 @@
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "peerDependencies": {
-    "react-native": ">=0.59.0 <1.0.x",
-    "umi": "^3.0.0"
-  },
-  "dependencies": {
-    "@types/react-router-native": "5.1.0",
-    "@umijs/runtime": "^3.0.0",
-    "babel-plugin-module-resolver": "4.0.0",
-    "memoizerific": "1.11.3",
-    "react-router-native": "5.1.2"
+    "react-native": ">=0.60.0"
   }
 }

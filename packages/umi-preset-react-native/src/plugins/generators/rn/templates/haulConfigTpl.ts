@@ -1,4 +1,7 @@
-export default `import _ from 'lodash';
+export default `/**
+ * @file umi 生成临时文件
+ */
+import _ from 'lodash';
 import { makeConfig, withPolyfills } from '{{{ haulPresetPath }}}';
 
 const transform = ({ config }) => {
@@ -24,13 +27,7 @@ export default makeConfig({
         }
       ),
       dll: true,
-      type: 'indexed-ram-bundle',
-      transform,
-    },
-    host: {
-      entry: '@/index',
-      dependsOn: ['index'],
-      app: true,
+      // type: 'indexed-ram-bundle',
       transform,
     },
     ...{{{ bundles }}},
