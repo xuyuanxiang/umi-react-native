@@ -90,25 +90,29 @@ interface IBundle {
   transform?: string;
 }
 
-export function transformRoutesToBundle(routes: IRoute[], parent?: IRoute): IBundle[] {
+export function getBundleNameFrom(component: string): string {
+  const bundleName = component.replace(/^@\//, '').replace(/\.[tj]sx?$/, '');
+  if (bundleName === 'pages/index') {
+    return 'host';
+  }
+  return bundleName;
+}
+
+export function transformRoutesToBundle(routes: IRoute[]): IBundle[] {
   const bundles: IBundle[] = [];
   for (const route of routes) {
-    if (Array.isArray(route.routes)) {
-      bundles.push(...transformRoutesToBundle(route.routes, route));
-    } else {
-      if (route.component) {
-        bundles.push({
-          name: route.component,
-          entry:
-            parent && parent.component
-              ? { entryFiles: [route.component], setupFiles: [parent.component] }
-              : route.component,
-          dependsOn: ['index'],
-          app: true,
-          type: 'indexed-ram-bundle',
-          transform: 'transform',
-        });
-      }
+    if (route.component) {
+      bundles.push({
+        name: getBundleNameFrom(route.component),
+        entry: route.component,
+        dependsOn: ['index'],
+        app: true,
+        // type: 'indexed-ram-bundle',
+        transform: 'transform',
+      });
+    }
+    if (Array.isArray(route.routes) && route.routes.length > 0) {
+      bundles.push(...transformRoutesToBundle(route.routes));
     }
   }
   return bundles;
@@ -185,14 +189,15 @@ export async function routesToJSON(api: IApi) {
         if (isFunctionComponent(value)) return value;
         if (api.config.dynamicImport) {
           const [component] = value.split(SEPARATOR);
+          const bundleName = getBundleNameFrom(component);
           let loading = '';
           if (api.config.dynamicImport.loading) {
             loading = `,loading: require('${api.config.dynamicImport.loading}').default`;
           }
           return `dynamic({
           loader: async () => {
-            await Multibundle.loadBundle('${component}');
-            return Multibundle.getBundleExport('${component}');
+            await Multibundle.loadBundle('${bundleName}');
+            return Multibundle.getBundleExport('${bundleName}');
           }${loading}})`;
         } else {
           return `require('${value}').default`;

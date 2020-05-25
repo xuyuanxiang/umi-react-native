@@ -24,13 +24,7 @@ export default makeConfig({
         }
       ),
       dll: true,
-      type: 'indexed-ram-bundle',
-      transform,
-    },
-    host: {
-      entry: '@/index',
-      dependsOn: ['index'],
-      app: true,
+      // type: 'indexed-ram-bundle',
       transform,
     },
     ...{{{ bundles }}},
