@@ -1,0 +1,48 @@
+{
+  "name": "umi-react-native-multibundle",
+  "version": "0.3.4",
+  "description": "umi-react-native-multibundle",
+  "keywords": [
+    "umi",
+    "umijs",
+    "react-native",
+    "multibundle"
+  ],
+  "author": {
+    "name": "xuyuanxiang",
+    "email": "hi@xuyuanxiang.cn",
+    "url": "https://xuyuanxiang.me/about/"
+  },
+  "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
+  "license": "MIT",
+  "main": "lib/index",
+  "typings": "lib/index.native.d.ts",
+  "types": "lib/index.native.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib",
+    "android",
+    "ios",
+    "src"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuyuanxiang/umi-react-native.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "bugs": {
+    "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
+  },
+  "peerDependencies": {
+    "react-native": ">=0.60.0",
+    "umi": "^3.0.0"
+  }
+}
