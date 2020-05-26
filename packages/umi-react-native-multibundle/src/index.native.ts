@@ -40,7 +40,6 @@ class Multibundle {
     if (!this.isBundleLoaded(bundleName)) {
       throw new Error(`Bundle ${bundleName} was not loaded`);
     }
-    console.warn('getBundleExport: bundleName=', bundleName, 'default=', global[bundleName].default);
     return global[bundleName].default;
   }
 
