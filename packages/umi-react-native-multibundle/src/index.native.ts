@@ -67,11 +67,10 @@ class Multibundle {
         throw new Error(`Cannot find bundle id for bundle name ${bundleName}`);
       }
 
-      console.warn('loadBundle:', bundleName, ' bundleId:', bundleId);
       try {
         await MultibundleNativeModule.loadBundle(bundleName, bundleId);
       } catch (e) {
-        console.warn('loadBundle:', bundleName, ' failed:', e);
+        console.error(`Cannot load bundle: ${bundleName}`, e);
       }
 
       return bundleId;

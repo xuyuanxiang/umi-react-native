@@ -55,6 +55,7 @@ export default (api: IApi) => {
     'react-native-reanimated',
     'react-native-safe-area-context',
     'react-native-screens',
+    'umi-renderer-react-navigation',
   ];
 
   /**

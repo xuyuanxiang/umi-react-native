@@ -50,15 +50,7 @@ export default (api: IApi) => {
 
   api.addRuntimePlugin(() => [join(api.paths.absTmpPath || '', 'react-navigation', 'runtime')]);
 
-  api.modifyRendererPath(() =>
-    winPath(
-      getUserLibDir(
-        'umi-renderer-react-navigation/package.json',
-        dirname(require.resolve('umi-renderer-react-navigation/package.json')),
-        true,
-      ),
-    ),
-  );
+  api.modifyRendererPath(() => 'umi-renderer-react-navigation');
 
   api.onGenerateFiles(() => {
     const dynamicImport = api.config.dynamicImport;

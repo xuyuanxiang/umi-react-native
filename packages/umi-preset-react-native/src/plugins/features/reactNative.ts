@@ -68,17 +68,26 @@ export default (api: IApi) => {
     return config;
   });
 
-  api.addProjectFirstLibraries(() => [
-    { name: 'react-native', path: winPath(REACT_NATIVE_PATH) },
-    {
-      name: 'react-router-dom',
-      path: 'react-router-native',
-    },
-    {
-      name: 'react-router-native',
-      path: winPath(getUserLib({ api, target: 'react-router-native/package.json', dir: true })),
-    },
-  ]);
+  api.addProjectFirstLibraries(() => {
+    const libs = [
+      { name: 'react-native', path: winPath(REACT_NATIVE_PATH) },
+      {
+        name: 'react-router-dom',
+        path: 'react-router-native',
+      },
+      {
+        name: 'react-router-native',
+        path: winPath(getUserLib({ api, target: 'react-router-native/package.json', dir: true })),
+      },
+    ];
+    if (api.config.dynamicImport && api.config.dynamicImport.loading) {
+      libs.push({
+        name: 'umi-react-native-multibundle',
+        path: winPath(getUserLib({ api, target: 'umi-react-native-multibundle/package.json', dir: true })),
+      });
+    }
+    return libs;
+  });
 
   // 启动时检查
   api.onStart(() => {

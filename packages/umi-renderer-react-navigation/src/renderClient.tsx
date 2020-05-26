@@ -8,6 +8,7 @@ interface IRouterComponentProps {
   history: any;
   ssrProps?: object;
   defaultTitle?: string;
+  dynamicImport?: boolean;
 }
 
 interface IOpts extends IRouterComponentProps {

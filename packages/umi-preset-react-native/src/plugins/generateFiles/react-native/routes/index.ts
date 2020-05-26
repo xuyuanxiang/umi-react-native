@@ -8,8 +8,6 @@ import { plugin } from '@@/core/plugin';
 
 const routes = {{#routes}}{{{ routes }}}{{/routes}}{{^routes}}{}{{/routes}};
 
-console.info('Multibundle:', Multibundle);
-
 plugin.applyPlugins({
   key: 'patchRoutes',
   type: ApplyPluginsType.event,
