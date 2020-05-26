@@ -1,4 +1,14 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.4.0...v"></a> (2020-05-26)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.4.1...v"></a> (2020-05-26)
+
+### <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.4.0...v0.4.1">0.4.1</a> (2020-05-26)
+
+
+### 新功能
+
+* ios multibundle supporting (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/9666ab4">9666ab4</a>)
+
+
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.4...v0.4.0">0.4.0</a> (2020-05-26)
 
