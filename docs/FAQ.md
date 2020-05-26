@@ -34,7 +34,21 @@ yarn react-native unlink && yarn react-native link
 
 [facebook/react-native#issue-1924](https://github.com/facebook/react-native/issues/1924)
 
-终极清缓存方案：
+#### 初级清缓存方案
+
+MacOS
+
+```shell
+watchman watch-del-all && yarn start --reset-cache
+```
+
+Window
+
+```shell
+yarn start --reset-cache
+```
+
+#### 终极清缓存方案
 
 MacOS
 
