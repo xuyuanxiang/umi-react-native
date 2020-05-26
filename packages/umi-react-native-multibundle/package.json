@@ -15,17 +15,18 @@
   },
   "homepage": "https://github.com/xuyuanxiang/umi-react-native#readme",
   "license": "MIT",
-  "main": "lib/index",
+  "main": "lib",
   "typings": "lib/index.native.d.ts",
   "types": "lib/index.native.d.ts",
   "directories": {
     "lib": "lib"
   },
   "files": [
-    "lib",
     "android",
     "ios",
-    "src"
+    "lib",
+    "src",
+    "umi-react-native-multibundle.podspec"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,7 +43,6 @@
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "peerDependencies": {
-    "react-native": ">=0.60.0",
-    "umi": "^3.0.0"
+    "react-native": ">=0.60.0"
   }
 }

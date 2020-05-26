@@ -2,7 +2,7 @@ import { IApi } from 'umi';
 import { join } from 'path';
 import { readFileSync } from 'fs';
 import { EOL } from 'os';
-import { assertExists, getUserLib } from '../../utils';
+import { assertExists, getUserLib } from '../utils';
 
 export default (api: IApi) => {
   const {

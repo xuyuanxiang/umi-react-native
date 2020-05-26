@@ -40,6 +40,7 @@ class Multibundle {
     if (!this.isBundleLoaded(bundleName)) {
       throw new Error(`Bundle ${bundleName} was not loaded`);
     }
+    console.warn('getBundleExport: bundleName=', bundleName, 'default=', global[bundleName].default);
     return global[bundleName].default;
   }
 
@@ -66,7 +67,12 @@ class Multibundle {
         throw new Error(`Cannot find bundle id for bundle name ${bundleName}`);
       }
 
-      await MultibundleNativeModule.loadBundle(bundleName, bundleId);
+      console.warn('loadBundle:', bundleName, ' bundleId:', bundleId);
+      try {
+        await MultibundleNativeModule.loadBundle(bundleName, bundleId);
+      } catch (e) {
+        console.warn('loadBundle:', bundleName, ' failed:', e);
+      }
 
       return bundleId;
     }

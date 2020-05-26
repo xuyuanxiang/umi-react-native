@@ -28,7 +28,7 @@ public class MultibundleModule extends ReactContextBaseJavaModule {
               this.reactContext.getAssets(),
               "assets://" + bundleName + ".android.bundle",
               false);
-            catalystInstance.registerSegment(bundleId, "assets://" + bundleName + ".android.bundle");
+//            catalystInstance.registerSegment(bundleId, "assets://" + bundleName + ".android.bundle");
             promise.resolve(null);
         } catch(Exception e) {
             promise.reject(e);

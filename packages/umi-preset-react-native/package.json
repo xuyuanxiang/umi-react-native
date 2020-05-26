@@ -17,17 +17,14 @@
   "engines": {
     "node": ">=10.x"
   },
-  "main": "lib",
+  "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
   "directories": {
     "lib": "lib"
   },
   "files": [
-    "lib",
-    "android",
-    "ios",
-    "umi-preset-react-native.podspec"
+    "lib"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
