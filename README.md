@@ -43,10 +43,6 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 
 ### 切分多 bundle
 
-开发阶段使用：[React Native CLI](https://github.com/react-native-community/cli/blob/master/docs/commands.md#commands)；
-
-构建离线包使用：[haul](https://github.com/callstack/haul)拆包。
-
 查看示例工程：[UMIHaulExample#feature/multibundle](https://github.com/xuyuanxiang/UMIHaulExample/tree/feature/multibundle)
 
 ## 文档
