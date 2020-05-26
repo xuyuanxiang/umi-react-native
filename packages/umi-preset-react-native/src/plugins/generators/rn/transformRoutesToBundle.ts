@@ -9,10 +9,7 @@ export default function transformRoutesToBundle(routes: IRoute[]): IBundle[] {
       bundles.push({
         name: getBundleNameFrom(route.component),
         entry: route.component,
-        dependsOn: ['index'],
         app: true,
-        // type: 'indexed-ram-bundle',
-        transform: 'transform',
       });
     }
     if (Array.isArray(route.routes) && route.routes.length > 0) {

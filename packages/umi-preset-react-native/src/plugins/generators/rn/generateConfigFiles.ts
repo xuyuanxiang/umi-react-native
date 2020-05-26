@@ -3,7 +3,6 @@ import { join } from 'path';
 import { BABEL_CONFIG_TPL, HAUL_CONFIG_TPL, INDEX_TPL, METRO_CONFIG_TPL } from './templates';
 import { existsSync } from 'fs';
 import { asyncWriteTmpFile } from '../../utils';
-import bundlesToJSON from './bundlesToJSON';
 import transformRoutesToBundle from './transformRoutesToBundle';
 
 interface IImportPluginOpts {
@@ -201,7 +200,7 @@ export default async function generateConfigFiles(api: IApi): Promise<void> {
                 ]),
               ),
             ),
-            bundles: bundlesToJSON(api, transformRoutesToBundle(routes)),
+            bundles: JSON.stringify(transformRoutesToBundle(routes)),
           }),
         ),
       );

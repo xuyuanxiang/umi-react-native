@@ -14,24 +14,43 @@ export default makeConfig({
     multiBundle: 2,
   },
   bundles: {
-    index: {
-      entry: withPolyfills('@/index'),
-      dll: true,
-      // type: 'indexed-ram-bundle',
-      transform,
+    index: (env) => {
+      if (env.platform === 'ios') {
+        return { entry: './index' };
+      } else {
+        return {
+          entry: withPolyfills(
+            ['@@/umi', ...{{{ dependencies }}}],
+            {
+              additionalSetupFiles: ['@@/umi'],
+             }
+          ),
+          dll: true,
+          transform,
+        };
+      }
     },
-    main: {
-      entry: withPolyfills(
-        ['@@/umi', ...{{{ dependencies }}}],
-        {
-          additionalSetupFiles: ['@@/umi'],
-        }
-      ),
-      dll: true,
-      // type: 'indexed-ram-bundle',
-      transform,
+    main: (env) => {
+      if (env.platform === 'android') {
+        return { entry: './index' };
+      } else {
+        return {
+          entry: withPolyfills(
+            ['@@/umi', ...{{{ dependencies }}}],
+            {
+              additionalSetupFiles: ['@@/umi'],
+            }
+          ),
+          dll: true,
+          transform,
+        };
+      }
     },
-    ...{{{ bundles }}},
+    ...{{{ bundles }}}.map(({name, ...rests}) => ({[name]: (env) => ({
+      ...rests,
+      transform,
+      dependsOn: env.platform === 'android' ? ['index'] : ['main'],
+    })})).reduce((curr,prev) => ({...curr, ...prev})),
   },
 });
 {{/bundles}}
