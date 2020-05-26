@@ -10,16 +10,17 @@ const transform = ({ config }) => {
 
 {{#bundles}}
 export default makeConfig({
-  templates: {
-    filename: {
-      ios: '[bundleName].ios.bundle',
-    },
-  },
   features: {
     multiBundle: 2,
   },
   bundles: {
     index: {
+      entry: withPolyfills('@/index'),
+      dll: true,
+      // type: 'indexed-ram-bundle',
+      transform,
+    },
+    main: {
       entry: withPolyfills(
         ['@@/umi', ...{{{ dependencies }}}],
         {

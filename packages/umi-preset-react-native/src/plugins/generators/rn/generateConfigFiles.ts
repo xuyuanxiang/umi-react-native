@@ -168,7 +168,13 @@ export default async function generateConfigFiles(api: IApi): Promise<void> {
         useUserConfig: existsSync(userConfigFile),
       }),
     ),
-    asyncWriteTmpFile(api, join(cwd, 'index.js'), INDEX_TPL),
+    asyncWriteTmpFile(
+      api,
+      join(cwd, 'index.js'),
+      Mustache.render(INDEX_TPL, {
+        dynamicImport: Boolean(api.config.dynamicImport),
+      }),
+    ),
   ];
 
   if (api.config.haul) {

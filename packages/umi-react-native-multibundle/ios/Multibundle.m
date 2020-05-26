@@ -17,7 +17,7 @@ RCT_EXPORT_METHOD(loadBundle:(NSString *)bundleName
 
     @try
     {
-        [bridge registerSegmentWithId:[bundleId unsignedIntegerValue] path:[[NSBundle mainBundle] pathForResource:bundleName ofType:@"ios.bundle"]];
+        [bridge registerSegmentWithId:[bundleId unsignedIntegerValue] path:[[NSBundle mainBundle] pathForResource:bundleName ofType:@"jsbundle"]];
 
         resolve(nil);
 
