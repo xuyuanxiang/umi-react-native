@@ -7,7 +7,7 @@
 - **零配置**，添加[DvaJS](https://dvajs.com/)，[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)... 等依赖后开箱即用；
 - 只需要专注页面 UI 和业务领域模型的实现，所有编译配置，框架运行所需 HOC 和 Context Provider 全部由 umi 搞定；
 - 路由方案默认使用 [umi](https://umijs.org/) 内置的[react-router](https://reacttraining.com/react-router/)，**可选**[react-navigation](https://reactnavigation.org/)；
-- 启用[dynamicImport](https://umijs.org/config#dynamicimport)配置后，支持切分多 bundle，运行时从应用本地按需加载 JS bundle 文件。
+- 启用[dynamicImport](https://umijs.org/config#dynamicimport)配置后，支持切分多 bundle，运行时从应用本地按需加载 JS bundle 文件。示例：[UMIHaulExample#feature/multibundle](https://github.com/xuyuanxiang/UMIHaulExample/tree/feature/multibundle)
 
 | NPM 包 | 当前版本 | 简介 |
 | --- | --- | --- |
