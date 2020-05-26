@@ -1,4 +1,18 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.4...v"></a> (2020-05-22)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.4.0...v"></a> (2020-05-26)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.4...v0.4.0">0.4.0</a> (2020-05-26)
+
+
+### 新功能
+
+* support multiply bundles (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/0c0c366">0c0c366</a>)
+
+
+
+* 支持使用haul切分多bundle (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/c45623e">c45623e</a>)
+
+
+
 
 ### <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.3.3...v0.3.4">0.3.4</a> (2020-05-22)
 
