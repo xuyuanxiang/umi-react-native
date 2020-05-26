@@ -7,7 +7,7 @@
 - **零配置**，添加[DvaJS](https://dvajs.com/)，[@ant-design/react-native](https://rn.mobile.ant.design/index-cn)... 等依赖后开箱即用；
 - 只需要专注页面 UI 和业务领域模型的实现，所有编译配置，框架运行所需 HOC 和 Context Provider 全部由 umi 搞定；
 - 路由方案默认使用 [umi](https://umijs.org/) 内置的[react-router](https://reacttraining.com/react-router/)，**可选**[react-navigation](https://reactnavigation.org/)；
-- 启用[dynamicImport](https://umijs.org/config#dynamicimport)配置后，支持切分多 bundle，运行时从应用本地按需加载 JS bundle 文件。示例：[UMIHaulExample#feature/multibundle](https://github.com/xuyuanxiang/UMIHaulExample/tree/feature/multibundle)
+- 启用[dynamicImport](https://umijs.org/config#dynamicimport)配置后，支持拆包，运行时从本地按需加载 JS bundle 文件。查看：[拆包示例](#拆包)
 
 | NPM 包 | 当前版本 | 简介 |
 | --- | --- | --- |
@@ -41,7 +41,14 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 
 查看示例工程：[UMIHaulExample](https://github.com/xuyuanxiang/UMIHaulExample#readme)
 
-### 切分多 bundle
+### 拆包
+
+**umi-preset-react-native**默认情况下（使用缺省配置）不会进行拆包。
+
+只有当 RN 工程满足下列条件才会拆包：
+
+- 安装了[haul](https://github.com/callstack/haul)打包器；
+- 开启了[dynamicImport](https://umijs.org/config#dynamicimport)配置，并且实现了自定义的 loading。
 
 查看示例工程：[UMIHaulExample#feature/multibundle](https://github.com/xuyuanxiang/UMIHaulExample/tree/feature/multibundle)
 
