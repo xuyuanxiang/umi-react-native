@@ -3,6 +3,9 @@ import { View, Text } from 'react-native';
 import { getTestProps } from '../services';
 
 function HomePage({ route, navigation }) {
+  if (__DEV__) {
+    console.info('HomePage render:', route);
+  }
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: () => <Text {...getTestProps('homeTitle')}>{HomePage.title}</Text>,

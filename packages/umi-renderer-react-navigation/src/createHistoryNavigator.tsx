@@ -76,22 +76,28 @@ function HistoryNavigator({
   React.useEffect(
     () =>
       history.listen((location: Location<any>, action: Action): void => {
-        switch (action) {
-          case 'POP':
-            if (navigation.canGoBack()) {
-              navigation.dispatch(StackActions.pop());
-            }
-            break;
-          case 'PUSH':
-            navigation.dispatch(StackActions.push(location.pathname, parse(location.search.replace('?', ''))));
-            break;
-          case 'REPLACE':
-            navigation.dispatch(StackActions.replace(location.pathname, parse(location.search.replace('?', ''))));
-            break;
+        if (__DEV__) {
+          console.info('history change:', state);
+        }
+        if (state.routeNames.includes(location.pathname)) {
+          switch (action) {
+            case 'POP':
+              if (navigation.canGoBack()) {
+                navigation.dispatch(StackActions.pop());
+              }
+              break;
+            case 'PUSH':
+              navigation.dispatch(StackActions.push(location.pathname, parse(location.search.replace('?', ''))));
+              break;
+            case 'REPLACE':
+              navigation.dispatch(StackActions.replace(location.pathname, parse(location.search.replace('?', ''))));
+              break;
+          }
         }
       }),
     [navigation, history],
   );
+
   return <StackView {...rest} descriptors={descriptors} state={state} navigation={navigation} />;
 }
 

@@ -43,6 +43,6 @@
     "url": "https://github.com/xuyuanxiang/umi-react-native/issues"
   },
   "peerDependencies": {
-    "react-native": ">=0.60.0"
+    "react-native": ">=0.62.0"
   }
 }
