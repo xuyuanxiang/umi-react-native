@@ -1,4 +1,18 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.4.2...v"></a> (2020-05-26)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.5.0...v"></a> (2020-05-29)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.4.2...v0.5.0">0.5.0</a> (2020-05-29)
+
+
+### 新功能
+
+* 支持在umi配置中，通过`haul.extraBundles`字段增加用户工程自定义分包；支持在app.[tj]s中，通过运行时配置自定义页面转场过渡动画。 (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/affdfcc">affdfcc</a>)
+
+
+
+* 支持添加自定义的分包，支持自定义页面转场过渡动画 (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/fded536">fded536</a>)
+
+
+
 
 ### <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.4.1...v0.4.2">0.4.2</a> (2020-05-26)
 
