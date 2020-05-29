@@ -27,6 +27,10 @@ export {
   useGestureHandlerRef,
   useCardAnimation,
   useHeaderHeight,
+  CardStyleInterpolators,
+  HeaderStyleInterpolators,
+  TransitionSpecs,
+  TransitionPresets,
 } from '{{{ reactNavigationStackPath }}}';
 
 `;

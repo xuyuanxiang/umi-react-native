@@ -1,6 +1,6 @@
 # umi-react-native
 
-![](https://img.shields.io/npm/dm/umi-preset-react-native?style=flat-square) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+![NPM Monthly Downloads](https://img.shields.io/npm/dm/umi-preset-react-native?style=flat-square) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![iOS E2E tests](https://github.com/xuyuanxiang/umi-react-native/workflows/ios/badge.svg)](https://github.com/xuyuanxiang/umi-react-native/actions?query=workflow%3AiOS) [![Android E2E tests](https://github.com/xuyuanxiang/umi-react-native/workflows/android/badge.svg)](https://github.com/xuyuanxiang/umi-react-native/actions?query=workflow%3AAndroid)
 
 使用 [umi@3.x](https://umijs.org/) 加速 [react-native](https://reactnative.dev/) 开发效率：
 

@@ -76,9 +76,6 @@ function HistoryNavigator({
   React.useEffect(
     () =>
       history.listen((location: Location<any>, action: Action): void => {
-        if (__DEV__) {
-          console.info('history change:', state);
-        }
         if (state.routeNames.includes(location.pathname)) {
           switch (action) {
             case 'POP':
@@ -97,7 +94,6 @@ function HistoryNavigator({
       }),
     [navigation, history],
   );
-
   return <StackView {...rest} descriptors={descriptors} state={state} navigation={navigation} />;
 }
 

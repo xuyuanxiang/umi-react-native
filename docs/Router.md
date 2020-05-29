@@ -11,6 +11,8 @@
     - [getReactNavigationInitialState](#getreactnavigationinitialstate)
     - [getReactNavigationInitialIndicator](#getreactnavigationinitialindicator)
     - [onReactNavigationStateChange](#onreactnavigationstatechange)
+    - [getReactNavigationDefaultScreenOptions](#getreactnavigationdefaultscreenoptions)
+    - [案例：自定义页面转场动画](#%E6%A1%88%E4%BE%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB)
     - [案例：持久化导航状态](#%E6%A1%88%E4%BE%8B%E6%8C%81%E4%B9%85%E5%8C%96%E5%AF%BC%E8%88%AA%E7%8A%B6%E6%80%81)
   - [扩展路由属性](#%E6%89%A9%E5%B1%95%E8%B7%AF%E7%94%B1%E5%B1%9E%E6%80%A7)
     - [案例：单独为某个页面设置导航条](#%E6%A1%88%E4%BE%8B%E5%8D%95%E7%8B%AC%E4%B8%BA%E6%9F%90%E4%B8%AA%E9%A1%B5%E9%9D%A2%E8%AE%BE%E7%BD%AE%E5%AF%BC%E8%88%AA%E6%9D%A1)
@@ -147,6 +149,52 @@ export default {
 ##### onReactNavigationStateChange
 
 异步（async）函数，用于订阅 react-navigation 状态变更通知，在每次路由变动时，接收最新状态。
+
+##### getReactNavigationDefaultScreenOptions
+
+为所有路由设置[屏幕属性](https://reactnavigation.org/docs/stack-navigator/#options)。
+
+##### 案例：自定义页面转场动画
+
+```javascript
+import { TransitionPresets } from 'umi';
+
+export function getReactNavigationDefaultScreenOptions() {
+  /**
+   * 查看 screenOptions 全字段：https://reactnavigation.org/docs/stack-navigator/#options
+   *
+   * 页面转场动画相关设置，可选值：
+   * - ScaleFromCenterAndroid: Standard Android navigation transition when opening or closing an Activity on Android 10 (Q).
+   * - RevealFromBottomAndroid: Standard Android navigation transition when opening or closing an Activity on Android 9 (Pie).
+   * - FadeFromBottomAndroid: Standard Android navigation transition when opening or closing an Activity on Android < 9 (Oreo).
+   * - SlideFromRightIOS: Standard iOS navigation transition
+   * - ModalSlideFromBottomIOS: Standard iOS navigation transition for modals.
+   * - ModalPresentationIOS: Standard iOS modal presentation style (introduced in iOS 13).
+   * 根据当前平台（iOS/Android）自动探测：
+   * - DefaultTransition: Default navigation transition for the current platform.
+   * - ModalTransition: Default modal transition for the current platform.
+   */
+
+  // 统一 iOS/Android 页面动画为从右侧滑入
+  return {
+    ...TransitionPresets.SlideFromRightIOS,
+  };
+
+  // 也可以返回一个 thunk 函数
+  // return ({ route }) => {
+  //   console.info('screenOptions:', route);
+  //   // 可以单独为某个路由设置：
+  //   if (route.name === '/login') {
+  //     // 比如为 /pages/login.js 页面设置为从底部滑入
+  //     return {
+  //       ...TransitionPresets.ModalSlideFromBottomIOS,
+  //     };
+  //   }
+  //
+  //   return { ...TransitionPresets.SlideFromRightIOS };
+  // };
+}
+```
 
 ##### 案例：持久化导航状态
 

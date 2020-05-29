@@ -56,6 +56,7 @@ export default (api: IApi) => {
   api.modifyDefaultConfig((config) => {
     // mountElementId 如果有值，会进到 @umijs/renderer-react 调用 react-dom 的 if 代码分支，在 RN 中会报错。
     config.mountElementId = '';
+    config.publicPath = '';
 
     // 'browser' 和 'hash' 类型的 history 需要 DOM，在 RN 中运行会报错。
     config.history = lodash.defaultsDeep(
@@ -80,7 +81,7 @@ export default (api: IApi) => {
         path: winPath(getUserLib({ api, target: 'react-router-native/package.json', dir: true })),
       },
     ];
-    if (api.config.dynamicImport && api.config.dynamicImport.loading) {
+    if (api.config.dynamicImport) {
       libs.push({
         name: 'umi-react-native-multibundle',
         path: winPath(getUserLib({ api, target: 'umi-react-native-multibundle/package.json', dir: true })),
@@ -121,22 +122,10 @@ export default (api: IApi) => {
       throw new TypeError('"history.type" 配置错误');
     }
 
-    // if (api.config.dynamicImport) {
-    //   api.logger.error('在 RN 环境中暂不支持："dynamicImport"功能。');
-    //   throw new TypeError('在 RN 环境中暂不支持："dynamicImport"功能。');
-    // }
-
-    if (api.config.haul) {
-      if (api.config.dynamicImport && !api.config.dynamicImport.loading) {
-        api.logger.error(
-          `在 RN 环境中启用"dynamicImport"功能时，必须实现自定义的"loading"！${EOL}因为 umi 默认 loading 使用了 HTML 标签，在 RN 中运行会报错！${EOL}查看如何配置自定义 loading：https://umijs.org/config#dynamicimport`,
-        );
-        throw new TypeError('"dynamicImport.loading" 未配置');
-      }
-    } else {
+    if (!api.config.haul) {
       if (api.config.dynamicImport) {
-        api.logger.error('在 RN 环境中暂不支持："dynamicImport"功能。');
-        throw new TypeError('在 RN 环境中暂不支持："dynamicImport"功能。');
+        api.logger.error('"dynamicImport"功能需要安装 haul 打包器：yarn add @haul-bundler/cli --dev && yarn haul init');
+        throw new TypeError('haul 未安装');
       }
     }
   });

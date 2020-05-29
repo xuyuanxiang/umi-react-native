@@ -10,6 +10,13 @@ const transform = ({ config }) => {
 
 {{#bundles}}
 export default makeConfig({
+  {{#dev}}
+  templates: {
+    filename: {
+      ios: '[bundleName].ios.bundle',
+    },
+  },
+  {{/dev}}
   features: {
     multiBundle: 2,
   },
@@ -49,6 +56,7 @@ export default makeConfig({
     ...{{{ bundles }}}.map(({name, ...rests}) => ({[name]: (env) => ({
       ...rests,
       transform,
+      app: true,
       dependsOn: env.platform === 'android' ? ['index'] : ['main'],
     })})).reduce((curr,prev) => ({...curr, ...prev})),
   },

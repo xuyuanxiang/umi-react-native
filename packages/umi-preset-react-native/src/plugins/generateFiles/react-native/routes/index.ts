@@ -3,8 +3,8 @@ import { createFormatter } from '../../../utils';
 import routesToJSON from './routesToJSON';
 
 const ROUTES_TPL = `import {ApplyPluginsType, dynamic} from 'umi';
-import Multibundle from 'umi-react-native-multibundle';
 import { plugin } from '@@/core/plugin';
+import { dynamicImportBundle } from './exports';
 
 const routes = {{#routes}}{{{ routes }}}{{/routes}}{{^routes}}{}{{/routes}};
 
@@ -24,7 +24,7 @@ export { routes };
  */
 export default (api: IApi) => {
   api.chainWebpack((memo) => {
-    if (api.config.dynamicImport && api.config.dynamicImport.loading) {
+    if (api.config.dynamicImport) {
       memo.resolve.alias.set('./core/routes', './react-native/routes');
       memo.resolve.alias.set('@@/core/routes', '@@/react-native/routes');
     }
@@ -32,7 +32,7 @@ export default (api: IApi) => {
   });
 
   api.onGenerateFiles(async () => {
-    if (api.config.dynamicImport && api.config.dynamicImport.loading) {
+    if (api.config.dynamicImport) {
       api.writeTmpFile({
         path: 'react-native/routes.ts',
         content: createFormatter(api)(

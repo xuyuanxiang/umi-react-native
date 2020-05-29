@@ -9,7 +9,6 @@ interface IRouterComponentProps {
   ssrProps?: object;
   defaultTitle?: string;
   dynamicImport?: boolean;
-  initialRouteName?: string;
 }
 
 interface IOpts extends IRouterComponentProps {
@@ -21,13 +20,7 @@ export function renderClient(opts: IOpts) {
     type: ApplyPluginsType.modify,
     key: 'rootContainer',
     initialValue: (
-      <Navigation
-        initialRouteName={opts.initialRouteName}
-        history={opts.history}
-        routes={opts.routes}
-        plugin={opts.plugin}
-        defaultTitle={opts.defaultTitle}
-      />
+      <Navigation history={opts.history} routes={opts.routes} plugin={opts.plugin} defaultTitle={opts.defaultTitle} />
     ),
     args: {
       history: opts.history,

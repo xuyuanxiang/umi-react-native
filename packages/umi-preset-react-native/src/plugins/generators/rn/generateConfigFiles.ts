@@ -177,7 +177,7 @@ export default async function generateConfigFiles(api: IApi): Promise<void> {
   ];
 
   if (api.config.haul) {
-    if (api.config.dynamicImport && api.config.dynamicImport.loading) {
+    if (api.config.dynamicImport) {
       const routes = await api.getRoutes();
       tasks.push(
         asyncWriteTmpFile(
@@ -200,7 +200,10 @@ export default async function generateConfigFiles(api: IApi): Promise<void> {
                 ]),
               ),
             ),
-            bundles: JSON.stringify(transformRoutesToBundle(routes)),
+            dev: process.env.NODE_ENV === 'development',
+            bundles: JSON.stringify(
+              lodash.uniqBy(lodash.concat(transformRoutesToBundle(routes), api.config?.haul?.extraBundles), 'name'),
+            ),
           }),
         ),
       );

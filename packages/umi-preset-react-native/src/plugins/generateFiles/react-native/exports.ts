@@ -1,11 +1,18 @@
 import { IApi } from 'umi';
 
 const TEMPLATE = `{{#dynamicImport}}
+import {dynamic} from 'umi';
 import Multibundle from 'umi-react-native-multibundle';
+import loading from './loading';
 
-export async function dynamicImportBundle(bundleName: string) {
-  await Multibundle.loadBundle(bundleName);
-  return Multibundle.getBundleExport(bundleName);
+export function dynamicImportBundle(bundleName: string) {
+  return dynamic({
+    loader: async () => {
+      await Multibundle.loadBundle(bundleName);
+      return Multibundle.getBundleExport(bundleName);
+    },
+    loading,
+  })
 }
 
 {{/dynamicImport}}
@@ -22,6 +29,7 @@ export default (api: IApi) => {
       path: 'react-native/exports.ts',
       content: api.utils.Mustache.render(TEMPLATE, {
         dynamicImport: Boolean(api.config.dynamicImport),
+        // publicPath: api.config.publicPath,
       }),
     });
   });

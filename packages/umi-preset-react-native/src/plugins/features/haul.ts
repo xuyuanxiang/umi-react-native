@@ -15,7 +15,25 @@ export default (api: IApi) => {
     config: {
       default: existsSync(HAUL_CLI_PATH),
       schema(joi) {
-        return joi.boolean().optional();
+        return joi
+          .alternatives(
+            joi.boolean(),
+            joi
+              .object({
+                extraBundles: joi
+                  .array()
+                  .items(
+                    joi.object({
+                      name: joi.string().required(),
+                      entry: joi.alternatives(joi.string(), joi.array().items(joi.string())).required(),
+                    }),
+                  )
+                  .optional(),
+              })
+              .description('添加用户工程自定义分包'),
+          )
+          .optional()
+          .description('Haul 配置项');
       },
     },
   });

@@ -57,16 +57,7 @@ export default async function routesToJSON(api: IApi) {
         if (isFunctionComponent(value)) return value;
         if (api.config.dynamicImport) {
           const [component] = value.split(SEPARATOR);
-          const bundleName = getBundleNameFrom(component);
-          let loading = '';
-          if (api.config.dynamicImport.loading) {
-            loading = `,loading: require('${api.config.dynamicImport.loading}').default`;
-          }
-          return `dynamic({
-          loader: async () => {
-            await Multibundle.loadBundle('${bundleName}');
-            return Multibundle.getBundleExport('${bundleName}');
-          }${loading}})`;
+          return `dynamicImportBundle('${getBundleNameFrom(component)}')`;
         } else {
           return `require('${value}').default`;
         }

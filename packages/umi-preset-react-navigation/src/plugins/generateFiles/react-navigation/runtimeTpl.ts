@@ -1,5 +1,5 @@
 export default `import React from 'react';
-{{^loading}}import {View, Text} from 'react-native';{{/loading}}
+import loading from '@@/react-native/loading';
 import {ApplyPluginsType, dynamic} from 'umi';
 import {NavigationContainer} from '{{{ reactNavigationPath }}}';
 
@@ -9,17 +9,7 @@ export function rootContainer(container, {plugin}) {
       loading: plugin.applyPlugins({
         key: 'getReactNavigationInitialIndicator',
         type: ApplyPluginsType.modify,
-        initialValue: {{#loading}}{{{ loading }}}{{/loading}}{{^loading}}({ error, isLoading }: { error: Error; isLoading: boolean }) => {
-          if (__DEV__) {
-            if (isLoading) {
-              return React.createElement(Text, null, 'Loading...');
-            }
-            if (error) {
-              return React.createElement(View, null, React.createElement(Text, null, error.message), React.createElement(Text, null, error.stack));
-            }
-          }
-          return React.createElement(Text, null, 'Loading...');
-        }{{/loading}},
+        initialValue: loading,
       }),
       loader: async () => {
         const initialState = await plugin.applyPlugins({

@@ -1,4 +1,4 @@
-name: Android Build
+name: Android E2E Tests
 
 on:
   push:
@@ -6,16 +6,22 @@ on:
       - v*
 
 jobs:
-  build-android:
+  test-android:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: example
     steps:
       - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
       - name: Install npm dependencies
-        run: cd example && yarn install
-      - name: Test Android
+        run: yarn install --no-progress --non-interactive
+      - name: Run e2e tests
         run: yarn e2e:android
-      - name: Build Android Release
-        run: yarn release:android
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:

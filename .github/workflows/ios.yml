@@ -1,4 +1,4 @@
-name: Android E2E Tests
+name: iOS E2E Tests
 
 on:
   push:
@@ -6,14 +6,23 @@ on:
       - v*
 
 jobs:
-  test-android:
-    runs-on: ubuntu-latest
+  test-ios:
+    runs-on: macOS-latest
     defaults:
       run:
         shell: bash
         working-directory: example
     steps:
       - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.x'
+      - name: Install cocoapods
+        run: gem install cocoapods
       - name: Install npm dependencies
         run: yarn install
       - name: Run e2e tests

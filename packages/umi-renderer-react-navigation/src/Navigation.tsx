@@ -1,17 +1,17 @@
 import React, { ComponentType, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 import {
-  ApplyPluginsType,
-  Plugin,
-  History,
-  Redirect,
   __RouterContext as RouterContext,
-  matchPath,
-  IRouteProps,
+  ApplyPluginsType,
+  History,
   IRouteComponentProps,
+  IRouteProps,
+  matchPath,
+  Plugin,
+  Redirect,
 } from 'umi';
 import { matchRoutes } from 'react-router-config';
-import { Route, NavigationHelpers } from '@react-navigation/native';
+import { NavigationHelpers, Route } from '@react-navigation/native';
 import urlJoin from 'url-join';
 import { nanoid } from 'nanoid/non-secure';
 import { createHistoryNavigator } from './createHistoryNavigator';
@@ -24,8 +24,6 @@ interface INavigationProps {
   history: History<any>;
   defaultTitle?: string;
   extraProps?: object;
-  initialRouteName?: string;
-  initialParams?: object;
   [key: string]: any;
 }
 
@@ -46,17 +44,50 @@ export interface IScreenComponentProps extends IRouteComponentProps {
   navigation: NavigationHelpers<any, any>;
 }
 
+function flattenRoutes(routes?: IRouteProps[], parent?: IScreen): IScreen[] {
+  if (!Array.isArray(routes)) return [];
+  const screens: IScreen[] = [];
+  for (let idx = 0; idx < routes.length; idx++) {
+    const route = routes[idx];
+    const { key: routeKey, path, exact, component, strict, redirect, wrappers, routes: children, ...options } = route;
+    const name = parent && parent.name ? urlJoin(parent.name, path || '/') : path || '/';
+    const screenKey = routeKey || nanoid();
+    const screen: IScreen = {
+      key: screenKey,
+      name,
+      component: function ScreenComponent(props) {
+        if (redirect) {
+          return <Redirect from={path} to={redirect} exact={exact} strict={strict} />;
+        }
+        const children = component ? React.createElement(component, props) : null;
+        return parent && parent.component ? React.createElement(parent.component, props, children) : children;
+      },
+      options: {
+        ...options,
+        routeMatchOpts: route,
+      },
+    };
+    if (Array.isArray(children) && children.length > 0) {
+      screens.push(...flattenRoutes(children, screen));
+    } else {
+      screens.push(screen);
+    }
+  }
+  return screens;
+}
+
 export function Navigation(props: INavigationProps) {
-  const {
-    history,
-    plugin,
-    initialRouteName = '/',
-    initialParams = {},
-    routes,
-    defaultTitle,
-    extraProps = {},
-    ...rests
-  } = props;
+  const { history, plugin, routes, defaultTitle, extraProps = {}, ...rests } = props;
+
+  const initialRouteName = plugin.applyPlugins({
+    key: 'getReactNavigationInitialRouteName',
+    type: ApplyPluginsType.modify,
+    initialValue: '/',
+  });
+  const screenOptions = plugin.applyPlugins({
+    key: 'getReactNavigationDefaultScreenOptions',
+    type: ApplyPluginsType.modify,
+  });
 
   useEffect(() => {
     function routeChangeHandler(location: any, action?: string) {
@@ -77,12 +108,14 @@ export function Navigation(props: INavigationProps) {
     return history.listen(routeChangeHandler);
   }, [history]);
 
+  const screens = flattenRoutes(routes);
+
   if (__DEV__) {
-    if (!Array.isArray(routes) || routes.length === 0) {
+    if (!screens || screens.length === 0) {
       return (
-        <Navigator initialRouteName={initialRouteName} history={history}>
+        <Navigator initialRouteName="notFound" history={history}>
           <Screen
-            name={initialRouteName}
+            name="notFound"
             component={() => (
               <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <Text style={{ fontWeight: 'bold', fontSize: 17, color: '#f4333c' }}>404</Text>
@@ -97,91 +130,42 @@ export function Navigation(props: INavigationProps) {
 
   const initialMatch = {
     path: initialRouteName,
-    params: initialParams,
+    params: {},
     isExact: true,
     url: initialRouteName,
   };
 
-  function renderRoutes(routes?: IRouteProps[], parent?: IRouteProps) {
-    const results: JSX.Element[] = [];
-    if (routes && routes.length > 0) {
-      for (const route of routes) {
-        const {
-          key: routeKey,
-          path,
-          exact,
-          component,
-          strict,
-          redirect,
-          wrappers,
-          title,
-          routes: children,
-          ...options
-        } = route;
-        const name = parent && parent.path ? urlJoin(parent.path, path || '/') : path || '/';
-        results.push(
-          <Screen key={routeKey || nanoid()} name={name} options={{ ...options, title: title || defaultTitle }}>
-            {(props) => {
-              const context = {
-                history,
-                location: history.location,
-                match: matchPath(history.location.pathname, route) || initialMatch,
-              };
-
-              if (redirect) {
-                return (
-                  <RouterContext.Provider value={context}>
-                    <Redirect from={path} to={redirect} exact={exact} strict={strict} />
-                  </RouterContext.Provider>
-                );
-              }
-
-              if (Array.isArray(children) && children.length > 0) {
-                if (__DEV__) {
-                  console.info('nested navigator:', route);
-                }
-                return (
-                  <RouterContext.Provider value={context}>
-                    <Navigator history={history}>{renderRoutes(children, route)}</Navigator>
-                  </RouterContext.Provider>
-                );
-              }
-
-              const newProps = {
-                ...rests,
-                ...extraProps,
-                ...context,
-                ...props,
-              };
-
-              const child = component ? React.createElement(component, newProps) : null;
-              let el = parent && parent.component ? React.createElement(parent.component, props, child) : child;
-              if (Array.isArray(wrappers)) {
-                let len = wrappers.length - 1;
-                while (len >= 0) {
-                  el = React.createElement(wrappers[len], newProps, el);
-                  len -= 1;
-                }
-              }
-              return React.createElement(RouterContext.Provider, { value: context }, el);
-            }}
-          </Screen>,
-        );
-      }
-    }
-    return results;
-  }
-
-  function renderRoute(route: IRouteProps) {
-    if (Array.isArray(route.routes) && route.routes.length > 0) {
-      return <Navigator history={history}>{renderRoutes(route.routes, route)}</Navigator>;
-    } else {
-
-    }
-  }
-
-  if (__DEV__) {
-    console.info('Navigation render');
-  }
-  return <>{renderRoutes(routes)}</>;
+  return (
+    <Navigator initialRouteName={initialRouteName} history={history} screenOptions={screenOptions}>
+      {screens.map(({ key, component: Component, options: { routeMatchOpts, title, ...options }, ...rest }, idx) => (
+        <Screen
+          {...rest}
+          key={key || `screen_${idx}`}
+          options={{
+            ...options,
+            title: title || defaultTitle,
+          }}
+        >
+          {(props) => {
+            const context = {
+              history,
+              location: history.location,
+              match: matchPath(history.location.pathname, routeMatchOpts) || initialMatch,
+            };
+            const newProps = {
+              ...rests,
+              ...extraProps,
+              ...context,
+              ...props,
+            };
+            return (
+              <RouterContext.Provider value={context}>
+                <Component {...newProps} />
+              </RouterContext.Provider>
+            );
+          }}
+        </Screen>
+      ))}
+    </Navigator>
+  );
 }

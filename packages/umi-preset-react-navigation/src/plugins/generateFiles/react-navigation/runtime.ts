@@ -46,6 +46,8 @@ export default (api: IApi) => {
     'onReactNavigationStateChange',
     'getReactNavigationInitialState',
     'getReactNavigationInitialIndicator',
+    'getReactNavigationDefaultScreenOptions',
+    'getReactNavigationInitialRouteName',
   ]);
 
   api.addRuntimePlugin(() => [join(api.paths.absTmpPath || '', 'react-navigation', 'runtime')]);
@@ -53,7 +55,6 @@ export default (api: IApi) => {
   api.modifyRendererPath(() => 'umi-renderer-react-navigation');
 
   api.onGenerateFiles(() => {
-    const dynamicImport = api.config.dynamicImport;
     api.writeTmpFile({
       path: 'react-navigation/runtime.ts',
       content: Mustache.render(runtimeTpl, {
@@ -64,10 +65,6 @@ export default (api: IApi) => {
             true,
           ),
         ),
-        loading:
-          typeof dynamicImport === 'object' && typeof dynamicImport.loading === 'string'
-            ? `require('${dynamicImport.loading}').default`
-            : '',
         theme: JSON.stringify(api.config?.reactNavigation?.theme || {}, null, 2),
       }),
     });
