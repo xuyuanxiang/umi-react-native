@@ -1,12 +1,15 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { BackButton } from 'umi';
 import { getTestProps } from '../services';
 
 export default function Layout({ children }) {
   return (
     <BackButton>
-      <View {...getTestProps('basicLayoutView')}>{children}</View>
+      <View {...getTestProps('basicLayoutView')}>
+        <Text {...getTestProps('textInBasicLayout')}>basic layout</Text>
+        {children}
+      </View>
     </BackButton>
   );
 }

@@ -2,6 +2,8 @@ name: Android E2E Tests
 
 on:
   push:
+    branches:
+      - master
     tags:
       - v*
 
@@ -14,10 +16,10 @@ jobs:
         working-directory: example
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 14.x
+      - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 12.x
       - name: Install npm dependencies
         run: yarn install --no-progress --non-interactive
       - name: Run e2e tests
@@ -25,5 +27,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: app-release.apk
-          path: android/app/build/outputs/apk/release/
+          name: app-debug.apk
+          path: android/app/build/outputs/apk/debug/

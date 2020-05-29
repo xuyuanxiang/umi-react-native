@@ -12,6 +12,9 @@ function IndexPage({ greeting }) {
       <Link to="/home?foo=bar" component={Text} {...getTestProps('linkToHome')}>
         Go to home
       </Link>
+      <Link to="/profile/settings/feedback" component={Text} {...getTestProps('linkToFeedback')}>
+        Go to Feedback
+      </Link>
       <Text {...getTestProps('greetingText')}>{greeting}</Text>
     </View>
   );

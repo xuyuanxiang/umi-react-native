@@ -1,34 +1,48 @@
 /* global $ */
 
-const timeout = 10000;
-
 describe('RNUMITestApp', () => {
-  it('should render IndexPage', () => {
+  beforeEach(() => {
     const basicLayoutView = $('~basicLayoutView');
-    expect(basicLayoutView.isDisplayed()).toBeTruthy();
+    basicLayoutView.waitForDisplayed();
 
+    const textInBasicLayout = $('~textInBasicLayout');
+    textInBasicLayout.waitForDisplayed();
+    expect(textInBasicLayout.getText()).toBe('basic layout');
+  });
+
+  it('should render IndexPage', () => {
     const linkToHome = $('~linkToHome');
-    linkToHome.waitForDisplayed({ timeout });
+    linkToHome.waitForDisplayed();
     expect(linkToHome.getText()).toBe('Go to home');
 
     const greetingText = $('~greetingText');
-    greetingText.waitForDisplayed({ timeout });
+    greetingText.waitForDisplayed();
     expect(greetingText.getText()).toBe('Hello, umi!');
   });
 
   it('should navigate to HomePage with query params', () => {
-    const basicLayoutView = $('~basicLayoutView');
-    expect(basicLayoutView.isDisplayed()).toBeTruthy();
-
     const linkToHome = $('~linkToHome');
     linkToHome.click();
 
     const homeTitle = $('~homePageTitle');
-    homeTitle.waitForDisplayed({ timeout });
+    homeTitle.waitForDisplayed();
     expect(homeTitle.getText()).toBe('Home Page');
 
-    const homeText = $('~homePageText');
-    homeText.waitForDisplayed({ timeout });
-    expect(homeText.getText()).toBe(JSON.stringify({ foo: 'bar' }));
+    const textInHomePage = $('~textInHomePage');
+    textInHomePage.waitForDisplayed();
+    expect(textInHomePage.getText()).toBe(JSON.stringify({ foo: 'bar' }));
+
   });
+
+  // it('should navigate to nested deeply FeedbackPage', () => {
+  //   const linkToFeedback = $('~linkToFeedback');
+  //   linkToFeedback.click();
+  //
+  //   const feedbackLayoutView = $('~feedbackLayoutView');
+  //   feedbackLayoutView.waitForDisplayed();
+  //
+  //   const textInFeedBackPage = $('~textInFeedBackPage');
+  //   textInFeedBackPage.waitForDisplayed();
+  //   expect(textInFeedBackPage.getText()).toBe('feedback');
+  // });
 });

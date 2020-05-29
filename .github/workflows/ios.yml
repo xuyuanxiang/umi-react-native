@@ -2,6 +2,8 @@ name: iOS E2E Tests
 
 on:
   push:
+    branches:
+      - master
     tags:
       - v*
 
@@ -14,10 +16,10 @@ jobs:
         working-directory: example
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 14.x
+      - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 12.x
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.x'
@@ -25,10 +27,7 @@ jobs:
         run: gem install cocoapods
       - name: Install npm dependencies
         run: yarn install
+      - name: Install ios dependencies
+        run: cd ios && pod install && cd -
       - name: Run e2e tests
-        run: yarn e2e:android
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: app-release.apk
-          path: android/app/build/outputs/apk/release/
+        run: yarn e2e:ios

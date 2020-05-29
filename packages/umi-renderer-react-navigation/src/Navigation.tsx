@@ -12,7 +12,6 @@ import {
 } from 'umi';
 import { matchRoutes } from 'react-router-config';
 import { NavigationHelpers, Route } from '@react-navigation/native';
-import urlJoin from 'url-join';
 import { nanoid } from 'nanoid/non-secure';
 import { createHistoryNavigator } from './createHistoryNavigator';
 
@@ -50,11 +49,10 @@ function flattenRoutes(routes?: IRouteProps[], parent?: IScreen): IScreen[] {
   for (let idx = 0; idx < routes.length; idx++) {
     const route = routes[idx];
     const { key: routeKey, path, exact, component, strict, redirect, wrappers, routes: children, ...options } = route;
-    const name = parent && parent.name ? urlJoin(parent.name, path || '/') : path || '/';
     const screenKey = routeKey || nanoid();
     const screen: IScreen = {
       key: screenKey,
-      name,
+      name: path || '/',
       component: function ScreenComponent(props) {
         if (redirect) {
           return <Redirect from={path} to={redirect} exact={exact} strict={strict} />;

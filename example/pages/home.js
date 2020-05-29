@@ -11,7 +11,7 @@ function HomePage({ route, navigation }) {
 
   return (
     <View>
-      <Text {...getTestProps('homePageText')}>{JSON.stringify(route.params)}</Text>
+      <Text {...getTestProps('textInHomePage')}>{JSON.stringify(route.params)}</Text>
     </View>
   );
 }
