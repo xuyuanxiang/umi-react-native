@@ -1,0 +1,23 @@
+name: Android Build
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install npm dependencies
+        run: cd example && yarn install
+      - name: Test Android
+        run: yarn e2e:android
+      - name: Build Android Release
+        run: yarn release:android
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-release.apk
+          path: android/app/build/outputs/apk/release/

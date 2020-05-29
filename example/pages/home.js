@@ -3,17 +3,15 @@ import { View, Text } from 'react-native';
 import { getTestProps } from '../services';
 
 function HomePage({ route, navigation }) {
-  if (__DEV__) {
-    console.info('HomePage render:', route);
-  }
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: () => <Text {...getTestProps('homeTitle')}>{HomePage.title}</Text>,
+      headerTitle: () => <Text {...getTestProps('homePageTitle')}>{HomePage.title}</Text>,
     });
   }, [navigation]);
+
   return (
     <View>
-      <Text {...getTestProps('homeText')}>{JSON.stringify(route.params)}</Text>
+      <Text {...getTestProps('homePageText')}>{JSON.stringify(route.params)}</Text>
     </View>
   );
 }
