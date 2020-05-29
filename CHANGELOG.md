@@ -1,4 +1,14 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.5.0...v"></a> (2020-05-29)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.5.1...v"></a> (2020-05-29)
+
+### <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.5.0...v0.5.1">0.5.1</a> (2020-05-29)
+
+
+### Bug 修复
+
+* 修复umi-renderer-react-navigation route path 转换 screen name 时，错误了添加了父级路径的问题 (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/beda6ea">beda6ea</a>)
+
+
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.4.2...v0.5.0">0.5.0</a> (2020-05-29)
 
