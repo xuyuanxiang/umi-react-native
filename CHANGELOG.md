@@ -1,4 +1,14 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.5.1...v"></a> (2020-05-29)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.5.2...v"></a> (2020-05-29)
+
+### <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.5.1...v0.5.2">0.5.2</a> (2020-05-29)
+
+
+### Bug 修复
+
+* 解决用户自定义haul.extraBundles为空时，导致haul构建错误的问题 (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/76700ca">76700ca</a>)
+
+
+
 
 ### <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.5.0...v0.5.1">0.5.1</a> (2020-05-29)
 

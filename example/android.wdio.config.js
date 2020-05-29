@@ -13,7 +13,7 @@ exports.config = {
       platformName: 'Android',
       platformVersion: '10.0',
       deviceName: 'Nexus 6 API 29',
-      app: path.join(__dirname, 'android/app/build/outputs/apk/debug/app-debug.apk'),
+      app: path.join(__dirname, 'android/app/build/outputs/apk/release/app-release.apk'),
       automationName: 'UiAutomator2',
     },
   ],
