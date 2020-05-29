@@ -202,7 +202,13 @@ export default async function generateConfigFiles(api: IApi): Promise<void> {
             ),
             dev: process.env.NODE_ENV === 'development',
             bundles: JSON.stringify(
-              lodash.uniqBy(lodash.concat(transformRoutesToBundle(routes), api.config?.haul?.extraBundles), 'name'),
+              lodash.uniqBy(
+                lodash.concat(
+                  transformRoutesToBundle(routes),
+                  lodash.isArray(api.config?.haul?.extraBundles) ? api.config.haul.extraBundles : [],
+                ),
+                'name',
+              ),
             ),
           }),
         ),
