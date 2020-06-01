@@ -29,7 +29,7 @@ jobs:
       - name: Create android AVD
         run: $ANDROID_HOME/tools/bin/avdmanager create avd --force --name TestingAVD --package "system-images;android-29;google_apis;x86" --tag google_apis --device pixel
       - name: Start android emulator
-        run: nohup $ANDROID_HOME/emulator/emulator @TestingAVD -cores 1 -gpu auto -accel on -memory 1024 -no-audio -no-snapshot -no-boot-anim -no-window -logcat *:W > /dev/null 2>&1 &
+        run: nohup $ANDROID_HOME/emulator/emulator @TestingAVD > /dev/null 2>&1 &
       - name: Build android
         run: yarn e2e:build-android
       - name: Generate umi temp files
