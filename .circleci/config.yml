@@ -49,7 +49,7 @@ workflows:
   test:
     jobs:
       - checkout_code
-      - install_npm_dependencies
+      - install_npm_dependencies:
           requires:
             - checkout_code
       - rn/metro_start:
