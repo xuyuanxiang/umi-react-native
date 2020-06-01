@@ -16,6 +16,8 @@ jobs:
         working-directory: example
     steps:
       - uses: actions/checkout@v2
+      - name: Show details
+        run: pwd && ls -a
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
