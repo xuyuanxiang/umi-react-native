@@ -11,6 +11,7 @@ jobs:
           paths: example
 
   install_npm_dependencies:
+    working_directory: ./example
     executor: rn/linux_js
     steps:
       - attach_workspace:
