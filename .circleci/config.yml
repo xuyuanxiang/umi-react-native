@@ -44,33 +44,23 @@ jobs:
           root: .
           paths: example
 
-#  test_android:
-#    executor: rn/linux_android
-#    steps:
-#      - attach_workspace:
-#          at: .
-#      - run:
-#          background: true
-#          name: Start Metro dev web server
-#          command: cd example && yarn start
-#      - run:
-#          background: true
-#          name: Start Android simulator
-#          command: cd example && yarn e2e:start-android-emulator
-#      - run:
-#          name: Run Android E2E tests
-#          command: cd example && yarn e2e:android
-#
-  test_ios:
-    executor: rn/macos
+  test_android:
+    executor: rn/linux_android
     steps:
       - attach_workspace:
           at: .
-      - rn/pod_install:
-          pod_install_directory: ./example/ios/
+      - rn/android_build:
+          build_type: debug
+          project_path: ./example/android
+      - rn/android_emulator_start:
+          logcat_grep: com.rnumitestapp
       - run:
-          name: iOS E2E Tests
-          command: cd example && yarn e2e:ios
+          background: true
+          name: Start Metro dev web server
+          command: cd example && yarn start
+      - run:
+          name: Run Android E2E tests
+          command: cd example && yarn e2e:run-android
 
 version: 2.1
 orbs:
@@ -82,12 +72,6 @@ workflows:
       - install_npm_dependencies:
           requires:
             - checkout_code
-#      - start_metro:
-#          requires:
-#            - install_npm_dependencies
-      - test_ios:
+      - test_android:
           requires:
             - install_npm_dependencies
-#      - test_ios:
-#          requires:
-#            - start_metro

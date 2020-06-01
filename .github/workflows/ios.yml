@@ -1,4 +1,4 @@
-name: Android E2E Tests
+name: iOS E2E Tests
 
 on:
   push:
@@ -9,21 +9,16 @@ on:
 
 jobs:
   test-android:
-    runs-on: macos-latest
+    runs-on: macos-10.15
     defaults:
       run:
         shell: bash
         working-directory: example
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
       - name: Install npm denpendencies
         run: yarn install --frozen-lockfile --non-interactive
+      - name: Install pod denpendencies
+        run: cd ios && pod install && cd -
       - name: Run e2e tests
-        run: |
-          yarn start &
-          yarn e2e:start-android-emulator &
-          yarn e2e:android
+        run: yarn e2e:ios
