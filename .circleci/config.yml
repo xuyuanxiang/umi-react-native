@@ -15,9 +15,12 @@ jobs:
     steps:
       - attach_workspace:
           at: ./example
+      - run:
+          name: Show Details
+          command: pwd && ls
       - rn/yarn_install
       - persist_to_workspace:
-          root: .
+          root: ./example
           paths: .
 
   start_metro:
@@ -25,6 +28,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ./example
+      - run:
+          name: Show Details
+          command: pwd && ls
       - run:
           name: Start Metro Server
           command: yarn start
@@ -34,6 +40,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ./example
+      - run:
+          name: Show Details
+          command: pwd && ls
       - rn/android_emulator_start
       - run:
           name: Android E2E Tests
@@ -44,6 +53,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ./example
+      - run:
+          name: Show Details
+          command: pwd && ls
       - rn/pod_install
       - run:
           name: iOS E2E Tests
