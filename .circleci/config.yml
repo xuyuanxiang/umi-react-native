@@ -14,10 +14,10 @@ jobs:
     executor: rn/linux_js
     steps:
       - attach_workspace:
-          at: .
+          at: ./example
       - run:
           name: Show Details
-          command: pwd && ls && cd example
+          command: pwd && ls
       - rn/yarn_install
       - persist_to_workspace:
           root: .
@@ -27,10 +27,10 @@ jobs:
     executor: rn/linux_js
     steps:
       - attach_workspace:
-          at: .
+          at: ./example
       - run:
           name: Show Details
-          command: pwd && ls && cd example
+          command: pwd && ls
       - run:
           name: Start Metro Server
           command: yarn start
@@ -39,10 +39,10 @@ jobs:
     executor: rn/linux_js
     steps:
       - attach_workspace:
-          at: .
+          at: ./example
       - run:
           name: Show Details
-          command: pwd && ls && cd example
+          command: pwd && ls
       - rn/android_emulator_start
       - run:
           name: Android E2E Tests
@@ -55,7 +55,7 @@ jobs:
           at: ./example
       - run:
           name: Show Details
-          command: pwd && ls && cd example
+          command: pwd && ls
       - rn/pod_install
       - run:
           name: iOS E2E Tests
