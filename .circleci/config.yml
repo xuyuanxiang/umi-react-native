@@ -17,25 +17,29 @@ jobs:
           at: .
       - run:
           command: >
-            mkdir -p ~/example/.tmp/checksumfiles
-            find ~/example/ -type f -name 'package.json' -not -path "*node_modules*" -exec cat {} + >> ~/example/.tmp/checksumfiles/package.json
-            find ~/example/ -type f -name 'yarn.lock' -not -path "*node_modules*" -exec cat {} + >> ~/example/.tmp/checksumfiles/yarn.lock
+            mkdir -p ~/.tmp/checksumfiles
+
+            find ~/example -type f -name 'package.json' -not -path "*node_modules*" -exec
+            cat {} + >> ~/.tmp/checksumfiles/package.json
+
+            find ~/example -type f -name 'yarn.lock' -not -path "*node_modules*" -exec cat
+            {} + >> ~/.tmp/checksumfiles/yarn.lock
           name: Create cache checksum file
       - restore_cache:
           keys:
             - >-
-              yarn-cache-{{ arch }}-{{ checksum "~/example/.tmp/checksumfiles/package.json"
-              }}-{{ checksum "~/example/.tmp/checksumfiles/yarn.lock" }}-{{
+              yarn-cache-{{ arch }}-{{ checksum "~/.tmp/checksumfiles/package.json"
+              }}-{{ checksum "~/.tmp/checksumfiles/yarn.lock" }}-{{
               .Environment.CACHE_VERSION }}
       - run:
           command: >-
-            cd example && yarn install --frozen-lockfile --no-progress --non-interactive --cache-folder
+            cd ~/example && yarn install --frozen-lockfile --non-interactive --cache-folder
             /tmp/yarn
           name: Yarn Install
       - save_cache:
           key: >
-            yarn-cache-{{ arch }}-{{ checksum "~/example/.tmp/checksumfiles/package.json"
-            }}-{{ checksum "~/example/.tmp/checksumfiles/yarn.lock" }}-{{
+            yarn-cache-{{ arch }}-{{ checksum "~/.tmp/checksumfiles/package.json"
+            }}-{{ checksum "~/.tmp/checksumfiles/yarn.lock" }}-{{
             .Environment.CACHE_VERSION }}
           paths:
             - /tmp/yarn
