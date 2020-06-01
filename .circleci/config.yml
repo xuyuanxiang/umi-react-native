@@ -40,8 +40,6 @@ workflows:
           requires:
             - checkout_code
       - run: cd example && pwd && ls
-          requires:
-            - install_npm_dependencies
 #      - rn/android_build:
 #          requires:
 #            - checkout_code
