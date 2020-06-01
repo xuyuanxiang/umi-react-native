@@ -9,8 +9,6 @@
     "start": "react-native start",
     "generate": "umi g rn",
     "e2e:build-android": "cd android && ./gradlew assembleDebug --quiet",
-    "pree2e:start-android-emulator": "$ANDROID_HOME/tools/bin/avdmanager create avd --force --name TestingAVD --package \"system-images;android-29;google_apis;x86\" --tag google_apis --device pixel",
-    "e2e:start-android-emulator": "$ANDROID_HOME/emulator/emulator @TestingAVD -cores 1 -gpu auto -accel on -memory 1024 -no-audio -no-snapshot -no-boot-anim -logcat *:W | grep -i 'ReactNative\\|com.reactnativecommunity'",
     "pree2e:run-android": "yarn generate",
     "e2e:run-android": "wdio ./android.wdio.config.js",
     "e2e:android": "yarn e2e:build-android && yarn e2e:run-android",
