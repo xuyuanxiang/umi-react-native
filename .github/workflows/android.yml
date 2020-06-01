@@ -20,35 +20,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run:
-          command: >
-            mkdir -p ~/.tmp/checksumfiles
-
-            find . -type f -name 'package.json' -not -path "*node_modules*" -exec cat {} + >> ~/.tmp/checksumfiles/package.json
-
-            find . -type f -name 'yarn.lock' -not -path "*node_modules*" -exec cat {} + >> ~/.tmp/checksumfiles/yarn.lock
-
-
-          name: Create cache checksum file
-      - restore_cache:
-          keys:
-            - >-
-              yarn-cache-{{ arch }}-{{ checksum "~/.tmp/checksumfiles/package.json" }}-{{ checksum "~/.tmp/checksumfiles/yarn.lock" }}-{{ .Environment.CACHE_VERSION }}
-
-
-      - run:
-          command: >-
-            cd example && yarn install --frozen-lockfile --non-interactive --cache-folder /tmp/yarn
-
-
-          name: Install npm denpendencies
-      - save_cache:
-          key: >
-            yarn-cache-{{ arch }}-{{ checksum "~/.tmp/checksumfiles/package.json" }}-{{ checksum "~/.tmp/checksumfiles/yarn.lock" }}-{{ .Environment.CACHE_VERSION }}
-
-
-          paths:
-            - /tmp/yarn
+      - name: Install npm denpendencies
+        run: yarn install --frozen-lockfile --non-interactive
       - name: Run e2e tests
         run: |
           yarn start &
