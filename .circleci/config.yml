@@ -16,8 +16,34 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Install npm dependencies
-          command: cd example && yarn install --no-progress --non-interactive
+          command: >
+            mkdir -p ~/.tmp/checksumfiles
+            cd example
+            pwd
+            find . -type f -name 'package.json' -not -path "*node_modules*" -exec
+            cat {} + >> ~/.tmp/checksumfiles/package.json
+
+            find . -type f -name 'yarn.lock' -not -path "*node_modules*" -exec cat
+            {} + >> ~/.tmp/checksumfiles/yarn.lock
+          name: Create cache checksum file
+      - restore_cache:
+          keys:
+            - >-
+              yarn-cache-{{ arch }}-{{ checksum "~/.tmp/checksumfiles/package.json"
+              }}-{{ checksum "~/.tmp/checksumfiles/yarn.lock" }}-{{
+              .Environment.CACHE_VERSION }}
+      - run:
+          command: >-
+            cd example && yarn install --frozen-lockfile --no-progress --non-interactive --cache-folder
+            /tmp/yarn
+          name: Yarn Install
+      - save_cache:
+          key: >
+            yarn-cache-{{ arch }}-{{ checksum "~/.tmp/checksumfiles/package.json"
+            }}-{{ checksum "~/.tmp/checksumfiles/yarn.lock" }}-{{
+            .Environment.CACHE_VERSION }}
+          paths:
+            - /tmp/yarn
       - run:
           name: Show Details
           command: pwd && ls
@@ -25,7 +51,20 @@ jobs:
           root: .
           paths: example
 
-  start_metro:
+#  start_metro:
+#    executor: rn/linux_js
+#    steps:
+#      - attach_workspace:
+#          at: .
+#      - run:
+#          name: Show Details
+#          command: pwd && ls
+#      - run:
+#          background: true
+#          name: Start Metro Server
+#          command: cd example && yarn start
+
+  test_android:
     executor: rn/linux_js
     steps:
       - attach_workspace:
@@ -37,15 +76,6 @@ jobs:
           background: true
           name: Start Metro Server
           command: cd example && yarn start
-
-  test_android:
-    executor: rn/linux_js
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Show Details
-          command: pwd && ls
       - rn/android_emulator_start
       - run:
           name: Android E2E Tests
@@ -75,12 +105,12 @@ workflows:
       - install_npm_dependencies:
           requires:
             - checkout_code
-      - start_metro:
-          requires:
-            - install_npm_dependencies
+#      - start_metro:
+#          requires:
+#            - install_npm_dependencies
       - test_android:
           requires:
-            - start_metro
+            - install_npm_dependencies
 #      - test_ios:
 #          requires:
 #            - start_metro
