@@ -8,8 +8,8 @@ on:
       - v*
 
 jobs:
-  test-android:
-    runs-on: macos-10.15
+  test-ios:
+    runs-on: macos-latest
     defaults:
       run:
         shell: bash
