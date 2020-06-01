@@ -34,16 +34,27 @@ jobs:
           paths:
             - node_modules
 
+  test_android:
+    executor: rn/linux_js
+    steps:
+      - attach_workspace:
+          at: ./example
+      - rn/android_build
+      - rn/android_emulator_start
+      - run:
+          name: Android E2E Tests
+          command: yarn e2e:run-android
+
 workflows:
   test:
     jobs:
       - checkout_code
       - install_npm_dependencies
-      - run:
-          command: cd example && pwd && ls
-      - rn/android_build:
-      - rn/android_emulator_start
-      - rn/metro_start
-      - run:
-          name: Android E2E Tests
-          command: yarn e2e:run-android
+          requires:
+            - checkout_code
+      - rn/metro_start:
+          requires:
+            - install_npm_dependencies
+      - test_android:
+          requires:
+            - rn/metro_start
