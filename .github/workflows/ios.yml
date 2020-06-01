@@ -21,8 +21,8 @@ jobs:
           node-version: '10.x'
       - name: Install npm denpendencies
         if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile --non-interactive
+        run: yarn install --frozen-lockfile --non-interactive --silent
       - name: Install pod denpendencies
-        run: cd ios && pod install && cd -
+        run: cd ios && pod install --silent && cd -
       - name: Run e2e tests
         run: yarn e2e:ios
