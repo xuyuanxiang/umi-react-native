@@ -17,11 +17,9 @@ jobs:
           at: .
       - run:
           command: >
-            cd example
-            pwd
-            mkdir -p .tmp/checksumfiles
-            find . -type f -name 'package.json' -not -path "*node_modules*" -exec cat {} + >> .tmp/checksumfiles/package.json
-            find . -type f -name 'yarn.lock' -not -path "*node_modules*" -exec cat {} + >> .tmp/checksumfiles/yarn.lock
+            mkdir -p ~/example/.tmp/checksumfiles
+            find ~/example/ -type f -name 'package.json' -not -path "*node_modules*" -exec cat {} + >> ~/example/.tmp/checksumfiles/package.json
+            find ~/example/ -type f -name 'yarn.lock' -not -path "*node_modules*" -exec cat {} + >> ~/example/.tmp/checksumfiles/yarn.lock
           name: Create cache checksum file
       - restore_cache:
           keys:
