@@ -11,8 +11,8 @@ exports.config = {
     {
       maxInstances: 1,
       platformName: 'iOS',
-      platformVersion: '13.3',
-      deviceName: 'iPhone 11',
+      platformVersion: '13.1',
+      deviceName: 'iPhone X',
       app: path.join(__dirname, 'ios/build/RNUMITestApp.xcarchive/Products/Applications/RNUMITestApp.app'),
       automationName: 'XCUITest',
     },

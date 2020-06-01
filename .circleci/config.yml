@@ -39,11 +39,20 @@ jobs:
     steps:
       - attach_workspace:
           at: ./example
-      - rn/android_build
       - rn/android_emulator_start
       - run:
           name: Android E2E Tests
-          command: yarn e2e:run-android
+          command: yarn e2e:android
+
+  test_ios:
+    executor: rn/linux_js
+    steps:
+      - attach_workspace:
+          at: ./example
+      - rn/pod_install
+      - run:
+          name: iOS E2E Tests
+          command: yarn e2e:ios
 
 workflows:
   test:
@@ -56,5 +65,8 @@ workflows:
           requires:
             - install_npm_dependencies
       - test_android:
+          requires:
+            - rn/metro_start
+      - test_ios:
           requires:
             - rn/metro_start
