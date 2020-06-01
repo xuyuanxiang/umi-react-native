@@ -7,7 +7,7 @@ export default function Layout({ children }) {
   return (
     <BackButton>
       <View {...getTestProps('basicLayoutView')}>
-        <Text {...getTestProps('textInBasicLayout')}>basic layout</Text>
+        <Text {...getTestProps('textInBasicLayout')}>Basic Layout</Text>
         {children}
       </View>
     </BackButton>

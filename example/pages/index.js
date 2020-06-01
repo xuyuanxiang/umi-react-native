@@ -1,27 +1,40 @@
 import React from 'react';
-import { Link, connect } from 'umi';
-import { View, Text } from 'react-native';
+import { StatusBar, Text, Button } from 'react-native';
+import { connect, Link } from 'umi';
 import { getTestProps } from '../services';
 
 function IndexPage({ greeting }) {
-  if (__DEV__) {
-    console.info('IndexPage render');
-  }
   return (
-    <View>
-      <Link to="/home?foo=bar" component={Text} {...getTestProps('linkToHome')}>
-        Go to home
-      </Link>
-      <Link to="/profile/settings/feedback" component={Text} {...getTestProps('linkToFeedback')}>
-        Go to Feedback
-      </Link>
-      <Text {...getTestProps('greetingText')}>{greeting}</Text>
-    </View>
+    <>
+      <StatusBar barStyle="light-content" />
+      <Text {...getTestProps('textInIndexPage')}>{greeting}</Text>
+      <Link
+        {...getTestProps('linkToFeedbackPage')}
+        to="/profile/settings/feedback?foo=bar"
+        component={Button}
+        title="Go to FeedbackPage"
+      />
+      <Link
+        {...getTestProps('linkToLoginPage')}
+        to="/login"
+        component={Button}
+        title="Go to LoginPage"
+      />
+    </>
   );
 }
 
-const ConnectedIndexPage = connect(({ foo: { greeting } }) => ({ greeting }))(IndexPage);
+const ConnectedIndexPage = connect(({ foo }) => ({
+  greeting: foo.greeting,
+}))(IndexPage);
 
-ConnectedIndexPage.title = 'Index Page';
+ConnectedIndexPage.title = '首页';
+ConnectedIndexPage.headerTintColor = '#ffffff';
+ConnectedIndexPage.headerTitleStyle = {
+  fontWeight: 'bold',
+};
+ConnectedIndexPage.headerStyle = {
+  backgroundColor: '#000000',
+};
 
 export default ConnectedIndexPage;

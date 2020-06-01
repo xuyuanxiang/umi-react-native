@@ -21,8 +21,8 @@ exports.config = {
   bail: 0,
   baseUrl: 'http://localhost',
   waitforTimeout: 60000,
-  connectionRetryTimeout: 120000,
-  connectionRetryCount: 10,
+  connectionRetryTimeout: 300000,
+  connectionRetryCount: 3,
   framework: 'jasmine',
   reporters: ['spec'],
   jasmineNodeOpts: {

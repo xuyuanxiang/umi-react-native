@@ -1,0 +1,53 @@
+version: 2.1
+orbs:
+  react-native: react-native-community/react-native@4.4.2
+
+jobs:
+  checkout_code:
+    executor: rn/linux_js
+    steps:
+      - checkout
+      - persist_to_workspace:
+          root: .
+          paths: .
+  install_npm_dependencies:
+    executor: rn/linux_js
+    steps:
+      - attach_workspace:
+          at: ./example
+      - restore_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+      - restore_cache:
+          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+      - rn/yarn_install
+      - save_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}-{{ arch }}
+          paths:
+            - node_modules
+      - persist_to_workspace:
+          root: ./example
+          paths:
+            - node_modules
+workflows:
+  test:
+    jobs:
+      - checkout_code
+      - install_npm_dependencies:
+          requires:
+            - checkout_code
+      - run: cd example && pwd && ls
+          requires:
+            - install_npm_dependencies
+#      - rn/android_build:
+#          requires:
+#            - checkout_code
+#      - rn/android_emulator_start
+#      - rn/metro_start
+#      - run: yarn e2e:run-android
+#          requires:
+#            - rn/android_emulator_start
+#            - rn/metro_start
