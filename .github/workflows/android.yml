@@ -1,4 +1,4 @@
-name: iOS E2E Tests
+name: Android E2E Tests
 
 on:
   push:
