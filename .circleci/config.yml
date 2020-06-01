@@ -10,6 +10,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: .
+
   install_npm_dependencies:
     executor: rn/linux_js
     steps:
@@ -32,18 +33,14 @@ jobs:
           root: ./example
           paths:
             - node_modules
+
 workflows:
   test:
     jobs:
       - checkout_code
       - install_npm_dependencies
       - run: cd example && pwd && ls
-#      - rn/android_build:
-#          requires:
-#            - checkout_code
-#      - rn/android_emulator_start
-#      - rn/metro_start
-#      - run: yarn e2e:run-android
-#          requires:
-#            - rn/android_emulator_start
-#            - rn/metro_start
+      - rn/android_build:
+      - rn/android_emulator_start
+      - rn/metro_start
+      - run: yarn e2e:run-android
