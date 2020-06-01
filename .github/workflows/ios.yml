@@ -24,7 +24,9 @@ jobs:
         run: yarn install --frozen-lockfile --non-interactive --silent
       - name: Install pod denpendencies
         run: cd ios && pod install --silent && cd -
+      - name: Build ios
+        run: yarn e2e:build-ios
       - name: Start iOS simulator
         run: xcrun simctl boot "iPhone 11" || true
       - name: Run e2e tests
-        run: yarn e2e:ios
+        run: yarn start & yarn e2e:run-ios

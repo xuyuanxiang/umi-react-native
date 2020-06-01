@@ -53,5 +53,7 @@ jobs:
           adb shell settings put global animator_duration_scale 0
 
           echo "Android Virtual Device is now ready."
+      - name: Build android apk
+        run: yarn e2e:build-android
       - name: Run e2e tests
-        run: yarn start & yarn e2e:android
+        run: yarn start & yarn e2e:run-android
