@@ -11,41 +11,38 @@ jobs:
           paths: example
 
   install_npm_dependencies:
-    working_directory: ./example
     executor: rn/linux_js
     steps:
       - attach_workspace:
           at: .
       - run:
           name: Show Details
-          command: pwd && ls
+          command: pwd && ls && cd example
       - rn/yarn_install
       - persist_to_workspace:
           root: .
-          paths: .
+          paths: example
 
   start_metro:
-    working_directory: ./example
     executor: rn/linux_js
     steps:
       - attach_workspace:
           at: .
       - run:
           name: Show Details
-          command: pwd && ls
+          command: pwd && ls && cd example
       - run:
           name: Start Metro Server
           command: yarn start
 
   test_android:
-    working_directory: ./example
     executor: rn/linux_js
     steps:
       - attach_workspace:
           at: .
       - run:
           name: Show Details
-          command: pwd && ls
+          command: pwd && ls && cd example
       - rn/android_emulator_start
       - run:
           name: Android E2E Tests
@@ -58,7 +55,7 @@ jobs:
           at: ./example
       - run:
           name: Show Details
-          command: pwd && ls
+          command: pwd && ls && cd example
       - rn/pod_install
       - run:
           name: iOS E2E Tests
