@@ -30,6 +30,12 @@ jobs:
         run: $ANDROID_HOME/tools/bin/avdmanager create avd --force --name TestingAVD --package "system-images;android-29;google_apis;x86" --tag google_apis --device pixel
       - name: Start android emulator
         run: nohup $ANDROID_HOME/emulator/emulator @TestingAVD -cores 1 -gpu auto -accel on -memory 1024 -no-audio -no-snapshot -no-boot-anim -no-window -logcat *:W > /dev/null 2>&1 &
+      - name: Build android
+        run: yarn e2e:build-android
+      - name: Generate umi temp files
+        run: yarn generate
+      - name: Start metro dev server
+        run: nohup yarn start > /dev/null 2>&1 &
       - name: Wait for AVD to be ready
         run: >
           export BOOT=""
@@ -53,11 +59,5 @@ jobs:
           adb shell settings put global animator_duration_scale 0
 
           echo "Android Virtual Device is now ready."
-      - name: Build android
-        run: yarn e2e:build-android
-      - name: Generate umi temp files
-        run: yarn generate
-      - name: Start metro dev server
-        run: nohup yarn start > /dev/null 2>&1 &
       - name: Run e2e tests
         run: yarn e2e:run-android
