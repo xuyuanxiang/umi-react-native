@@ -36,9 +36,7 @@ workflows:
   test:
     jobs:
       - checkout_code
-      - install_npm_dependencies:
-          requires:
-            - checkout_code
+      - install_npm_dependencies
       - run: cd example && pwd && ls
 #      - rn/android_build:
 #          requires:
