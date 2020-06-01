@@ -22,7 +22,5 @@ jobs:
       - name: Install npm denpendencies
         if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile --non-interactive
-      - name: Install pod denpendencies
-        run: cd ios && pod install && cd -
       - name: Run e2e tests
-        run: yarn e2e:ios
+        run: yarn start & yarn e2e:start-android-emulator & yarn e2e:android
