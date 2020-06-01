@@ -11,21 +11,19 @@ jobs:
           paths: example
 
   install_npm_dependencies:
-    working_directory: ./example
     executor: rn/linux_js
     steps:
       - attach_workspace:
-          at: .
+          at: ./example
       - run:
           name: Show Details
           command: pwd && ls
       - rn/yarn_install
       - persist_to_workspace:
           root: .
-          paths: example
+          paths: .
 
   start_metro:
-    working_directory: ./example
     executor: rn/linux_js
     steps:
       - attach_workspace:
@@ -37,33 +35,33 @@ jobs:
           name: Start Metro Server
           command: yarn start
 
-  test_android:
-    working_directory: ./example
-    executor: rn/linux_js
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Show Details
-          command: pwd && ls
-      - rn/android_emulator_start
-      - run:
-          name: Android E2E Tests
-          command: yarn e2e:android
-
-  test_ios:
-    working_directory: ./example
-    executor: rn/linux_js
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Show Details
-          command: pwd && ls
-      - rn/pod_install
-      - run:
-          name: iOS E2E Tests
-          command: yarn e2e:ios
+#  test_android:
+#    working_directory: ./example
+#    executor: rn/linux_js
+#    steps:
+#      - attach_workspace:
+#          at: .
+#      - run:
+#          name: Show Details
+#          command: pwd && ls
+#      - rn/android_emulator_start
+#      - run:
+#          name: Android E2E Tests
+#          command: yarn e2e:android
+#
+#  test_ios:
+#    working_directory: ./example
+#    executor: rn/linux_js
+#    steps:
+#      - attach_workspace:
+#          at: .
+#      - run:
+#          name: Show Details
+#          command: pwd && ls
+#      - rn/pod_install
+#      - run:
+#          name: iOS E2E Tests
+#          command: yarn e2e:ios
 
 version: 2.1
 orbs:
@@ -78,9 +76,9 @@ workflows:
       - start_metro:
           requires:
             - install_npm_dependencies
-      - test_android:
-          requires:
-            - start_metro
-      - test_ios:
-          requires:
-            - start_metro
+#      - test_android:
+#          requires:
+#            - start_metro
+#      - test_ios:
+#          requires:
+#            - start_metro
