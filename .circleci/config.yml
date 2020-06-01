@@ -7,27 +7,29 @@ jobs:
           name: Show Details
           command: pwd && ls
       - persist_to_workspace:
-          root: ./example
-          paths: .
+          root: .
+          paths: example
 
   install_npm_dependencies:
+    working_directory: ./example
     executor: rn/linux_js
     steps:
       - attach_workspace:
-          at: ./example
+          at: .
       - run:
           name: Show Details
           command: pwd && ls
       - rn/yarn_install
       - persist_to_workspace:
-          root: ./example
+          root: .
           paths: .
 
   start_metro:
+    working_directory: ./example
     executor: rn/linux_js
     steps:
       - attach_workspace:
-          at: ./example
+          at: .
       - run:
           name: Show Details
           command: pwd && ls
@@ -36,10 +38,11 @@ jobs:
           command: yarn start
 
   test_android:
+    working_directory: ./example
     executor: rn/linux_js
     steps:
       - attach_workspace:
-          at: ./example
+          at: .
       - run:
           name: Show Details
           command: pwd && ls
