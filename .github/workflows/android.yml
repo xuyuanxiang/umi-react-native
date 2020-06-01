@@ -55,5 +55,9 @@ jobs:
           echo "Android Virtual Device is now ready."
       - name: Build android
         run: yarn e2e:build-android
+      - name: Generate umi temp files
+        run: yarn generate
+      - name: Start metro dev server
+        run: nohup yarn start > /dev/null 2>&1 &
       - name: Run e2e tests
-        run: yarn start & yarn e2e:run-android
+        run: yarn e2e:run-android
