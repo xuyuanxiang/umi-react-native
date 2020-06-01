@@ -17,20 +17,17 @@ jobs:
           at: .
       - run:
           command: >
-            mkdir -p ~/.tmp/checksumfiles
             cd example
             pwd
-            find . -type f -name 'package.json' -not -path "*node_modules*" -exec
-            cat {} + >> ~/.tmp/checksumfiles/package.json
-
-            find . -type f -name 'yarn.lock' -not -path "*node_modules*" -exec cat
-            {} + >> ~/.tmp/checksumfiles/yarn.lock
+            mkdir -p .tmp/checksumfiles
+            find . -type f -name 'package.json' -not -path "*node_modules*" -exec cat {} + >> .tmp/checksumfiles/package.json
+            find . -type f -name 'yarn.lock' -not -path "*node_modules*" -exec cat {} + >> .tmp/checksumfiles/yarn.lock
           name: Create cache checksum file
       - restore_cache:
           keys:
             - >-
-              yarn-cache-{{ arch }}-{{ checksum "~/.tmp/checksumfiles/package.json"
-              }}-{{ checksum "~/.tmp/checksumfiles/yarn.lock" }}-{{
+              yarn-cache-{{ arch }}-{{ checksum "~/example/.tmp/checksumfiles/package.json"
+              }}-{{ checksum "~/example/.tmp/checksumfiles/yarn.lock" }}-{{
               .Environment.CACHE_VERSION }}
       - run:
           command: >-
@@ -39,8 +36,8 @@ jobs:
           name: Yarn Install
       - save_cache:
           key: >
-            yarn-cache-{{ arch }}-{{ checksum "~/.tmp/checksumfiles/package.json"
-            }}-{{ checksum "~/.tmp/checksumfiles/yarn.lock" }}-{{
+            yarn-cache-{{ arch }}-{{ checksum "~/example/.tmp/checksumfiles/package.json"
+            }}-{{ checksum "~/example/.tmp/checksumfiles/yarn.lock" }}-{{
             .Environment.CACHE_VERSION }}
           paths:
             - /tmp/yarn
@@ -65,7 +62,7 @@ jobs:
 #          command: cd example && yarn start
 
   test_android:
-    executor: rn/linux_js
+    executor: rn/linux_android
     steps:
       - attach_workspace:
           at: .
