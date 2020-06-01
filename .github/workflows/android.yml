@@ -34,8 +34,8 @@ jobs:
         run: yarn generate
       - name: Show details
         run: pwd && ls -a
-      - name: Start metro dev server
-        run: nohup yarn start > /dev/null 2>&1 &
+#      - name: Start metro dev server
+#        run: nohup yarn start > /dev/null 2>&1 &
       - name: Start android
         run: yarn android
       - name: Wait for AVD to be ready
