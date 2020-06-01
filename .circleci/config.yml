@@ -19,10 +19,10 @@ jobs:
           command: >
             mkdir -p ~/.tmp/checksumfiles
 
-            find ~/example -type f -name 'package.json' -not -path "*node_modules*" -exec
+            find example -type f -name 'package.json' -not -path "*node_modules*" -exec
             cat {} + >> ~/.tmp/checksumfiles/package.json
 
-            find ~/example -type f -name 'yarn.lock' -not -path "*node_modules*" -exec cat
+            find example -type f -name 'yarn.lock' -not -path "*node_modules*" -exec cat
             {} + >> ~/.tmp/checksumfiles/yarn.lock
           name: Create cache checksum file
       - restore_cache:
@@ -33,7 +33,7 @@ jobs:
               .Environment.CACHE_VERSION }}
       - run:
           command: >-
-            cd ~/example && yarn install --frozen-lockfile --non-interactive --cache-folder
+            cd example && yarn install --frozen-lockfile --non-interactive --cache-folder
             /tmp/yarn
           name: Yarn Install
       - save_cache:
