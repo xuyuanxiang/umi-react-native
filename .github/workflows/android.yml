@@ -34,10 +34,10 @@ jobs:
         run: yarn generate
       - name: Show details
         run: pwd && ls -a
-      - name: Build android
-        run: yarn e2e:build-android
       - name: Start metro dev server
         run: nohup yarn start > /dev/null 2>&1 &
+      - name: Start android
+        run: yarn android
       - name: Wait for AVD to be ready
         run: >
           export BOOT=""
@@ -62,4 +62,4 @@ jobs:
 
           echo "Android Virtual Device is now ready."
       - name: Run e2e tests
-        run: adb reverse tcp:8081 tcp:8081 && yarn e2e:run-android
+        run: yarn e2e:run-android
