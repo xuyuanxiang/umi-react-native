@@ -39,8 +39,11 @@ workflows:
     jobs:
       - checkout_code
       - install_npm_dependencies
-      - run: cd example && pwd && ls
+      - run:
+          command: cd example && pwd && ls
       - rn/android_build:
       - rn/android_emulator_start
       - rn/metro_start
-      - run: yarn e2e:run-android
+      - run:
+          name: Android E2E Tests
+          command: yarn e2e:run-android
