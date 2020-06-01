@@ -16,8 +16,6 @@ jobs:
         working-directory: example
     steps:
       - uses: actions/checkout@v2
-      - name: Show details
-        run: pwd && ls -a
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
@@ -32,6 +30,8 @@ jobs:
         run: xcrun simctl boot "iPhone 11" || true
       - name: Generate umi temp files
         run: yarn generate
+      - name: Show details
+        run: pwd && ls -a
       - name: Start metro dev server
         run: nohup yarn start > /dev/null 2>&1 &
       - name: Run e2e tests
