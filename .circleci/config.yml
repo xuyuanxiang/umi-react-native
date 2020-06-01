@@ -10,11 +10,11 @@ jobs:
   install_npm_dependencies:
     executor: rn/linux_js
     steps:
+      - attach_workspace:
+          at: .
       - run:
           name: Show dirs
-          command: pwd && ls
-      - attach_workspace:
-          at: ./example
+          command: cd example && pwd && ls
       - rn/yarn_install
       - persist_to_workspace:
           root: ./example
