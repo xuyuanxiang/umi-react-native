@@ -15,7 +15,7 @@ jobs:
         working-directory: example
     steps:
       - name: Set environment variables
-        run: echo %ANDROID_HOME% && set ANDROID_HOME=C:\Program Files (x86)\Android\android-sdk
+        run: echo %ANDROID_HOME%
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
@@ -55,8 +55,8 @@ jobs:
         run: $ANDROID_HOME/tools/bin/sdkmanager --licenses
       - name: Create android AVD
         run: $ANDROID_HOME/tools/bin/avdmanager create avd --force --name TestingAVD --package "system-images;android-29;google_apis;x86" --tag google_apis --device pixel
-      - name: Start android emulator
-        run: nohup $ANDROID_HOME/emulator/emulator @TestingAVD > /dev/null 2>&1 &
+#      - name: Start android emulator
+#        run: nohup $ANDROID_HOME/emulator/emulator @TestingAVD > /dev/null 2>&1 &
       - name: Generate umi temp files
         run: yarn generate
       - name: Show details
