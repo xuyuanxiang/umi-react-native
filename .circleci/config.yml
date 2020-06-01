@@ -34,22 +34,22 @@ jobs:
           name: Show Details
           command: pwd && ls
       - run:
+          background: true
           name: Start Metro Server
           command: cd example && yarn start
 
-#  test_android:
-#    working_directory: ./example
-#    executor: rn/linux_js
-#    steps:
-#      - attach_workspace:
-#          at: .
-#      - run:
-#          name: Show Details
-#          command: pwd && ls
-#      - rn/android_emulator_start
-#      - run:
-#          name: Android E2E Tests
-#          command: yarn e2e:android
+  test_android:
+    executor: rn/linux_js
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Show Details
+          command: pwd && ls
+      - rn/android_emulator_start
+      - run:
+          name: Android E2E Tests
+          command: cd example && yarn e2e:android
 #
 #  test_ios:
 #    working_directory: ./example
@@ -78,9 +78,9 @@ workflows:
       - start_metro:
           requires:
             - install_npm_dependencies
-#      - test_android:
-#          requires:
-#            - start_metro
+      - test_android:
+          requires:
+            - start_metro
 #      - test_ios:
 #          requires:
 #            - start_metro
