@@ -11,7 +11,7 @@ exports.config = {
     {
       maxInstances: 1,
       platformName: 'Android',
-      platformVersion: 'android-28',
+      platformVersion: '10.0',
       deviceName: 'TestingAVD',
       app: path.join(__dirname, 'android/app/build/outputs/apk/debug/app-debug.apk'),
       automationName: 'UiAutomator2',

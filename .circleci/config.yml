@@ -3,9 +3,6 @@ jobs:
     executor: rn/linux_js
     steps:
       - checkout
-      - run:
-          name: Show Details
-          command: pwd && ls
       - persist_to_workspace:
           root: .
           paths: example
@@ -35,7 +32,7 @@ jobs:
           command: >-
             cd example && yarn install --frozen-lockfile --non-interactive --cache-folder
             /tmp/yarn
-          name: Yarn Install
+          name: Install npm denpendencies
       - save_cache:
           key: >
             yarn-cache-{{ arch }}-{{ checksum "~/.tmp/checksumfiles/package.json"
@@ -43,25 +40,9 @@ jobs:
             .Environment.CACHE_VERSION }}
           paths:
             - /tmp/yarn
-      - run:
-          name: Show Details
-          command: pwd && ls
       - persist_to_workspace:
           root: .
           paths: example
-
-#  start_metro:
-#    executor: rn/linux_js
-#    steps:
-#      - attach_workspace:
-#          at: .
-#      - run:
-#          name: Show Details
-#          command: pwd && ls
-#      - run:
-#          background: true
-#          name: Start Metro Server
-#          command: cd example && yarn start
 
   test_android:
     executor: rn/linux_android
@@ -69,15 +50,15 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Show Details
-          command: pwd && ls
+          background: true
+          name: Start Metro dev web server
+          command: cd example && yarn start
       - run:
           background: true
-          name: Start Metro Server
-          command: cd example && yarn start
-      - rn/android_emulator_start
+          name: Start Android simulator
+          command: cd example && yarn e2e:start-android-emulator
       - run:
-          name: Android E2E Tests
+          name: Run Android E2E tests
           command: cd example && yarn e2e:android
 #
 #  test_ios:
