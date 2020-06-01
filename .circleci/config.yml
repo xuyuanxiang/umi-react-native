@@ -3,23 +3,22 @@ jobs:
     executor: rn/linux_js
     steps:
       - checkout
+      - run:
+          name: Show Details
+          command: pwd && ls
       - persist_to_workspace:
-          root: .
+          root: ./example
           paths: .
 
   install_npm_dependencies:
     executor: rn/linux_js
     steps:
       - attach_workspace:
-          at: .
-      - run:
-          name: Show dirs
-          command: cd example && pwd && ls
+          at: ./example
       - rn/yarn_install
       - persist_to_workspace:
-          root: ./example
-          paths:
-            - node_modules
+          root: .
+          paths: .
 
   start_metro:
     executor: rn/linux_js
