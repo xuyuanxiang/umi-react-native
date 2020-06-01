@@ -17,7 +17,7 @@ exports.config = {
       automationName: 'XCUITest',
     },
   ],
-  logLevel: 'debug',
+  logLevel: 'error',
   bail: 0,
   baseUrl: 'http://localhost',
   waitforTimeout: 60000,

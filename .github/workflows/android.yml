@@ -30,14 +30,12 @@ jobs:
         run: $ANDROID_HOME/tools/bin/avdmanager create avd --force --name TestingAVD --package "system-images;android-29;google_apis;x86" --tag google_apis --device pixel
       - name: Start android emulator
         run: nohup $ANDROID_HOME/emulator/emulator @TestingAVD > /dev/null 2>&1 &
-      - name: Build android
-        run: yarn e2e:build-android
       - name: Generate umi temp files
         run: yarn generate
       - name: Show details
         run: pwd && ls -a
-      - name: Start metro dev server
-        run: nohup yarn start > /dev/null 2>&1 &
+      - name: Build android
+        run: nohup yarn android > /dev/null 2>&1 &
       - name: Wait for AVD to be ready
         run: >
           export BOOT=""

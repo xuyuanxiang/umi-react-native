@@ -11,8 +11,8 @@ exports.config = {
     {
       maxInstances: 1,
       platformName: 'Android',
-      platformVersion: '10.0',
-      deviceName: 'TestingAVD',
+      platformVersion: '8.0',
+      deviceName: 'Nexus 6P API 26',
       app: path.join(__dirname, 'android/app/build/outputs/apk/debug/app-debug.apk'),
       automationName: 'UiAutomator2',
     },
@@ -21,8 +21,8 @@ exports.config = {
   bail: 0,
   baseUrl: 'http://localhost',
   waitforTimeout: 60000,
-  connectionRetryTimeout: 120000,
-  connectionRetryCount: 10,
+  connectionRetryTimeout: 300000,
+  connectionRetryCount: 3,
   framework: 'jasmine',
   reporters: ['spec'],
   jasmineNodeOpts: {
