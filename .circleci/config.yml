@@ -14,14 +14,16 @@ jobs:
     executor: rn/linux_js
     steps:
       - attach_workspace:
-          at: ./example
+          at: .
+      - run:
+          name: Install npm dependencies
+          command: cd example && yarn install --no-progress --non-interactive
       - run:
           name: Show Details
           command: pwd && ls
-      - rn/yarn_install
       - persist_to_workspace:
           root: .
-          paths: .
+          paths: example
 
   start_metro:
     executor: rn/linux_js
@@ -33,7 +35,7 @@ jobs:
           command: pwd && ls
       - run:
           name: Start Metro Server
-          command: yarn start
+          command: cd example && yarn start
 
 #  test_android:
 #    working_directory: ./example
