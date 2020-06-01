@@ -15,20 +15,19 @@ jobs:
         working-directory: example
     steps:
       - name: Set environment variables
-        run: set ANDROID_HOME=C:\Program Files (x86)\Android\android-sdk
+        run: echo %ANDROID_HOME% && set ANDROID_HOME=C:\Program Files (x86)\Android\android-sdk
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
       - name: Install npm denpendencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile --non-interactive --silent
       - name: Create android package
-        run: %ANDROID_HOME%\tools\bin\sdkmanager "system-images;android-29;google_apis;x86"
+        run: C:\Program Files (x86)\Android\android-sdk\tools\bin\sdkmanager "system-images;android-29;google_apis;x86"
       - name: Accept android license agreement
-        run: %ANDROID_HOME%\tools\bin\sdkmanager --licenses
+        run: C:\Program Files (x86)\Android\android-sdk\tools\bin\sdkmanager --licenses
       - name: Create android AVD
-        run: %ANDROID_HOME%\tools\bin\avdmanager create avd --force --name TestingAVD --package "system-images;android-29;google_apis;x86" --tag google_apis --device pixel
+        run: C:\Program Files (x86)\Android\android-sdk\tools\bin\avdmanager create avd --force --name TestingAVD --package "system-images;android-29;google_apis;x86" --tag google_apis --device pixel
       - name: Generate umi temp files
         run: yarn generate
       - name: Start android
