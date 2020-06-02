@@ -17,7 +17,7 @@ exports.config = {
       automationName: 'UiAutomator2',
     },
   ],
-  logLevel: 'info',
+  logLevel: 'error',
   bail: 0,
   baseUrl: 'http://localhost',
   waitforTimeout: 300000,

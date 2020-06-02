@@ -16,7 +16,7 @@ jobs:
         working-directory: example
     steps:
       - uses: actions/checkout@v2
-      - name: Setup emulator
+      - name: Setup sdk
         run: |
           $ANDROID_HOME/tools/bin/sdkmanager "platform-tools" "tools" >/dev/null || true
           $ANDROID_HOME/tools/bin/sdkmanager "build-tools;29.0.3" >/dev/null || true
