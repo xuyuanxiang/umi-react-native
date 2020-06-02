@@ -1,6 +1,6 @@
 # umi-react-native
 
-![NPM Monthly Downloads](https://img.shields.io/npm/dm/umi-preset-react-native?style=flat-square) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![](https://github.com/xuyuanxiang/umi-react-native/workflows/iOS%20E2E%20Tests/badge.svg)](https://github.com/xuyuanxiang/umi-react-native/actions?query=workflow%3A%22iOS+E2E+Tests%22)
+![NPM Monthly Downloads](https://img.shields.io/npm/dm/umi-preset-react-native?style=flat-square) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![](https://github.com/xuyuanxiang/umi-react-native/workflows/iOS%20E2E%20Tests/badge.svg)](https://github.com/xuyuanxiang/umi-react-native/actions?query=workflow%3A%22iOS+E2E+Tests%22) [![Android E2E Tests](https://github.com/xuyuanxiang/umi-react-native/workflows/Android%20E2E%20Tests/badge.svg)](https://github.com/xuyuanxiang/umi-react-native/actions?query=workflow%3A%22Android+E2E+Tests%22)
 
 使用 [umi@3.x](https://umijs.org/) 加速 [react-native](https://reactnative.dev/) 开发效率：
 
@@ -33,22 +33,20 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 
 ### 使用 React Native CLI
 
-查看示例工程：[UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample#readme)
+示例工程：[UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample#readme)
 
 ### 使用 expo
 
-查看示例工程：[UMIExpoExample](https://github.com/xuyuanxiang/UMIExpoExample#readme)
+示例工程：[UMIExpoExample](https://github.com/xuyuanxiang/UMIExpoExample#readme)
 
 ### 使用 haul 拆包
 
-**umi-preset-react-native**默认情况下不会拆包。
-
-只有当 RN 工程满足下列条件才会拆包：
+当 RN 工程满足下列条件才会拆包：
 
 - 安装了[haul](https://github.com/callstack/haul)打包器；
-- 开启了[dynamicImport](https://umijs.org/config#dynamicimport)配置，并且实现了自定义的 loading。
+- 开启了[dynamicImport](https://umijs.org/config#dynamicimport)配置。
 
-查看示例工程：[UMIHaulExample](https://github.com/xuyuanxiang/UMIHaulExample#readme)
+示例工程：[UMIHaulExample](https://github.com/xuyuanxiang/UMIHaulExample#readme)
 
 ## 文档
 
@@ -60,22 +58,6 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 
 ## 测试
 
-**需要搭建 iOS 和 Android 开发环境：[Setting up the development environment](https://reactnative.dev/docs/environment-setup)。**
+[端到端测试](https://github.com/xuyuanxiang/umi-react-native/actions)
 
-执行 iOS 端到端测试：
-
-```npm
-cd example && yarn e2e:ios
-```
-
-_[ios.wdio.config.js](example/ios.wdio.config.js)配置文件中的`deviceName`和`platformVersion`需要根据本机实际情况配置。_
-
-执行 Android 端到端测试：
-
-```npm
-cd example && yarn e2e:android
-```
-
-_[android.wdio.config.js](example/android.wdio.config.js)配置文件中的`deviceName`和`platformVersion`需要根据本机实际情况配置。_
-
-测试用例：[example/e2e](example/e2e/app.spec.js)。
+测试用例：[example/e2e/app.spec.js](example/e2e/app.spec.js)。
