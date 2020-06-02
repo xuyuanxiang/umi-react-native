@@ -41,20 +41,30 @@ jobs:
         working-directory: example
     steps:
       - uses: actions/checkout@v2
+      - name: Install android emulator
+        run: |
+          $ANDROID_HOME/tools/bin/sdkmanager "platform-tools" "tools" > /dev/null || true
+          $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-29;default;x86" > /dev/null || true
+          $ANDROID_HOME/tools/bin/sdkmanager "emulator" --channel=3 >/dev/null || true
+          $ANDROID_HOME/tools/bin/sdkmanager "build-tools;<<parameters.build_tools_version>>" > /dev/null || true
+          $ANDROID_HOME/tools/bin/sdkmanager --licenses > /dev/null || true
+          $ANDROID_HOME/tools/bin/sdkmanager --list
+      - name: ADB start stop
+        run: |
+          adb start-server
+          adb devices
+          adb kill-server
+          ls -la ~/.android
+      - name: Create android emulator
+        run: $ANDROID_HOME/tools/bin/avdmanager create avd --force --name TestingAVD --package "system-images;android-29;default;x86" --tag default --device pixel
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
       - name: Install npm denpendencies
         if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile --non-interactive --silent
-      - name: Create android package
-        run: $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-29;google_apis;x86"
-      - name: Accept android license agreement
-        run: $ANDROID_HOME/tools/bin/sdkmanager --licenses
-      - name: Create android AVD
-        run: $ANDROID_HOME/tools/bin/avdmanager create avd --force --name TestingAVD --package "system-images;android-29;google_apis;x86" --tag google_apis --device pixel
-#      - name: Start android emulator
-#        run: nohup $ANDROID_HOME/emulator/emulator @TestingAVD > /dev/null 2>&1 &
+      #      - name: Start android emulator
+      #        run: nohup $ANDROID_HOME/emulator/emulator @TestingAVD -cores 1 -gpu auto -accel on -memory 1024 -no-audio -no-snapshot -no-boot-anim -no-window > /dev/null 2>&1 &
       - name: Generate umi temp files
         run: yarn generate
       - name: Show details
@@ -69,8 +79,7 @@ jobs:
 
           echo "Waiting for AVD to finish booting"
 
-          export PATH=$(dirname $(dirname $(command -v
-          android)))/platform-tools:$PATH
+          export PATH=$(dirname $(dirname $(command -v android)))/platform-tools:$PATH
 
           until [[ "$BOOT" =~ "1" ]]; do
             sleep 5
@@ -86,5 +95,6 @@ jobs:
           adb shell settings put global animator_duration_scale 0
 
           echo "Android Virtual Device is now ready."
+
       - name: Run e2e tests
         run: yarn e2e:run-android
