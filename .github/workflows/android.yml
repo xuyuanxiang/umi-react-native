@@ -9,12 +9,13 @@ on:
 
 jobs:
   test-android:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
         working-directory: example
     steps:
+      - uses: actions/checkout@v2
       - name: Install android emulator
         run: |
           $ANDROID_HOME/tools/bin/sdkmanager "platform-tools" "tools" > /dev/null || true
@@ -36,7 +37,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
-      - uses: actions/checkout@v2
       - name: Install npm denpendencies
         if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile --non-interactive --silent
