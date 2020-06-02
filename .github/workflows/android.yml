@@ -21,7 +21,7 @@ jobs:
           $ANDROID_HOME/tools/bin/sdkmanager "platform-tools" "tools" > /dev/null || true
           $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-29;default;x86" > /dev/null || true
           $ANDROID_HOME/tools/bin/sdkmanager "emulator" --channel=3 >/dev/null || true
-          $ANDROID_HOME/tools/bin/sdkmanager "build-tools;<<parameters.build_tools_version>>" > /dev/null || true
+          $ANDROID_HOME/tools/bin/sdkmanager "build-tools;29.0.3" > /dev/null || true
           $ANDROID_HOME/tools/bin/sdkmanager --licenses > /dev/null || true
           $ANDROID_HOME/tools/bin/sdkmanager --list
       - name: ADB start stop
