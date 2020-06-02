@@ -19,10 +19,10 @@ jobs:
       - name: Install android emulator
         run: |
           $ANDROID_HOME/tools/bin/sdkmanager "platform-tools" "tools" > /dev/null || true
-          $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-29;google_apis;x86" > /dev/null || true
-          $ANDROID_HOME/tools/bin/sdkmanager "emulator" --channel=3 >/dev/null || true
           $ANDROID_HOME/tools/bin/sdkmanager "build-tools;29.0.3" > /dev/null || true
-          $ANDROID_HOME/tools/bin/sdkmanager --licenses > /dev/null || true
+          $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-29;default;x86"
+          $ANDROID_HOME/tools/bin/sdkmanager --licenses
+          $ANDROID_HOME/tools/bin/sdkmanager "emulator" --channel=3 >/dev/null || true
           $ANDROID_HOME/tools/bin/sdkmanager --list
       - name: ADB start stop
         run: |
@@ -31,7 +31,7 @@ jobs:
           $ANDROID_HOME/platform-tools/adb kill-server
           ls -la ~/.android
       - name: Create android emulator
-        run: $ANDROID_HOME/tools/bin/avdmanager create avd -n TestingAVD -f -k "system-images;android-29;google_apis;x86"
+        run: $ANDROID_HOME/tools/bin/avdmanager create avd -n TestingAVD -f -k "system-images;android-29;default;x86"
       - name: Start android emulator
         run: nohup $ANDROID_HOME/emulator/emulator @TestingAVD -cores 1 -gpu auto -accel on -memory 1024 -no-audio -no-snapshot -no-boot-anim -no-window > /dev/null 2>&1 &
       - uses: actions/setup-node@v1
