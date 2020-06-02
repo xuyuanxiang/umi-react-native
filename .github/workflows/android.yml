@@ -15,14 +15,14 @@ jobs:
         shell: bash
         working-directory: example
     steps:
-#      - name: Install android emulator
-#        run: |
-#          $ANDROID_HOME/tools/bin/sdkmanager "platform-tools" "tools" > /dev/null || true
-#          $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-29;google_apis;x86" > /dev/null || true
-#          $ANDROID_HOME/tools/bin/sdkmanager "emulator" --channel=3 >/dev/null || true
-#          $ANDROID_HOME/tools/bin/sdkmanager "build-tools;29.0.3" > /dev/null || true
-#          $ANDROID_HOME/tools/bin/sdkmanager --licenses > /dev/null || true
-#          $ANDROID_HOME/tools/bin/sdkmanager --list
+      - name: Install android emulator
+        run: |
+          $ANDROID_HOME/tools/bin/sdkmanager "platform-tools" "tools" > /dev/null || true
+          $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-29;google_apis;x86" > /dev/null || true
+          $ANDROID_HOME/tools/bin/sdkmanager "emulator" --channel=3 >/dev/null || true
+          $ANDROID_HOME/tools/bin/sdkmanager "build-tools;29.0.3" > /dev/null || true
+          $ANDROID_HOME/tools/bin/sdkmanager --licenses > /dev/null || true
+          $ANDROID_HOME/tools/bin/sdkmanager --list
       - name: ADB start stop
         run: |
           $ANDROID_HOME/platform-tools/adb start-server
