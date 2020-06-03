@@ -56,6 +56,12 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 - [路由](/docs/Router.md)
 - [FAQ](/docs/FAQ.md)
 
+## 案例
+
+- [单独为某个页面设置导航条](https://github.com/xuyuanxiang/umi-react-native/blob/master/docs/Router.md#%E6%A1%88%E4%BE%8B%E5%8D%95%E7%8B%AC%E4%B8%BA%E6%9F%90%E4%B8%AA%E9%A1%B5%E9%9D%A2%E8%AE%BE%E7%BD%AE%E5%AF%BC%E8%88%AA%E6%9D%A1)
+- [持久化导航状态（App复苏后状态恢复）](https://github.com/xuyuanxiang/umi-react-native/blob/master/docs/Router.md#%E6%A1%88%E4%BE%8B%E6%8C%81%E4%B9%85%E5%8C%96%E5%AF%BC%E8%88%AA%E7%8A%B6%E6%80%81)
+- [自定义页面转场动画](https://github.com/xuyuanxiang/umi-react-native/blob/master/docs/Router.md#%E6%A1%88%E4%BE%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB)
+
 ## 测试
 
 [端到端测试](https://github.com/xuyuanxiang/umi-react-native/actions)
