@@ -29,15 +29,15 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 
 **umi-preset-react-native**会探测用户工程内的依赖，自动为这些工具生成所需的**配置文件**和**入口文件**。
 
-通常你只需要选择其中一款，如果全都要请查看：[umi-preset-react-native 扩展配置](https://github.com/xuyuanxiang/umi-react-native/blob/master/docs/Configuration.md#umi-preset-react-native-%E6%89%A9%E5%B1%95%E9%85%8D%E7%BD%AE)。
+通常你只需要选择其中一款，如果全都要请查看：[umi-preset-react-native 扩展配置](docs/Configuration.md#umi-preset-react-native-%E6%89%A9%E5%B1%95%E9%85%8D%E7%BD%AE)。
 
 ### 使用 React Native CLI
 
-示例工程：[UMIRNExample](https://github.com/xuyuanxiang/UMIRNExample#readme)
+示例工程：[UMIRNExample](/UMIRNExample#readme)
 
 ### 使用 expo
 
-示例工程：[UMIExpoExample](https://github.com/xuyuanxiang/UMIExpoExample#readme)
+示例工程：[UMIExpoExample](/UMIExpoExample#readme)
 
 ### 使用 haul 拆包
 
@@ -46,21 +46,21 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 - 安装了[haul](https://github.com/callstack/haul)打包器；
 - 开启了[dynamicImport](https://umijs.org/config#dynamicimport)配置。
 
-示例工程：[UMIHaulExample](https://github.com/xuyuanxiang/UMIHaulExample#readme)
+示例工程：[UMIHaulExample](/UMIHaulExample#readme)
 
 ## 文档
 
-- [发布日志](/CHANGELOG.md)
-- [命令行工具](/docs/Command.md)
-- [配置](/docs/Configuration.md)
-- [路由](/docs/Router.md)
-- [FAQ](/docs/FAQ.md)
+- [发布日志](CHANGELOG.md)
+- [命令行工具](docs/Command.md)
+- [配置](docs/Configuration.md)
+- [路由](docs/Router.md)
+- [FAQ](docs/FAQ.md)
 
 ## 案例
 
-- [单独为某个页面设置导航条](https://github.com/xuyuanxiang/umi-react-native/blob/master/docs/Router.md#%E6%A1%88%E4%BE%8B%E5%8D%95%E7%8B%AC%E4%B8%BA%E6%9F%90%E4%B8%AA%E9%A1%B5%E9%9D%A2%E8%AE%BE%E7%BD%AE%E5%AF%BC%E8%88%AA%E6%9D%A1)
-- [持久化导航状态（App复苏后状态恢复）](https://github.com/xuyuanxiang/umi-react-native/blob/master/docs/Router.md#%E6%A1%88%E4%BE%8B%E6%8C%81%E4%B9%85%E5%8C%96%E5%AF%BC%E8%88%AA%E7%8A%B6%E6%80%81)
-- [自定义页面转场动画](https://github.com/xuyuanxiang/umi-react-native/blob/master/docs/Router.md#%E6%A1%88%E4%BE%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB)
+- [单独为某个页面设置导航条](docs/Router.md#%E6%A1%88%E4%BE%8B%E5%8D%95%E7%8B%AC%E4%B8%BA%E6%9F%90%E4%B8%AA%E9%A1%B5%E9%9D%A2%E8%AE%BE%E7%BD%AE%E5%AF%BC%E8%88%AA%E6%9D%A1)
+- [持久化导航状态（App复苏后状态恢复）](docs/Router.md#%E6%A1%88%E4%BE%8B%E6%8C%81%E4%B9%85%E5%8C%96%E5%AF%BC%E8%88%AA%E7%8A%B6%E6%80%81)
+- [自定义页面转场动画](docs/Router.md#%E6%A1%88%E4%BE%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB)
 
 ## 测试
 

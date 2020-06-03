@@ -375,4 +375,4 @@ export default function HomePage({ route }) {
 { "key": "/home-WnnfQomYXFls0kS0v0lxo", "name": "/home", "params": { "name": "bar" } }
 ```
 
-了解详情，请移步至：<a href="https://github.com/xuyuanxiang/umi-react-native/tree/master/packages/umi-preset-react-navigation#readme" target="_blank">umi-preset-react-navigation</a>。
+了解详情，请移步至：<a href="../packages/umi-preset-react-navigation#readme" target="_blank">umi-preset-react-navigation</a>。
