@@ -33,11 +33,11 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 
 ### 使用 React Native CLI
 
-示例工程：[UMIRNExample](/UMIRNExample#readme)
+示例工程：[UMIRNExample](https://gitee.com/xuyuanxiang/UMIRNExample#readme)
 
 ### 使用 expo
 
-示例工程：[UMIExpoExample](/UMIExpoExample#readme)
+示例工程：[UMIExpoExample](https://gitee.com/xuyuanxiang/UMIExpoExample#readme)
 
 ### 使用 haul 拆包
 
@@ -46,7 +46,7 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 - 安装了[haul](https://github.com/callstack/haul)打包器；
 - 开启了[dynamicImport](https://umijs.org/config#dynamicimport)配置。
 
-示例工程：[UMIHaulExample](/UMIHaulExample#readme)
+示例工程：[UMIHaulExample](https://gitee.com/xuyuanxiang/UMIHaulExample#readme)
 
 ## 文档
 
