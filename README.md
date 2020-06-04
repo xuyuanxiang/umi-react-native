@@ -1,5 +1,6 @@
 # umi-react-native
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b2f18b86af4243aa93fe4e679b24341b)](https://app.codacy.com/manual/xuyuanxiang/umi-react-native?utm_source=github.com&utm_medium=referral&utm_content=xuyuanxiang/umi-react-native&utm_campaign=Badge_Grade_Dashboard)
 ![NPM Monthly Downloads](https://img.shields.io/npm/dm/umi-preset-react-native?style=flat-square) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![](https://github.com/xuyuanxiang/umi-react-native/workflows/iOS%20E2E%20Tests/badge.svg?style=flat-square)](https://github.com/xuyuanxiang/umi-react-native/actions?query=workflow%3A%22iOS+E2E+Tests%22) [![Android E2E Tests](https://github.com/xuyuanxiang/umi-react-native/workflows/Android%20E2E%20Tests/badge.svg?style=flat-square)](https://github.com/xuyuanxiang/umi-react-native/actions?query=workflow%3A%22Android+E2E+Tests%22)
 
 使用 [umi@3.x](https://umijs.org/) 加速 [react-native](https://reactnative.dev/) 开发效率：
