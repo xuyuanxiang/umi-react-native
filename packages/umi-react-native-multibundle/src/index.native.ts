@@ -16,9 +16,9 @@ const { Multibundle: MultibundleNativeModule } = NativeModules;
 
 class Multibundle {
   loadStartTimestamp: { [bundleName: string]: number } = {};
-  print(..._args: any[]) {
+  print: (...args: unknown[]) => void = () => {
     // no-op
-  }
+  };
 
   enableLogging() {
     this.print = (...args) => {

@@ -48,7 +48,7 @@ function flattenRoutes(routes?: IRouteProps[], parent?: IScreen): IScreen[] {
   const screens: IScreen[] = [];
   for (let idx = 0; idx < routes.length; idx++) {
     const route = routes[idx];
-    const { key: routeKey, path, exact, component, strict, redirect, wrappers, routes: children, ...options } = route;
+    const { key: routeKey, path, exact, component, strict, redirect, routes: children, ...options } = route;
     const screenKey = routeKey || nanoid();
     const screen: IScreen = {
       key: screenKey,

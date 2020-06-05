@@ -20,7 +20,7 @@ export function render(clientRender: () => any, args: {hot?: boolean} = {}) {
 `;
 
 export default (api: IApi) => {
-  api.addRuntimePlugin(() => [join(api.paths.absTmpPath!, 'react-native', 'runtime.ts')]);
+  api.addRuntimePlugin(() => [join(api.paths.absTmpPath || '', 'react-native', 'runtime.ts')]);
 
   api.onGenerateFiles(() => {
     api.writeTmpFile({

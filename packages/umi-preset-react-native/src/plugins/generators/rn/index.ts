@@ -10,7 +10,7 @@ interface IRNGeneratorArguments {
 export default (api: IApi) => {
   const {
     utils: { lodash, winPath, chokidar },
-    paths,
+    paths: { absPagesPath, absSrcPath = '' },
   } = api;
   async function generateFiles() {
     await api.applyPlugins({
@@ -34,13 +34,13 @@ export default (api: IApi) => {
         key: 'addTmpGenerateWatcherPaths',
         type: api.ApplyPluginsType.add,
         initialValue: [
-          paths.absPagesPath!,
-          join(paths.absSrcPath!, api.config?.singular ? 'layout' : 'layouts'),
-          join(paths.absSrcPath!, 'app.tsx'),
-          join(paths.absSrcPath!, 'app.ts'),
-          join(paths.absSrcPath!, 'app.jsx'),
-          join(paths.absSrcPath!, 'app.js'),
-        ],
+          absPagesPath,
+          join(absSrcPath, api.config?.singular ? 'layout' : 'layouts'),
+          join(absSrcPath, 'app.tsx'),
+          join(absSrcPath, 'app.ts'),
+          join(absSrcPath, 'app.jsx'),
+          join(absSrcPath, 'app.js'),
+        ].filter(Boolean),
       });
       lodash.uniq<string>(watcherPaths.map((p: string) => winPath(p))).forEach((p: string) => {
         createWatcher(p);
