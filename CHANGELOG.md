@@ -1,4 +1,30 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.5.2...v"></a> (2020-05-29)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.6.0-alpha.0...v"></a> (2020-06-10)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.5.2...v0.6.0-alpha.0">0.6.0-alpha.0</a> (2020-06-10)
+
+
+### 回滚
+
+* "docs: change example url to absolute" (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/c1401ec">c1401ec</a>)
+
+
+
+* "docs: use relative url" (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/8b37e0b">8b37e0b</a>)
+
+
+
+* commit 4f4c006b (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/f1687d5">f1687d5</a>)
+
+
+
+
+
+### 新功能
+
+* 支持umi define配置 (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/ad5d6c1">ad5d6c1</a>)
+
+
+
 
 ### <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.5.1...v0.5.2">0.5.2</a> (2020-05-29)
 

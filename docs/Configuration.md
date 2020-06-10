@@ -25,6 +25,7 @@ _与 DOM 无关的[umi](https://umijs.org/)插件都是可以使用的，或者�
 目前支持的 umi 配置如下（已满足集成一些常用[umi 插件](https://github.com/umijs/plugins)的需要）：
 
 - [x] [alias](https://umijs.org/config#alias)
+- [x] [define](https://umijs.org/config#define)
 - [x] [extraBabelPlugins](https://umijs.org/config#extrababelplugins)
 - [x] [extraBabelPresets](https://umijs.org/config#extrababelpresets)
 - [x] [history](https://umijs.org/config#history)：只能使用：`{ type: 'memory' }`
