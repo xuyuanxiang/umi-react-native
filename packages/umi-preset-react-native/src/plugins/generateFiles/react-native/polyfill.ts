@@ -21,6 +21,16 @@ export default (api: IApi) => {
     return memo;
   });
 
+  api.addEntryCodeAhead(() => {
+    if (api.config.define && typeof api.config.define === 'object') {
+      const keys = Object.keys(api.config.define);
+      return keys
+        .map((key) => `global['${key}'] = ${JSON.stringify(api.config.define && api.config.define[key])};`)
+        .join('\n');
+    }
+    return '';
+  });
+
   api.addEntryCode(
     () => `// @ts-ignore
 let accept: unknown;
