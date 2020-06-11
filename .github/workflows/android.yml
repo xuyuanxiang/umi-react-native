@@ -47,7 +47,7 @@ jobs:
       - name: Show details
         run: pwd && ls -a
       - name: Start metro dev server
-        run: nohup yarn start > /dev/null 2>&1 &
+        run: nohup yarn start --reset-cache > /dev/null 2>&1 &
       - name: Start android
         run: yarn android
       - name: Wait for AVD to be ready

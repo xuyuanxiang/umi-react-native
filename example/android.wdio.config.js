@@ -20,7 +20,7 @@ exports.config = {
   logLevel: 'error',
   bail: 0,
   baseUrl: 'http://localhost',
-  waitforTimeout: 300000,
+  waitforTimeout: 1200000,
   connectionRetryTimeout: 600000,
   connectionRetryCount: 9,
   framework: 'jasmine',

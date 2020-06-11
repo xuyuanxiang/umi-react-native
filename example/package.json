@@ -36,10 +36,10 @@
     "@wdio/spec-reporter": "^6.1.14",
     "@wdio/sync": "^6.1.14",
     "appium": "^1.17.1",
-    "metro-react-native-babel-preset": "^0.58.0",
+    "metro-react-native-babel-preset": "^0.59.0",
     "umi": "^3.2.1",
-    "umi-preset-react-native": "latest",
-    "umi-preset-react-navigation": "latest",
+    "umi-preset-react-native": "0.6.0-alpha.0",
+    "umi-preset-react-navigation": "0.6.0-alpha.0",
     "webdriverio": "^6.1.14"
   }
 }

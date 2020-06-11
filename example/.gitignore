@@ -64,3 +64,6 @@ tmp
 metro.config.js
 babel.config.js
 haul.config.js
+
+.npmrc
+.yarnrc
