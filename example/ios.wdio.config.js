@@ -20,13 +20,13 @@ exports.config = {
   logLevel: 'error',
   bail: 0,
   baseUrl: 'http://localhost',
-  waitforTimeout: 1200000,
-  connectionRetryTimeout: 600000,
-  connectionRetryCount: 9,
+  waitforTimeout: 7200000,
+  connectionRetryTimeout: 3600000,
+  connectionRetryCount: 3,
   framework: 'jasmine',
   reporters: ['spec'],
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 300000,
+    defaultTimeoutInterval: 1200000,
     expectationResultHandler: function () {
       // NOOP
     },
