@@ -27,7 +27,7 @@ export function rootContainer(container, {plugin}) {
                 plugin.applyPlugins({
                   key: 'onReactNavigationStateChange',
                   type: ApplyPluginsType.event,
-                  initialValue: state,
+                  args: {state},
                   async: true,
                 });
               },
