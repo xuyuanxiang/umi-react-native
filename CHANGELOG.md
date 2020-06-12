@@ -1,4 +1,22 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.6.0-alpha.0...v"></a> (2020-06-10)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.6.0-alpha.1...v"></a> (2020-06-12)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.6.0-alpha.0...v0.6.0-alpha.1">0.6.0-alpha.1</a> (2020-06-12)
+
+
+### Bug 修复
+
+* 修复 onReactNavigationStateChange 传参错误的问题。 (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/d33de18">d33de18</a>)
+
+
+
+
+
+### 新功能
+
+* 双向同步history、navigation状态，支持使用 history 或者 navigation 进行命令式跳转。 (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/3b75b8b">3b75b8b</a>)
+
+
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.5.2...v0.6.0-alpha.0">0.6.0-alpha.0</a> (2020-06-10)
 
