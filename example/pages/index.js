@@ -3,7 +3,7 @@ import { StatusBar, Text, Button } from 'react-native';
 import { connect, Link } from 'umi';
 import { getTestProps } from '../services';
 
-function IndexPage({ greeting }) {
+function IndexPage({ greeting, navigation }) {
   return (
     <>
       <StatusBar barStyle="light-content" />
@@ -14,11 +14,10 @@ function IndexPage({ greeting }) {
         component={Button}
         title="Go to FeedbackPage"
       />
-      <Link
+      <Button
         {...getTestProps('linkToLoginPage')}
-        to="/login"
-        component={Button}
         title="Go to LoginPage"
+        onPress={() => navigation.navigate('/login')}
       />
     </>
   );

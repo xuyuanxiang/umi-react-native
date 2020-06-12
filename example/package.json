@@ -23,7 +23,8 @@
     "react-native-gesture-handler": "1.6.1",
     "react-native-reanimated": "1.8.0",
     "react-native-safe-area-context": "1.0.2",
-    "react-native-screens": "2.7.0"
+    "react-native-screens": "2.7.0",
+    "umi-renderer-react-navigation": "file:../packages/umi-renderer-react-navigation"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
@@ -38,8 +39,8 @@
     "appium": "^1.17.1",
     "metro-react-native-babel-preset": "^0.59.0",
     "umi": "^3.2.1",
-    "umi-preset-react-native": "0.6.0-alpha.0",
-    "umi-preset-react-navigation": "0.6.0-alpha.0",
+    "umi-preset-react-native": "file:../packages/umi-preset-react-native",
+    "umi-preset-react-navigation": "file:../packages/umi-preset-react-navigation",
     "webdriverio": "^6.1.14"
   }
 }

@@ -8,7 +8,7 @@ export default function FeedBackPage({ route, navigation }) {
       navigation.setOptions({
         headerTitle: () => <Text {...getTestProps('feedbackPageTitle')}>Feedback Page</Text>,
         headerLeft: ({ label, ...rests }) => (
-          <Button title={label} {...rests} {...getTestProps('feedbackPageBackButton')} />
+          <Button title={label || ''} {...rests} {...getTestProps('feedbackPageBackButton')} />
         ),
       }),
     [navigation],

@@ -246,7 +246,7 @@ export function getReactNavigationInitialIndicator() {
 }
 
 // 订阅 react-navigation 状态变化通知，每次路由变化时，将导航状态持久化保存到手机本地。
-export async function onReactNavigationStateChange(state) {
+export async function onReactNavigationStateChange({ state }) {
   if (state) {
     await AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state));
   }

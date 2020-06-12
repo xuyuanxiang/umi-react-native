@@ -11,10 +11,6 @@ on:
 jobs:
   test-android:
     runs-on: macos-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: example
     steps:
       - uses: actions/checkout@v2
       - name: Setup sdk
@@ -42,6 +38,10 @@ jobs:
           node-version: '10.x'
       - name: Install npm denpendencies
         run: yarn install --frozen-lockfile --non-interactive --silent
+      - name: Compilation
+        run: yarn build
+      - name: Install example npm denpendencies
+        run: cd example && yarn install --frozen-lockfile --non-interactive --silent
       - name: Generate umi temp files
         run: yarn generate
       - name: Show details

@@ -15,8 +15,8 @@ import {
   StackNavigationConfig,
   StackNavigationOptions,
 } from '@react-navigation/stack/lib/typescript/src/types';
-import { History, Location, Action } from 'history';
-import { parse } from 'querystring';
+import { Location, Action } from 'history';
+import { parse, stringify } from 'querystring';
 
 function HistoryNavigator({
   initialRouteName,
@@ -24,9 +24,7 @@ function HistoryNavigator({
   screenOptions,
   history,
   ...rest
-}: DefaultNavigatorOptions<StackNavigationOptions> &
-  StackRouterOptions &
-  StackNavigationConfig & { history: History<any> }) {
+}: DefaultNavigatorOptions<StackNavigationOptions> & StackRouterOptions & StackNavigationConfig & { history: any }) {
   const defaultOptions = {
     gestureEnabled: Platform.OS === 'ios',
     animationEnabled: Platform.OS !== 'web',
@@ -73,27 +71,52 @@ function HistoryNavigator({
     [navigation, state.index, state.key],
   );
 
-  React.useEffect(
-    () =>
+  React.useEffect(() => {
+    if (history.index > state.index) {
+      history.go(state.index - history.index);
+    } else if (history.index < state.index) {
+      const route = state.routes[state.index];
+      if (route) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        history.push(route.params ? `${route.name}?${stringify(route.params)}` : route.name);
+      }
+    }
+    const subscribes: (() => void)[] = [];
+    subscribes.push(
       history.listen((location: Location<any>, action: Action): void => {
         if (state.routeNames.includes(location.pathname)) {
           switch (action) {
             case 'POP':
-              if (navigation.canGoBack()) {
+              if (state.index > history.index) {
                 navigation.dispatch(StackActions.pop());
               }
               break;
             case 'PUSH':
-              navigation.dispatch(StackActions.push(location.pathname, parse(location.search.replace('?', ''))));
+              if (state.index < history.index) {
+                navigation.dispatch(StackActions.push(location.pathname, parse(location.search.replace('?', ''))));
+              }
               break;
             case 'REPLACE':
-              navigation.dispatch(StackActions.replace(location.pathname, parse(location.search.replace('?', ''))));
+              if (state.index === history.index) {
+                navigation.dispatch(StackActions.replace(location.pathname, parse(location.search.replace('?', ''))));
+              }
               break;
           }
         }
       }),
-    [navigation, history],
-  );
+    );
+    return () => {
+      for (const fn of subscribes) {
+        if (typeof fn === 'function') {
+          try {
+            fn();
+          } catch (ignored) {}
+        }
+      }
+    };
+  }, [navigation, history, state]);
+
   return <StackView {...rest} descriptors={descriptors} state={state} navigation={navigation} />;
 }
 
