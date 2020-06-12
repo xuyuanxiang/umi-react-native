@@ -23,16 +23,16 @@ jobs:
       - name: Install example npm denpendencies
         run: cd example && yarn install --frozen-lockfile --non-interactive --silent
       - name: Install pod denpendencies
-        run: cd ios && pod install --silent && cd -
+        run: cd example/ios && pod install --silent
       - name: Build ios
-        run: yarn e2e:build-ios
+        run: cd example && yarn e2e:build-ios
       - name: Start iOS simulator
         run: xcrun simctl boot "iPhone 11" || true
       - name: Generate umi temp files
-        run: yarn generate
+        run: cd example && yarn generate
       - name: Show details
-        run: pwd && ls -a
+        run: cd example && pwd && ls -a
       - name: Start metro dev server
-        run: nohup yarn start > /dev/null 2>&1 &
+        run: cd example && nohup yarn start > /dev/null 2>&1 &
       - name: Run e2e tests
-        run: yarn e2e:run-ios
+        run: cd example && yarn e2e:run-ios

@@ -43,13 +43,13 @@ jobs:
       - name: Install example npm denpendencies
         run: cd example && yarn install --frozen-lockfile --non-interactive --silent
       - name: Generate umi temp files
-        run: yarn generate
+        run: cd example && yarn generate
       - name: Show details
-        run: pwd && ls -a
+        run: cd example && pwd && ls -a
       - name: Start metro dev server
-        run: nohup yarn start --reset-cache > /dev/null 2>&1 &
+        run: cd example && nohup yarn start --reset-cache > /dev/null 2>&1 &
       - name: Start android
-        run: yarn android
+        run: cd example && yarn android
       - name: Wait for AVD to be ready
         run: >
           export BOOT=""
@@ -75,4 +75,4 @@ jobs:
 
 
       - name: Run e2e tests
-        run: yarn e2e:run-android
+        run: cd example && yarn e2e:run-android
