@@ -22,11 +22,11 @@ export default (api: IApi) => {
   });
 
   api.addEntryCodeAhead(() => {
-    if (api.config.define && typeof api.config.define === 'object') {
-      const keys = Object.keys(api.config.define);
-      return keys
-        .map((key) => `global['${key}'] = ${JSON.stringify(api.config.define && api.config.define[key])};`)
-        .join('\n');
+    if (process.env.NODE_ENV === 'development') {
+      return `if (__DEV__) {
+  const PropsTypes = require('prop-types');
+  require('@umijs/runtime').Link.propTypes.component = PropsTypes.oneOfType([PropsTypes.func, PropsTypes.elementType]);
+}`;
     }
     return '';
   });
