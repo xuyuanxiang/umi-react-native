@@ -1,4 +1,14 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.6.0-alpha.1...v"></a> (2020-06-12)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.6.0-alpha.2...v"></a> (2020-06-15)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.6.0-alpha.1...v0.6.0-alpha.2">0.6.0-alpha.2</a> (2020-06-15)
+
+
+### Bug 修复
+
+* 在开发模式下添加polyfill，为react-router-native的Link组件修正propTypes定义错误的问题。 (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/563e40f">563e40f</a>)
+
+
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.6.0-alpha.0...v0.6.0-alpha.1">0.6.0-alpha.1</a> (2020-06-12)
 
