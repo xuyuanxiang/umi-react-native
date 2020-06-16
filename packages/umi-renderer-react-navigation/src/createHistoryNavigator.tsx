@@ -71,20 +71,10 @@ function HistoryNavigator({
     [navigation, state.index, state.key],
   );
 
-  React.useEffect(() => {
-    if (history.index > state.index) {
-      history.go(state.index - history.index);
-    } else if (history.index < state.index) {
-      const route = state.routes[state.index];
-      if (route) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignore
-        history.push(route.params ? `${route.name}?${stringify(route.params)}` : route.name);
-      }
-    }
-    const subscribes: (() => void)[] = [];
-    subscribes.push(
+  React.useEffect(
+    () =>
       history.listen((location: Location<any>, action: Action): void => {
+        const state = navigation.dangerouslyGetState();
         if (state.routeNames.includes(location.pathname)) {
           switch (action) {
             case 'POP':
@@ -105,17 +95,21 @@ function HistoryNavigator({
           }
         }
       }),
-    );
-    return () => {
-      for (const fn of subscribes) {
-        if (typeof fn === 'function') {
-          try {
-            fn();
-          } catch (ignored) {}
-        }
+    [navigation, history],
+  );
+
+  React.useEffect(() => {
+    if (history.index > state.index) {
+      history.go(state.index - history.index);
+    } else if (history.index < state.index) {
+      const route = state.routes[state.index];
+      if (route) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        history.push(route.params ? `${route.name}?${stringify(route.params)}` : route.name);
       }
-    };
-  }, [navigation, history, state]);
+    }
+  }, [state.index, history]);
 
   return <StackView {...rest} descriptors={descriptors} state={state} navigation={navigation} />;
 }
