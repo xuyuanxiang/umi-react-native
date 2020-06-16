@@ -1,4 +1,14 @@
-## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.6.0-alpha.2...v"></a> (2020-06-15)
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.6.0-alpha.3...v"></a> (2020-06-16)
+
+## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.6.0-alpha.2...v0.6.0-alpha.3">0.6.0-alpha.3</a> (2020-06-16)
+
+
+### Bug 修复
+
+* 修复同步history和navigation的问题 (<a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/commit/718a3ed">718a3ed</a>)
+
+
+
 
 ## <a target="_blank" href="https://github.com/xuyuanxiang/umi-react-native/compare/v0.6.0-alpha.1...v0.6.0-alpha.2">0.6.0-alpha.2</a> (2020-06-15)
 
