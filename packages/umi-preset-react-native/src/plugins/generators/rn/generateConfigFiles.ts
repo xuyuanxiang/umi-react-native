@@ -187,17 +187,22 @@ export default async function generateConfigFiles(api: IApi): Promise<void> {
             haulPresetPath: winPath(detectHaulPresetPath()),
             webpackConfig: JSON.stringify(config, null, 2),
             dependencies: JSON.stringify(
-              lodash.keys(
-                lodash.omit(config.resolve.alias, [
-                  '@',
-                  '@@',
-                  'react-dom',
-                  'react-router-dom',
-                  'regenerator-runtime',
-                  './core/polyfill',
-                  './core/routes',
-                  '@@/core/routes',
-                ]),
+              lodash.sortedUniq(
+                lodash
+                  .keys(
+                    lodash.omit(config.resolve.alias, [
+                      '@',
+                      '@@',
+                      'react-dom',
+                      'react-router-dom',
+                      'regenerator-runtime',
+                      './core/polyfill',
+                      './core/routes',
+                      '@@/core/routes',
+                      ...lodash.keys(api.config.alias),
+                    ]),
+                  )
+                  .sort(),
               ),
             ),
             dev: process.env.NODE_ENV === 'development',

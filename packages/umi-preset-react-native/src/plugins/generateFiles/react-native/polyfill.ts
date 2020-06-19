@@ -32,24 +32,26 @@ export default (api: IApi) => {
   });
 
   api.addEntryCode(
-    () => `// @ts-ignore
-let accept: unknown;
-// @ts-ignore
-if (module.hot) {
+    () => `if (__DEV__) {
   // @ts-ignore
-  if (!accept) {
+  let accept: unknown;
+  // @ts-ignore
+  if (module.hot) {
     // @ts-ignore
-    accept = module.hot.accept;
+    if (!accept) {
+      // @ts-ignore
+      accept = module.hot.accept;
+    }
+    // @ts-ignore
+    module.hot.accept = function (path, fn) {
+      if (typeof path === 'function' && typeof accept === 'function') {
+        accept(path);
+      }
+      if (typeof fn === 'function' && typeof accept === 'function') {
+        accept(fn);
+      }
+    };
   }
-  // @ts-ignore
-  module.hot.accept = function (path, fn) {
-    if (typeof path === 'function' && typeof accept === 'function') {
-      accept(path);
-    }
-    if (typeof fn === 'function' && typeof accept === 'function') {
-      accept(fn);
-    }
-  };
 }
   `,
   );

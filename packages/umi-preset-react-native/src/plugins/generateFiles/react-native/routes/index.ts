@@ -2,9 +2,9 @@ import { IApi } from 'umi';
 import { createFormatter } from '../../../utils';
 import routesToJSON from './routesToJSON';
 
-const ROUTES_TPL = `import {ApplyPluginsType, dynamic} from 'umi';
-import { plugin } from '@@/core/plugin';
-import { dynamicImportBundle } from './exports';
+const ROUTES_TPL = `import {ApplyPluginsType} from 'umi';
+import {plugin} from '@@/core/plugin';
+import {dynamicImportBundle} from './exports';
 
 const routes = {{#routes}}{{{ routes }}}{{/routes}}{{^routes}}{}{{/routes}};
 
