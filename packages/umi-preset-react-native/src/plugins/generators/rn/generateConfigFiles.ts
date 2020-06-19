@@ -70,8 +70,8 @@ export default async function generateConfigFiles(api: IApi): Promise<void> {
 
   const config = webpackConfig.toConfig();
 
-  const plugins: (string | [string, any, string?])[] = [];
-  const presets: (string | [string, any, string?])[] = [];
+  const plugins: any[] = [];
+  const presets: any[] = [];
 
   if (api.config.haul) {
     presets.push('module:@haul-bundler/babel-preset-react-native');
