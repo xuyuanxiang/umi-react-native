@@ -189,7 +189,7 @@ export default async function generateConfigFiles(api: IApi): Promise<void> {
             dependencies: JSON.stringify(
               lodash.sortedUniq(
                 lodash
-                  .keys(
+                  .values(
                     lodash.omit(config.resolve.alias, [
                       '@',
                       '@@',
