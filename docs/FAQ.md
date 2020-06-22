@@ -80,3 +80,32 @@ node_modules(?!.*[\/\\](react|@react-navigation|@react-native-community|@expo|pr
 当某个依赖（比如：[@react-native-community/viewpager](https://github.com/react-native-community/react-native-viewpager) ）发布到 npm 的代码不是 ES5 时，就会出现该错误。
 
 _因为 RN 官方的 [metro](https://facebook.github.io/metro/) 会使用 babel 编译所有代码，所以不存在该问题。这些 npm 依赖专门针对 RN 所以未编译为 ES5。_
+
+提供一个简单的方案：
+
+把导致该问题的依赖代码拷贝到工程目录下:
+
+```shell
+cp -r node_modules/@react-native-community/viewpager/js ./components/viewpager
+```
+
+使用[alias](https://umijs.org/config#alias)配置修改引用位置：
+
+```javascript
+// .umirc.js
+export default {
+  alias: {
+    '@react-native-community/viewpager': '@/components/viewpager',
+  },
+};
+```
+
+这样，当我们在代码中引入 @react-native-community/viewpager 时：
+
+```javascript
+import ViewPager from '@react-native-community/viewpager';
+// 等价于:
+// import ViewPager from '@/components/viewpager';
+```
+
+实际上会引入工程内部 `./components` 目录中被 babel 所编译过的 `viewpager/`。
