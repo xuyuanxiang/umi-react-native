@@ -3,6 +3,7 @@
 - [hmrClient.send is not a function](#hmrclientsend-is-not-a-function)
 - [使用 @ant-design/react-native 组件时，报错：Unrecognized font family 'antoutline'](#%E4%BD%BF%E7%94%A8-ant-designreact-native-%E7%BB%84%E4%BB%B6%E6%97%B6%E6%8A%A5%E9%94%99unrecognized-font-family-antoutline)
 - [Unable to Resolve Module in React Native App](#unable-to-resolve-module-in-react-native-app)
+- [Attempted to assign to readonly property](#attempted-to-assign-to-readonly-property)
 
 ## FAQ
 
@@ -61,3 +62,21 @@ Windows
 ```shell
 del %appdata%\Temp\react-* & del %appdata%\Temp\metro-* & del %appdata%\Temp\haste-map-* & cd android & gradlew clean & cd .. & del node_modules/ & yarn cache clean --force & yarn & yarn start --reset-cache
 ```
+
+### Attempted to assign to readonly property
+
+使用第三方的[haul](https://github.com/callstack/haul)打包器时，运行时会出现该错误。
+
+原因如下：
+
+[haul](https://github.com/callstack/haul)使用 webpack 打包，其中 babel-loader 的 exclude 配置如下：
+
+```regexp
+node_modules(?!.*[\/\\](react|@react-navigation|@react-native-community|@expo|pretty-format|@haul-bundler|metro))
+```
+
+因此，能够匹配以上正则的 npm 包全都不会被 babel 编译。
+
+当某个依赖（比如：[@react-native-community/viewpager](https://github.com/react-native-community/react-native-viewpager) ）发布到 npm 的代码不是 ES5 时，就会出现该错误。
+
+_因为 RN 官方的 [metro](https://facebook.github.io/metro/) 会使用 babel 编译所有代码，所以不存在该问题。这些 npm 依赖专门针对 RN 所以未编译为 ES5。_

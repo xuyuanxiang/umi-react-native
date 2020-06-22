@@ -1,7 +1,6 @@
 # umi-react-native
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b2f18b86af4243aa93fe4e679b24341b)](https://app.codacy.com/manual/xuyuanxiang/umi-react-native?utm_source=github.com&utm_medium=referral&utm_content=xuyuanxiang/umi-react-native&utm_campaign=Badge_Grade_Dashboard)
-![NPM Monthly Downloads](https://badgen.net/npm/dt/umi-preset-react-native) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![](https://github.com/xuyuanxiang/umi-react-native/workflows/iOS%20E2E%20Tests/badge.svg?style=flat-square)](https://github.com/xuyuanxiang/umi-react-native/actions?query=workflow%3A%22iOS+E2E+Tests%22) [![Android E2E Tests](https://github.com/xuyuanxiang/umi-react-native/workflows/Android%20E2E%20Tests/badge.svg?style=flat-square)](https://github.com/xuyuanxiang/umi-react-native/actions?query=workflow%3A%22Android+E2E+Tests%22)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b2f18b86af4243aa93fe4e679b24341b)](https://app.codacy.com/manual/xuyuanxiang/umi-react-native?utm_source=github.com&utm_medium=referral&utm_content=xuyuanxiang/umi-react-native&utm_campaign=Badge_Grade_Dashboard) ![NPM Downloads](https://badgen.net/npm/dt/umi-preset-react-native) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![](https://github.com/xuyuanxiang/umi-react-native/workflows/iOS%20E2E%20Tests/badge.svg?style=flat-square)](https://github.com/xuyuanxiang/umi-react-native/actions?query=workflow%3A%22iOS+E2E+Tests%22) [![Android E2E Tests](https://github.com/xuyuanxiang/umi-react-native/workflows/Android%20E2E%20Tests/badge.svg?style=flat-square)](https://github.com/xuyuanxiang/umi-react-native/actions?query=workflow%3A%22Android+E2E+Tests%22)
 
 使用 [umi@3.x](https://umijs.org/) 加速 [react-native](https://reactnative.dev/) 开发效率：
 
@@ -56,11 +55,15 @@ umi 在 RN 中仅用来生成中间代码（临时文件），介于**编码**�
 - [配置](/docs/Configuration.md)
 - [路由](/docs/Router.md)
 - [FAQ](/docs/FAQ.md)
+  - [hmrClient.send is not a function](/docs/FAQ.md#hmrclientsend-is-not-a-function)
+  - [使用 @ant-design/react-native 组件时，报错：Unrecognized font family 'antoutline'](/docs/FAQ.md#%E4%BD%BF%E7%94%A8-ant-designreact-native-%E7%BB%84%E4%BB%B6%E6%97%B6%E6%8A%A5%E9%94%99unrecognized-font-family-antoutline)
+  - [Unable to Resolve Module in React Native App](/docs/FAQ.md#unable-to-resolve-module-in-react-native-app)
+  - [Attempted to assign to readonly property](/docs/FAQ.md#attempted-to-assign-to-readonly-property)
 
 ## 案例
 
 - [单独为某个页面设置导航条](https://github.com/xuyuanxiang/umi-react-native/blob/master/docs/Router.md#%E6%A1%88%E4%BE%8B%E5%8D%95%E7%8B%AC%E4%B8%BA%E6%9F%90%E4%B8%AA%E9%A1%B5%E9%9D%A2%E8%AE%BE%E7%BD%AE%E5%AF%BC%E8%88%AA%E6%9D%A1)
-- [持久化导航状态（App复苏后状态恢复）](https://github.com/xuyuanxiang/umi-react-native/blob/master/docs/Router.md#%E6%A1%88%E4%BE%8B%E6%8C%81%E4%B9%85%E5%8C%96%E5%AF%BC%E8%88%AA%E7%8A%B6%E6%80%81)
+- [持久化导航状态（App 复苏后状态恢复）](https://github.com/xuyuanxiang/umi-react-native/blob/master/docs/Router.md#%E6%A1%88%E4%BE%8B%E6%8C%81%E4%B9%85%E5%8C%96%E5%AF%BC%E8%88%AA%E7%8A%B6%E6%80%81)
 - [自定义页面转场动画](https://github.com/xuyuanxiang/umi-react-native/blob/master/docs/Router.md#%E6%A1%88%E4%BE%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB)
 
 ## 测试
