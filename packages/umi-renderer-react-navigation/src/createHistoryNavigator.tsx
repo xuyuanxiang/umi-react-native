@@ -104,8 +104,6 @@ function HistoryNavigator({
     } else if (history.index < state.index) {
       const route = state.routes[state.index];
       if (route) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignore
         history.push(route.params ? `${route.name}?${stringify(route.params)}` : route.name);
       }
     }

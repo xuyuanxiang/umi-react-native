@@ -22,7 +22,6 @@ interface INavigationProps {
   plugin: Plugin;
   history: History<any>;
   defaultTitle?: string;
-  extraProps?: object;
   [key: string]: any;
 }
 
@@ -74,8 +73,8 @@ function flattenRoutes(routes?: IRouteProps[], parent?: IScreen): IScreen[] {
   return screens;
 }
 
-export function Navigation(props: INavigationProps) {
-  const { history, plugin, routes, defaultTitle, extraProps = {}, ...rests } = props;
+export function Navigation(props: INavigationProps): JSX.Element {
+  const { history, plugin, routes, defaultTitle, ...rests } = props;
 
   const initialRouteName = plugin.applyPlugins({
     key: 'getReactNavigationInitialRouteName',
@@ -152,7 +151,6 @@ export function Navigation(props: INavigationProps) {
             };
             const newProps = {
               ...rests,
-              ...extraProps,
               ...context,
               ...props,
             };

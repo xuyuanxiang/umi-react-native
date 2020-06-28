@@ -6,7 +6,7 @@ interface IRouterComponentProps {
   routes: IRouteProps[];
   plugin: Plugin;
   history: any;
-  ssrProps?: object;
+  ssrProps?: unknown;
   defaultTitle?: string;
   dynamicImport?: boolean;
 }
@@ -15,7 +15,7 @@ interface IOpts extends IRouterComponentProps {
   rootElement?: string | HTMLElement;
 }
 
-export function renderClient(opts: IOpts) {
+export function renderClient(opts: IOpts): JSX.Element {
   return opts.plugin.applyPlugins({
     type: ApplyPluginsType.modify,
     key: 'rootContainer',
